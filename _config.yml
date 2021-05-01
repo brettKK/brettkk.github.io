@@ -1,6 +1,6 @@
 title: Texture Theme
-author: GitHub User
-email: your-email@domain.com
+author: gonglei
+email: gongleikk@163.com
 description: > # this means to ignore newlines until "show_exerpts:"
   Write an awesome description for your new site here. You can edit this
   line in _config.yml. It will appear in your document head meta (for
@@ -15,7 +15,7 @@ sass:
 
 permalink: /posts/:title/
 texture:
-  title: Adam Denisov
+  title: first
   tagline: Developer. Designer
   date_format: "%b %-d, %Y"
   style: black
@@ -41,3 +41,10 @@ texture:
 plugins:
   - jekyll-seo-tag
 #  - jekyll-feed
+
+github:
+  username: brettkk // github 用户名
+gitalk:
+    repo: brettkk.github.io //  github 上博客仓库的名字
+    client_id: 106fc271cc71178e4335  // Client ID
+    client_secret: 8c7a3987b33274d33110a1647d416f06cc1da3a2 // Client Secret
