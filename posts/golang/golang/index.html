@@ -6,27 +6,41 @@
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
 <meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta name="description" content="service mesh 🔗微服务内部有分布式环境下的通用功能：熔断策略、负载均衡">
-<meta name="generator" content="Hugo 0.72.0" />
+<meta name="description" content="资料 🔗 目前golang的主要maintainer: Russ Cox 个人主">
+<meta name="generator" content="Hugo 0.84.0" />
 
 
   <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
 
 
-<link rel="stylesheet" href="/css/style.css">
-<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
-<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/styles/googlecode.min.css" rel="stylesheet">
-<script src="https://cdn.bootcss.com/highlight.js/10.0.1/highlight.min.js"></script>
+<link href="https://cdn.bootcss.com/highlight.js/9.15.10/styles/zenburn.min.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 
 
+<link rel="stylesheet" href="http://brettkk.github.io/css/syntax.css" />
 
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js" integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
 
 
 
 
   </head>
-  
+
   <body>
     <nav class="navigation">
 	
@@ -49,16 +63,12 @@
     <h1 class="title">golang</h1>
 
     <div class="tip">
-        <span>
-          May 7, 2021 18:54
-        </span>
+        <time datetime="2021-05-07 18:54:41 &#43;0800 CST">May 7, 2021</time>
         <span class="split">
           ·
         </span>
         <span>
-          
-            2249 words
-          
+          2135 words
         </span>
         <span class="split">
           ·
@@ -68,9 +78,52 @@
         </span>
     </div>
 
-    <div class="content" >
-      <article class="content">
-        <h2 id="资料">资料 <a href="#%e8%b5%84%e6%96%99" class="anchor">🔗</a></h2><ol>
+    
+    
+        
+  
+    <aside class="toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
+          <div>
+              <nav id="TableOfContents">
+  <ul>
+    <li><a href="#资料">资料</a></li>
+    <li><a href="#多态继承-范型">多态，继承， 范型</a>
+      <ul>
+        <li><a href="#继承">继承</a></li>
+        <li><a href="#多态">多态</a></li>
+        <li><a href="#范型">范型</a></li>
+        <li><a href="#接口的使用实践">接口的使用实践</a></li>
+      </ul>
+    </li>
+    <li><a href="#模糊点">模糊点</a>
+      <ul>
+        <li><a href="#数组与切片">数组与切片</a></li>
+        <li><a href="#函数的接受者">函数的接受者</a></li>
+        <li><a href="#golang值拷贝">golang值拷贝</a></li>
+        <li><a href="#闭包">闭包</a></li>
+        <li><a href="#unsafe包">unsafe包</a></li>
+        <li><a href="#nil">nil</a></li>
+        <li><a href="#反射">反射</a></li>
+        <li><a href="#内存管理">内存管理</a></li>
+      </ul>
+    </li>
+    <li><a href="#go-汇编">go 汇编</a></li>
+  </ul>
+</nav>
+          </div>
+      </details>
+    </aside>
+  
+
+
+    
+
+
+    <div class="content">
+      <h2 id="资料">资料 <a href="#%e8%b5%84%e6%96%99" class="anchor">🔗</a></h2><ol>
 <li>
 <p>目前golang的主要maintainer: Russ Cox</p>
 </li>
@@ -83,36 +136,8 @@
 </ol>
 <hr>
 <h2 id="多态继承-范型">多态，继承， 范型 <a href="#%e5%a4%9a%e6%80%81%e7%bb%a7%e6%89%bf-%e8%8c%83%e5%9e%8b" class="anchor">🔗</a></h2><p>golang中面向对象的实现方式</p>
-<h3 id="继承">继承 <a href="#%e7%bb%a7%e6%89%bf" class="anchor">🔗</a></h3><p>组合结构体，一个结构体嵌入另一个结构体，能够实现对嵌入结构体的字段以及其实现的方法的继承， 。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-golang" data-lang="golang"><span class="kd">type</span> <span class="nx">person</span> <span class="kd">struct</span> <span class="p">{</span>
+<h3 id="继承">继承 <a href="#%e7%bb%a7%e6%89%bf" class="anchor">🔗</a></h3><p>组合结构体，一个结构体嵌入另一个结构体，能够实现对嵌入结构体的字段以及其实现的方法的继承。</p>
+<div class="highlight"><pre class="chroma"><code class="language-golang" data-lang="golang"><span class="kd">type</span> <span class="nx">person</span> <span class="kd">struct</span> <span class="p">{</span>
     <span class="nx">name</span> <span class="kt">string</span>
     <span class="nx">age</span>  <span class="kt">int</span>
 <span class="p">}</span>
@@ -136,56 +161,10 @@
 </span><span class="c1"></span>    <span class="nx">s</span><span class="p">.</span><span class="nf">talk</span><span class="p">()</span> <span class="c1">// 继承person实现的方法
 </span><span class="c1"></span><span class="p">}</span>
 
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="多态">多态 <a href="#%e5%a4%9a%e6%80%81" class="anchor">🔗</a></h3><p>go没有 implements, extends 关键字， golang是去鸭子类型：看起来像鸭子， 那么它就是鸭子。</p>
+</code></pre></div><h3 id="多态">多态 <a href="#%e5%a4%9a%e6%80%81" class="anchor">🔗</a></h3><p>go没有 implements, extends 关键字， golang是去鸭子类型：看起来像鸭子， 那么它就是鸭子。</p>
 <p>多态： 父类指针或引用去调用方法，在执行的时候，能够根据子类的类型去执行子类当中的方法。</p>
 <p>为什么是在执行的时候才能根据子类的类型执行子类的方法？</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-golang" data-lang="golang">
+<div class="highlight"><pre class="chroma"><code class="language-golang" data-lang="golang">
 <span class="kd">type</span> <span class="nx">Person</span> <span class="kd">interface</span> <span class="p">{</span>
     <span class="kd">func</span> <span class="nf">gender</span><span class="p">()</span> <span class="kt">string</span>
 <span class="p">}</span>
@@ -225,53 +204,16 @@
 </span><span class="c1"></span>    <span class="nx">b</span> <span class="p">=</span> <span class="nx">Men</span><span class="p">{}</span> <span class="c1">// or b = Woman{}
 </span><span class="c1"></span><span class="p">}</span>
 
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="范型">范型 <a href="#%e8%8c%83%e5%9e%8b" class="anchor">🔗</a></h3><p>空interface{} 类型，没有方法集的接口，只需要存类型和类型对应的值即可。</p>
+</code></pre></div><h3 id="范型">范型 <a href="#%e8%8c%83%e5%9e%8b" class="anchor">🔗</a></h3><p>空interface{} 类型，没有方法集的接口，只需要存类型和类型对应的值即可。</p>
 <p>空interface{} = (type, value) ==&gt; (nil, nil) == nil</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-golang" data-lang="golang"><span class="kd">type</span> <span class="nx">eface</span> <span class="kd">struct</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-golang" data-lang="golang"><span class="kd">type</span> <span class="nx">eface</span> <span class="kd">struct</span> <span class="p">{</span>
 	<span class="nx">_type</span> <span class="o">*</span><span class="nx">_type</span>
 	<span class="nx">data</span>  <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span>
 <span class="p">}</span>
 
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="接口的使用实践">接口的使用实践 <a href="#%e6%8e%a5%e5%8f%a3%e7%9a%84%e4%bd%bf%e7%94%a8%e5%ae%9e%e8%b7%b5" class="anchor">🔗</a></h3><p>golang源码里的较好实现方式是： 使用小的接口，尤其是只包含一个方法的接口；通过小接口的组合来定义大接口。</p>
+</code></pre></div><h3 id="接口的使用实践">接口的使用实践 <a href="#%e6%8e%a5%e5%8f%a3%e7%9a%84%e4%bd%bf%e7%94%a8%e5%ae%9e%e8%b7%b5" class="anchor">🔗</a></h3><p>golang源码里的较好实现方式是： 使用小的接口，尤其是只包含一个方法的接口；通过小接口的组合来定义大接口。</p>
 <p>好处是：使用者可以只依赖于必要功能的最小接口。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-golang" data-lang="golang"><span class="kd">type</span> <span class="nx">Reader</span> <span class="kd">interface</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-golang" data-lang="golang"><span class="kd">type</span> <span class="nx">Reader</span> <span class="kd">interface</span> <span class="p">{</span>
     <span class="nf">Read</span><span class="p">(</span><span class="nx">p</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
 <span class="p">}</span>
 
@@ -291,9 +233,7 @@
     <span class="c1">// 入参依赖了不必要功能的接口，让限制了函数的使用范围为更小
 </span><span class="c1"></span><span class="p">}</span>
 
-</code></pre></td></tr></table>
-</div>
-</div><h2 id="模糊点">模糊点 <a href="#%e6%a8%a1%e7%b3%8a%e7%82%b9" class="anchor">🔗</a></h2><h3 id="数组与切片">数组与切片 <a href="#%e6%95%b0%e7%bb%84%e4%b8%8e%e5%88%87%e7%89%87" class="anchor">🔗</a></h3><p>数组的初始化 （元素类型， 数组大小）</p>
+</code></pre></div><h2 id="模糊点">模糊点 <a href="#%e6%a8%a1%e7%b3%8a%e7%82%b9" class="anchor">🔗</a></h2><h3 id="数组与切片">数组与切片 <a href="#%e6%95%b0%e7%bb%84%e4%b8%8e%e5%88%87%e7%89%87" class="anchor">🔗</a></h3><p>数组的初始化 （元素类型， 数组大小）</p>
 <p>2种初始化方式，显式的指定数组的大小</p>
 <ol>
 <li>arr := [3]int{1, 2, 3}</li>
@@ -317,32 +257,7 @@
 <li>T1指针与 T2指针类型之间的转换</li>
 <li>修改内存数据， uintptr 常用于与 unsafe.Pointer配合，用于做指针运算</li>
 </ol>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-golang" data-lang="golang"><span class="c1">//结构体的成员变量在内存存储上是一段连续的内存
+<div class="highlight"><pre class="chroma"><code class="language-golang" data-lang="golang"><span class="c1">//结构体的成员变量在内存存储上是一段连续的内存
 </span><span class="c1"></span><span class="kd">type</span> <span class="nx">Num</span> <span class="kd">struct</span><span class="p">{</span>
 	<span class="nx">i</span> <span class="kt">string</span>
 	<span class="nx">j</span> <span class="kt">int64</span>
@@ -363,9 +278,7 @@
 
 	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;n.i: %s, n.j: %d&#34;</span><span class="p">,</span> <span class="nx">n</span><span class="p">.</span><span class="nx">i</span><span class="p">,</span> <span class="nx">n</span><span class="p">.</span><span class="nx">j</span><span class="p">)</span>
 <span class="p">}</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>指针是对内存区域的地址， 与指针相配合的类型
+</code></pre></div><p>指针是对内存区域的地址， 与指针相配合的类型
 说明区域有哪些属性，如何去解析。</p>
 <br/>
 <h3 id="nil">nil <a href="#nil" class="anchor">🔗</a></h3><ul>
@@ -403,19 +316,10 @@
 <li>反射可以将反射对象 还原为interface对象</li>
 <li>反射对象可以修改，提前是value值是变量的指针</li>
 </ol>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-golang" data-lang="golang"><span class="kd">var</span> <span class="nx">x</span> <span class="kt">float</span><span class="p">=</span> <span class="mf">3.1</span> 
+<div class="highlight"><pre class="chroma"><code class="language-golang" data-lang="golang"><span class="kd">var</span> <span class="nx">x</span> <span class="kt">float</span><span class="p">=</span> <span class="mf">3.1</span> 
 <span class="nx">v</span><span class="o">:=</span> <span class="nx">reflect</span><span class="p">.</span><span class="nf">ValueOf</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">x</span><span class="p">)</span> <span class="c1">//需要传入x的指针
 </span><span class="c1"></span><span class="nx">v</span><span class="p">.</span><span class="nf">Elem</span><span class="p">().</span><span class="nf">SetFloat</span><span class="p">(</span><span class="mf">3.4</span><span class="p">);</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>作用：</p>
+</code></pre></div><p>作用：</p>
 <ol>
 <li>运行时动态调用方法</li>
 <li>运行时构造函数进行mock插桩</li>
@@ -488,39 +392,6 @@
 </li>
 </ul>
 
-      </article>
-    </div>
-
-    <div class="article-nav" id="article-nav-id">
-        <nav class="hide-on-mobile section-nav">
-          <h3 class="ml-1">Table of contents</h3>
-            <nav id="TableOfContents">
-  <ul>
-    <li><a href="#资料">资料</a></li>
-    <li><a href="#多态继承-范型">多态，继承， 范型</a>
-      <ul>
-        <li><a href="#继承">继承</a></li>
-        <li><a href="#多态">多态</a></li>
-        <li><a href="#范型">范型</a></li>
-        <li><a href="#接口的使用实践">接口的使用实践</a></li>
-      </ul>
-    </li>
-    <li><a href="#模糊点">模糊点</a>
-      <ul>
-        <li><a href="#数组与切片">数组与切片</a></li>
-        <li><a href="#函数的接受者">函数的接受者</a></li>
-        <li><a href="#golang值拷贝">golang值拷贝</a></li>
-        <li><a href="#闭包">闭包</a></li>
-        <li><a href="#unsafe包">unsafe包</a></li>
-        <li><a href="#nil">nil</a></li>
-        <li><a href="#反射">反射</a></li>
-        <li><a href="#内存管理">内存管理</a></li>
-      </ul>
-    </li>
-    <li><a href="#go-汇编">go 汇编</a></li>
-  </ul>
-</nav>
-        </nav>
     </div>
 
     
@@ -530,66 +401,21 @@
             
         </div>
     
-
-    <div class="post-comment">
-      
-             
-      
-      
-      
-
-
-<div class="post bg-white">
-    <script src="https://utteranc.es/client.js"
-          repo="brettkk/brettkk.github.io"
-          issue-term="pathname"
-          theme="github-light"
-          crossorigin="anonymous"
-          async>
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
-</div>
-    </div>
+    
     
 
 </section>
 
-<script>
-	window.addEventListener('DOMContentLoaded', () => {
-		const observerForTableOfContentActiveState = new IntersectionObserver(entries => {
-			entries.forEach(entry => {
-				const id = entry.target.getAttribute('id');
-
-				if (entry.intersectionRatio > 0) {					
-					clearActiveStatesInTableOfContents();				
-					document.querySelector(`nav li a[href="#${id}"]`).parentElement.classList.add('active');
-				}
-			});
-		});		
-		document.querySelectorAll('h1[id],h2[id],h3[id],h4[id]').forEach((section) => {
-			observerForTableOfContentActiveState.observe(section);
-		});
-
-	});
-
-	function clearActiveStatesInTableOfContents() {
-		document.querySelectorAll('nav li').forEach((section) => {
-			section.classList.remove('active');
-		});
-	}
-</script>
-
 
     </main>
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
-<footer id="footer">
+    <footer id="footer">
     
 
-    <p class="copyright">
+    <div class="copyright">
     
        © Copyright 
-       2021 
+       2022 
        <span class="split">
         <svg fill="#bbbbbb" width="15" height="15" version="1.1" id="heart-15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 15 15">
   <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>
@@ -597,11 +423,16 @@
        </span>
        
     
-    </p>
-    <p class="powerby">
-        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
-    </p>
+    </div>
+
+    
+      <div class="powerby">
+        Powered by <a href='http://www.gohugo.io/'>Hugo</a> Theme By <a href='https://github.com/nodejh/hugo-theme-cactus-plus'>nodejh</a>
+      </div>
+    
 </footer>
+
+
 
   </body>
 </html>

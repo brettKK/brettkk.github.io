@@ -1,3 +1,7 @@
+html[theme='dark-mode'] {
+  filter: invert(1) hue-rotate(180deg);
+}
+
 body {
   line-height: 1;
   font: normal 15px/1.5em 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -83,8 +87,8 @@ p {
 }
 p,
 pre {
-  line-break: anywhere;
-  word-break: break-all;
+  word-break: normal;
+  overflow-wrap: anywhere;
 }
 .markdown-image img {
   max-width: 100%;
@@ -102,6 +106,7 @@ h4:hover a {
 }
 .highlight pre {
   padding: 7px;
+  overflow-x: auto;
 }
 
 .highlight {
@@ -125,39 +130,7 @@ pre code {
 
 
 /* navigation */
-nav {
-  position: sticky;
-  top: 0;
-  align-self: start;
-}
 
-.section-nav li.active > a {
-  color:purple;
-  font-weight: 600;
-}
-.section-nav {
-  font-size: smaller;
-  padding-left: 0;
-  border-left: 2px solid #efefef;
-}
-.section-nav a {
-  text-decoration: none;
-  display: block;
-  padding: .125rem 0;
-  color: #ccc;
-  transition: all 50ms ease-in-out; 
-}
-.section-nav a:hover,
-.section-nav a:focus {
-  color: #666;
-  font-weight: 600;
-}
-
-nav > ul, ol {
-  list-style: none;
-  margin: 1rem;
-  padding: 0;
-}
 nav.navigation {
   padding: 20px 20px 0;
   background: #fff;
@@ -209,6 +182,29 @@ nav.navigation a.button {
   nav.navigation a.button {
     display: none;
   }
+}
+
+/* toc */
+.toc {
+  margin: auto;
+  background: #f8f8f8;
+  border-radius: 0;
+  padding: 10px 7px;
+  margin-top: 36px;
+}
+.toc details summary {
+  cursor: zoom-in;
+  margin-inline-start: 14px;
+  font-weight: 500;
+}
+.toc details[open] summary {
+  cursor: zoom-out;
+}
+.toc #TableOfContents {
+  margin-left: 10px;
+}
+.toc ul {
+  padding-inline-start: 24px;
 }
 
 /* comment */
@@ -289,7 +285,7 @@ nav.navigation a.button {
 }
 
 #list-page .item {
-  margin: 48px 0 0 0;
+  margin: 12px 0;
 }
 
 #list-page .title {
@@ -322,6 +318,9 @@ nav.navigation a.button {
 #list-page .summary {
   color: #757575;
   margin-top: 12px;
+  word-break: normal;
+  overflow-wrap: anywhere;
+  margin-bottom: 36px;
 }
 
 #list-page .cover {
@@ -351,7 +350,7 @@ nav.navigation a.button {
 
 /* single page */
 #single {
-  max-width: 680px; /* 680px */
+  max-width: 680px;
   margin: 60px auto 0 auto;
   padding: 0 64px;
 }
@@ -386,8 +385,6 @@ nav.navigation a.button {
 
 #single .content {
   margin-top: 36px;
-  margin-bottom: 1rem;
-  text-indent: 2rem;
 }
 
 #single .tags {
@@ -430,7 +427,7 @@ nav.navigation a.button {
 #archive .group .value .date {
   display: inline-block;
   color: #999;
-  width: 60px;
+  min-width: 60px;
 }
 #archive .group .value .title {
   display: inline;
@@ -535,15 +532,3 @@ nav.navigation a.button {
   top: 1px;
   color: #bbb;
 }
-
-
-  .article-nav {
-   
-    max-width: 180px; 
-    overflow: hidden;
-    position: fixed;
-    left: 10px;
-    top:20%;
-  }
-
-

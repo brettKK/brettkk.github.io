@@ -6,18 +6,23 @@
     <description>Recent content in cloud native on brettkk</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 05 Apr 2021 11:33:56 +0800</lastBuildDate>
-    
-	<atom:link href="http://brettkk.github.io/tags/cloud-native/index.xml" rel="self" type="application/rss+xml" />
-    
+    <lastBuildDate>Sat, 26 Jun 2021 18:34:48 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/tags/cloud-native/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>runc</title>
+      <link>http://brettkk.github.io/posts/cloud_native/runc/</link>
+      <pubDate>Sat, 26 Jun 2021 18:34:48 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/cloud_native/runc/</guid>
+      <description>runc 是根据OCI（Open Container Initiative）开放容器标准</description>
+    </item>
     
     <item>
-      <title>etcd</title>
-      <link>http://brettkk.github.io/posts/cloud_native/etcd/</link>
-      <pubDate>Mon, 05 Apr 2021 11:33:56 +0800</pubDate>
+      <title>prometheus</title>
+      <link>http://brettkk.github.io/posts/cloud_native/prometheus/</link>
+      <pubDate>Thu, 24 Jun 2021 18:34:48 +0800</pubDate>
       
-      <guid>http://brettkk.github.io/posts/cloud_native/etcd/</guid>
-      <description>etcd架构分为4部分 http server store raft wal etcd使用场景 API：Et</description>
+      <guid>http://brettkk.github.io/posts/cloud_native/prometheus/</guid>
+      <description>在解决内存与磁盘的读写模式、性能的不匹配问题。有以下两点： 在</description>
     </item>
     
     <item>
@@ -26,7 +31,7 @@
       <pubDate>Mon, 05 Apr 2021 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/cloud_native/k8s_code_pattern/</guid>
-      <description>学习一些设计模式，有助于理解k8s的源码。 Go Design Pattern k8s 组件 kubectl client-go kube-apiserver</description>
+      <description>draft todo k8s 组件 kubectl client-go kube-apiserver kube-controller kube-scheduler kubelet kube-proxy 周围项目 🔗k8s.io/gengo k8s.io/client-go</description>
     </item>
     
     <item>

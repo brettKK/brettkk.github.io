@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <title>mac安装开发环境 | brettkk</title>
+
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
+<meta name="viewport" content="width=device-width,minimum-scale=1">
+<meta name="description" content="新电脑构建开发环境，安装指南 iterm2 brew zsh, ohmyzsh golang vscode hugo github direnv 安装终端窗口工">
+<meta name="generator" content="Hugo 0.84.0" />
+
+
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+<link href="https://cdn.bootcss.com/highlight.js/9.15.10/styles/zenburn.min.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<link rel="stylesheet" href="http://brettkk.github.io/css/syntax.css" />
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js" integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+
+
+
+
+  </head>
+
+  <body>
+    <nav class="navigation">
+	
+		<a href="/"> <span class="arrow">←</span>Home</a>
+	
+	<a href="/posts">Archive</a>
+	<a href="/tags">Tags</a>
+	<a href="/about">About</a>
+
+	
+
+	
+</nav>
+
+
+    <main class="main">
+      
+
+<section id="single">
+    <h1 class="title">mac安装开发环境</h1>
+
+    <div class="tip">
+        <time datetime="2021-05-05 11:33:56 &#43;0800 CST">May 5, 2021</time>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          253 words
+        </span>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          1 minute read
+        </span>
+    </div>
+
+    
+    
+        
+
+    
+
+
+    <div class="content">
+      <p>新电脑构建开发环境，安装指南</p>
+
+<ul>
+<li>iterm2</li>
+<li>brew</li>
+<li>zsh, ohmyzsh</li>
+<li>golang</li>
+<li>vscode</li>
+<li>hugo</li>
+<li>github</li>
+<li>direnv</li>
+</ul>
+
+<hr>
+
+<ul>
+<li>安装终端窗口工具</li>
+</ul>
+
+<p>下载地址：<a href="https://iterm2.com/">https://iterm2.com/</a></p>
+
+<ul>
+<li>安装 brew</li>
+</ul>
+
+<p>/bin/bash -c &quot;$(curl -fsSL <a href="https://cdn.jsdelivr.net/gh/ineo6/homebrew-install/install.sh)&quot;">https://cdn.jsdelivr.net/gh/ineo6/homebrew-install/install.sh)&quot;</a></p>
+
+<ul>
+<li>安装，切换为zsh，并安装oh my zsh -- shell辅助工具</li>
+</ul>
+
+<p>可能遇到的问题</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">sh -c &#34;$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)&#34;
+
+curl: (7) Failed to connect to raw.githubusercontent.com port 443: Connection refused</code></pre></div>
+<p>解决方式： <a href="https://github.com/ohmyzsh/ohmyzsh/issues/9465">https://github.com/ohmyzsh/ohmyzsh/issues/9465</a></p>
+
+<ul>
+<li>安装 golang</li>
+</ul>
+
+<p><a href="https://golang.org/doc/install">https://golang.org/doc/install</a></p>
+
+<p><a href="https://sourabhbajaj.com/mac-setup/Go/README.html">https://sourabhbajaj.com/mac-setup/Go/README.html</a></p>
+
+<p>vim .bashrc</p>
+
+<p>export GOPATH=$HOME/go-workspace # don't forget to change your path correctly!
+export GOROOT=/usr/local/opt/go/libexec
+export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:$GOROOT/bin</p>
+
+<ul>
+<li>安装 vscode</li>
+</ul>
+
+<p><a href="https://code.visualstudio.com/docs/setup/mac">https://code.visualstudio.com/docs/setup/mac</a></p>
+
+<p>插件</p>
+
+<ul>
+<li>安装blog</li>
+</ul>
+
+<p>Brew install Hugo</p>
+
+<p>git pull origin master --allow-unrelated-histories</p>
+
+<p>git submodule update --init --recursive</p>
+
+<ul>
+<li>本地配置GitHub访问权限</li>
+</ul>
+
+<p>在～下创建.ssh文件夹 ssh-keygen -t rsa -C “xxx@xx.com&quot;
+将公钥添加到github</p>
+
+<p>go env -w GOPROXY=<a href="https://goproxy.cn">https://goproxy.cn</a></p>
+
+<ul>
+<li>direnv</li>
+</ul>
+
+<p>根据文件夹下的.envrc 临时改env变量。</p>
+
+    </div>
+
+    
+        <div class="tags">
+            
+                <a href="http://brettkk.github.io/tags/soft_tools">soft_tools</a>
+            
+        </div>
+    
+    
+    
+
+</section>
+
+
+    </main>
+    
+    <footer id="footer">
+    
+
+    <div class="copyright">
+    
+       © Copyright 
+       2022 
+       <span class="split">
+        <svg fill="#bbbbbb" width="15" height="15" version="1.1" id="heart-15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 15 15">
+  <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>
+</svg>
+       </span>
+       
+    
+    </div>
+
+    
+      <div class="powerby">
+        Powered by <a href='http://www.gohugo.io/'>Hugo</a> Theme By <a href='https://github.com/nodejh/hugo-theme-cactus-plus'>nodejh</a>
+      </div>
+    
+</footer>
+
+
+
+  </body>
+</html>
