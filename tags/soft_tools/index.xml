@@ -6,7 +6,16 @@
     <description>Recent content in soft_tools on brettkk</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 05 May 2021 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/tags/soft_tools/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 18 Sep 2022 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/tags/soft_tools/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>mac上安装和使用虚拟机</title>
+      <link>http://brettkk.github.io/posts/tools/%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA/</link>
+      <pubDate>Sun, 18 Sep 2022 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/tools/%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA/</guid>
+      <description>..</description>
+    </item>
+    
     <item>
       <title>mac安装开发环境</title>
       <link>http://brettkk.github.io/posts/tools/mac_start_dev/</link>

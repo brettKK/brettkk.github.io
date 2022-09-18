@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<html lang="zh-cn">
+  <head>
+    <title>module name and module import path in Go | brettkk</title>
+
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
+<meta name="viewport" content="width=device-width,minimum-scale=1">
+<meta name="description" content="1. golang管理依赖 🔗 Modules are how Go manages dependencies. 1.1 module and packages 🔗 A module is a collection of packages.">
+<meta name="generator" content="Hugo 0.84.0" />
+
+
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+<link href="https://cdn.bootcss.com/highlight.js/9.15.10/styles/zenburn.min.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<link rel="stylesheet" href="http://brettkk.github.io/css/syntax.css" />
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js" integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+
+
+
+
+  </head>
+
+  <body>
+    <nav class="navigation">
+	
+		<a href="/"> <span class="arrow">←</span>Home</a>
+	
+	<a href="/posts">Archive</a>
+	<a href="/tags">Tags</a>
+	<a href="/about">About</a>
+
+	
+
+	
+</nav>
+
+
+    <main class="main">
+      
+
+<section id="single">
+    <h1 class="title">module name and module import path in Go</h1>
+
+    <div class="tip">
+        <time datetime="2022-08-06 00:00:00 &#43;0000 UTC">Aug 6, 2022</time>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          285 words
+        </span>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          1 minute read
+        </span>
+    </div>
+
+    
+    
+        
+  
+    <aside class="toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
+          <div>
+              <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-golang管理依赖">1. golang管理依赖</a>
+      <ul>
+        <li><a href="#11-module-and-packages">1.1 module and packages</a></li>
+        <li><a href="#12-workspace">1.2 workspace</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-module-name">2. module name</a></li>
+    <li><a href="#3-module-import-path">3. module import path</a></li>
+    <li><a href="#4-code-organization">4. code organization</a></li>
+    <li><a href="#5-reference">5. reference</a></li>
+  </ul>
+</nav>
+          </div>
+      </details>
+    </aside>
+  
+
+
+    
+
+
+    <div class="content">
+      <h2 id="1-golang管理依赖">1. golang管理依赖 <a href="#1-golang%e7%ae%a1%e7%90%86%e4%be%9d%e8%b5%96" class="anchor">🔗</a></h2><p>  Modules are how Go manages dependencies.</p>
+<h3 id="11-module-and-packages">1.1 module and packages <a href="#11-module-and-packages" class="anchor">🔗</a></h3><p>  A module is a collection of packages.</p>
+<h3 id="12-workspace">1.2 workspace <a href="#12-workspace" class="anchor">🔗</a></h3><p> A workspace is a collection of modules. <br>
+ A workspace can be declared in a go.work file. <br>
+ go env GOWORK,  go work init,  go work use</p>
+<h2 id="2-module-name">2. module name <a href="#2-module-name" class="anchor">🔗</a></h2><p> go.mod文件2个作用。</p>
+<ul>
+<li>在第一行 module xxx/yyy/ccc 定义了module的module_import_path。
+go mod init xxx/yyy/ccc</li>
+<li>声明本module需要的依赖项目。</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">The module path becomes the import prefix 
+<span style="color:#66d9ef">for</span> all packages the module contains.
+</code></pre></div><h2 id="3-module-import-path">3. module import path <a href="#3-module-import-path" class="anchor">🔗</a></h2><ul>
+<li>Importing packages from your module
+<ul>
+<li>import path = module_import_path + folder_package_name</li>
+</ul>
+</li>
+<li>Importing packages from remote modules
+<ul>
+<li>下载到$GOPATH/pkg/mod</li>
+<li>记录到go.mod, go.sum</li>
+</ul>
+</li>
+</ul>
+<h2 id="4-code-organization">4. code organization <a href="#4-code-organization" class="anchor">🔗</a></h2><p> an go source code file 只可能包含&lt;package&gt; + &lt;import&gt; + &lt;var&gt; + &lt;const&gt; + &lt;type&gt; + &lt;Func&gt;</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">Functions, types, variables, and constants defined in one source file 
+are visible to all other source files within the same package.
+</code></pre></div><hr>
+<h2 id="5-reference">5. reference <a href="#5-reference" class="anchor">🔗</a></h2><p>[1]<a href="https://go.dev/doc/modules/gomod-ref" target="_blank" rel="noopener"> go.mod file reference -&gt; https://go.dev/doc/modules/gomod-ref</a></p>
+<p>[2]<a href="https://go.dev/blog/using-go-modules" target="_blank" rel="noopener"> using Go Modules -&gt; https://go.dev/blog/using-go-modules</a></p>
+<p>[3]<a href="https://go.dev/doc/code" target="_blank" rel="noopener"> go code organization -&gt; https://go.dev/doc/code</a></p>
+<p>[4]<a href="https://go.dev/ref/mod" target="_blank" rel="noopener"> Go Modules Reference -&gt; https://go.dev/ref/mod</a></p>
+
+    </div>
+
+    
+        <div class="tags">
+            
+                <a href="http://brettkk.github.io/tags/golang">golang</a>
+            
+        </div>
+    
+    
+    
+
+</section>
+
+
+    </main>
+    
+    <footer id="footer">
+    
+
+    <script src="https://utteranc.es/client.js"
+repo="brettKK/brettkk.github.io"
+issue-term="title"
+theme="github-light"
+crossorigin="anonymous"
+async>
+</script>  
+
+    <div class="copyright">
+    
+       © Copyright 
+       2022 
+       <span class="split">
+        <svg fill="#bbbbbb" width="15" height="15" version="1.1" id="heart-15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 15 15">
+  <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>
+</svg>
+       </span>
+       
+    
+    </div>
+
+    
+      <div class="powerby">
+        Powered by <a href='http://www.gohugo.io/'>Hugo</a> Theme By <a href='https://github.com/nodejh/hugo-theme-cactus-plus'>nodejh</a>
+      </div>
+    
+</footer>
+
+
+
+
+  </body>
+</html>

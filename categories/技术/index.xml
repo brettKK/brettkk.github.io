@@ -6,7 +6,16 @@
     <description>Recent content in 技术 on brettkk</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 26 Jun 2021 18:34:48 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/categories/%E6%8A%80%E6%9C%AF/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 06 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://brettkk.github.io/categories/%E6%8A%80%E6%9C%AF/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>module name and module import path in Go</title>
+      <link>http://brettkk.github.io/posts/golang/golang_mod/</link>
+      <pubDate>Sat, 06 Aug 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/golang/golang_mod/</guid>
+      <description>1. golang管理依赖 🔗 Modules are how Go manages dependencies. 1.1 module and packages 🔗 A module is a collection of packages.</description>
+    </item>
+    
     <item>
       <title>runc</title>
       <link>http://brettkk.github.io/posts/cloud_native/runc/</link>

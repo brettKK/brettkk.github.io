@@ -6,7 +6,25 @@
     <description>Recent content in Posts on brettkk</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 05 Apr 2022 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 18 Sep 2022 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>mac上安装和使用虚拟机</title>
+      <link>http://brettkk.github.io/posts/tools/%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA/</link>
+      <pubDate>Sun, 18 Sep 2022 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/tools/%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA/</guid>
+      <description>..</description>
+    </item>
+    
+    <item>
+      <title>module name and module import path in Go</title>
+      <link>http://brettkk.github.io/posts/golang/golang_mod/</link>
+      <pubDate>Sat, 06 Aug 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/golang/golang_mod/</guid>
+      <description>1. golang管理依赖 🔗 Modules are how Go manages dependencies. 1.1 module and packages 🔗 A module is a collection of packages.</description>
+    </item>
+    
     <item>
       <title>欧州与宗教</title>
       <link>http://brettkk.github.io/posts/culture/euro/</link>
