@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>计算复杂度 on brettkk</title>
+    <link>http://brettkk.github.io/tags/%E8%AE%A1%E7%AE%97%E5%A4%8D%E6%9D%82%E5%BA%A6/</link>
+    <description>Recent content in 计算复杂度 on brettkk</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 18 Sep 2020 09:13:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/tags/%E8%AE%A1%E7%AE%97%E5%A4%8D%E6%9D%82%E5%BA%A6/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>计算复杂度--P, NP, NPC, NP hard</title>
+      <link>http://brettkk.github.io/posts/math/%E8%AE%A1%E7%AE%97%E5%A4%8D%E6%9D%82%E5%BA%A6/</link>
+      <pubDate>Fri, 18 Sep 2020 09:13:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/math/%E8%AE%A1%E7%AE%97%E5%A4%8D%E6%9D%82%E5%BA%A6/</guid>
+      <description>todo...</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -94,7 +94,7 @@
       <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/os/base_os/</guid>
-      <description>资料 操作系统：南大 jyy。 http://jyywiki.cn/OS/2022/ Linux 版本 uname -a 查看系统的版本 debian/ubuntu redhat/fedora/centos 各种</description>
+      <description>资料 操作系统：南大 jyy。 http://jyywiki.cn/OS/2022/ https://elixir.bootlin.com/linux/lastest/source Linux 版本 uname -a 查看系统的版本 debian/ubuntu redhat/fedora/centos 各</description>
     </item>
     
     <item>
@@ -175,7 +175,7 @@
       <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/tools/vs_code/</guid>
-      <description>快捷键内置查询表 菜单栏-》帮助-》快捷键参考-》very good 自</description>
+      <description>终端-》配置默认生成任务-》tasks.json 快捷键内置查</description>
     </item>
     
     <item>
@@ -305,6 +305,51 @@
     </item>
     
     <item>
+      <title>计算复杂度--P, NP, NPC, NP hard</title>
+      <link>http://brettkk.github.io/posts/math/%E8%AE%A1%E7%AE%97%E5%A4%8D%E6%9D%82%E5%BA%A6/</link>
+      <pubDate>Fri, 18 Sep 2020 09:13:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/math/%E8%AE%A1%E7%AE%97%E5%A4%8D%E6%9D%82%E5%BA%A6/</guid>
+      <description>todo...</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://brettkk.github.io/posts/culture/jinrong/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/culture/jinrong/</guid>
+      <description>大A指数。 换筹。确定2800底部。
+美元指数见底，即美元即将出逃。 现在的美元指数顶背离走，美元通胀，加息。
+本质A股市场应对美元加息回流的战役。 将投机性美元回来之前，将市场拉到更高的位置。</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://brettkk.github.io/posts/culture/point_of_view/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/culture/point_of_view/</guid>
+      <description>现代人的信息困境： 一面焦虑错过信息，一面对某些信息主动回避。
+一方面，低头族无处不在，吃饭走路时也要盯着手机看，担心错过半点信心。 另一方面，主动避免接触新闻信息。
+信息流剥夺了我们感受无聊的机会。
+无聊是生活中的一种必要的调味品，因为在无聊的时候我们最能直接地体会到自己的存在。 感受自身与世界的连接，无聊甚至会驱动我们思考某些重要的问题，让大脑迸发出一些奇思妙想。
+主动回避信息，是一种自我保护。
+如何对待信息？
+喜马拉雅 水月空心禅 信息社会中，信息成为某种生产资料，获取信息成为一种竞争力。
+ 为什么你越来越没有耐心了？
+不能够延迟满足感。
+成迷在大量的，丰富的，好玩的，有意思的资讯。短平快。在丰富当中不知道自己需要什么，因此变得贫乏了。
+独立思考的人，去读你选择的书，去思考你决定思考的问题。
+沉下心来，日拱一卒，成长是一种长期的深入的思考。
+学东西，先BFS，后DFS。
+ 钱多，事少，离家近是现在人判断好工作的标准。
+你知道这个世界上最傻的事是什么吗？ 他可以忍受几十年的这种不快乐的日子，却不愿意奋发图强花1年让自己变优秀。 他不懂得什么叫投资自己。他浪费的是他的生命。他明明知道其实有本事去做一些事情。 其实人人都可以改变的。前提是你什么时候愿意改变？ 宿管的大叔考上了研究生。快递小哥哥在过程中在背古诗词。
+ 林正疆《独立思考》《思辨能力》
+类比反抗： 顺着类比逻辑证明类比结果是错的，加入细节证明对方论证是错的。 循环论证：适用于音效和讨喜。 诉诸无知：没有正确答案。 巴南效应barnum effect。 幸存者偏差：失败者的声音更值得思考。成功学泛滥，听成功者的声音是人的喜好，也需要留意有没有这么做却失败的声音。</description>
+    </item>
+    
+    <item>
       <title></title>
       <link>http://brettkk.github.io/posts/leetcode/other/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -409,12 +454,39 @@ IDA, NDK。
     
     <item>
       <title></title>
+      <link>http://brettkk.github.io/posts/rust/rust_problem/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/rust/rust_problem/</guid>
+      <description>rust-analyzer failed to load workspace: Failed to read Cargo metadata from Cargo.toml file /Users/gonglei/rust-workspace/rust/Cargo.toml, cargo 1.53.0 (4369396ce 2021-04-27): Failed to run &amp;quot;cargo&amp;quot; &amp;quot;metadata&amp;quot; &amp;quot;--format-version&amp;quot; &amp;quot;1&amp;quot; &amp;quot;--manifest-path&amp;quot; &amp;quot;/Users/gonglei/rust-workspace/rust/Cargo.toml&amp;quot; &amp;quot;--filter-platform&amp;quot; &amp;quot;aarch64-apple-darwin&amp;quot;: cargo metadata exited with an error: error: failed to load manifest for workspace member /Users/gonglei/rust-workspace/rust/src/bootstrap Caused by: failed to parse manifest at /Users/gonglei/rust-workspace/rust/src/bootstrap/Cargo.</description>
+    </item>
+    
+    <item>
+      <title></title>
       <link>http://brettkk.github.io/posts/store_db/store/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>http://brettkk.github.io/posts/store_db/store/</guid>
       <description>块存储 🔗文件存储 🔗对象存储 🔗对象存储系统： 接入层， 索引层（mysql， redis，etcd），存储层，服务平台
 索引： 单对象，分片对象</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://brettkk.github.io/posts/todo_list/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/todo_list/</guid>
+      <description>今天要做什么？
+整理之前的笔记。
+～～～～ 清晰的网页 ～～ 清晰的网页 ～～～～
+工作内容相关方面： 规则引擎grule， 工作流引擎，向量存储Faiss。
+golang方面： cloudwego, Istio, envoy
+密码方面： 零知识信任的代码库， rust。
+云原生方面：k8s, docker.
+数据库方面： TiDB， TiKV， rocksdb。
+编译器： llvm。 编译器基本知识。
+高并发方面： C++ 。</description>
     </item>
     
     <item>
@@ -445,11 +517,12 @@ git最佳实践</description>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>http://brettkk.github.io/posts/tools/latex/</guid>
-      <description>使用中文字体 🔗使用xeCJK包，同时需要使用xeLaTex进行编译
-gif image in laTex Beamer 🔗brew install imagemagick
-convert kiss.gif -coalesce foo.png
-mac原生的mac previewer无法浏览gif, 下载Adobe Reader, then All is well.
-js 写ppt 🔗reveal.js</description>
+      <description>字符编码 🔗ascii码，占一个字节，实际使用了7 bit,128个字符，表示英语够了。 在ascii码的第8位置为0，这个特点深深影响了其他国家和后来的字符编码方式。
+欧洲法语é等字符，采用Latin1, 利用acsii码的最高位， 可以表示了。
+亚洲国家的文字符号更多，汉字10万加，必须多个字节表示一个符号。 GB2312
+unicode 万国码。只是定义了符号的二进制代码，如何区分不同的编码？没有规定二进制如何存放。
+utf-8历史， 开发plan 9操作系统的产物，发明了后来广泛使用的字符编码。 utf-8 是一种针对unicode的变长字符编码的实现方式。 使用1-4个字节表示一个字符。 二进制代码第一位是0， 则这个字符只占一个字节。 如果第一位是1，连续有多少个1，表示当前字符占用多少个字节, 后面字节的前两位均以10开头。
+例如 严。 unicode = 100111000100101 = 4E25, utf-8=11100100 10111000 10100101 = E4B8A5.</description>
     </item>
     
     <item>
@@ -463,10 +536,8 @@ go get modernc.org/goyacc
 https://pkg.go.dev/golang.org/x/tools/cmd/goyacc
   tldr (too long didn&#39;t read) . brew install tldr
   nano
-  xournal
-  NDK, IDA
-  slidev
- markdown, ppt https://sli.</description>
+  画图
+ draw.io （加载速度慢） xournal （操作不方便） excalidraw （本地localhost web）  cd excalidraw(source code directory) docker-compose up --build -d      NDK, IDA</description>
     </item>
     
     <item>

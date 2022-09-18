@@ -25,5 +25,14 @@
       <description>涉及的变量 🔗 本金M 期数N 利率R 等额本息X 公式推导 🔗当N=1时</description>
     </item>
     
+    <item>
+      <title>计算复杂度--P, NP, NPC, NP hard</title>
+      <link>http://brettkk.github.io/posts/math/%E8%AE%A1%E7%AE%97%E5%A4%8D%E6%9D%82%E5%BA%A6/</link>
+      <pubDate>Fri, 18 Sep 2020 09:13:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/math/%E8%AE%A1%E7%AE%97%E5%A4%8D%E6%9D%82%E5%BA%A6/</guid>
+      <description>todo...</description>
+    </item>
+    
   </channel>
 </rss>

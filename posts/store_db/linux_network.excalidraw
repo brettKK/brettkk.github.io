@@ -1,0 +1,810 @@
+{
+  "type": "excalidraw",
+  "version": 2,
+  "source": "http://localhost:3000",
+  "elements": [
+    {
+      "id": "cAWe21AqyQPuSq73ox5lt",
+      "type": "rectangle",
+      "x": 520.0390625,
+      "y": -34.4609375,
+      "width": 455,
+      "height": 396.390625,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "strokeSharpness": "sharp",
+      "seed": 105880223,
+      "version": 96,
+      "versionNonce": 1190747295,
+      "isDeleted": false,
+      "boundElements": [
+        {
+          "type": "text",
+          "id": "yGsS1T6EZO4gstke0OQ5b"
+        }
+      ],
+      "updated": 1660633943964,
+      "link": null,
+      "locked": false
+    },
+    {
+      "id": "ceOiJCgktYRoqk95nyLXF",
+      "type": "rectangle",
+      "x": 530.00390625,
+      "y": 378.484375,
+      "width": 628,
+      "height": 516.8671875,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "strokeSharpness": "sharp",
+      "seed": 1230120305,
+      "version": 115,
+      "versionNonce": 1839903153,
+      "isDeleted": false,
+      "boundElements": [
+        {
+          "type": "text",
+          "id": "uIjsw7fgstyS3fyxvIy_T"
+        }
+      ],
+      "updated": 1660634684929,
+      "link": null,
+      "locked": false
+    },
+    {
+      "id": "K_NE7sU899gclP1GMh2TD",
+      "type": "text",
+      "x": 551.46484375,
+      "y": 393.01953125,
+      "width": 228,
+      "height": 27,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "strokeSharpness": "sharp",
+      "seed": 1251366079,
+      "version": 72,
+      "versionNonce": 2051095455,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1660634693906,
+      "link": null,
+      "locked": false,
+      "text": "traffic control 流量控制 入门",
+      "fontSize": 20,
+      "fontFamily": 1,
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "baseline": 21,
+      "containerId": null,
+      "originalText": "traffic control 流量控制 入门"
+    },
+    {
+      "id": "Si6zZ4HueDfU0GN0CoUd8",
+      "type": "rectangle",
+      "x": 539.62109375,
+      "y": 941.67578125,
+      "width": 633,
+      "height": 417.45703125,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "strokeSharpness": "sharp",
+      "seed": 1445072447,
+      "version": 81,
+      "versionNonce": 547434481,
+      "isDeleted": false,
+      "boundElements": [
+        {
+          "type": "text",
+          "id": "IMvv7GuXAy4EK8vtfyjIA"
+        }
+      ],
+      "updated": 1660635141534,
+      "link": null,
+      "locked": false
+    },
+    {
+      "id": "bquHLFxBVJlf-ficaD5rV",
+      "type": "text",
+      "x": 548,
+      "y": 952.5,
+      "width": 89,
+      "height": 27,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "strokeSharpness": "sharp",
+      "seed": 937505841,
+      "version": 15,
+      "versionNonce": 1491076433,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1660631901023,
+      "link": null,
+      "locked": false,
+      "text": "socket option",
+      "fontSize": 20,
+      "fontFamily": 1,
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "baseline": 21,
+      "containerId": null,
+      "originalText": "socket option"
+    },
+    {
+      "id": "D3PGJKkWnDDgy6N0mVEny",
+      "type": "rectangle",
+      "x": 540.66796875,
+      "y": 1395.76171875,
+      "width": 629,
+      "height": 1389.01953125,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "strokeSharpness": "sharp",
+      "seed": 439694129,
+      "version": 229,
+      "versionNonce": 1163550289,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1660661192046,
+      "link": null,
+      "locked": false
+    },
+    {
+      "id": "ILF81bZVCrYsN1WsqtbyQ",
+      "type": "text",
+      "x": 554.6328125,
+      "y": 1421.52734375,
+      "width": 601,
+      "height": 1272,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "strokeSharpness": "sharp",
+      "seed": 1623973631,
+      "version": 1440,
+      "versionNonce": 976578513,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1660661285548,
+      "link": null,
+      "locked": false,
+      "text": "tcp 慢启动对传输性能的影响\n    初始化initcwnd = 10*mss\n    \nsocket缓存对tcp的影响\n      /proc/sys/net/ipv4/tcp_wmem\n      拥塞控制算法bbr\n\ntcp 建立连接 3个队列\n    \n    半连接队列，。\n    cat /proc/sys/net/ipv4/tcp_max_syn_backlog,  进入sync_wait的最大等待队列。\n    cat /proc/sys/net/core/somaxconn， backlog的个数\n    tcp_syncookies 当syn_backlog 耗尽时，\n    \n    全连接队列(listen的数值, 未accept)\n    \n    \n    establish 队列\n\n    man 2 listen\n\n    优化： tfo 优化， quic\n    \n    \n\ntcp关闭连接\n    /proc/sys/net/ipv4/tcp_tw_recycle\n    /proc/sys/net/ipv4/tcp_tw_reuse\n    /proc/sys/net/ipv4/tcp_max_tw_buckets time_wait状态的最大数量\n    \n        \n\n中断优化 和 硬件offload\n    rfs, rps\n    网卡多队列， 网卡与中断号的对应关系/proc/interrupts\n    设置中断 /proc/irq/123/smp_affinity\n\n    /sys/class/net/ens22/queues/rx-0/rps_cpus\n    收包时软中断在哪个core上处理。\n    \n    lspci -vvv  网卡中断队列个数查看\n\n    offload .   jaminzhang.github.io/hardware/NIC-offload-Introduction/\n        checksum \n\n    bypass   dpdk \n \n       ",
+      "fontSize": 20,
+      "fontFamily": 1,
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "baseline": 1267,
+      "containerId": null,
+      "originalText": "tcp 慢启动对传输性能的影响\n    初始化initcwnd = 10*mss\n    \nsocket缓存对tcp的影响\n      /proc/sys/net/ipv4/tcp_wmem\n      拥塞控制算法bbr\n\ntcp 建立连接 3个队列\n    \n    半连接队列，。\n    cat /proc/sys/net/ipv4/tcp_max_syn_backlog,  进入sync_wait的最大等待队列。\n    cat /proc/sys/net/core/somaxconn， backlog的个数\n    tcp_syncookies 当syn_backlog 耗尽时，\n    \n    全连接队列(listen的数值, 未accept)\n    \n    \n    establish 队列\n\n    man 2 listen\n\n    优化： tfo 优化， quic\n    \n    \n\ntcp关闭连接\n    /proc/sys/net/ipv4/tcp_tw_recycle\n    /proc/sys/net/ipv4/tcp_tw_reuse\n    /proc/sys/net/ipv4/tcp_max_tw_buckets time_wait状态的最大数量\n    \n        \n\n中断优化 和 硬件offload\n    rfs, rps\n    网卡多队列， 网卡与中断号的对应关系/proc/interrupts\n    设置中断 /proc/irq/123/smp_affinity\n\n    /sys/class/net/ens22/queues/rx-0/rps_cpus\n    收包时软中断在哪个core上处理。\n    \n    lspci -vvv  网卡中断队列个数查看\n\n    offload .   jaminzhang.github.io/hardware/NIC-offload-Introduction/\n        checksum \n\n    bypass   dpdk \n \n       "
+    },
+    {
+      "id": "yGsS1T6EZO4gstke0OQ5b",
+      "type": "text",
+      "x": 525.0390625,
+      "y": 136.734375,
+      "width": 445,
+      "height": 54,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "strokeSharpness": "sharp",
+      "seed": 1014640465,
+      "version": 46,
+      "versionNonce": 1162838225,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1660633943964,
+      "link": null,
+      "locked": false,
+      "text": "网络协议架构\n",
+      "fontSize": 20,
+      "fontFamily": 1,
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "baseline": 48,
+      "containerId": "cAWe21AqyQPuSq73ox5lt",
+      "originalText": "网络协议架构\n"
+    },
+    {
+      "id": "dXCUFEjR3gLQ0A3fbmaw1",
+      "type": "rectangle",
+      "x": 516.71484375,
+      "y": -586.83984375,
+      "width": 811.3203125,
+      "height": 469,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "strokeSharpness": "sharp",
+      "seed": 1446870193,
+      "version": 68,
+      "versionNonce": 2088045247,
+      "isDeleted": false,
+      "boundElements": [
+        {
+          "type": "text",
+          "id": "p4z6a-FDxfiwuhm9ECNR-"
+        }
+      ],
+      "updated": 1660633827798,
+      "link": null,
+      "locked": false
+    },
+    {
+      "id": "p4z6a-FDxfiwuhm9ECNR-",
+      "type": "text",
+      "x": 521.71484375,
+      "y": -581.83984375,
+      "width": 801,
+      "height": 459,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "strokeSharpness": "sharp",
+      "seed": 192033535,
+      "version": 672,
+      "versionNonce": 767057841,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1660660277488,
+      "link": null,
+      "locked": false,
+      "text": "常见命令：\n#netstat -antp [n是ip显示，不用域名，t是tcp， ]\nrecv-q, send-q。\n#cat /proc/net/netstat 计数器 netstat -st\n  TCPListenOverflows 全连接队列，没处理accept。\n#netstat -nr 看路由表 route -n\n#ss -antp -m -i\nlisten状态下 send-q表示backlog的长度。\n#ifconfig, txqueuelen 发送队列的包数量\n#sar -n DEV 1\n#查看有些路由表 vim /etc/iproute2/rt_tables\n# ip rule show table all 查看所有路由\n# telnet\n# nmap\n# tcpdump\n\n",
+      "fontSize": 20,
+      "fontFamily": 1,
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "baseline": 453,
+      "containerId": "dXCUFEjR3gLQ0A3fbmaw1",
+      "originalText": "常见命令：\n#netstat -antp [n是ip显示，不用域名，t是tcp， ]\nrecv-q, send-q。\n#cat /proc/net/netstat 计数器 netstat -st\n  TCPListenOverflows 全连接队列，没处理accept。\n#netstat -nr 看路由表 route -n\n#ss -antp -m -i\nlisten状态下 send-q表示backlog的长度。\n#ifconfig, txqueuelen 发送队列的包数量\n#sar -n DEV 1\n#查看有些路由表 vim /etc/iproute2/rt_tables\n# ip rule show table all 查看所有路由\n# telnet\n# nmap\n# tcpdump\n\n"
+    },
+    {
+      "id": "jHHec5giQd602ipf-mIIr",
+      "type": "freedraw",
+      "x": 1389.30859375,
+      "y": -592.3984375,
+      "width": 68.14453125,
+      "height": 2.5625,
+      "angle": 0,
+      "strokeColor": "#5c940d",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "strokeSharpness": "round",
+      "seed": 1591834719,
+      "version": 229,
+      "versionNonce": 659231985,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1660633139359,
+      "link": null,
+      "locked": false,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          0.2265625,
+          0
+        ],
+        [
+          0.77734375,
+          0
+        ],
+        [
+          1.515625,
+          0
+        ],
+        [
+          2.515625,
+          0
+        ],
+        [
+          3.52734375,
+          -0.1328125
+        ],
+        [
+          4.5,
+          -0.265625
+        ],
+        [
+          5.52734375,
+          -0.265625
+        ],
+        [
+          6.4296875,
+          -0.265625
+        ],
+        [
+          7.26953125,
+          -0.41015625
+        ],
+        [
+          8.1015625,
+          -0.5546875
+        ],
+        [
+          8.9375,
+          -0.5546875
+        ],
+        [
+          9.734375,
+          -0.6796875
+        ],
+        [
+          10.578125,
+          -0.82421875
+        ],
+        [
+          11.47265625,
+          -0.84375
+        ],
+        [
+          12.3203125,
+          -0.84375
+        ],
+        [
+          13.2890625,
+          -0.98828125
+        ],
+        [
+          14.26171875,
+          -1.1328125
+        ],
+        [
+          15.1015625,
+          -1.1328125
+        ],
+        [
+          15.9375,
+          -1.27734375
+        ],
+        [
+          16.66796875,
+          -1.421875
+        ],
+        [
+          17.50390625,
+          -1.421875
+        ],
+        [
+          18.5,
+          -1.421875
+        ],
+        [
+          19.40234375,
+          -1.421875
+        ],
+        [
+          20.4140625,
+          -1.421875
+        ],
+        [
+          21.421875,
+          -1.421875
+        ],
+        [
+          22.4296875,
+          -1.421875
+        ],
+        [
+          23.4375,
+          -1.421875
+        ],
+        [
+          24.28125,
+          -1.421875
+        ],
+        [
+          25.0234375,
+          -1.421875
+        ],
+        [
+          25.765625,
+          -1.421875
+        ],
+        [
+          26.4453125,
+          -1.421875
+        ],
+        [
+          27.08984375,
+          -1.421875
+        ],
+        [
+          27.89453125,
+          -1.421875
+        ],
+        [
+          28.765625,
+          -1.421875
+        ],
+        [
+          29.7734375,
+          -1.421875
+        ],
+        [
+          31.08203125,
+          -1.421875
+        ],
+        [
+          32.28125,
+          -1.421875
+        ],
+        [
+          33.2890625,
+          -1.421875
+        ],
+        [
+          34.26171875,
+          -1.421875
+        ],
+        [
+          35.11328125,
+          -1.421875
+        ],
+        [
+          35.96875,
+          -1.421875
+        ],
+        [
+          36.64453125,
+          -1.421875
+        ],
+        [
+          37.16796875,
+          -1.421875
+        ],
+        [
+          37.8515625,
+          -1.421875
+        ],
+        [
+          38.53125,
+          -1.421875
+        ],
+        [
+          39.21484375,
+          -1.421875
+        ],
+        [
+          40.0546875,
+          -1.421875
+        ],
+        [
+          40.890625,
+          -1.421875
+        ],
+        [
+          41.7890625,
+          -1.421875
+        ],
+        [
+          42.78125,
+          -1.421875
+        ],
+        [
+          43.71484375,
+          -1.421875
+        ],
+        [
+          44.62890625,
+          -1.49609375
+        ],
+        [
+          45.546875,
+          -1.640625
+        ],
+        [
+          46.4609375,
+          -1.71484375
+        ],
+        [
+          47.46875,
+          -1.859375
+        ],
+        [
+          48.5703125,
+          -2.00390625
+        ],
+        [
+          49.5703125,
+          -2.00390625
+        ],
+        [
+          50.57421875,
+          -2.00390625
+        ],
+        [
+          51.62109375,
+          -2.00390625
+        ],
+        [
+          52.6171875,
+          -2.1171875
+        ],
+        [
+          53.734375,
+          -2.26171875
+        ],
+        [
+          54.74609375,
+          -2.296875
+        ],
+        [
+          55.6015625,
+          -2.296875
+        ],
+        [
+          56.3046875,
+          -2.421875
+        ],
+        [
+          56.84375,
+          -2.5546875
+        ],
+        [
+          57.51953125,
+          -2.5625
+        ],
+        [
+          58.1953125,
+          -2.5625
+        ],
+        [
+          58.73046875,
+          -2.5625
+        ],
+        [
+          59.40625,
+          -2.5625
+        ],
+        [
+          60.09375,
+          -2.5625
+        ],
+        [
+          60.7734375,
+          -2.5625
+        ],
+        [
+          61.42578125,
+          -2.5625
+        ],
+        [
+          61.9453125,
+          -2.5625
+        ],
+        [
+          62.46875,
+          -2.5625
+        ],
+        [
+          62.99609375,
+          -2.5625
+        ],
+        [
+          63.51953125,
+          -2.5625
+        ],
+        [
+          64.04296875,
+          -2.5625
+        ],
+        [
+          64.56640625,
+          -2.5625
+        ],
+        [
+          65.22265625,
+          -2.5625
+        ],
+        [
+          65.41015625,
+          -2.5625
+        ],
+        [
+          65.859375,
+          -2.5625
+        ],
+        [
+          66.3828125,
+          -2.5625
+        ],
+        [
+          66.796875,
+          -2.5625
+        ],
+        [
+          67.0703125,
+          -2.5625
+        ],
+        [
+          67.28125,
+          -2.5625
+        ],
+        [
+          67.41796875,
+          -2.5625
+        ],
+        [
+          67.578125,
+          -2.5625
+        ],
+        [
+          67.6953125,
+          -2.5625
+        ],
+        [
+          67.81640625,
+          -2.5625
+        ],
+        [
+          67.93359375,
+          -2.5625
+        ],
+        [
+          68.02734375,
+          -2.5625
+        ],
+        [
+          68.14453125,
+          -2.5625
+        ],
+        [
+          68.14453125,
+          -2.5625
+        ]
+      ],
+      "pressures": [],
+      "simulatePressure": true,
+      "lastCommittedPoint": [
+        68.14453125,
+        -2.5625
+      ]
+    },
+    {
+      "id": "uIjsw7fgstyS3fyxvIy_T",
+      "type": "text",
+      "x": 535.00390625,
+      "y": 609.91796875,
+      "width": 618,
+      "height": 54,
+      "angle": 0,
+      "strokeColor": "#5c940d",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "strokeSharpness": "sharp",
+      "seed": 759581265,
+      "version": 104,
+      "versionNonce": 952325073,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1660634548967,
+      "link": null,
+      "locked": false,
+      "text": "#tc qdisc show 显示网卡的排队规则\n# tc qd add dev ens33 root netem delay 200ms",
+      "fontSize": 20,
+      "fontFamily": 1,
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "baseline": 48,
+      "containerId": "ceOiJCgktYRoqk95nyLXF",
+      "originalText": "#tc qdisc show 显示网卡的排队规则\n# tc qd add dev ens33 root netem delay 200ms"
+    },
+    {
+      "id": "IMvv7GuXAy4EK8vtfyjIA",
+      "type": "text",
+      "x": 544.62109375,
+      "y": 1109.904296875,
+      "width": 623,
+      "height": 81,
+      "angle": 0,
+      "strokeColor": "#5c940d",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "strokeSharpness": "sharp",
+      "seed": 1761528831,
+      "version": 138,
+      "versionNonce": 1829119231,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1660635156092,
+      "link": null,
+      "locked": false,
+      "text": "socket ,bind, listen, accpet\nman 7 socket \n两个进程监听同一个端口，so_reuseport（since linux 3.9）。",
+      "fontSize": 20,
+      "fontFamily": 1,
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "baseline": 75,
+      "containerId": "Si6zZ4HueDfU0GN0CoUd8",
+      "originalText": "socket ,bind, listen, accpet\nman 7 socket \n两个进程监听同一个端口，so_reuseport（since linux 3.9）。"
+    }
+  ],
+  "appState": {
+    "gridSize": null,
+    "viewBackgroundColor": "#ffffff"
+  },
+  "files": {}
+}

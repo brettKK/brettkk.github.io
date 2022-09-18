@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          2537 words
+          2640 words
         </span>
         <span class="split">
           ·
@@ -114,7 +114,11 @@
         <li><a href="#内存管理">内存管理</a></li>
       </ul>
     </li>
-    <li><a href="#go-汇编">go 汇编</a></li>
+    <li><a href="#go-汇编">go 汇编</a>
+      <ul>
+        <li><a href="#go-设计模式">go 设计模式</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
           </div>
@@ -389,14 +393,16 @@ play.golang.org =&gt; go.dev/play</p>
 </li>
 </ul>
 <br/>
-<h2 id="go-汇编">go 汇编 <a href="#go-%e6%b1%87%e7%bc%96" class="anchor">🔗</a></h2><p>ssa里的优化pass：https://github.com/golang/go/blob/acbe242f8a2cae8ef4749806291a37d23089b572/src/cmd/compile/internal/ssa/compile.go#L418</p>
+<h2 id="go-汇编">go 汇编 <a href="#go-%e6%b1%87%e7%bc%96" class="anchor">🔗</a></h2><p>go tool compile -S main.go &gt; main.S</p>
+<p>原文: <a href="https://jingwei.link/2018/07/01/runtime-of-goroutine-creation.html">https://jingwei.link/2018/07/01/runtime-of-goroutine-creation.html</a></p>
+<p>ssa里的优化pass：https://github.com/golang/go/blob/acbe242f8a2cae8ef4749806291a37d23089b572/src/cmd/compile/internal/ssa/compile.go#L418</p>
 <p>Generate x86 Assembly with Go</p>
 <p><a href="https://github.com/mmcloughlin/avo">https://github.com/mmcloughlin/avo</a></p>
 <ul>
 <li>汇编风格分为2类</li>
 </ul>
 <ol>
-<li>intel风格</li>
+<li>intel风格(move dest, source)</li>
 <li>AT&amp;T风格(左 --&gt; 右) go是plan9， 属于此类</li>
 </ol>
 <ul>
@@ -435,7 +441,22 @@ play.golang.org =&gt; go.dev/play</p>
 <p>goroot/src/syscall --》 建议使用 golang.org/x/sys</p>
 </li>
 </ul>
+<h3 id="go-设计模式">go 设计模式 <a href="#go-%e8%ae%be%e8%ae%a1%e6%a8%a1%e5%bc%8f" class="anchor">🔗</a></h3><h4 id="责任链">责任链 <a href="#%e8%b4%a3%e4%bb%bb%e9%93%be" class="anchor">🔗</a></h4><p>通过闭包实现的http中间件，在原有函数的基础上包裹中间功能，而不破坏原有函数</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">HandleFunc</span>(<span style="color:#e6db74">&#34;/hello&#34;</span>, <span style="color:#a6e22e">timewrapper</span>(<span style="color:#a6e22e">hello</span>))
+    <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ListenAndServe</span>(<span style="color:#e6db74">&#34;:8888&#34;</span>, <span style="color:#66d9ef">nil</span>)
+}
 
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">timewrapper</span>(<span style="color:#a6e22e">f</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ResponseWriter</span>, <span style="color:#f92672">*</span><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Request</span>)) <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ResponseWriter</span>, <span style="color:#f92672">*</span><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Request</span>) {
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">w</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ResponseWriter</span>, <span style="color:#a6e22e">r</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Request</span>) {
+        <span style="color:#a6e22e">start</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>()
+        <span style="color:#a6e22e">f</span>(<span style="color:#a6e22e">w</span>, <span style="color:#a6e22e">r</span>)
+        <span style="color:#a6e22e">end</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>()
+        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;take time: &#34;</span>, <span style="color:#a6e22e">end</span>.<span style="color:#a6e22e">Sub</span>(<span style="color:#a6e22e">start</span>))
+    }
+}
+
+</code></pre></div>
     </div>
 
     

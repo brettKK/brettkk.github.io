@@ -8,11 +8,12 @@
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
 <meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta name="description" content="使用中文字体 🔗使用xeCJK包，同时需要使用xeLaTex进行编译
-gif image in laTex Beamer 🔗brew install imagemagick
-convert kiss.gif -coalesce foo.png
-mac原生的mac previewer无法浏览gif, 下载Adobe Reader, then All is well.
-js 写ppt 🔗reveal.js">
+<meta name="description" content="字符编码 🔗ascii码，占一个字节，实际使用了7 bit,128个字符，表示英语够了。 在ascii码的第8位置为0，这个特点深深影响了其他国家和后来的字符编码方式。
+欧洲法语é等字符，采用Latin1, 利用acsii码的最高位， 可以表示了。
+亚洲国家的文字符号更多，汉字10万加，必须多个字节表示一个符号。 GB2312
+unicode 万国码。只是定义了符号的二进制代码，如何区分不同的编码？没有规定二进制如何存放。
+utf-8历史， 开发plan 9操作系统的产物，发明了后来广泛使用的字符编码。 utf-8 是一种针对unicode的变长字符编码的实现方式。 使用1-4个字节表示一个字符。 二进制代码第一位是0， 则这个字符只占一个字节。 如果第一位是1，连续有多少个1，表示当前字符占用多少个字节, 后面字节的前两位均以10开头。
+例如 严。 unicode = 100111000100101 = 4E25, utf-8=11100100 10111000 10100101 = E4B8A5.">
 <meta name="generator" content="Hugo 0.84.0" />
 
 
@@ -74,7 +75,7 @@ js 写ppt 🔗reveal.js">
           ·
         </span>
         <span>
-          25 words
+          58 words
         </span>
         <span class="split">
           ·
@@ -97,6 +98,7 @@ js 写ppt 🔗reveal.js">
   <ul>
     <li>
       <ul>
+        <li><a href="#字符编码">字符编码</a></li>
         <li><a href="#使用中文字体">使用中文字体</a></li>
         <li><a href="#gif-image-in-latex-beamer">gif image in laTex Beamer</a></li>
         <li><a href="#js-写ppt">js 写ppt</a></li>
@@ -114,7 +116,19 @@ js 写ppt 🔗reveal.js">
 
 
     <div class="content">
-      <h3 id="使用中文字体">使用中文字体 <a href="#%e4%bd%bf%e7%94%a8%e4%b8%ad%e6%96%87%e5%ad%97%e4%bd%93" class="anchor">🔗</a></h3><p>使用xeCJK包，同时需要使用xeLaTex进行编译</p>
+      <h3 id="字符编码">字符编码 <a href="#%e5%ad%97%e7%ac%a6%e7%bc%96%e7%a0%81" class="anchor">🔗</a></h3><p>ascii码，占一个字节，实际使用了7 bit,128个字符，表示英语够了。
+在ascii码的第8位置为0，这个特点深深影响了其他国家和后来的字符编码方式。</p>
+<p>欧洲法语é等字符，采用Latin1, 利用acsii码的最高位， 可以表示了。</p>
+<p>亚洲国家的文字符号更多，汉字10万加，必须多个字节表示一个符号。 GB2312</p>
+<p>unicode 万国码。只是定义了符号的二进制代码，如何区分不同的编码？没有规定二进制如何存放。</p>
+<p>utf-8历史， 开发plan 9操作系统的产物，发明了后来广泛使用的字符编码。
+utf-8 是一种针对unicode的变长字符编码的实现方式。
+使用1-4个字节表示一个字符。
+二进制代码第一位是0， 则这个字符只占一个字节。
+如果第一位是1，连续有多少个1，表示当前字符占用多少个字节, 后面字节的前两位均以10开头。</p>
+<p>例如 严。 unicode = 100111000100101 = 4E25,
+utf-8=11100100 10111000 10100101 = E4B8A5.</p>
+<h3 id="使用中文字体">使用中文字体 <a href="#%e4%bd%bf%e7%94%a8%e4%b8%ad%e6%96%87%e5%ad%97%e4%bd%93" class="anchor">🔗</a></h3><p>使用xeCJK包，同时需要使用xeLaTex进行编译</p>
 <h3 id="gif-image-in-latex-beamer">gif image in laTex Beamer <a href="#gif-image-in-latex-beamer" class="anchor">🔗</a></h3><p>brew install imagemagick</p>
 <p>convert kiss.gif -coalesce foo.png</p>
 <p>mac原生的mac previewer无法浏览gif, 下载Adobe Reader, then All is well.</p>
