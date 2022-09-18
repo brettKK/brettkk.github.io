@@ -17,6 +17,15 @@
     </item>
     
     <item>
+      <title>vs code 小结</title>
+      <link>http://brettkk.github.io/posts/tools/vs_code/</link>
+      <pubDate>Thu, 05 May 2022 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/tools/vs_code/</guid>
+      <description>vscode 快捷键 🔗工作区快捷键 🔗Cmd + Shift + P -》显示命令面板 Cmd+P -》</description>
+    </item>
+    
+    <item>
       <title>runc</title>
       <link>http://brettkk.github.io/posts/cloud_native/runc/</link>
       <pubDate>Sat, 26 Jun 2021 18:34:48 +0800</pubDate>
@@ -167,15 +176,6 @@
       
       <guid>http://brettkk.github.io/posts/java/soot_wala/</guid>
       <description>4中IR Baf 在bytecode上进行的抽象，忽略字节码对于常量</description>
-    </item>
-    
-    <item>
-      <title>vs code 小结</title>
-      <link>http://brettkk.github.io/posts/tools/vs_code/</link>
-      <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/tools/vs_code/</guid>
-      <description>终端-》配置默认生成任务-》tasks.json 快捷键内置查</description>
     </item>
     
     <item>

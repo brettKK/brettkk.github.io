@@ -17,21 +17,21 @@
     </item>
     
     <item>
+      <title>vs code 小结</title>
+      <link>http://brettkk.github.io/posts/tools/vs_code/</link>
+      <pubDate>Thu, 05 May 2022 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/tools/vs_code/</guid>
+      <description>vscode 快捷键 🔗工作区快捷键 🔗Cmd + Shift + P -》显示命令面板 Cmd+P -》</description>
+    </item>
+    
+    <item>
       <title>mac安装开发环境</title>
       <link>http://brettkk.github.io/posts/tools/mac_start_dev/</link>
       <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/tools/mac_start_dev/</guid>
       <description>新电脑构建开发环境，安装指南 iterm2 brew zsh, ohmyzsh golang vscode hugo github direnv 安装终端窗口工</description>
-    </item>
-    
-    <item>
-      <title>vs code 小结</title>
-      <link>http://brettkk.github.io/posts/tools/vs_code/</link>
-      <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/tools/vs_code/</guid>
-      <description>终端-》配置默认生成任务-》tasks.json 快捷键内置查</description>
     </item>
     
   </channel>
