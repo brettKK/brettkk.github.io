@@ -6,16 +6,7 @@
     <description>Recent content in soft_tools on brettkk</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 18 Sep 2022 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/tags/soft_tools/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>mac上安装和使用虚拟机</title>
-      <link>http://brettkk.github.io/posts/tools/%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA/</link>
-      <pubDate>Sun, 18 Sep 2022 11:33:56 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/tools/%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA/</guid>
-      <description>..</description>
-    </item>
-    
+    <lastBuildDate>Thu, 05 May 2022 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/tags/soft_tools/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>vs code 小结</title>
       <link>http://brettkk.github.io/posts/tools/vs_code/</link>
@@ -32,6 +23,15 @@
       
       <guid>http://brettkk.github.io/posts/tools/mac_start_dev/</guid>
       <description>新电脑构建开发环境，安装指南 iterm2 brew zsh, ohmyzsh golang vscode hugo github direnv 安装终端窗口工</description>
+    </item>
+    
+    <item>
+      <title>mac上安装和使用虚拟机</title>
+      <link>http://brettkk.github.io/posts/tools/%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA/</link>
+      <pubDate>Fri, 18 Sep 2020 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/tools/%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA/</guid>
+      <description>因为是mac上开发，需要linux等环境，所以安装虚拟机很有</description>
     </item>
     
   </channel>

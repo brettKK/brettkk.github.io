@@ -6,22 +6,22 @@
     <description>Recent content in Tags on brettkk</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 18 Sep 2022 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>soft_tools</title>
-      <link>http://brettkk.github.io/tags/soft_tools/</link>
-      <pubDate>Sun, 18 Sep 2022 11:33:56 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/tags/soft_tools/</guid>
-      <description></description>
-    </item>
-    
+    <lastBuildDate>Sat, 06 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://brettkk.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>golang</title>
       <link>http://brettkk.github.io/tags/golang/</link>
       <pubDate>Sat, 06 Aug 2022 00:00:00 +0000</pubDate>
       
       <guid>http://brettkk.github.io/tags/golang/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>soft_tools</title>
+      <link>http://brettkk.github.io/tags/soft_tools/</link>
+      <pubDate>Thu, 05 May 2022 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/tags/soft_tools/</guid>
       <description></description>
     </item>
     
