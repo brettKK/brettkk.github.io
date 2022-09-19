@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          2640 words
+          2694 words
         </span>
         <span class="split">
           ·
@@ -93,6 +93,7 @@
   <ul>
     <li><a href="#资料">资料</a></li>
     <li><a href="#官方地址改动">官方地址改动</a></li>
+    <li><a href="#变量的内存大小">变量的内存大小</a></li>
     <li><a href="#多态继承-范型">多态，继承， 范型</a>
       <ul>
         <li><a href="#继承">继承</a></li>
@@ -145,7 +146,20 @@
 <p>练习操场playground: go.dev/play。  后有rust playground。</p>
 <h2 id="官方地址改动">官方地址改动 <a href="#%e5%ae%98%e6%96%b9%e5%9c%b0%e5%9d%80%e6%94%b9%e5%8a%a8" class="anchor">🔗</a></h2><p>golang.org =&gt; go.dev
 play.golang.org =&gt; go.dev/play</p>
-<hr>
+<h2 id="变量的内存大小">变量的内存大小 <a href="#%e5%8f%98%e9%87%8f%e7%9a%84%e5%86%85%e5%ad%98%e5%a4%a7%e5%b0%8f" class="anchor">🔗</a></h2><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;fmt&#34;</span>
+	<span style="color:#e6db74">&#34;runtime&#34;</span>
+	<span style="color:#e6db74">&#34;unsafe&#34;</span>
+)
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;arch=%s, os=%s\n&#34;</span>, <span style="color:#a6e22e">runtime</span>.<span style="color:#a6e22e">GOARCH</span>, <span style="color:#a6e22e">runtime</span>.<span style="color:#a6e22e">GOOS</span>) <span style="color:#75715e">//arch=amd64, os=linux
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a</span> <span style="color:#66d9ef">int</span> = <span style="color:#ae81ff">190</span>
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type=%T, size=%d\n&#34;</span>, <span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Sizeof</span>(<span style="color:#a6e22e">a</span>)) <span style="color:#75715e">//type=int, size=8
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">b</span> <span style="color:#66d9ef">int32</span> = <span style="color:#ae81ff">190</span>
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;type=%T, size=%d\n&#34;</span>, <span style="color:#a6e22e">b</span>, <span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Sizeof</span>(<span style="color:#a6e22e">b</span>)) <span style="color:#75715e">//type=int32, size=4
+</span><span style="color:#75715e"></span>}
+</code></pre></div><hr>
 <h2 id="多态继承-范型">多态，继承， 范型 <a href="#%e5%a4%9a%e6%80%81%e7%bb%a7%e6%89%bf-%e8%8c%83%e5%9e%8b" class="anchor">🔗</a></h2><p>golang中面向对象的实现方式</p>
 <h3 id="继承">继承 <a href="#%e7%bb%a7%e6%89%bf" class="anchor">🔗</a></h3><p>组合结构体，一个结构体嵌入另一个结构体，能够实现对嵌入结构体的字段以及其实现的方法的继承。</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">

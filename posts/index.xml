@@ -488,7 +488,8 @@ golang方面： cloudwego, Istio, envoy
 云原生方面：k8s, docker.
 数据库方面： TiDB， TiKV， rocksdb。
 编译器： llvm。 编译器基本知识。
-高并发方面： C++ 。</description>
+高并发方面： C++ 。
+～～～～</description>
     </item>
     
     <item>

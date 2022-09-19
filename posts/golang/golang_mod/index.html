@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          285 words
+          355 words
         </span>
         <span class="split">
           ·
@@ -129,7 +129,13 @@ go mod init xxx/yyy/ccc</li>
 </code></pre></div><h2 id="3-module-import-path">3. module import path <a href="#3-module-import-path" class="anchor">🔗</a></h2><ul>
 <li>Importing packages from your module
 <ul>
-<li>import path = module_import_path + folder_package_name</li>
+<li>import path = module_import_path + folder_name</li>
+<li>import后面的最后一个元素是路径的目录名称，并非包名。
+<ul>
+<li>一般情况下是最后一级的目录名称和包名一样。</li>
+<li>不一样时import path, 但代码中使用包名。</li>
+</ul>
+</li>
 </ul>
 </li>
 <li>Importing packages from remote modules
