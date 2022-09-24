@@ -85,7 +85,7 @@
       <pubDate>Thu, 06 May 2021 18:34:48 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/golang/golang_sync/</guid>
-      <description>golang提供了比较便捷的并发编程方式。golang的并发</description>
+      <description>协程切换与线程切换的区别 切换需要切换2个地方：栈和寄存器。协</description>
     </item>
     
     <item>
@@ -287,6 +287,15 @@
     </item>
     
     <item>
+      <title>明</title>
+      <link>http://brettkk.github.io/posts/culture/point_of_view/</link>
+      <pubDate>Mon, 05 Apr 2021 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/culture/point_of_view/</guid>
+      <description>关于信息 现代人的信息困境： 一面焦虑错过信息，一面对某些信息主</description>
+    </item>
+    
+    <item>
       <title>等额本息</title>
       <link>http://brettkk.github.io/posts/math/loan/</link>
       <pubDate>Mon, 05 Apr 2021 11:33:56 +0800</pubDate>
@@ -437,6 +446,20 @@ n元线性方程组， 矩阵消元法，增广矩阵经过初等行变换，变
 分布式存储
 同步IO 异步IO： 指的是I/O 的执行者，是同步处理后返回，还是先返回给应用程序后异步通知。
 阻塞IO 非阻塞IO： 指的是IO的调用者，是阻塞等待结果，还是异步等通知。</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://brettkk.github.io/posts/os/nju-os/nju_os/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/os/nju-os/nju_os/</guid>
+      <description>http://jyywiki.cn/os/2022/
+ 02 程序与编译器 🔗在vi里编译c文件。 :!gcc %
+什么是程序？ 🔗你在南京大学上过最牛的课是什么？
+《程序设计语言的形式语义》 梁红瑾
+gdb a.out layout src (c程序视角) layout asm （汇编视角） start
+问题1: gdb Unable to find Mach task port 解决过程： mac下不能安装gdb， lldb替代。</description>
     </item>
     
     <item>
