@@ -9,10 +9,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
 <meta name="viewport" content="width=device-width,minimum-scale=1">
 <meta name="description" content="约瑟夫环 🔗 1-N个人，形成一个圈，从编号为1开始报数1，数到M的人x出列，x之后的人再次从1开始喊 直到最后一个人，求这个人的编号
- 数组 🔗遍历数组，数到m的位置标记为-1， 直到数组中仅剩一个非-1的元素，返回元素的位置
+数组 🔗遍历数组，数到m的位置标记为-1， 直到数组中仅剩一个非-1的元素，返回元素的位置
 环形链表 🔗不做标记，直接从环形链表中删除。
 type Node struct{ int num, next Node, } func createCircleLink(int n) Node{ head := Node{num: 1} cur = head for i := 2; i &lt; n; i&#43;&#43; { tmp := Node{num: i} cur.">
-<meta name="generator" content="Hugo 0.84.0" />
+<meta name="generator" content="Hugo 0.103.1" />
 
 
   <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
@@ -73,7 +73,7 @@ type Node struct{ int num, next Node, } func createCircleLink(int n) Node{ head 
           ·
         </span>
         <span>
-          284 words
+          285 words
         </span>
         <span class="split">
           ·
@@ -121,86 +121,83 @@ type Node struct{ int num, next Node, } func createCircleLink(int n) Node{ head 
 </blockquote>
 <h4 id="数组">数组 <a href="#%e6%95%b0%e7%bb%84" class="anchor">🔗</a></h4><p>遍历数组，数到m的位置标记为-1， 直到数组中仅剩一个非-1的元素，返回元素的位置</p>
 <h4 id="环形链表">环形链表 <a href="#%e7%8e%af%e5%bd%a2%e9%93%be%e8%a1%a8" class="anchor">🔗</a></h4><p>不做标记，直接从环形链表中删除。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Node</span> <span style="color:#66d9ef">struct</span>{
-    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">num</span>,
-    <span style="color:#a6e22e">next</span> <span style="color:#a6e22e">Node</span>,
-}
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">createCircleLink</span>(<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">n</span>) <span style="color:#a6e22e">Node</span>{
-    <span style="color:#a6e22e">head</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Node</span>{<span style="color:#a6e22e">num</span>: <span style="color:#ae81ff">1</span>}
-    <span style="color:#a6e22e">cur</span> = <span style="color:#a6e22e">head</span>
-    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">2</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">n</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
-        <span style="color:#a6e22e">tmp</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Node</span>{<span style="color:#a6e22e">num</span>: <span style="color:#a6e22e">i</span>}
-        <span style="color:#a6e22e">cur</span>.<span style="color:#a6e22e">next</span> = <span style="color:#a6e22e">tmp</span>
-        <span style="color:#a6e22e">cur</span> = <span style="color:#a6e22e">cur</span>.<span style="color:#a6e22e">next</span>
-    }
-    <span style="color:#a6e22e">cur</span>.<span style="color:#a6e22e">next</span> = <span style="color:#a6e22e">head</span>
-    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">head</span>
-}
-
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">findNum</span>(<span style="color:#a6e22e">n</span>, <span style="color:#a6e22e">m</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
-    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">m</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">n</span> &lt; <span style="color:#ae81ff">2</span>) <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">n</span>
-    <span style="color:#a6e22e">head</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">createCircleLink</span>(<span style="color:#a6e22e">n</span>)
-    <span style="color:#a6e22e">cur</span>, <span style="color:#a6e22e">pre</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">head</span>, <span style="color:#66d9ef">nil</span>
-    <span style="color:#a6e22e">count</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1</span>
-    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">head</span>.<span style="color:#a6e22e">next</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">head</span> {
-        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">count</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">m</span> {
-            <span style="color:#a6e22e">pre</span>.<span style="color:#a6e22e">next</span> = <span style="color:#a6e22e">cur</span>.<span style="color:#a6e22e">next</span>
-            <span style="color:#a6e22e">cur</span> = <span style="color:#a6e22e">pre</span>.<span style="color:#a6e22e">next</span>
-        } <span style="color:#66d9ef">else</span> {
-            <span style="color:#a6e22e">pre</span> = <span style="color:#a6e22e">cur</span>
-            <span style="color:#a6e22e">cur</span> = <span style="color:#a6e22e">cur</span>.<span style="color:#a6e22e">next</span>
-        }
-        <span style="color:#a6e22e">count</span><span style="color:#f92672">++</span>
-    }
-    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">head</span>.<span style="color:#a6e22e">num</span>
-}
-</code></pre></div><h4 id="找到子问题与原问题的规律递归">找到子问题与原问题的规律，递归 <a href="#%e6%89%be%e5%88%b0%e5%ad%90%e9%97%ae%e9%a2%98%e4%b8%8e%e5%8e%9f%e9%97%ae%e9%a2%98%e7%9a%84%e8%a7%84%e5%be%8b%e9%80%92%e5%bd%92" class="anchor">🔗</a></h4><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang">
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">findNum</span>(<span style="color:#a6e22e">n</span>, <span style="color:#a6e22e">m</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
-    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">n</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> {
-        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>
-    }
-    <span style="color:#66d9ef">return</span> (<span style="color:#a6e22e">findNum</span>(<span style="color:#a6e22e">n</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">m</span>) <span style="color:#f92672">+</span> <span style="color:#a6e22e">m</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> )<span style="color:#f92672">%</span><span style="color:#a6e22e">n</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> 
-}
-
-</code></pre></div><hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Node</span> <span style="color:#66d9ef">struct</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">num</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">next</span> <span style="color:#a6e22e">Node</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">createCircleLink</span>(<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">n</span>) <span style="color:#a6e22e">Node</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">head</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Node</span>{<span style="color:#a6e22e">num</span>: <span style="color:#ae81ff">1</span>}
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">cur</span> = <span style="color:#a6e22e">head</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">2</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">n</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">tmp</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Node</span>{<span style="color:#a6e22e">num</span>: <span style="color:#a6e22e">i</span>}
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">cur</span>.<span style="color:#a6e22e">next</span> = <span style="color:#a6e22e">tmp</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">cur</span> = <span style="color:#a6e22e">cur</span>.<span style="color:#a6e22e">next</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">cur</span>.<span style="color:#a6e22e">next</span> = <span style="color:#a6e22e">head</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">head</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">findNum</span>(<span style="color:#a6e22e">n</span>, <span style="color:#a6e22e">m</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">m</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">n</span> &lt; <span style="color:#ae81ff">2</span>) <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">n</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">head</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">createCircleLink</span>(<span style="color:#a6e22e">n</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">cur</span>, <span style="color:#a6e22e">pre</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">head</span>, <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">count</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">head</span>.<span style="color:#a6e22e">next</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">head</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">count</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">m</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">pre</span>.<span style="color:#a6e22e">next</span> = <span style="color:#a6e22e">cur</span>.<span style="color:#a6e22e">next</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">cur</span> = <span style="color:#a6e22e">pre</span>.<span style="color:#a6e22e">next</span>
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">pre</span> = <span style="color:#a6e22e">cur</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">cur</span> = <span style="color:#a6e22e">cur</span>.<span style="color:#a6e22e">next</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">count</span><span style="color:#f92672">++</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">head</span>.<span style="color:#a6e22e">num</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h4 id="找到子问题与原问题的规律递归">找到子问题与原问题的规律，递归 <a href="#%e6%89%be%e5%88%b0%e5%ad%90%e9%97%ae%e9%a2%98%e4%b8%8e%e5%8e%9f%e9%97%ae%e9%a2%98%e7%9a%84%e8%a7%84%e5%be%8b%e9%80%92%e5%bd%92" class="anchor">🔗</a></h4><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">findNum</span>(<span style="color:#a6e22e">n</span>, <span style="color:#a6e22e">m</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">n</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> (<span style="color:#a6e22e">findNum</span>(<span style="color:#a6e22e">n</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">m</span>) <span style="color:#f92672">+</span> <span style="color:#a6e22e">m</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> )<span style="color:#f92672">%</span><span style="color:#a6e22e">n</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> 
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><hr>
 <h3 id="数据流中的中位数">数据流中的中位数 <a href="#%e6%95%b0%e6%8d%ae%e6%b5%81%e4%b8%ad%e7%9a%84%e4%b8%ad%e4%bd%8d%e6%95%b0" class="anchor">🔗</a></h3><p>大顶堆维护一半小的数，小顶堆维护一半大的数。中位数为2个堆顶的平均数或者小顶堆的根。</p>
 <hr>
 <h3 id="接雨水">接雨水 <a href="#%e6%8e%a5%e9%9b%a8%e6%b0%b4" class="anchor">🔗</a></h3><p>leetcode: trapping rain water.</p>
 <p>思路：
 位置x能承多少水？ x的左边最大高度left_max, x的右边最大高度right_max。
 位置x的盛水量等于 min(left_max, right_max) - h(x)。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang">
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">getWater</span>(<span style="color:#a6e22e">arr</span> []<span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
-    <span style="color:#a6e22e">leftMaxArr</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, len(<span style="color:#a6e22e">arr</span>))
-    <span style="color:#a6e22e">leftMaxArr</span>[<span style="color:#ae81ff">0</span>] = <span style="color:#ae81ff">0</span>
-    <span style="color:#a6e22e">rightMaxArr</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, len(<span style="color:#a6e22e">arr</span>))
-    <span style="color:#a6e22e">rightMaxArr</span>[len(<span style="color:#a6e22e">arr</span>) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>] = <span style="color:#ae81ff">0</span>
-    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">i</span> &lt; len(<span style="color:#a6e22e">arr</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
-        <span style="color:#a6e22e">leftMaxArr</span>[<span style="color:#a6e22e">i</span>] = <span style="color:#a6e22e">max</span>(<span style="color:#a6e22e">leftMaxArr</span>[<span style="color:#a6e22e">i</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>], <span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">i</span>])
-    }
-    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> len(<span style="color:#a6e22e">arr</span>) <span style="color:#f92672">-</span> <span style="color:#ae81ff">2</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">--</span> {
-        <span style="color:#a6e22e">rightMaxArr</span>[<span style="color:#a6e22e">i</span>] = <span style="color:#a6e22e">max</span>(<span style="color:#a6e22e">rightMaxArr</span>[<span style="color:#a6e22e">i</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>], <span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">i</span>])
-    }
-    <span style="color:#a6e22e">sum</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span> 
-    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; len(<span style="color:#a6e22e">arr</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
-        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">==</span> len(<span style="color:#a6e22e">arr</span>) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span> {
-            <span style="color:#66d9ef">continue</span>
-        }
-        <span style="color:#a6e22e">cur</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">min</span>(<span style="color:#a6e22e">leftMaxArr</span>[<span style="color:#a6e22e">i</span>], <span style="color:#a6e22e">rightMaxArr</span>[<span style="color:#a6e22e">i</span>]) <span style="color:#f92672">-</span> <span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">i</span>]
-        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">cur</span> <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">0</span> {
-            <span style="color:#66d9ef">continue</span>
-        }
-        <span style="color:#a6e22e">sum</span> <span style="color:#f92672">+=</span> <span style="color:#a6e22e">cur</span>
-    }
-    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">sum</span>
-}
-
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang">
-<span style="color:#75715e">// 单调栈的思路
-</span><span style="color:#75715e"></span>
-<span style="color:#a6e22e">维护</span> <span style="color:#a6e22e">递减栈</span>
-
-</code></pre></div><hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">getWater</span>(<span style="color:#a6e22e">arr</span> []<span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">leftMaxArr</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, len(<span style="color:#a6e22e">arr</span>))
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">leftMaxArr</span>[<span style="color:#ae81ff">0</span>] = <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">rightMaxArr</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, len(<span style="color:#a6e22e">arr</span>))
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">rightMaxArr</span>[len(<span style="color:#a6e22e">arr</span>) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>] = <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">i</span> &lt; len(<span style="color:#a6e22e">arr</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">leftMaxArr</span>[<span style="color:#a6e22e">i</span>] = <span style="color:#a6e22e">max</span>(<span style="color:#a6e22e">leftMaxArr</span>[<span style="color:#a6e22e">i</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>], <span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">i</span>])
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> len(<span style="color:#a6e22e">arr</span>) <span style="color:#f92672">-</span> <span style="color:#ae81ff">2</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">--</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">rightMaxArr</span>[<span style="color:#a6e22e">i</span>] = <span style="color:#a6e22e">max</span>(<span style="color:#a6e22e">rightMaxArr</span>[<span style="color:#a6e22e">i</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>], <span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">i</span>])
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">sum</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; len(<span style="color:#a6e22e">arr</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">==</span> len(<span style="color:#a6e22e">arr</span>) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">continue</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">cur</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">min</span>(<span style="color:#a6e22e">leftMaxArr</span>[<span style="color:#a6e22e">i</span>], <span style="color:#a6e22e">rightMaxArr</span>[<span style="color:#a6e22e">i</span>]) <span style="color:#f92672">-</span> <span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">i</span>]
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">cur</span> <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">0</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">continue</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">sum</span> <span style="color:#f92672">+=</span> <span style="color:#a6e22e">cur</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">sum</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 单调栈的思路
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">维护</span> <span style="color:#a6e22e">递减栈</span>
+</span></span></code></pre></div><hr>
 <h3 id="计算任意两个年月日之间相隔的天数">计算任意两个年月日之间相隔的天数 <a href="#%e8%ae%a1%e7%ae%97%e4%bb%bb%e6%84%8f%e4%b8%a4%e4%b8%aa%e5%b9%b4%e6%9c%88%e6%97%a5%e4%b9%8b%e9%97%b4%e7%9b%b8%e9%9a%94%e7%9a%84%e5%a4%a9%e6%95%b0" class="anchor">🔗</a></h3><p>写程序判断 别人的实现是否正确？ Fuzz</p>
 <h3 id="取石子的游戏">取石子的游戏 <a href="#%e5%8f%96%e7%9f%b3%e5%ad%90%e7%9a%84%e6%b8%b8%e6%88%8f" class="anchor">🔗</a></h3><p>巴什博弈。</p>
 <p>N颗石头，一次可取1-M颗。</p>

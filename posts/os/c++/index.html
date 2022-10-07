@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<html lang="zh-cn">
+  <head>
+    <title>brettkk</title>
+
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
+<meta name="viewport" content="width=device-width,minimum-scale=1">
+<meta name="description" content="概念
+纯虚函数， 改写，虚函数。 抽象基类， 派生类。
+is-a 关系是传递的。派生类 is a 基类，可以直接将派生类对象转换为基类对象。
+表达式是一个递归定义的概念。 一个单独的标识符（变量，常量，函数等）是表达式。 表达式和运算符按照语法规则构成的复杂表达式是表达式。
+C&#43;&#43; 动态特性。 🔗程序的功能是在运行时刻才能确定下来的。 C&#43;&#43; 虚函数， 抽象基类，动态绑定，多态。
+虚函数 🔗class Shape{ public: virtual void Draw(void); }; class Rectangle : public Shape { public: virtual void Draw(void); } 抽象基类 🔗class Shape { // 抽象基类 public: virtual void Draw(void)=0; //纯虚函数 } 动态绑定 🔗程序中通过基类指针对虚函数的调用。">
+<meta name="generator" content="Hugo 0.103.1" />
+
+
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+<link href="https://cdn.bootcss.com/highlight.js/9.15.10/styles/zenburn.min.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<link rel="stylesheet" href="http://brettkk.github.io/css/syntax.css" />
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js" integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+
+
+
+
+  </head>
+
+  <body>
+    <nav class="navigation">
+	
+		<a href="/"> <span class="arrow">←</span>Home</a>
+	
+	<a href="/posts">Archive</a>
+	<a href="/tags">Tags</a>
+	<a href="/about">About</a>
+
+	
+
+	
+</nav>
+
+
+    <main class="main">
+      
+
+<section id="single">
+    <h1 class="title"></h1>
+
+    <div class="tip">
+        <time datetime="0001-01-01 00:00:00 &#43;0000 UTC">Jan 1, 0001</time>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          95 words
+        </span>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          1 minute read
+        </span>
+    </div>
+
+    
+    
+        
+  
+    <aside class="toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
+          <div>
+              <nav id="TableOfContents">
+  <ul>
+    <li><a href="#c-动态特性">C++ 动态特性。</a>
+      <ul>
+        <li><a href="#虚函数">虚函数</a></li>
+        <li><a href="#抽象基类">抽象基类</a></li>
+        <li><a href="#动态绑定">动态绑定</a></li>
+      </ul>
+    </li>
+    <li><a href="#c-标准库">C++ 标准库</a></li>
+    <li><a href="#vscode配置linux-kernel项目">vscode配置linux kernel项目</a>
+      <ul>
+        <li><a href="#gdb-complains-no-source-available">GDB complains No Source Available</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+          </div>
+      </details>
+    </aside>
+  
+
+
+    
+
+
+    <div class="content">
+      <p>概念</p>
+<p>纯虚函数， 改写，虚函数。
+抽象基类， 派生类。</p>
+<p>is-a 关系是传递的。派生类 is a 基类，可以直接将派生类对象转换为基类对象。</p>
+<p>表达式是一个递归定义的概念。
+一个单独的标识符（变量，常量，函数等）是表达式。 表达式和运算符按照语法规则构成的复杂表达式是表达式。</p>
+<h2 id="c-动态特性">C++ 动态特性。 <a href="#c-%e5%8a%a8%e6%80%81%e7%89%b9%e6%80%a7" class="anchor">🔗</a></h2><p>程序的功能是在运行时刻才能确定下来的。
+C++ 虚函数， 抽象基类，动态绑定，多态。</p>
+<h3 id="虚函数">虚函数 <a href="#%e8%99%9a%e5%87%bd%e6%95%b0" class="anchor">🔗</a></h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C++" data-lang="C++"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Shape</span>{
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> Draw(<span style="color:#66d9ef">void</span>); 
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Rectangle</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> Shape {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> Draw(<span style="color:#66d9ef">void</span>); 
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="抽象基类">抽象基类 <a href="#%e6%8a%bd%e8%b1%a1%e5%9f%ba%e7%b1%bb" class="anchor">🔗</a></h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C++" data-lang="C++"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Shape</span> { <span style="color:#75715e">// 抽象基类
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> Draw(<span style="color:#66d9ef">void</span>)<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; <span style="color:#75715e">//纯虚函数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><h3 id="动态绑定">动态绑定 <a href="#%e5%8a%a8%e6%80%81%e7%bb%91%e5%ae%9a" class="anchor">🔗</a></h3><p>程序中通过基类指针对虚函数的调用。</p>
+<h2 id="c-标准库">C++ 标准库 <a href="#c-%e6%a0%87%e5%87%86%e5%ba%93" class="anchor">🔗</a></h2><p>掌握语言的语法后，后续主要在标准库上。</p>
+<p>C++标准库包含STL， 标准C函数库等。 大量使用了模版进行泛型实现。</p>
+<h2 id="vscode配置linux-kernel项目">vscode配置linux kernel项目 <a href="#vscode%e9%85%8d%e7%bd%aelinux-kernel%e9%a1%b9%e7%9b%ae" class="anchor">🔗</a></h2><p>第一步执行./scripts/clang-tools/gen_compile_commands.py， 生成compile_commands.json。
+第二部在linux kernel项目的.vscode目录下，在c_cpp_properties.json文件中增加            &quot;compileCommands&quot;: &quot;${workspaceFolder}/compile_commands.json&quot;。
+[]</p>
+<pre tabindex="0"><code>https://edwardhalferty.com/2021/12/11/configuring-the-linux-kernel-from-macos/
+
+$(error-if,$(success,test -z &#34;$(ld-info)&#34;),Sorry$(comma) this linker is not supported.)
+
+	default $(ld-version) if LD_IS_BFD
+	default 0
+</code></pre><h3 id="gdb-complains-no-source-available">GDB complains No Source Available <a href="#gdb-complains-no-source-available" class="anchor">🔗</a></h3><p>gcc -g hello.c
+gdb -tui hello</p>
+<p>well done.</p>
+
+    </div>
+
+    
+    
+    
+
+</section>
+
+
+    </main>
+    
+    <footer id="footer">
+    
+
+    <script src="https://utteranc.es/client.js"
+repo="brettKK/brettkk.github.io"
+issue-term="title"
+theme="github-light"
+crossorigin="anonymous"
+async>
+</script>  
+
+    <div class="copyright">
+    
+       © Copyright 
+       2022 
+       <span class="split">
+        <svg fill="#bbbbbb" width="15" height="15" version="1.1" id="heart-15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 15 15">
+  <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>
+</svg>
+       </span>
+       
+    
+    </div>
+
+    
+      <div class="powerby">
+        Powered by <a href='http://www.gohugo.io/'>Hugo</a> Theme By <a href='https://github.com/nodejh/hugo-theme-cactus-plus'>nodejh</a>
+      </div>
+    
+</footer>
+
+
+
+
+  </body>
+</html>

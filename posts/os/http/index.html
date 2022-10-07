@@ -8,8 +8,8 @@
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
 <meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta name="description" content="http http header 常用字段 content-type (如何解析body) application/x-www-form-urlencoded multipart/from-data, 上传文件 application/json, text/plain text/xml, XML">
-<meta name="generator" content="Hugo 0.84.0" />
+<meta name="description" content="http 🔗 http header 常用字段 content-type (如何解析body) application/x-www-form-urlencoded multipart/from-data, 上传文件 application/json, text/plain text/xml, XM">
+<meta name="generator" content="Hugo 0.103.1" />
 
 
   <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          921 words
+          924 words
         </span>
         <span class="split">
           ·
@@ -83,175 +83,201 @@
     
     
         
+  
+    <aside class="toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
+          <div>
+              <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#http">http</a></li>
+        <li><a href="#curl命令">curl命令</a></li>
+        <li><a href="#dig">dig</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+          </div>
+      </details>
+    </aside>
+  
+
 
     
 
 
     <div class="content">
-      <h3 id="http">http</h3>
-
+      <h3 id="http">http <a href="#http" class="anchor">🔗</a></h3><ul>
+<li>
+<p>http header 常用字段</p>
 <ul>
-<li>http header 常用字段
-
+<li>content-type (如何解析body)
 <ul>
-<li>content-type (如何解析body)</li>
 <li>application/x-www-form-urlencoded</li>
 <li>multipart/from-data, 上传文件</li>
 <li>application/json, text/plain</li>
 <li>text/xml, XML格式 （post请求的4种格式）</li>
+</ul>
+</li>
 <li>connection: keep-alive, 持久连接（相对于用完就关闭的短连接而言）</li>
 <li>keep-alive-time: 300, 指连接维持的时间</li>
 <li>content-length: 120, 指明响应的内容有120字节 (出现等于-1，但是body有数据的情况？)</li>
 <li>transfer-encoding: chunked， 响应内容采用分块传输，最后一个分块为0表示传输结束</li>
-</ul></li>
-
-<li><p>http keep-alive 与 tcp keep alive 区别与联系</p>
-
+</ul>
+</li>
+<li>
+<p>http keep-alive 与 tcp keep alive 区别与联系</p>
 <ul>
 <li>http 用于连接复用</li>
 <li>tcp 用于保证连接存活，发送探测包确认连接是否存活</li>
-</ul></li>
-
-<li><p>有时ping url结果为unkown host，但是curl url可以通</p>
-
+</ul>
+</li>
+<li>
+<p>有时ping url结果为unkown host，但是curl url可以通</p>
 <ul>
 <li>有可能对方防火墙屏蔽ping的ICMP协议</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <hr>
-
-<h3 id="curl命令">curl命令</h3>
-
+<h3 id="curl命令">curl命令 <a href="#curl%e5%91%bd%e4%bb%a4" class="anchor">🔗</a></h3><ul>
+<li>
+<p>不带参数 curl  xx.com 发get请求</p>
+</li>
+<li>
+<p>curl -X POST xx.com 发post请求</p>
+</li>
+<li>
+<p>-I only response header</p>
 <ul>
-<li>不带参数 curl  xx.com 发get请求</li>
-
-<li><p>curl -X POST xx.com 发post请求</p></li>
-
-<li><p>-I only response header</p>
-
-<ul>
-<li>curl -I www.google.com</li>
+<li>curl -I <a href="https://www.google.com" target="_blank" rel="noopener">www.google.com</a></li>
 <li>(curl -I 获取http响应的头部)</li>
-</ul></li>
-
-<li><p>-v 显示http通信过程 --trace</p>
-
+</ul>
+</li>
+<li>
+<p>-v 显示http通信过程 --trace</p>
 <ul>
-<li>curl -v <a href="http://www.example.com/index.html">http://www.example.com/index.html</a></li>
-<li>&gt; 发送的请求， &lt;接收的响应</li>
+<li>curl -v <a href="http://www.example.com/index.html" target="_blank" rel="noopener">http://www.example.com/index.html</a></li>
+<li>
+<blockquote>
+<p>发送的请求， &lt;接收的响应</p>
+</blockquote>
+</li>
 <li>RFC2616</li>
-</ul></li>
-
-<li><p>curl -u username :password URL</p></li>
-
-<li><p>curl 查询单词</p>
-
+</ul>
+</li>
+<li>
+<p>curl -u username :password URL</p>
+</li>
+<li>
+<p>curl 查询单词</p>
 <ul>
 <li>curl dict://dict.org/d:xxx 查询xxx的含义</li>
 <li>curl dict://dict.org/show:db 列出可用的词典</li>
 <li>curl dict://dict.org/d:xx:foldoc 利用foldoc查询xx的含义</li>
-</ul></li>
-
-<li><p>给curl 设置代理</p>
-
+</ul>
+</li>
+<li>
+<p>给curl 设置代理</p>
 <ul>
 <li>curl -x proxyserver.test.com:9090 google.com</li>
-</ul></li>
-
-<li><p>将cookie保存到本地</p>
-
+</ul>
+</li>
+<li>
+<p>将cookie保存到本地</p>
 <ul>
 <li>curl -D localCookie google.com</li>
 <li>curl -b localCookie google.com 使用上次的cookie</li>
 <li>curl -c cookie url 保存cookie到文件</li>
-</ul></li>
-
-<li><p>默认curl使用get方式 发送表单</p>
-
+</ul>
+</li>
+<li>
+<p>默认curl使用get方式 发送表单</p>
 <ul>
 <li>curl -u username github.com</li>
-</ul></li>
-
-<li><p>可以通过--data/-d方式使用post</p>
-
+</ul>
+</li>
+<li>
+<p>可以通过--data/-d方式使用post</p>
 <ul>
 <li>curl -u username --data &quot;param1=value1&amp;param2=value2&quot; github.com</li>
 <li>curl --data @filename github.com 将文件中的数据传给服务器</li>
-</ul></li>
-
-<li><p>User Agent (-A , -H)</p>
-
+</ul>
+</li>
+<li>
+<p>User Agent (-A , -H)</p>
 <ul>
 <li>curl --user-agent &quot;user-agent&quot; url</li>
-</ul></li>
-
-<li><p>cookie (-b)</p>
-
+</ul>
+</li>
+<li>
+<p>cookie (-b)</p>
 <ul>
 <li>curl --cookie &quot;name=xx&quot; url</li>
 <li>cookie值可以从response header的·Set-Cookie·字段得到</li>
-</ul></li>
-
-<li><p>自行加request header信息</p>
-
+</ul>
+</li>
+<li>
+<p>自行加request header信息</p>
 <ul>
 <li>curl --header &quot;&quot; url</li>
-</ul></li>
-
-<li><p>curl -d '{&quot;key1&quot;:&quot;value1&quot;, &quot;data&quot;:{&quot;data1&quot;:&quot;value1&quot;, &quot;data2&quot;:&quot;value2&quot;}}' '<a href="https://xxx.com/a/b'">https://xxx.com/a/b'</a></p></li>
-
-<li><p>curl -F 'business_type=one' -F 'data=@/Users/kk/a.csv'  x.x.x.x:xx/a/b curl发送文件</p></li>
-
-<li><p>curl -G -d 'q=xx' xx.com -d ''//xx.com?q=xx</p></li>
-
-<li><p>ping icmp协议 封装在IP包里</p>
-
+</ul>
+</li>
+<li>
+<p>curl -d '{&quot;key1&quot;:&quot;value1&quot;, &quot;data&quot;:{&quot;data1&quot;:&quot;value1&quot;, &quot;data2&quot;:&quot;value2&quot;}}' 'https://xxx.com/a/b'</p>
+</li>
+<li>
+<p>curl -F 'business_type=one' -F 'data=@/Users/kk/a.csv'  x.x.x.x:xx/a/b curl发送文件</p>
+</li>
+<li>
+<p>curl -G -d 'q=xx' xx.com -d ''//xx.com?q=xx</p>
+</li>
+<li>
+<p>ping icmp协议 封装在IP包里</p>
 <ul>
 <li>类型0 8 请求与响应</li>
-<li>3是不可达 后面有代码号</li>
-<li>5种情况
-
+<li>3是不可达 后面有代码号
++ 5种情况
 <ul>
 <li>ip中的网络号-网络不可达</li>
 <li>ip中的主机号-主机不可达</li>
 <li>防火墙不允许tcp连接-协议不可达</li>
 <li>端口没有进程监听-端口不可达</li>
-</ul></li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
+</li>
+</ul>
 <hr>
-
-<h3 id="dig">dig</h3>
-
-<ul>
+<h3 id="dig">dig <a href="#dig" class="anchor">🔗</a></h3><ul>
 <li>dig查询DNS相关信息的工具
-
 <ul>
 <li>显示internet上13个根域服务器</li>
-<li>dig @dnsserver name querytype</li>
+<li>dig @dnsserver name querytype
+<ul>
 <li>用google的dns查询baidu的A记录</li>
-<li>dig @8.8.8.8 www.baidu.com A</li>
-</ul></li>
+<li>dig @8.8.8.8 <a href="https://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a> A</li>
+</ul>
+</li>
+</ul>
+</li>
 <li>DNS记录的类型
-
 <ul>
 <li>A记录       指定域名对应的IP地址</li>
 <li>AAAA记录    指定域名对应的IPV6地址</li>
 <li>CNAME记录   别名解析 域名1（CDN加速域名） -》域名2 -》IP</li>
 <li>NS记录      域名服务器记录  将域名解析交给其他DNS服务器</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <hr>
-
 <ul>
 <li>访问github.com时与DNS解析有关的一个问题</li>
 </ul>
-
-<p>问题：fatal: unable to access '<a href="https://github.com/brettKK/shell.git/':">https://github.com/brettKK/shell.git/':</a> Failed to connect to github.com port 443: Operation timed out</p>
-
+<p>问题：fatal: unable to access 'https://github.com/brettKK/shell.git/': Failed to connect to github.com port 443: Operation timed out</p>
 <p>方法：vim /etc/hosts ==&gt; find github.com to delete</p>
 
     </div>

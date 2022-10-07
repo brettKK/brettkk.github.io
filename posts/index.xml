@@ -22,7 +22,7 @@
       <pubDate>Thu, 05 May 2022 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/tools/vs_code/</guid>
-      <description>1 vscode 快捷键 🔗1.1 工作区快捷键 🔗Cmd + Shift + P -》显示命令面</description>
+      <description>1 vscode 快捷键 🔗1.1 工作区快捷键 🔗 Cmd + Shift + P -》显示命令面板 Cmd+P</description>
     </item>
     
     <item>
@@ -32,15 +32,6 @@
       
       <guid>http://brettkk.github.io/posts/culture/euro/</guid>
       <description>1亚伯拉罕，犹太历史 🔗亚伯拉罕是犹太教、基督教和伊斯兰教共同</description>
-    </item>
-    
-    <item>
-      <title>k8s 学习</title>
-      <link>http://brettkk.github.io/posts/cloud_native/k8s/</link>
-      <pubDate>Sun, 27 Jun 2021 11:33:56 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/cloud_native/k8s/</guid>
-      <description>k8s架构 🔗请求访问pod的流程 🔗hostNetwork： 占</description>
     </item>
     
     <item>
@@ -112,7 +103,7 @@
       <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/os/http/</guid>
-      <description>http http header 常用字段 content-type (如何解析body) application/x-www-form-urlencoded multipart/from-data, 上传文件 application/json, text/plain text/xml, XML</description>
+      <description>http 🔗 http header 常用字段 content-type (如何解析body) application/x-www-form-urlencoded multipart/from-data, 上传文件 application/json, text/plain text/xml, XM</description>
     </item>
     
     <item>
@@ -121,7 +112,7 @@
       <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/os/base_os/</guid>
-      <description>资料 操作系统：南大 jyy。 http://jyywiki.cn/OS/2022/ https://elixir.bootlin.com/linux/lastest/source Linux 版本 uname -a 查看系统的版本 debian/ubuntu redhat/fedora/centos 各</description>
+      <description>资料 🔗操作系统：南大 jyy。 http://jyywiki.cn/OS/2022/ https://elixir.bootlin.com/linux/lastest/source Linux 版本 🔗uname -a 查看系统</description>
     </item>
     
     <item>
@@ -202,7 +193,7 @@
       <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/os/secure_risk/</guid>
-      <description>漏洞 起因是信任了用户的任意输入。 sql注入 危害： 执行任意sq</description>
+      <description>漏洞 🔗起因是信任了用户的任意输入。 sql注入 🔗危害： 执行任意</description>
     </item>
     
     <item>
@@ -265,7 +256,7 @@
       <pubDate>Mon, 05 Apr 2021 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/francais/euro/</guid>
-      <description>欧洲历史 欧洲历史 古希腊，罗马文明 古希腊文明 苏格拉底 柏拉图 亚里</description>
+      <description>欧洲历史 🔗 欧洲历史 古希腊，罗马文明 古希腊文明 苏格拉底 柏拉图 亚</description>
     </item>
     
     <item>
@@ -288,11 +279,20 @@
     
     <item>
       <title>明</title>
+      <link>http://brettkk.github.io/posts/culture/ming/</link>
+      <pubDate>Mon, 05 Apr 2021 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/culture/ming/</guid>
+      <description>为什么研究历史的人，喜欢研究明历史？ 🔗无少数民族干涉，汉族正</description>
+    </item>
+    
+    <item>
+      <title>明</title>
       <link>http://brettkk.github.io/posts/culture/point_of_view/</link>
       <pubDate>Mon, 05 Apr 2021 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/culture/point_of_view/</guid>
-      <description>关于信息 现代人的信息困境： 一面焦虑错过信息，一面对某些信息主</description>
+      <description>关于信息 🔗现代人的信息困境： 一面焦虑错过信息，一面对某些信息</description>
     </item>
     
     <item>
@@ -337,7 +337,7 @@
       <pubDate>Fri, 18 Sep 2020 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/tools/%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA/</guid>
-      <description>因为是mac上开发，需要linux等环境，所以安装虚拟机很有</description>
+      <description>必要性 🔗 因为使用的是mac笔记本，实验和开发上需要利用lin</description>
     </item>
     
     <item>
@@ -357,7 +357,10 @@
       <guid>http://brettkk.github.io/posts/culture/jinrong/</guid>
       <description>大A指数。 换筹。确定2800底部。
 美元指数见底，即美元即将出逃。 现在的美元指数顶背离走，美元通胀，加息。
-本质A股市场应对美元加息回流的战役。 将投机性美元回来之前，将市场拉到更高的位置。</description>
+本质A股市场应对美元加息回流的战役。 将投机性美元回来之前，将市场拉到更高的位置。
+美联储加息 🔗加息 与 通胀的关系。
+社会中钱和商品的数量需要有一定的对应关系。 如果钱的数量不随商品的增加而增加的话，物价会发生波动。 商品价格P * 商品数量Q = 货币总量。
+钱多了，商品增加数量根不上，商品价格会上涨，通货膨胀。</description>
     </item>
     
     <item>
@@ -367,7 +370,7 @@
       
       <guid>http://brettkk.github.io/posts/leetcode/other/</guid>
       <description>约瑟夫环 🔗 1-N个人，形成一个圈，从编号为1开始报数1，数到M的人x出列，x之后的人再次从1开始喊 直到最后一个人，求这个人的编号
- 数组 🔗遍历数组，数到m的位置标记为-1， 直到数组中仅剩一个非-1的元素，返回元素的位置
+数组 🔗遍历数组，数到m的位置标记为-1， 直到数组中仅剩一个非-1的元素，返回元素的位置
 环形链表 🔗不做标记，直接从环形链表中删除。
 type Node struct{ int num, next Node, } func createCircleLink(int n) Node{ head := Node{num: 1} cur = head for i := 2; i &amp;lt; n; i++ { tmp := Node{num: i} cur.</description>
     </item>
@@ -387,7 +390,7 @@ type Node struct{ int num, next Node, } func createCircleLink(int n) Node{ head 
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>http://brettkk.github.io/posts/leetcode/skiplist/</guid>
-      <description>type Element struct { score float64 value interface{} forward []*Element } type SkipList struct { header *Element len int level int } </description>
+      <description> type Element struct { score float64 value interface{} forward []*Element } type SkipList struct { header *Element len int level int } </description>
     </item>
     
     <item>
@@ -406,7 +409,7 @@ type Node struct{ int num, next Node, } func createCircleLink(int n) Node{ head 
       
       <guid>http://brettkk.github.io/posts/math/algeb/</guid>
       <description>高等代数
- 研究对象  初中， 方程，一元一次方程。ax+b = c。 一元二次方程，求根公式。
+研究对象 初中， 方程，一元一次方程。ax+b = c。 一元二次方程，求根公式。
 一元高次方程的求根
 n元线性方程组， 矩阵消元法，增广矩阵经过初等行变换，变为阶梯形矩阵。
 二元一次方程。
@@ -414,7 +417,7 @@ n元线性方程组， 矩阵消元法，增广矩阵经过初等行变换，变
 高斯消元法 --初等变换--》 阶梯形方程组 --》 非零行的行数为矩阵的秩
 解的情况判定和解的结构 矩阵的秩与解的关系
 矩阵的特征值和特征向量，几何意义 相似矩阵，相似对角化，二次型的标准型与规范型 合同变换，合同矩阵。 正交矩阵，正交变换
- 偏序关系  集合之间的包含关系 实数之间的小于等于关系 实数之间的大于等于关系 整数之间的整除关系    自反： 反对称： R是集合A上的关系，如果R是自反的，反对称的，传递的，R是A上的一个偏序或者半序。  偏序集合  </description>
+偏序关系 集合之间的包含关系 实数之间的小于等于关系 实数之间的大于等于关系 整数之间的整除关系 自反： 反对称： R是集合A上的关系，如果R是自反的，反对称的，传递的，R是A上的一个偏序或者半序。 偏序集合 </description>
     </item>
     
     <item>
@@ -427,12 +430,27 @@ n元线性方程组， 矩阵消元法，增广矩阵经过初等行变换，变
 极限的定义 🔗极限的求法 🔗无穷小 $$ lim $$
 ，无穷大
 洛必达法则求极限
- 2 导数（微商），微分 🔗导数叫微商，是极限。
+2 导数（微商），微分 🔗导数叫微商，是极限。
 导数的定义。 🔗导数的几何意义。 🔗斜率
 求导的方法 🔗复合函数的求导
 隐函数的求导。
 导数的应用 🔗单调性，求极值，凹凸性（二阶导数）
- 3 不定积分，定积分 🔗不定积分 🔗不定积分： 求函数f的全部原函数。</description>
+3 不定积分，定积分 🔗不定积分 🔗不定积分： 求函数f的全部原函数。
+4 定积分的应用 🔗定积分：给定区间里无限分割求和</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://brettkk.github.io/posts/os/c&#43;&#43;/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/os/c&#43;&#43;/</guid>
+      <description>概念
+纯虚函数， 改写，虚函数。 抽象基类， 派生类。
+is-a 关系是传递的。派生类 is a 基类，可以直接将派生类对象转换为基类对象。
+表达式是一个递归定义的概念。 一个单独的标识符（变量，常量，函数等）是表达式。 表达式和运算符按照语法规则构成的复杂表达式是表达式。
+C++ 动态特性。 🔗程序的功能是在运行时刻才能确定下来的。 C++ 虚函数， 抽象基类，动态绑定，多态。
+虚函数 🔗class Shape{ public: virtual void Draw(void); }; class Rectangle : public Shape { public: virtual void Draw(void); } 抽象基类 🔗class Shape { // 抽象基类 public: virtual void Draw(void)=0; //纯虚函数 } 动态绑定 🔗程序中通过基类指针对虚函数的调用。</description>
     </item>
     
     <item>
@@ -442,7 +460,7 @@ n元线性方程组， 矩阵消元法，增广矩阵经过初等行变换，变
       
       <guid>http://brettkk.github.io/posts/os/file_system/</guid>
       <description>块存储、文件存储、对象存储
- 存储的两种方式  用电子存储数据 U盘，固态硬盘SSD 用磁性记录数据 机械硬盘HDD 垂直式 叠瓦式    linux: 一切皆文件。
+存储的两种方式 用电子存储数据 U盘，固态硬盘SSD 用磁性记录数据 机械硬盘HDD 垂直式 叠瓦式 linux: 一切皆文件。
 分布式存储
 同步IO 异步IO： 指的是I/O 的执行者，是同步处理后返回，还是先返回给应用程序后异步通知。
 阻塞IO 非阻塞IO： 指的是IO的调用者，是阻塞等待结果，还是异步等通知。</description>
@@ -455,7 +473,7 @@ n元线性方程组， 矩阵消元法，增广矩阵经过初等行变换，变
       
       <guid>http://brettkk.github.io/posts/os/nju-os/nju_os/</guid>
       <description>http://jyywiki.cn/os/2022/
- 02 程序与编译器 🔗在vi里编译c文件。 :!gcc %
+02 程序与编译器 🔗在vi里编译c文件。 :!gcc %
 什么是程序？ 🔗你在南京大学上过最牛的课是什么？
 《程序设计语言的形式语义》 梁红瑾
 gdb a.out layout src (c程序视角) layout asm （汇编视角） start
@@ -521,7 +539,7 @@ golang方面： cloudwego, Istio, envoy
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>http://brettkk.github.io/posts/tools/git/</guid>
-      <description>git入门 🔗 搭建git环境 文件添加， 与git库的交互 解决合并冲突 创建分支列表 创建标签  git reflog 显示所有提交过的版本信息，包含提交，回退，删除的记录。 git log 不包含删除的commit记录和reset的操作。
+      <description>git入门 🔗 搭建git环境 文件添加， 与git库的交互 解决合并冲突 创建分支列表 创建标签 git reflog 显示所有提交过的版本信息，包含提交，回退，删除的记录。 git log 不包含删除的commit记录和reset的操作。
 项目历史管理
 DAG，
 使用git进行程序开发
@@ -560,10 +578,10 @@ utf-8历史， 开发plan 9操作系统的产物，发明了后来广泛使用�
       <description>安装goyacc
 go get modernc.org/goyacc
 https://pkg.go.dev/golang.org/x/tools/cmd/goyacc
-  tldr (too long didn&#39;t read) . brew install tldr
-  nano
-  画图
- draw.io （加载速度慢） xournal （操作不方便） excalidraw （本地localhost web）  cd excalidraw(source code directory) docker-compose up --build -d      NDK, IDA</description>
+tldr (too long didn&#39;t read) . brew install tldr
+nano
+画图
+draw.io （加载速度慢） xournal （操作不方便） excalidraw （本地localhost web） cd excalidraw(source code directory) docker-compose up --build -d NDK, IDA</description>
     </item>
     
     <item>

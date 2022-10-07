@@ -8,8 +8,8 @@
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
 <meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta name="description" content="1 vscode 快捷键 🔗1.1 工作区快捷键 🔗Cmd &#43; Shift &#43; P -》显示命令面">
-<meta name="generator" content="Hugo 0.84.0" />
+<meta name="description" content="1 vscode 快捷键 🔗1.1 工作区快捷键 🔗 Cmd &#43; Shift &#43; P -》显示命令面板 Cmd&#43;P">
+<meta name="generator" content="Hugo 0.103.1" />
 
 
   <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          966 words
+          970 words
         </span>
         <span class="split">
           ·
@@ -149,13 +149,13 @@
 <li>自定义快捷键： 文件—》首选项-》键盘快捷方式</li>
 </ul>
 <h2 id="2-vscode-配置文件">2 vscode 配置文件 <a href="#2-vscode-%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6" class="anchor">🔗</a></h2><center>两种不同作用范围的配置</center>
-<pre><code>User Settings - Settings that apply globally to any instance.
+<pre tabindex="0"><code>User Settings - Settings that apply globally to any instance.
 Workspace Settings - Settings stored inside your workspace 
 and only apply when the workspace is opened.
 </code></pre><h3 id="21-全局配置user-settings">2.1 全局配置user Settings <a href="#21-%e5%85%a8%e5%b1%80%e9%85%8d%e7%bd%aeuser-settings" class="anchor">🔗</a></h3><p> 界面上User Settings editor只是为了方便界面修改，修改后的配置保存在settings.json全局文件中。<br>
  全局配置文件settings.json：Mac下 vs code设置文件：$HOME/Library/Application Support/Code/User/settings.json。</p>
 <h3 id="22-每个项目的配置workspace-settings">2.2 每个项目的配置workspace settings <a href="#22-%e6%af%8f%e4%b8%aa%e9%a1%b9%e7%9b%ae%e7%9a%84%e9%85%8d%e7%bd%aeworkspace-settings" class="anchor">🔗</a></h3><center>局部配置可以覆盖全局配置</center>
-<pre><code>workspace settings override user settings.
+<pre tabindex="0"><code>workspace settings override user settings.
 </code></pre><p> <font color=blue>每个项目的配置在项目根目录的.vscode 文件夹中。</font></p>
 <ul>
 <li>局部配置（项目自身的配置）settings.json</li>
@@ -164,8 +164,9 @@ and only apply when the workspace is opened.
 </ul>
 <h2 id="3-vs-code-的编程语言插件">3 vs code 的编程语言插件 <a href="#3-vs-code-%e7%9a%84%e7%bc%96%e7%a8%8b%e8%af%ad%e8%a8%80%e6%8f%92%e4%bb%b6" class="anchor">🔗</a></h2><h3 id="31-golang-环境配置">3.1 golang 环境配置 <a href="#31-golang-%e7%8e%af%e5%a2%83%e9%85%8d%e7%bd%ae" class="anchor">🔗</a></h3><p> 插件extensions: go<br>
  其他命令工具cmd+shit+p 输入goinstall<br></p>
-<h3 id="311-遇到的问题">3.1.1 遇到的问题 <a href="#311-%e9%81%87%e5%88%b0%e7%9a%84%e9%97%ae%e9%a2%98" class="anchor">🔗</a></h3><pre><code>最开始使用run test时无输出， 在settings.json里添加&quot;go.testFlags&quot;:[&quot;-V&quot;],
-</code></pre><h3 id="32-rust-环境配置">3.2 rust 环境配置 <a href="#32-rust-%e7%8e%af%e5%a2%83%e9%85%8d%e7%bd%ae" class="anchor">🔗</a></h3><p> 插件：the rust-analyzer extension<br>
+<h3 id="311-遇到的问题">3.1.1 遇到的问题 <a href="#311-%e9%81%87%e5%88%b0%e7%9a%84%e9%97%ae%e9%a2%98" class="anchor">🔗</a></h3><pre tabindex="0"><code>最开始使用run test时无输出， 在settings.json里添加&#34;go.testFlags&#34;:[&#34;-V&#34;],
+</code></pre><p>golang源码的提示问题。</p>
+<h3 id="32-rust-环境配置">3.2 rust 环境配置 <a href="#32-rust-%e7%8e%af%e5%a2%83%e9%85%8d%e7%bd%ae" class="anchor">🔗</a></h3><p> 插件：the rust-analyzer extension<br>
  编译器：installed via the rustup installer<br>
  验证一下编译器是否安装：rustc --version<br></p>
 <h3 id="33-cc-环境配置">3.3 c/c++ 环境配置 <a href="#33-cc-%e7%8e%af%e5%a2%83%e9%85%8d%e7%bd%ae" class="anchor">🔗</a></h3><p> 插件： Microsoft C/C++ extension 。<br>
@@ -174,7 +175,7 @@ and only apply when the workspace is opened.
 <h2 id="4-其他编辑器">4 其他编辑器 <a href="#4-%e5%85%b6%e4%bb%96%e7%bc%96%e8%be%91%e5%99%a8" class="anchor">🔗</a></h2><center>......</center> 
 <ul>
 <li>nano</li>
-<li>vim</li>
+<li>vim/tmux</li>
 <li>emacs</li>
 <li>neovim</li>
 </ul>

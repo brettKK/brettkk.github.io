@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
 <meta name="viewport" content="width=device-width,minimum-scale=1">
 <meta name="description" content="1. golang管理依赖 🔗 Modules are how Go manages dependencies. 1.1 module and packages 🔗 A module is a collection of packages.">
-<meta name="generator" content="Hugo 0.84.0" />
+<meta name="generator" content="Hugo 0.103.1" />
 
 
   <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          355 words
+          353 words
         </span>
         <span class="split">
           ·
@@ -124,9 +124,9 @@
 go mod init xxx/yyy/ccc</li>
 <li>声明本module需要的依赖项目。</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">The module path becomes the import prefix 
-<span style="color:#66d9ef">for</span> all packages the module contains.
-</code></pre></div><h2 id="3-module-import-path">3. module import path <a href="#3-module-import-path" class="anchor">🔗</a></h2><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>The module path becomes the import prefix 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> all packages the module contains.
+</span></span></code></pre></div><h2 id="3-module-import-path">3. module import path <a href="#3-module-import-path" class="anchor">🔗</a></h2><ul>
 <li>Importing packages from your module
 <ul>
 <li>import path = module_import_path + folder_name</li>
@@ -146,9 +146,9 @@ go mod init xxx/yyy/ccc</li>
 </li>
 </ul>
 <h2 id="4-code-organization">4. code organization <a href="#4-code-organization" class="anchor">🔗</a></h2><p> an go source code file 只可能包含&lt;package&gt; + &lt;import&gt; + &lt;var&gt; + &lt;const&gt; + &lt;type&gt; + &lt;Func&gt;</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">Functions, types, variables, and constants defined in one source file 
-are visible to all other source files within the same package.
-</code></pre></div><hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>Functions, types, variables, and constants defined in one source file 
+</span></span><span style="display:flex;"><span>are visible to all other source files within the same package.
+</span></span></code></pre></div><hr>
 <h2 id="5-reference">5. reference <a href="#5-reference" class="anchor">🔗</a></h2><p>[1]<a href="https://go.dev/doc/modules/gomod-ref" target="_blank" rel="noopener"> go.mod file reference -&gt; https://go.dev/doc/modules/gomod-ref</a></p>
 <p>[2]<a href="https://go.dev/blog/using-go-modules" target="_blank" rel="noopener"> using Go Modules -&gt; https://go.dev/blog/using-go-modules</a></p>
 <p>[3]<a href="https://go.dev/doc/code" target="_blank" rel="noopener"> go code organization -&gt; https://go.dev/doc/code</a></p>

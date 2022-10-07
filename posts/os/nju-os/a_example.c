@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <unistd.h>
 extern int done;
 
 // void join() {
@@ -15,5 +16,9 @@ int main() {
 	p = (void *)main;
 	printf("%x\n", *p);
 	// sizeof(int);
+	for	 (int i = 0; i < 2; i++) {
+		fork();
+	}
+	puts("hello world\n");
 	return 0;
 }

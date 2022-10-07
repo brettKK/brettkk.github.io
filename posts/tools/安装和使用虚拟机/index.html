@@ -8,8 +8,8 @@
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
 <meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta name="description" content="因为是mac上开发，需要linux等环境，所以安装虚拟机很有">
-<meta name="generator" content="Hugo 0.84.0" />
+<meta name="description" content="必要性 🔗 因为使用的是mac笔记本，实验和开发上需要利用lin">
+<meta name="generator" content="Hugo 0.103.1" />
 
 
   <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
@@ -70,25 +70,78 @@
           ·
         </span>
         <span>
-          32 words
+          853 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          1 minute read
+          2 minute read
         </span>
     </div>
 
     
     
         
+  
+    <aside class="toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
+          <div>
+              <nav id="TableOfContents">
+  <ul>
+    <li><a href="#必要性">必要性</a></li>
+    <li><a href="#其他平台的方案">其他平台的方案</a></li>
+    <li><a href="#macos-m1下安装虚拟机">macos m1下安装虚拟机</a></li>
+    <li><a href="#macos-m1-arch">macos m1 arch</a>
+      <ul>
+        <li><a href="#遇到的问题">遇到的问题</a></li>
+      </ul>
+    </li>
+    <li><a href="#其他">其他</a></li>
+  </ul>
+</nav>
+          </div>
+      </details>
+    </aside>
+  
+
 
     
 
 
     <div class="content">
-      <p><center><font color=blue>因为是mac上开发，需要linux等环境，所以安装虚拟机很有必要</font><center></p>
+      <h2 id="必要性">必要性 <a href="#%e5%bf%85%e8%a6%81%e6%80%a7" class="anchor">🔗</a></h2><p><font color=blue> 因为使用的是mac笔记本，实验和开发上需要利用linux环境下的工具（如gcc，gdb之类），所以在mac的宿主机上虚拟化出linux很有必要。 </font><br></p>
+<h2 id="其他平台的方案">其他平台的方案 <a href="#%e5%85%b6%e4%bb%96%e5%b9%b3%e5%8f%b0%e7%9a%84%e6%96%b9%e6%a1%88" class="anchor">🔗</a></h2><p>windows下 vscode 安装Windows Subsystem for Linux (WSL)插件，即可</p>
+<p>VirtualBox supports only x86 hardware.</p>
+<p>Ubuntu is available not only on x86 architectures, but also has ARM-based versions.</p>
+<p>VMWare 虚拟机产品（付费）。</p>
+<h2 id="macos-m1下安装虚拟机">macos m1下安装虚拟机 <a href="#macos-m1%e4%b8%8b%e5%ae%89%e8%a3%85%e8%99%9a%e6%8b%9f%e6%9c%ba" class="anchor">🔗</a></h2><p>在m1 arch下 virtual box和VMWare虚拟机产品不支持。</p>
+<h2 id="macos-m1-arch">macos m1 arch <a href="#macos-m1-arch" class="anchor">🔗</a></h2><p>multipass 可以支持在macos下虚拟化出ubuntu操作系统，基本上满足了开发需求。</p>
+<p>multipass find</p>
+<p>multipass launch 22.04 -n primary -c 2 -m 4G -d 50G</p>
+<p>multipass list 查看虚拟机IP</p>
+<p>multipass shell</p>
+<p>sudo apt install ubuntu-desktop xrdp -y</p>
+<p>vsocde ssh到本地虚拟化出来的ubuntu系统。</p>
+<h3 id="遇到的问题">遇到的问题 <a href="#%e9%81%87%e5%88%b0%e7%9a%84%e9%97%ae%e9%a2%98" class="anchor">🔗</a></h3><pre tabindex="0"><code>#ssh ubuntu@192.168.64.2
+ubuntu@192.168.64.2: Permission denied (publickey).
+
+# ssh ubuntu@192.168.64.3
+Load key &#34;.ssh/id_rsa.pub&#34; invalid format 
+ubuntu@192.168.64.3: Permission denied (publickey).
+</code></pre><p>原因： 在宿主机~/.ssh/config中 IdentityFile ~/.ssh/id_rsa.pub。 配置错误。
+公钥配置在vm的~/.ssh/authorized_keys中。 在宿主机上ssh时利用私钥进行登陆认证。
+所以在宿主机IdentityFile ~/.ssh/id_rsa.pub -&gt; IdentityFile ~/.ssh/id_rsa（私钥）。</p>
+<pre tabindex="0"><code>通过mulipass client里open shell打开primary 实例，可能出现
+Can&#39;t open instance, stuck in Starting phase。
+原因： 上一部修改ubuntu中~/.ssh/authorized_keys时不是采用的append新public key，采用覆盖。
+所以在修改authorized_keys时原有public key最好backup一份。
+</code></pre><p>打开远程的文件夹包含大量文件时（例如打开linux kernel文件夹代码），出现Connection to server got closed. Server will not be restarted。</p>
+<p>&quot;Visual Studio Code is unable to watch for file changes in this large workspace&quot; (error ENOSPC)。</p>
+<p><a href="https://code.visualstudio.com/docs/setup/linux#_visual-studio-code-is-unable-to-watch-for-file-changes-in-this-large-workspace-error-enospc" target="_blank" rel="noopener">https://code.visualstudio.com/docs/setup/linux#_visual-studio-code-is-unable-to-watch-for-file-changes-in-this-large-workspace-error-enospc</a>。</p>
+<h2 id="其他">其他 <a href="#%e5%85%b6%e4%bb%96" class="anchor">🔗</a></h2><p>付费。每年付费。。。</p>
 
     </div>
 
