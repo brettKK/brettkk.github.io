@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          2517 words
+          2585 words
         </span>
         <span class="split">
           ·
@@ -98,6 +98,11 @@
         <li><a href="#有显示功能的命令">有显示功能的命令</a></li>
         <li><a href="#网络常用工具命令文件夹network">网络常用工具命令（文件夹network）</a></li>
         <li><a href="#进程相关的命令">进程相关的命令</a></li>
+      </ul>
+    </li>
+    <li><a href="#linux-内核中的数据结构">linux 内核中的数据结构</a>
+      <ul>
+        <li><a href="#双向循环链表list_head">双向循环链表list_head</a></li>
       </ul>
     </li>
     <li><a href="#gdb">gdb</a></li>
@@ -446,6 +451,11 @@
 <li>指针的值表示内存起始地址， 指针的类型表示从该起始地址到终止地址的内存尺寸</li>
 </ul>
 <hr>
+<h2 id="linux-内核中的数据结构">linux 内核中的数据结构 <a href="#linux-%e5%86%85%e6%a0%b8%e4%b8%ad%e7%9a%84%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84" class="anchor">🔗</a></h2><h3 id="双向循环链表list_head">双向循环链表list_head <a href="#%e5%8f%8c%e5%90%91%e5%be%aa%e7%8e%af%e9%93%be%e8%a1%a8list_head" class="anchor">🔗</a></h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">//list.h
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">struct</span> list_head {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">struct</span> list_head <span style="color:#f92672">*</span>next, <span style="color:#f92672">*</span>prev;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>将list_head类型的变量嵌入到宿主数据结构中。</p>
 <h2 id="gdb">gdb <a href="#gdb" class="anchor">🔗</a></h2><p>在编译时要加上-g选项，生成的可执行文件才能用gdb进行源码级调试</p>
 <p>OS 提供了多用户多进程的良好稳定环境，但有一些技术想pass os...</p>
 <ul>
