@@ -1,0 +1,16 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 782.8671875 328.40234375" width="1565.734375" height="656.8046875">
+  <!-- svg-source:excalidraw -->
+  
+  <defs>
+    <style>
+      @font-face {
+        font-family: "Virgil";
+        src: url("https://excalidraw.com/Virgil.woff2");
+      }
+      @font-face {
+        font-family: "Cascadia";
+        src: url("https://excalidraw.com/Cascadia.woff2");
+      }
+    </style>
+  </defs>
+  <rect x="0" y="0" width="782.8671875" height="328.40234375" fill="#ffffff"></rect><g stroke-linecap="round" transform="translate(10 10) rotate(0 381.43359375 154.201171875)"><path d="M0.39 0.21 C300.47 -0.52, 602.62 -1.34, 762.89 -0.33 M-0.02 0.06 C291.26 0.52, 582.25 0.53, 763.24 -0.32 M762.88 -0.69 C762.3 62.47, 763.65 128.22, 762.68 309 M763.25 -0.53 C762.21 105.09, 763.12 210.86, 762.95 308.05 M762.6 308.96 C515.23 310.83, 266.9 310.39, 0.74 309.06 M762.87 308.63 C522.59 309.99, 282.45 310.3, -0.2 308.08 M-0.64 307.38 C-1.15 237.25, -2.04 168.23, 0.9 -0.56 M-0.39 307.78 C1.18 245.44, 0.95 183.47, -0.26 -0.63" stroke="#000000" stroke-width="1" fill="none"></path></g><g transform="translate(29.40625 37.63671875) rotate(0 130.5 119.5)"><text x="0" y="20.555555555555557" font-family="Chinese, Segoe UI Emoji" font-size="20px" fill="#000000" text-anchor="start" style="white-space: pre;" direction="ltr">跑步：</text><text x="0" y="47.111111111111114" font-family="Chinese, Segoe UI Emoji" font-size="20px" fill="#000000" text-anchor="start" style="white-space: pre;" direction="ltr">    100、200  博尔特。</text><text x="0" y="73.66666666666667" font-family="Chinese, Segoe UI Emoji" font-size="20px" fill="#000000" text-anchor="start" style="white-space: pre;" direction="ltr">    400            范迪凯特</text><text x="0" y="100.22222222222223" font-family="Chinese, Segoe UI Emoji" font-size="20px" fill="#000000" text-anchor="start" style="white-space: pre;" direction="ltr">    800            大卫 鲁迪沙</text><text x="0" y="126.77777777777777" font-family="Chinese, Segoe UI Emoji" font-size="20px" fill="#000000" text-anchor="start" style="white-space: pre;" direction="ltr">    1500           奎罗伊</text><text x="0" y="153.33333333333334" font-family="Chinese, Segoe UI Emoji" font-size="20px" fill="#000000" text-anchor="start" style="white-space: pre;" direction="ltr">    5000          切普盖特</text><text x="0" y="179.8888888888889" font-family="Chinese, Segoe UI Emoji" font-size="20px" fill="#000000" text-anchor="start" style="white-space: pre;" direction="ltr">    10000         切普盖特，贝克勒</text><text x="0" y="206.44444444444446" font-family="Chinese, Segoe UI Emoji" font-size="20px" fill="#000000" text-anchor="start" style="white-space: pre;" direction="ltr">    半马         基普利莫</text><text x="0" y="233" font-family="Chinese, Segoe UI Emoji" font-size="20px" fill="#000000" text-anchor="start" style="white-space: pre;" direction="ltr">    全马         基普乔格</text></g></svg>
