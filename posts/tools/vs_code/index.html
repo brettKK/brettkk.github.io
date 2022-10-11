@@ -70,13 +70,13 @@
           ·
         </span>
         <span>
-          970 words
+          1435 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          2 minute read
+          3 minute read
         </span>
     </div>
 
@@ -172,10 +172,48 @@ and only apply when the workspace is opened.
 <h3 id="33-cc-环境配置">3.3 c/c++ 环境配置 <a href="#33-cc-%e7%8e%af%e5%a2%83%e9%85%8d%e7%bd%ae" class="anchor">🔗</a></h3><p> 插件： Microsoft C/C++ extension 。<br>
  编译器：Linux的 GNU Compiler Collection (GCC) 和 macOS的Clang tools with Xcode 已经安装了。<br>
  验证一下编译器是否安装g++ --version， clang --version</p>
-<h2 id="4-其他编辑器">4 其他编辑器 <a href="#4-%e5%85%b6%e4%bb%96%e7%bc%96%e8%be%91%e5%99%a8" class="anchor">🔗</a></h2><center>......</center> 
+<h4 id="debugging">debugging <a href="#debugging" class="anchor">🔗</a></h4><ul>
+<li>.vscode文件夹
+<ul>
+<li>tasks.json，告诉VS Code如何构建（编译）程序</li>
+<li>launch.json，执行编译好的文件</li>
+<li>c_cpp_properties.json，编译器路径和IntelliSense设置</li>
+</ul>
+</li>
+</ul>
+<h4 id="遇到的问题">遇到的问题 <a href="#%e9%81%87%e5%88%b0%e7%9a%84%e9%97%ae%e9%a2%98" class="anchor">🔗</a></h4><pre tabindex="0"><code>Module containing this breakpoint has not yet loaded or the breakpoint address could not be obtained.
+
+gcc -g x.c or clang -g x.c带上-g编译产生可执行文件。
+
+--verbose 操作的详细过程。
+</code></pre><p>glibc/csu/libc-start.c#LIBC_START_MAIN()</p>
+<pre tabindex="0"><code>在_start处设置断点， libc-start.c”: &#39;SourceRequest&#39; not supported。
+
+下载glibc源码，放到/usr/src/glibc/glibc-2.35。 配置launch.json中的sourceFileMap。
+</code></pre><pre tabindex="0"><code>Entry point: 0x600
+错误：cannot insert breakpoint 2. cannot access memory at address 
+(gdb) set stop-on-solib-events 1
+</code></pre><pre tabindex="0"><code>ubuntu@primary:~/NJU_OS$ gcc -fno-pie -no-pie -g -o hello.out hello.c  -march=i386
+cc1: error: unknown value ‘i386’ for ‘-march’
+cc1: note: valid arguments are: armv8-a armv8.1-a armv8.2-a armv8.3-a armv8.4-a armv8.5-a armv8.6-a armv8-r native
+</code></pre><h2 id="4-其他编辑器">4 其他编辑器 <a href="#4-%e5%85%b6%e4%bb%96%e7%bc%96%e8%be%91%e5%99%a8" class="anchor">🔗</a></h2><center>......</center> 
 <ul>
 <li>nano</li>
-<li>vim/tmux</li>
+<li>vim/tmux
+<ul>
+<li>ctags -R
+<ul>
+<li>ctrl + ](), ctrl + t()</li>
+<li>ctrl + g 显示当前文件的路径位置。</li>
+<li>遇到宏或者函数指针可能无法使用，暴力搜索。</li>
+</ul>
+</li>
+<li>/some_string, n是往下找， N是往上找。</li>
+<li>vim, :ta start_kernel 找到起始函数的代码。:ts 查找函数出现的位置。</li>
+<li>linux从kernel转移到user space：start_kernel -&gt; rest_init -&gt; kernel_init -&gt; init_post -&gt; init</li>
+<li>cscope -Rq</li>
+</ul>
+</li>
 <li>emacs</li>
 <li>neovim</li>
 </ul>

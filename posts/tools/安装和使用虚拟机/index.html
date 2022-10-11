@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          853 words
+          1001 words
         </span>
         <span class="split">
           ·
@@ -139,8 +139,32 @@ Can&#39;t open instance, stuck in Starting phase。
 原因： 上一部修改ubuntu中~/.ssh/authorized_keys时不是采用的append新public key，采用覆盖。
 所以在修改authorized_keys时原有public key最好backup一份。
 </code></pre><p>打开远程的文件夹包含大量文件时（例如打开linux kernel文件夹代码），出现Connection to server got closed. Server will not be restarted。</p>
-<p>&quot;Visual Studio Code is unable to watch for file changes in this large workspace&quot; (error ENOSPC)。</p>
-<p><a href="https://code.visualstudio.com/docs/setup/linux#_visual-studio-code-is-unable-to-watch-for-file-changes-in-this-large-workspace-error-enospc" target="_blank" rel="noopener">https://code.visualstudio.com/docs/setup/linux#_visual-studio-code-is-unable-to-watch-for-file-changes-in-this-large-workspace-error-enospc</a>。</p>
+<pre tabindex="0"><code>Visual Studio Code is unable to watch for file changes in this large workspace&#34; (error ENOSPC).
+
+
+
+解决办法参考：https://code.visualstudio.com/docs/setup/linux#_visual-studio-code-is-unable-to-watch-for-file-changes-in-this-large-workspace-error-enospc
+</code></pre><pre tabindex="0"><code>在linux-5.19下
+ubuntu$ ctags -R
+no left space on disk.
+
+尝试调整虚拟机的disk资源限制。 
+sudo vim /var/root/Library/Application\ Support/multipassd/qemu/multipassd-vm-instances.json
+更改primary的disk限制，重启启动vm后不起作用。
+
+接着尝试：
+ sudo  /Library/Application\ Support/com.canonical.multipass/bin/qemu-img info /var/root/Library/Application\ Support/multipassd/qemu/vault/instances/primary/ubuntu-22.04-server-cloudimg-arm64.img
+
+ sudo  /Library/Application\ Support/com.canonical.multipass/bin/qemu-img snapshot -d suspend  /var/root/Library/Application\ Support/multipassd/qemu/vault/instances/primary/ubuntu-22.04-server-cloudimg-arm64.img
+
+ sudo  /Library/Application\ Support/com.canonical.multipass/bin/qemu-img resize /var/root/Library/Application\ Support/multipassd/qemu/vault/instances/primary/ubuntu-22.04-server-cloudimg-arm64.img +10G
+
+ Image resized.
+</code></pre><p><a href="https://multipass.run/docs/modify-an-instance#heading--set-the-cpu-ram-or-disk-of-an-instance" target="_blank" rel="noopener">https://multipass.run/docs/modify-an-instance#heading--set-the-cpu-ram-or-disk-of-an-instance</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/435237515" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/435237515</a>
+launch failed: cannot connect to the multipass socket
+解决办法：sudo launchctl load /Library/LaunchDaemons/com.canonical.multipassd.plist</p>
+<p>image resized成功，但是disk size仍然是5G。。。</p>
 <h2 id="其他">其他 <a href="#%e5%85%b6%e4%bb%96" class="anchor">🔗</a></h2><p>付费。每年付费。。。</p>
 
     </div>
