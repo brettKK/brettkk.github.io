@@ -96,33 +96,48 @@ gdb a.out layout src (c程序视角) layout asm （汇编视角） start
           <div>
               <nav id="TableOfContents">
   <ul>
-    <li><a href="#02-程序与编译器">02 程序与编译器</a>
+    <li>
       <ul>
-        <li><a href="#什么是程序">什么是程序？</a></li>
-        <li><a href="#什么是正确的编译">什么是正确的编译？</a></li>
-        <li><a href="#操作系统的常见应用程序">操作系统的常见应用程序</a></li>
-      </ul>
-    </li>
-    <li><a href="#03-多处理器编程">03 多处理器编程</a>
-      <ul>
-        <li><a href="#实现原子性">实现原子性</a></li>
-        <li><a href="#理解并发程序的执行">理解并发程序的执行</a></li>
-        <li><a href="#并发控制互斥">并发控制：互斥</a></li>
-        <li><a href="#并发控制-线程同步">并发控制： 线程同步</a></li>
-      </ul>
-    </li>
-    <li><a href="#虚拟化">虚拟化</a>
-      <ul>
-        <li><a href="#进程">进程</a></li>
-        <li><a href="#c标准库的实现">C标准库的实现</a></li>
-        <li><a href="#可执行文件">可执行文件</a></li>
-        <li><a href="#动态链接和加载">动态链接和加载</a></li>
-        <li><a href="#安装qemu">安装QEMU</a></li>
-      </ul>
-    </li>
-    <li><a href="#持久化">持久化</a>
-      <ul>
-        <li><a href="#文件">文件</a></li>
+        <li><a href="#02-程序与编译器">02 程序与编译器</a>
+          <ul>
+            <li><a href="#什么是程序">什么是程序？</a></li>
+            <li><a href="#什么是正确的编译">什么是正确的编译？</a></li>
+            <li><a href="#操作系统的常见应用程序">操作系统的常见应用程序</a></li>
+          </ul>
+        </li>
+        <li><a href="#03-多处理器编程">03 多处理器编程</a>
+          <ul>
+            <li><a href="#实现原子性">实现原子性</a></li>
+            <li><a href="#理解并发程序的执行">理解并发程序的执行</a></li>
+            <li><a href="#并发控制互斥">并发控制：互斥</a>
+              <ul>
+                <li><a href="#自旋锁spin-lock">自旋锁(spin lock)。</a></li>
+                <li><a href="#互斥锁mutex-lock">互斥锁（mutex lock）。</a></li>
+                <li><a href="#futexfast-userspace-mutexes">futex（Fast Userspace muTexes）</a></li>
+              </ul>
+            </li>
+            <li><a href="#并发控制-线程同步">并发控制： 线程同步</a></li>
+          </ul>
+        </li>
+        <li><a href="#虚拟化">虚拟化</a>
+          <ul>
+            <li><a href="#进程">进程</a>
+              <ul>
+                <li><a href="#进程的地址空间">进程的地址空间</a></li>
+                <li><a href="#系统调用shell">系统调用，shell</a></li>
+              </ul>
+            </li>
+            <li><a href="#c标准库的实现">C标准库的实现</a></li>
+            <li><a href="#可执行文件">可执行文件</a></li>
+            <li><a href="#动态链接和加载">动态链接和加载</a></li>
+            <li><a href="#安装qemu">安装QEMU</a></li>
+          </ul>
+        </li>
+        <li><a href="#持久化">持久化</a>
+          <ul>
+            <li><a href="#文件">文件</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
   </ul>

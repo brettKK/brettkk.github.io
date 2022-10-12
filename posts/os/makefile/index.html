@@ -3,12 +3,12 @@
 <script src="https://cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
 <html lang="zh-cn">
   <head>
-    <title>安全与风控 | brettkk</title>
+    <title>makefile | brettkk</title>
 
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
 <meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta name="description" content="漏洞 🔗起因是信任了用户的任意输入。 sql注入 🔗危害： 执行任意">
+<meta name="description" content="🔗 🔗 🔗可能会遇到的问题 🔗ubuntu@brett:~/mak">
 <meta name="generator" content="Hugo 0.103.1" />
 
 
@@ -62,15 +62,15 @@
       
 
 <section id="single">
-    <h1 class="title">安全与风控</h1>
+    <h1 class="title">makefile</h1>
 
     <div class="tip">
-        <time datetime="2021-05-05 11:33:56 &#43;0800 CST">May 5, 2021</time>
+        <time datetime="2022-05-05 10:13:56 &#43;0800 CST">May 5, 2022</time>
         <span class="split">
           ·
         </span>
         <span>
-          250 words
+          86 words
         </span>
         <span class="split">
           ·
@@ -91,20 +91,11 @@
           <div>
               <nav id="TableOfContents">
   <ul>
-    <li>
-      <ul>
-        <li>
-          <ul>
-            <li><a href="#漏洞">漏洞</a>
-              <ul>
-                <li><a href="#sql注入">sql注入</a></li>
-                <li><a href="#ssrf漏洞">SSRF漏洞</a></li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </li>
+    <li><a href="#heading"></a></li>
+    <li><a href="#heading-1"></a></li>
+    <li><a href="#heading-2"></a></li>
+    <li><a href="#可能会遇到的问题">可能会遇到的问题</a></li>
+    <li><a href="#reference">reference</a></li>
   </ul>
 </nav>
           </div>
@@ -117,22 +108,21 @@
 
 
     <div class="content">
-      <hr>
-<h3 id="漏洞">漏洞 <a href="#%e6%bc%8f%e6%b4%9e" class="anchor">🔗</a></h3><p>起因是信任了用户的任意输入。</p>
-<h4 id="sql注入">sql注入 <a href="#sql%e6%b3%a8%e5%85%a5" class="anchor">🔗</a></h4><p>危害： 执行任意sql，可能出现数据泄漏风险； 避免：使用ORM框架推荐的sql预编译的方法执行sql。
-即使使用了ORM框架的sql预编译的方法，框架本身有支持执行raw sql的方法。但还在一些order by, group by的参数由用户控制时会出现sql注入漏洞。
-进一步，增加白名单机制，对于排序和分组场景下，可以对传入参数预设白名单。</p>
-<p>避免： 禁止拼接sql并执行，用官方推荐用法，不信任用户的输入。</p>
-<h4 id="ssrf漏洞">SSRF漏洞 <a href="#ssrf%e6%bc%8f%e6%b4%9e" class="anchor">🔗</a></h4><p>RCE 任意代码执行</p>
-<p>XSS漏洞 前端漏洞执行恶性js代码向后端</p>
-<hr>
+      <h1 id="heading"> <a href="#heading" class="anchor">🔗</a></h1><h1 id="heading-1"> <a href="#heading-1" class="anchor">🔗</a></h1><h1 id="heading-2"> <a href="#heading-2" class="anchor">🔗</a></h1><h1 id="可能会遇到的问题">可能会遇到的问题 <a href="#%e5%8f%af%e8%83%bd%e4%bc%9a%e9%81%87%e5%88%b0%e7%9a%84%e9%97%ae%e9%a2%98" class="anchor">🔗</a></h1><pre tabindex="0"><code>ubuntu@brett:~/makefile_tutorial$ make
+Makefile:2: *** missing separator.  Stop.
+</code></pre><p>在Makefile文件中，命令必须以【tab】键开始。</p>
+<h1 id="reference">reference <a href="#reference" class="anchor">🔗</a></h1><p>[]<a href=""></a><br>
+[]<a href=""></a><br>
+[]<a href=""></a><br>
+[]<a href=""></a><br>
+[]<a href=""></a><br></p>
 
     </div>
 
     
         <div class="tags">
             
-                <a href="http://brettkk.github.io/tags/encrypt">encrypt</a>
+                <a href="http://brettkk.github.io/tags/linux">linux</a>
             
         </div>
     

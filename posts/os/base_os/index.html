@@ -65,18 +65,18 @@
     <h1 class="title">linux-base</h1>
 
     <div class="tip">
-        <time datetime="2021-05-05 11:33:56 &#43;0800 CST">May 5, 2021</time>
+        <time datetime="2022-05-05 11:33:56 &#43;0800 CST">May 5, 2022</time>
         <span class="split">
           ·
         </span>
         <span>
-          2585 words
+          3332 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          6 minute read
+          7 minute read
         </span>
     </div>
 
@@ -91,22 +91,63 @@
           <div>
               <nav id="TableOfContents">
   <ul>
-    <li><a href="#资料">资料</a>
+    <li>
       <ul>
-        <li><a href="#linux-版本">Linux 版本</a></li>
-        <li><a href="#磁盘相关的命令">磁盘相关的命令</a></li>
-        <li><a href="#有显示功能的命令">有显示功能的命令</a></li>
-        <li><a href="#网络常用工具命令文件夹network">网络常用工具命令（文件夹network）</a></li>
-        <li><a href="#进程相关的命令">进程相关的命令</a></li>
+        <li><a href="#资料">资料</a>
+          <ul>
+            <li><a href="#linux-版本">Linux 版本</a></li>
+            <li><a href="#磁盘相关的命令">磁盘相关的命令</a></li>
+            <li><a href="#有显示功能的命令">有显示功能的命令</a></li>
+            <li><a href="#网络常用工具命令文件夹network">网络常用工具命令（文件夹network）</a></li>
+            <li><a href="#进程相关的命令">进程相关的命令</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
-    <li><a href="#linux-内核中的数据结构">linux 内核中的数据结构</a>
+    <li><a href="#linux源码">linux源码</a>
       <ul>
-        <li><a href="#双向循环链表list_head">双向循环链表list_head</a></li>
+        <li><a href="#当在linux-source-code-root-directory下执行make发生了什么">当在linux source code root directory下执行make发生了什么？</a>
+          <ul>
+            <li><a href="#makefile">Makefile</a>
+              <ul>
+                <li><a href="#编译之前的准备工作">编译之前的准备工作</a></li>
+              </ul>
+            </li>
+            <li><a href="#开始build-kernel">开始build kernel</a></li>
+            <li><a href="#build-bzimage">build bzImage</a></li>
+          </ul>
+        </li>
+        <li><a href="#strongstrong"><strong></strong>
+<strong></strong>
+<strong></strong>
+<strong></strong>
+<strong></strong>
+<strong></strong>
+<strong></strong>
+<strong></strong></a></li>
+        <li><a href="#跟踪一个系统调用write">跟踪一个系统调用write</a>
+          <ul>
+            <li><a href="#gdb的跟踪与观测">gdb的跟踪与观测</a></li>
+          </ul>
+        </li>
+        <li><a href="#linux-内核中的数据结构">linux 内核中的数据结构</a>
+          <ul>
+            <li><a href="#双向循环链表list_head">双向循环链表list_head</a></li>
+          </ul>
+        </li>
+        <li><a href="#linux-内核中的各种锁">linux 内核中的各种锁</a>
+          <ul>
+            <li><a href="#spinlock">spinlock</a></li>
+            <li><a href="#mutex">Mutex</a></li>
+            <li><a href="#semaphore">semaphore</a></li>
+            <li><a href="#seqlock">Seqlock</a></li>
+            <li><a href="#rcu">RCU</a></li>
+            <li><a href="#lock-free">lock free</a></li>
+          </ul>
+        </li>
+        <li><a href="#reference">reference</a></li>
       </ul>
     </li>
-    <li><a href="#gdb">gdb</a></li>
-    <li><a href="#reference">reference</a></li>
   </ul>
 </nav>
           </div>
@@ -451,12 +492,6 @@
 <li>指针的值表示内存起始地址， 指针的类型表示从该起始地址到终止地址的内存尺寸</li>
 </ul>
 <hr>
-<h2 id="linux-内核中的数据结构">linux 内核中的数据结构 <a href="#linux-%e5%86%85%e6%a0%b8%e4%b8%ad%e7%9a%84%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84" class="anchor">🔗</a></h2><h3 id="双向循环链表list_head">双向循环链表list_head <a href="#%e5%8f%8c%e5%90%91%e5%be%aa%e7%8e%af%e9%93%be%e8%a1%a8list_head" class="anchor">🔗</a></h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">//list.h
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">struct</span> list_head {
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">struct</span> list_head <span style="color:#f92672">*</span>next, <span style="color:#f92672">*</span>prev;
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>将list_head类型的变量嵌入到宿主数据结构中。</p>
-<h2 id="gdb">gdb <a href="#gdb" class="anchor">🔗</a></h2><p>在编译时要加上-g选项，生成的可执行文件才能用gdb进行源码级调试</p>
 <p>OS 提供了多用户多进程的良好稳定环境，但有一些技术想pass os...</p>
 <ul>
 <li>kernel bypass 绕过内核  intel 开发的DPDK SPDK
@@ -474,11 +509,94 @@
 </ul>
 </li>
 </ul>
-<p>linux内核的无锁分析
-seqlock, RCU.</p>
 <p>进程上下文。proc（proc.h） 和 user(user.h)来保存进程上下文。</p>
-<h2 id="reference">reference <a href="#reference" class="anchor">🔗</a></h2><p>[]<a href=""> 返璞归真：UNIX技术内幕</a></p>
-<p>Writing a compiler in Go</p>
+<hr>
+<h1 id="linux源码">linux源码 <a href="#linux%e6%ba%90%e7%a0%81" class="anchor">🔗</a></h1><h2 id="当在linux-source-code-root-directory下执行make发生了什么">当在linux source code root directory下执行make发生了什么？ <a href="#%e5%bd%93%e5%9c%a8linux-source-code-root-directory%e4%b8%8b%e6%89%a7%e8%a1%8cmake%e5%8f%91%e7%94%9f%e4%ba%86%e4%bb%80%e4%b9%88" class="anchor">🔗</a></h2><p>kernel是怎样被编译的？<br>
+当要读源码时，最先要看的文件是根目录下的Makefile文件（例如linux-5.19中1975行，太长了...）。<br>
+另外所有包含源码的子文件夹都有自己的Makefile文件。<br></p>
+<h3 id="makefile">Makefile <a href="#makefile" class="anchor">🔗</a></h3><p>在根目录下在标准的configuration下，执行make， 最终的产物是<font color=blue>bzImage</font> <br></p>
+<p>vmlinux。</p>
+<h4 id="编译之前的准备工作">编译之前的准备工作 <a href="#%e7%bc%96%e8%af%91%e4%b9%8b%e5%89%8d%e7%9a%84%e5%87%86%e5%a4%87%e5%b7%a5%e4%bd%9c" class="anchor">🔗</a></h4><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Makefile" data-lang="Makefile"><span style="display:flex;"><span>   <span style="color:#ae81ff">1</span> <span style="color:#75715e"># SPDX-License-Identifier: GPL-2.0</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">2</span> VERSION <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">3</span> PATCHLEVEL <span style="color:#f92672">=</span> <span style="color:#ae81ff">19</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">4</span> SUBLEVEL <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">5</span> EXTRAVERSION <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">6</span> NAME <span style="color:#f92672">=</span> Superb Owl
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">361</span> KERNELVERSION <span style="color:#f92672">=</span> <span style="color:#66d9ef">$(</span>VERSION<span style="color:#66d9ef">)$(if</span> <span style="color:#66d9ef">$(</span>PATCHLEVEL<span style="color:#66d9ef">)</span>,.<span style="color:#66d9ef">$(</span>PATCHLEVEL<span style="color:#66d9ef">)$(if</span> <span style="color:#66d9ef">$(</span>SUBLEVEL<span style="color:#66d9ef">)</span>,.<span style="color:#66d9ef">$(</span>SUBLEVEL<span style="color:#66d9ef">)))$(</span>EXTRAVERSION<span style="color:#66d9ef">)</span>
+</span></span></code></pre></div><p>上面的内容很好读。后面会遇到难读的内容。。。<br>
+<font color=blue>linux的makefile提供了make help，可以打印 可以传给make的命令行参数和结果文件。</font><br>
+例如： make V=1 相当于verbose build。<br></p>
+<pre tabindex="0"><code>  79 ifeq (&#34;$(origin V)&#34;, &#34;command line&#34;)
+  80   KBUILD_VERBOSE = $(V)
+  81 endif
+  82 ifndef KBUILD_VERBOSE
+  83   KBUILD_VERBOSE = 0
+  84 endif
+  85
+  86 ifeq ($(KBUILD_VERBOSE),1)
+  87   quiet =
+  88   Q =
+  89 else
+  90   quiet=quiet_
+  91   Q = @
+  92 endif
+  93
+  94 # If the user is running make -s (silent mode), suppress echoing of
+  95 # commands
+  96
+  97 ifneq ($(findstring s,$(filter-out --%,$(MAKEFLAGS))),)
+  98   quiet=silent_
+  99   KBUILD_VERBOSE = 0
+ 100 endif
+ 101
+ 102 export quiet Q KBUILD_VERBOSE
+</code></pre><p>类似上面的操作还有<strong>KBUILD_CHECKSRC</strong>， <strong>KBUILD_EXTMOD</strong>，<strong>KBUILD_OUTPUT</strong> <br></p>
+<p><strong>USERINCLUDE</strong>，
+<strong>LINUXINCLUDE</strong>，
+<strong>KBUILD_CFLAGS</strong></p>
+<p>编译器地址相关的配置。</p>
+<p>完成所有的准备工作后，编译 vmlinux。</p>
+<h3 id="开始build-kernel">开始build kernel <a href="#%e5%bc%80%e5%a7%8bbuild-kernel" class="anchor">🔗</a></h3><pre tabindex="0"><code>688  all: vmlinux
+	         include arch/$(SRCARCH)/Makefile
+
+1163 vmlinux: scripts/link-vmlinux.sh autoksyms_recursive $(vmlinux-deps) FORCE
+
+1132 vmlinux-deps := $(KBUILD_LDS) $(KBUILD_VMLINUX_OBJS) $(KBUILD_VMLINUX_LIBS)
+</code></pre><p>vmlinux是linux的静态链接的可执行文件。scripts/link-vmlinux.sh将链接各个子系统到vmlinux。<br>
+vmlinux-deps包含了：</p>
+<pre tabindex="0"><code>arch/x86/kernel/vmlinux.lds      arch/x86/kernel/head_64.o
+init/built-in.o                  user/built-in.o
+arch/x86/built-in.o              kernel/built-in.o
+mm/built-in.o                    fs/built-in.o
+ipc/built-in.o	                 security/built-in.o
+crypto/built-in.o                block/built-in.o
+lib/lib.a                        arch/x86/lib/lib.a
+lib/built-in.o                   arch/x86/lib/built-in.o
+drivers/built-in.o               sound/built-in.o
+firmware/built-in.o              arch/x86/pci/built-in.o
+arch/x86/power/built-in.o        arch/x86/video/built-in.o
+net/built-in.o
+</code></pre><h3 id="build-bzimage">build bzImage <a href="#build-bzimage" class="anchor">🔗</a></h3><p>vmlinux编译完成之后，可以执行make</p>
+<h2 id="strongstrong"><strong></strong>
+<strong></strong>
+<strong></strong>
+<strong></strong>
+<strong></strong>
+<strong></strong>
+<strong></strong>
+<strong></strong> <a href="#strongstrong" class="anchor">🔗</a></h2><h2 id="跟踪一个系统调用write">跟踪一个系统调用write <a href="#%e8%b7%9f%e8%b8%aa%e4%b8%80%e4%b8%aa%e7%b3%bb%e7%bb%9f%e8%b0%83%e7%94%a8write" class="anchor">🔗</a></h2><h3 id="gdb的跟踪与观测">gdb的跟踪与观测 <a href="#gdb%e7%9a%84%e8%b7%9f%e8%b8%aa%e4%b8%8e%e8%a7%82%e6%b5%8b" class="anchor">🔗</a></h3><p>在编译时要加上-g选项，生成的可执行文件才能用gdb进行源码级调试</p>
+<hr>
+<h2 id="linux-内核中的数据结构">linux 内核中的数据结构 <a href="#linux-%e5%86%85%e6%a0%b8%e4%b8%ad%e7%9a%84%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84" class="anchor">🔗</a></h2><h3 id="双向循环链表list_head">双向循环链表list_head <a href="#%e5%8f%8c%e5%90%91%e5%be%aa%e7%8e%af%e9%93%be%e8%a1%a8list_head" class="anchor">🔗</a></h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">//list.h
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">struct</span> list_head {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">struct</span> list_head <span style="color:#f92672">*</span>next, <span style="color:#f92672">*</span>prev;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>将list_head类型的变量嵌入到宿主数据结构中。</p>
+<hr>
+<h2 id="linux-内核中的各种锁">linux 内核中的各种锁 <a href="#linux-%e5%86%85%e6%a0%b8%e4%b8%ad%e7%9a%84%e5%90%84%e7%a7%8d%e9%94%81" class="anchor">🔗</a></h2><p>linux内核的无锁分析</p>
+<h3 id="spinlock">spinlock <a href="#spinlock" class="anchor">🔗</a></h3><h3 id="mutex">Mutex <a href="#mutex" class="anchor">🔗</a></h3><h3 id="semaphore">semaphore <a href="#semaphore" class="anchor">🔗</a></h3><h3 id="seqlock">Seqlock <a href="#seqlock" class="anchor">🔗</a></h3><h3 id="rcu">RCU <a href="#rcu" class="anchor">🔗</a></h3><h3 id="lock-free">lock free <a href="#lock-free" class="anchor">🔗</a></h3><hr>
+<h2 id="reference">reference <a href="#reference" class="anchor">🔗</a></h2><p>[1]<a href=""> 返璞归真：UNIX技术内幕</a> <br>
+[2]<a href="https://www.google.com.hk/search?q=building&#43;linux&#43;kernel&#43;from&#43;source&#43;code" target="_blank" rel="noopener"> query= building linux kernel from source code</a> <br>
+[3]<a href="https://0xax.gitbooks.io/linux-insides/content/" target="_blank" rel="noopener"> linux-insides</a><br></p>
 <p>Arm64 入门 developer.arm.com/documentation/102374/0100</p>
 
     </div>

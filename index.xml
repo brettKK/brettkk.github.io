@@ -17,12 +17,30 @@
     </item>
     
     <item>
+      <title>linux-base</title>
+      <link>http://brettkk.github.io/posts/os/base_os/</link>
+      <pubDate>Thu, 05 May 2022 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/os/base_os/</guid>
+      <description>资料 🔗操作系统：南大 jyy。 http://jyywiki.cn/OS/2022/ https://elixir.bootlin.com/linux/lastest/source Linux 版本 🔗uname -a 查看系统</description>
+    </item>
+    
+    <item>
       <title>vs code 小结</title>
       <link>http://brettkk.github.io/posts/tools/vs_code/</link>
       <pubDate>Thu, 05 May 2022 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/tools/vs_code/</guid>
       <description>1 vscode 快捷键 🔗1.1 工作区快捷键 🔗 Cmd + Shift + P -》显示命令面板 Cmd+P</description>
+    </item>
+    
+    <item>
+      <title>makefile</title>
+      <link>http://brettkk.github.io/posts/os/makefile/</link>
+      <pubDate>Thu, 05 May 2022 10:13:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/os/makefile/</guid>
+      <description>🔗 🔗 🔗可能会遇到的问题 🔗ubuntu@brett:~/mak</description>
     </item>
     
     <item>
@@ -116,15 +134,6 @@
     </item>
     
     <item>
-      <title>linux-base</title>
-      <link>http://brettkk.github.io/posts/os/base_os/</link>
-      <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/os/base_os/</guid>
-      <description>资料 🔗操作系统：南大 jyy。 http://jyywiki.cn/OS/2022/ https://elixir.bootlin.com/linux/lastest/source Linux 版本 🔗uname -a 查看系统</description>
-    </item>
-    
-    <item>
       <title>linux-free</title>
       <link>http://brettkk.github.io/posts/os/free/</link>
       <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
@@ -185,6 +194,15 @@
       
       <guid>http://brettkk.github.io/posts/store_db/redis/</guid>
       <description>支持的value类型： 字符串，hash，列表，集合，有序集合</description>
+    </item>
+    
+    <item>
+      <title>rustc</title>
+      <link>http://brettkk.github.io/posts/rust/rustc/</link>
+      <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/rust/rustc/</guid>
+      <description>very fast rust primer 🔗 low-level, no language runtime (like c/c++) focus on memory safety and practicality ownership, lefttime, borrow checking for references. https://doc.rust-lang.org/book/ help forum: https://user.rust-lang.org rustc architecture 🔗</description>
     </item>
     
     <item>

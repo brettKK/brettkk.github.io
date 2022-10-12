@@ -6,7 +6,25 @@
     <description>Recent content in linux on brettkk</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 05 May 2021 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 05 May 2022 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>linux-base</title>
+      <link>http://brettkk.github.io/posts/os/base_os/</link>
+      <pubDate>Thu, 05 May 2022 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/os/base_os/</guid>
+      <description>资料 🔗操作系统：南大 jyy。 http://jyywiki.cn/OS/2022/ https://elixir.bootlin.com/linux/lastest/source Linux 版本 🔗uname -a 查看系统</description>
+    </item>
+    
+    <item>
+      <title>makefile</title>
+      <link>http://brettkk.github.io/posts/os/makefile/</link>
+      <pubDate>Thu, 05 May 2022 10:13:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/os/makefile/</guid>
+      <description>🔗 🔗 🔗可能会遇到的问题 🔗ubuntu@brett:~/mak</description>
+    </item>
+    
     <item>
       <title>http, curl, dns</title>
       <link>http://brettkk.github.io/posts/os/http/</link>
@@ -14,15 +32,6 @@
       
       <guid>http://brettkk.github.io/posts/os/http/</guid>
       <description>http 🔗 http header 常用字段 content-type (如何解析body) application/x-www-form-urlencoded multipart/from-data, 上传文件 application/json, text/plain text/xml, XM</description>
-    </item>
-    
-    <item>
-      <title>linux-base</title>
-      <link>http://brettkk.github.io/posts/os/base_os/</link>
-      <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/os/base_os/</guid>
-      <description>资料 🔗操作系统：南大 jyy。 http://jyywiki.cn/OS/2022/ https://elixir.bootlin.com/linux/lastest/source Linux 版本 🔗uname -a 查看系统</description>
     </item>
     
     <item>
