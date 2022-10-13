@@ -8,7 +8,7 @@
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
 <meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta name="description" content="why 🔗大型项目编译过程复杂，需要管理编译中需要参数，环境，编译">
+<meta name="description" content="GNU make is implemented by Richard Stallman and Roland McGrath. Respect. why 🔗大型项目编译过程复杂，需要管理编译">
 <meta name="generator" content="Hugo 0.103.1" />
 
 
@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          1313 words
+          1314 words
         </span>
         <span class="split">
           ·
@@ -121,8 +121,8 @@
 
 
     <div class="content">
-      <h1 id="why">why <a href="#why" class="anchor">🔗</a></h1><p>大型项目编译过程复杂，需要管理编译中需要参数，环境，编译依赖等，so 自动化的编译工具。<br>
-<strong>make</strong> is implemented by <strong><font color=blue><a href="https://stallman.org/" target="_blank" rel="noopener">Richard Stallman</a></font><strong> and Roland McGrath.</p>
+      <p><strong>GNU make</strong> is implemented by <strong><font color=blue><a href="https://stallman.org/" target="_blank" rel="noopener">Richard Stallman</a></font><strong> and Roland McGrath.  Respect.</p>
+<h1 id="why">why <a href="#why" class="anchor">🔗</a></h1><p>大型项目编译过程复杂，需要管理编译中需要参数，环境，编译依赖等，so 自动化的编译工具。<br></p>
 <h1 id="what">what <a href="#what" class="anchor">🔗</a></h1><p>makefile是用来描述文件依赖关系，并告诉make命令如何根据这种依赖关系，根据指定的shell命令进行构建的工具。 <br>
 make命令运行时没有指定目标，默认会执行Makefile文件的第一个目标。<br></p>
 <p><strong>gnu的官方文档</strong>（参考地址1）Manual中若想速览的话 推荐先读每一章的第一节，第二章全读。</p>
@@ -210,11 +210,13 @@ $(addsuffix .c,foo bar) 返回值是 ？
 $(filter %.c %.s,$(sources))作用？ 返回sources里面.c和.s结尾
 
 $(wildcard *.c) 作用？ 返回所有.c的文件
-</code></pre><h1 id="how">how <a href="#how" class="anchor">🔗</a></h1><p>例如：linux kernel的Makefile是先处理一些环境变量或者参数，然从某个位置执行命令。<br></p>
+</code></pre><h1 id="how">how <a href="#how" class="anchor">🔗</a></h1><p><a href="https://ftp.gnu.org/gnu/" target="_blank" rel="noopener">GNU software</a> <br></p>
+<p><a href="https://ftp.gnu.org/gnu/make/" target="_blank" rel="noopener">GNU make software</a> <br></p>
 <h1 id="hole">hole <a href="#hole" class="anchor">🔗</a></h1><pre tabindex="0"><code>ubuntu@brett:~/makefile_tutorial$ make
 Makefile:2: *** missing separator.  Stop.
 </code></pre><p>在Makefile文件中，命令必须以【tab】键开始。</p>
-<h1 id="实践">实践 <a href="#%e5%ae%9e%e8%b7%b5" class="anchor">🔗</a></h1><h2 id="linux-kernel-makefile">linux kernel makefile <a href="#linux-kernel-makefile" class="anchor">🔗</a></h2><h1 id="reference">reference <a href="#reference" class="anchor">🔗</a></h1><p>[1]<a href="https://www.gnu.org/software/make/manual/make.html" target="_blank" rel="noopener"> GNU make</a><br>
+<h1 id="实践">实践 <a href="#%e5%ae%9e%e8%b7%b5" class="anchor">🔗</a></h1><h2 id="linux-kernel-makefile">linux kernel makefile <a href="#linux-kernel-makefile" class="anchor">🔗</a></h2><p>例如：linux kernel的Makefile是先处理一些环境变量或者参数，然从某个位置执行命令。<br></p>
+<h1 id="reference">reference <a href="#reference" class="anchor">🔗</a></h1><p>[1]<a href="https://www.gnu.org/software/make/manual/make.html" target="_blank" rel="noopener"> GNU make</a><br>
 [2]<a href="https://makefiletutorial.com/#getting-started" target="_blank" rel="noopener"> Learn Makefiles With the tastiest examples</a><br>
 [3]<a href="https://seisman.github.io/how-to-write-makefile/index.html" target="_blank" rel="noopener"> 跟我一起写Makefile</a><br>
 [4]<a href="https://www.ruanyifeng.com/blog/2015/02/make.html" target="_blank" rel="noopener"> Make 命令教程</a><br></p>
