@@ -70,13 +70,13 @@
           ·
         </span>
         <span>
-          1462 words
+          1530 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          3 minute read
+          4 minute read
         </span>
     </div>
 
@@ -178,15 +178,17 @@ and only apply when the workspace is opened.
 <h3 id="32-rust-环境配置">3.2 rust 环境配置 <a href="#32-rust-%e7%8e%af%e5%a2%83%e9%85%8d%e7%bd%ae" class="anchor">🔗</a></h3><p> 插件：the rust-analyzer extension<br>
  编译器：installed via the rustup installer<br>
  验证一下编译器是否安装：rustc --version<br></p>
-<h3 id="33-cc-环境配置">3.3 c/c++ 环境配置 <a href="#33-cc-%e7%8e%af%e5%a2%83%e9%85%8d%e7%bd%ae" class="anchor">🔗</a></h3><p> 插件： Microsoft C/C++ extension 。<br>
+<h3 id="33-cc-环境配置">3.3 c/c++ 环境配置 <a href="#33-cc-%e7%8e%af%e5%a2%83%e9%85%8d%e7%bd%ae" class="anchor">🔗</a></h3><p>官方文档：https://code.visualstudio.com/docs/cpp/introvideos-cpp <br></p>
+<p> 插件： Microsoft C/C++ extension 。<br>
  编译器：Linux的 GNU Compiler Collection (GCC) 和 macOS的Clang tools with Xcode 已经安装了。<br>
  验证一下编译器是否安装g++ --version， clang --version</p>
+<p>Configure C++ IntelliSense</p>
 <h4 id="debugging">debugging <a href="#debugging" class="anchor">🔗</a></h4><ul>
 <li>.vscode文件夹
 <ul>
-<li>tasks.json，告诉VS Code如何构建（编译）程序</li>
-<li>launch.json，执行编译好的文件</li>
-<li>c_cpp_properties.json，编译器路径和IntelliSense设置</li>
+<li>tasks.json (compiler build settings)，告诉VS Code如何编译程序</li>
+<li>launch.json (debugger settings)，执行编译好的文件</li>
+<li>c_cpp_properties.json (compiler path and IntelliSense settings) ，编译器路径和IntelliSense设置</li>
 </ul>
 </li>
 </ul>
@@ -210,6 +212,11 @@ cc1: note: valid arguments are: armv8-a armv8.1-a armv8.2-a armv8.3-a armv8.4-a 
 <li>nano</li>
 <li>vim/tmux
 <ul>
+<li>vim中执行命令
+<ul>
+<li>:!rm compile_commands.json 删除vim .中的一个文件。</li>
+</ul>
+</li>
 <li>ctags -R
 <ul>
 <li>ctrl + ](), ctrl + t()</li>
