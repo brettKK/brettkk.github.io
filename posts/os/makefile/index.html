@@ -123,14 +123,14 @@
     <div class="content">
       <h1 id="why">why <a href="#why" class="anchor">🔗</a></h1><p>大型项目编译过程复杂，需要管理编译中需要参数，环境，编译依赖等，so 自动化的编译工具。<br>
 <strong>make</strong> is implemented by <strong><font color=blue><a href="https://stallman.org/" target="_blank" rel="noopener">Richard Stallman</a></font><strong> and Roland McGrath.</p>
-<h1 id="what">what <a href="#what" class="anchor">🔗</a></h1><p>makefile是用来描述文件依赖关系，并告诉make命令如何根据这种依赖关系，根据指定的Shell命令进行构建的工具。 <br>
+<h1 id="what">what <a href="#what" class="anchor">🔗</a></h1><p>makefile是用来描述文件依赖关系，并告诉make命令如何根据这种依赖关系，根据指定的shell命令进行构建的工具。 <br>
 make命令运行时没有指定目标，默认会执行Makefile文件的第一个目标。<br></p>
-<p>gnu的官方文档（参考地址1）Manual中若想速览的话 推荐先读每一章的第一节，第二章全读。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-makefile" data-lang="makefile"><span style="display:flex;"><span><span style="color:#a6e22e">&lt;target&gt; </span><span style="color:#f92672">:</span> &lt;prerequisites&gt; 
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">[tab]</span>  <span style="color:#960050;background-color:#1e0010">&lt;commands&gt;</span>
-</span></span></code></pre></div><p>引用其它的Makefile。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-makefile" data-lang="makefile"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">include</span> <span style="color:#960050;background-color:#1e0010">&lt;filename&gt;</span>
-</span></span></code></pre></div><h2 id="规则">规则 <a href="#%e8%a7%84%e5%88%99" class="anchor">🔗</a></h2><p>声明clean是&quot;伪目标&quot;之后，make就不会去检查是否存在一个叫做clean的文件。</p>
+<p><strong>gnu的官方文档</strong>（参考地址1）Manual中若想速览的话 推荐先读每一章的第一节，第二章全读。</p>
+<pre tabindex="0"><code>&lt;target&gt; : &lt;prerequisites&gt; 
+[tab]  &lt;commands&gt;
+</code></pre><p>引用其它的Makefile。</p>
+<pre tabindex="0"><code>include &lt;filename&gt;
+</code></pre><h2 id="规则">规则 <a href="#%e8%a7%84%e5%88%99" class="anchor">🔗</a></h2><p>声明clean是&quot;伪目标&quot;之后，make就不会去检查是否存在一个叫做clean的文件。</p>
 <pre tabindex="0"><code>.PHONY: clean
 clean:
         rm *.o
