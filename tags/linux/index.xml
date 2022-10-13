@@ -22,7 +22,7 @@
       <pubDate>Thu, 05 May 2022 10:13:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/os/makefile/</guid>
-      <description>why 🔗what 🔗@符号： 加在命令前则执行命令但不显示命令的内容</description>
+      <description>why 🔗大型项目编译过程复杂，需要管理编译中需要参数，环境，编译</description>
     </item>
     
     <item>
