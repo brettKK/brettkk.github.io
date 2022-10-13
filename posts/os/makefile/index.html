@@ -8,7 +8,7 @@
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
 <meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta name="description" content="🔗 🔗 🔗可能会遇到的问题 🔗ubuntu@brett:~/mak">
+<meta name="description" content="why 🔗what 🔗@符号： 加在命令前则执行命令但不显示命令的内容">
 <meta name="generator" content="Hugo 0.103.1" />
 
 
@@ -70,13 +70,13 @@
           ·
         </span>
         <span>
-          86 words
+          618 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          1 minute read
+          2 minute read
         </span>
     </div>
 
@@ -91,10 +91,10 @@
           <div>
               <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading"></a></li>
-    <li><a href="#heading-1"></a></li>
-    <li><a href="#heading-2"></a></li>
-    <li><a href="#可能会遇到的问题">可能会遇到的问题</a></li>
+    <li><a href="#why">why</a></li>
+    <li><a href="#what">what</a></li>
+    <li><a href="#how">how</a></li>
+    <li><a href="#hole">hole</a></li>
     <li><a href="#reference">reference</a></li>
   </ul>
 </nav>
@@ -108,14 +108,47 @@
 
 
     <div class="content">
-      <h1 id="heading"> <a href="#heading" class="anchor">🔗</a></h1><h1 id="heading-1"> <a href="#heading-1" class="anchor">🔗</a></h1><h1 id="heading-2"> <a href="#heading-2" class="anchor">🔗</a></h1><h1 id="可能会遇到的问题">可能会遇到的问题 <a href="#%e5%8f%af%e8%83%bd%e4%bc%9a%e9%81%87%e5%88%b0%e7%9a%84%e9%97%ae%e9%a2%98" class="anchor">🔗</a></h1><pre tabindex="0"><code>ubuntu@brett:~/makefile_tutorial$ make
+      <h1 id="why">why <a href="#why" class="anchor">🔗</a></h1><h1 id="what">what <a href="#what" class="anchor">🔗</a></h1><pre tabindex="0"><code>@符号： 加在命令前则执行命令但不显示命令的内容。
+
+make只显示命令不执行命令？ make -n 或者 make --just-print
+
+make指定一个文件进行build? make -f thisfile
+
+命令之前加&#39;-&#39;的作用？ 不管命令是否错误都认为是成功的。
+
+如何把父makefile里的变量传递给子目录的make？export value 。
+</code></pre><pre tabindex="0"><code># 字符与变量
+
+对一个变量取值? ${} 或者$()
+%通配符表示什么？ 表示一个或多个任意字符
+赋值方式中 =、 :=、+=、?=的区别？ = 赋值， := 覆盖之前的值，?= 若没有定义过就赋值，+= 追加值
+$@ $&lt; $^ $+ $? 的含义？  $@编译的目标文件集合    $&lt; 取第一个依赖 $^ 取全部依赖    $+取全部（不去除重复） $?比目标新的依赖集合
+</code></pre><pre tabindex="0"><code># 函数
+
+ifeq语句的编写格式?               ifeq (&lt;arg1&gt;, &lt;arg2&gt;) else endif
+
+错误提示函数。                    $(error &lt;text ...&gt;)
+
+$(origin &lt;variable&gt;)的作用？     
+判断变量的来源，比如是undefined 、default、file、command line等
+
+if函数如何写?       $(if &lt;condition&gt;,&lt;then-part&gt;,&lt;else-part&gt;)
+
+$(addprefix src/,foo bar) 返回值是？
+
+$(addsuffix .c,foo bar) 返回值是 ？
+
+$(filter %.c %.s,$(sources))作用？ 返回sources里面.c和.s结尾
+
+$(wildcard *.c) 作用？ 返回所有.c的文件
+</code></pre><h1 id="how">how <a href="#how" class="anchor">🔗</a></h1><p>例如：linux kernel的Makefile是先处理一些环境变量或者参数，然从某个位置执行命令。<br></p>
+<h1 id="hole">hole <a href="#hole" class="anchor">🔗</a></h1><pre tabindex="0"><code>ubuntu@brett:~/makefile_tutorial$ make
 Makefile:2: *** missing separator.  Stop.
 </code></pre><p>在Makefile文件中，命令必须以【tab】键开始。</p>
-<h1 id="reference">reference <a href="#reference" class="anchor">🔗</a></h1><p>[]<a href=""></a><br>
-[]<a href=""></a><br>
-[]<a href=""></a><br>
-[]<a href=""></a><br>
-[]<a href=""></a><br></p>
+<h1 id="reference">reference <a href="#reference" class="anchor">🔗</a></h1><p>[1]<a href="https://www.gnu.org/software/make/manual/make.html" target="_blank" rel="noopener"> GNU make</a><br>
+[2]<a href="https://makefiletutorial.com/#getting-started" target="_blank" rel="noopener"> Learn Makefiles With the tastiest examples</a><br>
+[3]<a href="https://seisman.github.io/how-to-write-makefile/index.html" target="_blank" rel="noopener"> 跟我一起写Makefile</a><br>
+[4]<a href="https://www.ruanyifeng.com/blog/2015/02/make.html" target="_blank" rel="noopener"> Make 命令教程</a><br></p>
 
     </div>
 
