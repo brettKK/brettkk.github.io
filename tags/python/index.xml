@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>python on brettkk</title>
+    <link>http://brettkk.github.io/tags/python/</link>
+    <description>Recent content in python on brettkk</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 05 Aug 2022 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>闭包closure</title>
+      <link>http://brettkk.github.io/posts/rust/closure_at_go_c_py_rust/</link>
+      <pubDate>Fri, 05 Aug 2022 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/rust/closure_at_go_c_py_rust/</guid>
+      <description>why PL need closure? 🔗想一下在函数式编程语言中，宣传函数是一等公民，把函</description>
+    </item>
+    
+  </channel>
+</rss>

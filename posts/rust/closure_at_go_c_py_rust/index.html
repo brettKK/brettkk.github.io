@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<html lang="zh-cn">
+  <head>
+    <title>闭包closure | brettkk</title>
+
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
+<meta name="viewport" content="width=device-width,minimum-scale=1">
+<meta name="description" content="why PL need closure? 🔗想一下在函数式编程语言中，宣传函数是一等公民，把函">
+<meta name="generator" content="Hugo 0.103.1" />
+
+
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+<link href="https://cdn.bootcss.com/highlight.js/9.15.10/styles/zenburn.min.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<link rel="stylesheet" href="http://brettkk.github.io/css/syntax.css" />
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js" integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+
+
+
+
+  </head>
+
+  <body>
+    <nav class="navigation">
+	
+		<a href="/"> <span class="arrow">←</span>Home</a>
+	
+	<a href="/posts">Archive</a>
+	<a href="/tags">Tags</a>
+	<a href="/about">About</a>
+
+	
+
+	
+</nav>
+
+
+    <main class="main">
+      
+
+<section id="single">
+    <h1 class="title">闭包closure</h1>
+
+    <div class="tip">
+        <time datetime="2022-08-05 11:33:56 &#43;0800 CST">Aug 5, 2022</time>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          1007 words
+        </span>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          3 minute read
+        </span>
+    </div>
+
+    
+    
+        
+  
+    <aside class="toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
+          <div>
+              <nav id="TableOfContents">
+  <ul>
+    <li><a href="#why-pl-need-closure">why PL need closure?</a></li>
+    <li><a href="#what">what</a>
+      <ul>
+        <li><a href="#静态作用域-词法作用域">静态作用域 （词法作用域）</a></li>
+        <li><a href="#动态作用域">动态作用域</a></li>
+      </ul>
+    </li>
+    <li><a href="#how-closure-at-pl">how closure at PL</a>
+      <ul>
+        <li><a href="#closure-at-c">closure at C</a></li>
+        <li><a href="#closure-at-golang">closure at golang</a></li>
+        <li><a href="#closure-at-python">closure at python</a></li>
+      </ul>
+    </li>
+    <li><a href="#其他">其他</a>
+      <ul>
+        <li><a href="#正则表达式中的闭包属性closure-property">正则表达式中的闭包属性（closure property）</a></li>
+        <li><a href="#正则表达式引擎">正则表达式引擎</a></li>
+        <li><a href="#数学中的封闭">数学中的封闭</a></li>
+        <li><a href="#closure-at-rust">closure at rust</a></li>
+      </ul>
+    </li>
+    <li><a href="#reference">reference</a></li>
+  </ul>
+</nav>
+          </div>
+      </details>
+    </aside>
+  
+
+
+    
+
+
+    <div class="content">
+      <h1 id="why-pl-need-closure">why PL need closure? <a href="#why-pl-need-closure" class="anchor">🔗</a></h1><p>想一下在函数式编程语言中，宣传函数是一等公民，把函数作为一种类型定义变量，把函数作为函数的参数和返回值时。那么我们定义一个函数时，很自然出来一个问题：函数可以使用哪些变量？</p>
+<ul>
+<li>函数自己的实参</li>
+<li>函数内定义的局部变量</li>
+<li>程序整个生命周期内都一直存活的全局静态变量</li>
+<li><font color=red>Outer函数A定义Inner函数B，并把Inner函数B作为Outer函数A的返回值， Inner函数B中能使用scope A中的变量吗？</font>
+<ul>
+<li>当然可以，站在Inner函数B的角度下，Inner函数B出生在Outer函数A里面（出生==首次被定义），自然看到函数A的内部变量了。</li>
+<li>Outer函数A对应的scope(作用域)下有的东西可以被Inner函数B可见可使用。</li>
+<li>但是Inner函数B作为了返回值，会在未来的某个程序点处使用。</li>
+<li>此时Outer函数A的scope中实参和局部变量在栈上会消失，所以出现&quot;闭包&quot;概念就构造一个结构体去capture 外部变量。</li>
+</ul>
+</li>
+</ul>
+<p>所以，闭包是为了解决函数式语言中函数在使用变量时能看到哪些变量（变量作用域）的技术。</p>
+<h1 id="what">what <a href="#what" class="anchor">🔗</a></h1><h2 id="静态作用域-词法作用域">静态作用域 （词法作用域） <a href="#%e9%9d%99%e6%80%81%e4%bd%9c%e7%94%a8%e5%9f%9f-%e8%af%8d%e6%b3%95%e4%bd%9c%e7%94%a8%e5%9f%9f" class="anchor">🔗</a></h2><h2 id="动态作用域">动态作用域 <a href="#%e5%8a%a8%e6%80%81%e4%bd%9c%e7%94%a8%e5%9f%9f" class="anchor">🔗</a></h2><p>Emacs, Lisp中使用动态作用域。</p>
+<p>现代的PL中几乎看不到动态作用域的影子。</p>
+<h1 id="how-closure-at-pl">how closure at PL <a href="#how-closure-at-pl" class="anchor">🔗</a></h1><h2 id="closure-at-c">closure at C <a href="#closure-at-c" class="anchor">🔗</a></h2><h2 id="closure-at-golang">closure at golang <a href="#closure-at-golang" class="anchor">🔗</a></h2><h2 id="closure-at-python">closure at python <a href="#closure-at-python" class="anchor">🔗</a></h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python3" data-lang="python3"><span style="display:flex;"><span>  <span style="color:#ae81ff">1</span> <span style="color:#75715e">#!/usr/bin/python3</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">3</span> shadowed_var <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>                             <span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">4</span> <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">outer</span>(x):                                 <span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">5</span>         shadowed_var <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>;                    <span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">6</span>         <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">inner</span>(y):                         <span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">7</span>                 tripple <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>                   <span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">8</span>                 tripple <span style="color:#f92672">=</span> shadowed_var <span style="color:#f92672">*</span> <span style="color:#ae81ff">3</span>    <span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">9</span>                 <span style="color:#66d9ef">return</span> x <span style="color:#f92672">+</span> y <span style="color:#f92672">+</span> tripple        <span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">10</span>         <span style="color:#66d9ef">return</span> inner                          <span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">11</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">12</span> fun <span style="color:#f92672">=</span> outer(<span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">13</span> <span style="color:#75715e"># x = 1, y = 2, tripple = 20 * 3</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">14</span> print(fun(<span style="color:#ae81ff">2</span>)) <span style="color:#75715e"># 63</span>
+</span></span><span style="display:flex;"><span> <span style="color:#ae81ff">15</span> print(<span style="color:#e6db74">&#34;demonstration end. </span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
+</span></span></code></pre></div><h1 id="其他">其他 <a href="#%e5%85%b6%e4%bb%96" class="anchor">🔗</a></h1><h2 id="正则表达式中的闭包属性closure-property">正则表达式中的闭包属性（closure property） <a href="#%e6%ad%a3%e5%88%99%e8%a1%a8%e8%be%be%e5%bc%8f%e4%b8%ad%e7%9a%84%e9%97%ad%e5%8c%85%e5%b1%9e%e6%80%a7closure-property" class="anchor">🔗</a></h2><p>1951年，<a href="https://en.wikipedia.org/wiki/Stephen_Cole_Kleene" target="_blank" rel="noopener">Stephen Cole Kleene</a>提出。</p>
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "https://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="800" height="600" version="1.1" xmlns="http://www.w3.org/2000/svg">
+	<ellipse stroke="black" stroke-width="1" fill="none" cx="152.5" cy="142.5" rx="30" ry="30"/>
+	<text x="137.5" y="148.5" font-family="Times New Roman" font-size="20">S&#8321;</text>
+	<ellipse stroke="black" stroke-width="1" fill="none" cx="152.5" cy="142.5" rx="24" ry="24"/>
+	<ellipse stroke="black" stroke-width="1" fill="none" cx="427.5" cy="142.5" rx="30" ry="30"/>
+	<text x="412.5" y="148.5" font-family="Times New Roman" font-size="20">S&#8322;</text>
+	<ellipse stroke="black" stroke-width="1" fill="none" cx="165.5" cy="354.5" rx="30" ry="30"/>
+	<text x="150.5" y="360.5" font-family="Times New Roman" font-size="20">S&#8323;</text>
+	<ellipse stroke="black" stroke-width="1" fill="none" cx="165.5" cy="354.5" rx="24" ry="24"/>
+	<ellipse stroke="black" stroke-width="1" fill="none" cx="424.5" cy="351.5" rx="30" ry="30"/>
+	<text x="410.5" y="357.5" font-family="Times New Roman" font-size="20">s&#8324;</text>
+	<polygon stroke="black" stroke-width="1" points="71.5,117.5 123.834,133.653"/>
+	<polygon fill="black" stroke-width="1" points="123.834,133.653 117.665,126.516 114.716,136.071"/>
+	<path stroke="black" stroke-width="1" fill="none" d="M 400.457,155.456 A 287.335,287.335 0 0 1 179.543,155.456"/>
+	<polygon fill="black" stroke-width="1" points="400.457,155.456 391.15,153.916 394.994,163.147"/>
+	<text x="285.5" y="198.5" font-family="Times New Roman" font-size="20">0</text>
+	<path stroke="black" stroke-width="1" fill="none" d="M 180.158,130.907 A 320.261,320.261 0 0 1 399.842,130.907"/>
+	<polygon fill="black" stroke-width="1" points="180.158,130.907 189.387,132.86 185.957,123.466"/>
+	<text x="285.5" y="102.5" font-family="Times New Roman" font-size="20">0</text>
+	<path stroke="black" stroke-width="1" fill="none" d="M 142.547,114.323 A 22.5,22.5 0 1 1 168.811,117.461"/>
+	<text x="158.5" y="65.5" font-family="Times New Roman" font-size="20">1</text>
+	<polygon fill="black" stroke-width="1" points="168.811,117.461 177.915,114.99 170.58,108.194"/>
+	<path stroke="black" stroke-width="1" fill="none" d="M 152.275,327.703 A 22.5,22.5 0 1 1 178.725,327.703"/>
+	<text x="160.5" y="278.5" font-family="Times New Roman" font-size="20">0</text>
+	<polygon fill="black" stroke-width="1" points="178.725,327.703 187.473,324.17 179.382,318.292"/>
+	<path stroke="black" stroke-width="1" fill="none" d="M 399.676,368.301 A 212.925,212.925 0 0 1 190.707,370.721"/>
+	<polygon fill="black" stroke-width="1" points="399.676,368.301 390.247,367.979 395.255,376.635"/>
+	<text x="290.5" y="418.5" font-family="Times New Roman" font-size="20">1</text>
+	<polygon stroke="black" stroke-width="1" points="89.5,337.5 136.223,347.951"/>
+	<polygon fill="black" stroke-width="1" points="136.223,347.951 129.508,341.326 127.325,351.084"/>
+	<path stroke="black" stroke-width="1" fill="none" d="M 191.864,340.222 A 249.901,249.901 0 0 1 397.812,337.836"/>
+	<polygon fill="black" stroke-width="1" points="191.864,340.222 201.227,341.373 197.001,332.31"/>
+	<text x="289.5" y="307.5" font-family="Times New Roman" font-size="20">1</text>
+</svg>
+<p>进行笛卡尔积后的状态机为：</p>
+<p>正则表达式：</p>
+<p>wikipedia <a href="https://en.wikipedia.org/wiki/Regular_expression" target="_blank" rel="noopener">regular expression</a></p>
+<p><a href="https://people.computing.clemson.edu/~goddard/texts/theoryOfComputation/4a.pdf" target="_blank" rel="noopener">Closure Properties of Regular Languages</a></p>
+<p>正则语言：</p>
+<p>wikipedia <a href="https://en.wikipedia.org/wiki/Regular_language" target="_blank" rel="noopener">regular language</a></p>
+<h2 id="正则表达式引擎">正则表达式引擎 <a href="#%e6%ad%a3%e5%88%99%e8%a1%a8%e8%be%be%e5%bc%8f%e5%bc%95%e6%93%8e" class="anchor">🔗</a></h2><p><a href="">regular expression engine</a>
+有限自动机<a href="https://en.wikipedia.org/wiki/Finite-state_machine" target="_blank" rel="noopener">Finite-state machine</a></p>
+<p><a href="https://www.cs.cornell.edu/courses/cs2800/2017sp/lectures/lec27-kleene.html" target="_blank" rel="noopener">Kleene’s Theorem</a>：正则表达式与有限自动机（NFA和DFA）等价且可以相互转换。<br>
+<p class="markdown-image">
+  <img src="https://www.cs.cornell.edu/courses/cs2800/2017sp/lectures/lec27-re-to-nfa.svg" alt="avatar"  />
+</p></p>
+<p><a href="https://en.wikipedia.org/wiki/Ken_Thompson" target="_blank" rel="noopener">Ken_Thompson</a>在1968年文章《Regular Expression Search Algorithm》 实现了从regular expression转换到FA的算法。</p>
+<p>todo 画状态机描述下算法。Thompson’s Construction思想是：</p>
+<h2 id="数学中的封闭">数学中的封闭 <a href="#%e6%95%b0%e5%ad%a6%e4%b8%ad%e7%9a%84%e5%b0%81%e9%97%ad" class="anchor">🔗</a></h2><p><a href="https://zh.wikipedia.org/wiki/%E4%BB%A3%E6%95%B0%E7%BB%93%E6%9E%84" target="_blank" rel="noopener">代数结构</a> （集合 + 运算操作）。</p>
+<p>加法运算和乘法运算是在自然数集和上是封闭的（closure）。但是减法和除法不是。</p>
+<h2 id="closure-at-rust">closure at rust <a href="#closure-at-rust" class="anchor">🔗</a></h2><h1 id="reference">reference <a href="#reference" class="anchor">🔗</a></h1><p>[]<a href="https://swtch.com/~rsc/regexp/" target="_blank" rel="noopener"> Implementing Regular Expressions</a><br>
+[]<a href=""> </a><br>
+[]<a href=""> </a><br>
+[]<a href=""> </a><br>
+[]<a href=""> </a><br>
+[]<a href=""> </a><br>
+[]<a href="https://madebyevan.com/fsm/" target="_blank" rel="noopener"> Finite State Machine Designer</a><br></p>
+
+    </div>
+
+    
+        <div class="tags">
+            
+                <a href="http://brettkk.github.io/tags/compiler">compiler</a>
+            
+                <a href="http://brettkk.github.io/tags/rustc">rustc</a>
+            
+                <a href="http://brettkk.github.io/tags/golang">golang</a>
+            
+                <a href="http://brettkk.github.io/tags/python">python</a>
+            
+                <a href="http://brettkk.github.io/tags/c">C</a>
+            
+        </div>
+    
+    
+    
+
+</section>
+
+
+    </main>
+    
+    <footer id="footer">
+    
+
+    <script src="https://utteranc.es/client.js"
+repo="brettKK/brettkk.github.io"
+issue-term="title"
+theme="github-light"
+crossorigin="anonymous"
+async>
+</script>  
+
+    <div class="copyright">
+    
+       © Copyright 
+       2022 
+       <span class="split">
+        <svg fill="#bbbbbb" width="15" height="15" version="1.1" id="heart-15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 15 15">
+  <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>
+</svg>
+       </span>
+       
+    
+    </div>
+
+    
+      <div class="powerby">
+        Powered by <a href='http://www.gohugo.io/'>Hugo</a> Theme By <a href='https://github.com/nodejh/hugo-theme-cactus-plus'>nodejh</a>
+      </div>
+    
+</footer>
+
+
+
+
+  </body>
+</html>
