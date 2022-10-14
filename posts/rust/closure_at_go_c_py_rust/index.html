@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          1007 words
+          1068 words
         </span>
         <span class="split">
           ·
@@ -208,7 +208,7 @@
   <img src="https://www.cs.cornell.edu/courses/cs2800/2017sp/lectures/lec27-re-to-nfa.svg" alt="avatar"  />
 </p></p>
 <p><a href="https://en.wikipedia.org/wiki/Ken_Thompson" target="_blank" rel="noopener">Ken_Thompson</a>在1968年文章《Regular Expression Search Algorithm》 实现了从regular expression转换到FA的算法。</p>
-<p>todo 画状态机描述下算法。Thompson’s Construction思想是：</p>
+<p>todo 画状态机描述下算法。Thompson’s Construction思想是： 将正则表达式分解为最小的子表达式，再通过最小的有限自动机单元（识别零个字符 $ \varepsilon $ 和 识别一个字符的最小单元）构造完整的FA。</p>
 <h2 id="数学中的封闭">数学中的封闭 <a href="#%e6%95%b0%e5%ad%a6%e4%b8%ad%e7%9a%84%e5%b0%81%e9%97%ad" class="anchor">🔗</a></h2><p><a href="https://zh.wikipedia.org/wiki/%E4%BB%A3%E6%95%B0%E7%BB%93%E6%9E%84" target="_blank" rel="noopener">代数结构</a> （集合 + 运算操作）。</p>
 <p>加法运算和乘法运算是在自然数集和上是封闭的（closure）。但是减法和除法不是。</p>
 <h2 id="closure-at-rust">closure at rust <a href="#closure-at-rust" class="anchor">🔗</a></h2><h1 id="reference">reference <a href="#reference" class="anchor">🔗</a></h1><p>[]<a href="https://swtch.com/~rsc/regexp/" target="_blank" rel="noopener"> Implementing Regular Expressions</a><br>
