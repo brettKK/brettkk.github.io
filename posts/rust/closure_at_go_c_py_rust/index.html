@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          1068 words
+          1410 words
         </span>
         <span class="split">
           ·
@@ -208,15 +208,56 @@
   <img src="https://www.cs.cornell.edu/courses/cs2800/2017sp/lectures/lec27-re-to-nfa.svg" alt="avatar"  />
 </p></p>
 <p><a href="https://en.wikipedia.org/wiki/Ken_Thompson" target="_blank" rel="noopener">Ken_Thompson</a>在1968年文章《Regular Expression Search Algorithm》 实现了从regular expression转换到FA的算法。</p>
-<p>todo 画状态机描述下算法。Thompson’s Construction思想是： 将正则表达式分解为最小的子表达式，再通过最小的有限自动机单元（识别零个字符 $ \varepsilon $ 和 识别一个字符的最小单元）构造完整的FA。</p>
+<p>Union, Concatenation,  Closure (Kleene Star)， todo画状态机描述下如何通过叠加最小的单元状态机去构造复杂的状态机。</p>
+<p>Thompson’s Construction思想是：</p>
+<ul>
+<li>将infix的正则表达式变为postfix表达式，为了方便在postfix中处理正则运算符的优先级。</li>
+<li>将正则表达式分解为最小的子表达式，再通过最小的有限自动机单元（识别零个字符 $ \varepsilon $ 和 识别一个字符的最小单元）构造完整的FA。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">State</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">isEnd</span> <span style="color:#66d9ef">bool</span>,                   <span style="color:#75715e">// 状态是否为终结可接受的状态
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">transition</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">byte</span>]<span style="color:#f92672">*</span><span style="color:#a6e22e">State</span>,   <span style="color:#75715e">// 遇到symbol后next state的存储
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">epsilonTransitions</span>: []<span style="color:#f92672">*</span><span style="color:#a6e22e">State</span>, <span style="color:#75715e">// 不消耗symbol可以前往哪些next state
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">addEpsilonTransition</span>(<span style="color:#a6e22e">from</span>, <span style="color:#a6e22e">to</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">State</span>) {
+</span></span><span style="display:flex;"><span>    append(<span style="color:#a6e22e">from</span>.<span style="color:#a6e22e">epsilonTransitions</span>, <span style="color:#a6e22e">to</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">addTransition</span>(<span style="color:#a6e22e">from</span>, <span style="color:#a6e22e">to</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">State</span>, <span style="color:#a6e22e">symbol</span> <span style="color:#66d9ef">byte</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">from</span>.<span style="color:#a6e22e">transition</span>[<span style="color:#a6e22e">symbol</span>] = <span style="color:#a6e22e">to</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// NFA 是一个只包含状态起始状态指针和终止状态指针的结构体。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">NFA</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">start</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">State</span>, <span style="color:#a6e22e">end</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">State</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 构造最基本的NFA an ε-NFA， a symbol-NFA. 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">fromEpsilon</span>() <span style="color:#f92672">*</span><span style="color:#a6e22e">NFA</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">from</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">State</span>{ <span style="color:#a6e22e">isEnd</span>: <span style="color:#66d9ef">false</span>, <span style="color:#a6e22e">transition</span>: make(<span style="color:#66d9ef">map</span>[<span style="color:#a6e22e">char</span>]<span style="color:#f92672">*</span><span style="color:#a6e22e">State</span>), <span style="color:#a6e22e">epsilonTransitions</span>: make([]<span style="color:#f92672">*</span><span style="color:#a6e22e">State</span>) }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">to</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">State</span> { <span style="color:#a6e22e">isEnd</span>: <span style="color:#66d9ef">true</span>, <span style="color:#a6e22e">transition</span>: make(<span style="color:#66d9ef">map</span>[<span style="color:#a6e22e">char</span>]<span style="color:#f92672">*</span><span style="color:#a6e22e">State</span>), <span style="color:#a6e22e">epsilonTransitions</span>: make([]<span style="color:#f92672">*</span><span style="color:#a6e22e">State</span>) }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">addEpsilonTransition</span>(<span style="color:#a6e22e">from</span>, <span style="color:#a6e22e">to</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">NFA</span>{<span style="color:#a6e22e">start</span>: <span style="color:#a6e22e">from</span>, <span style="color:#a6e22e">end</span>: <span style="color:#a6e22e">to</span>}
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fun</span> <span style="color:#a6e22e">fromSymbol</span>(<span style="color:#a6e22e">symbol</span> <span style="color:#66d9ef">byte</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">NFA</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">from</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">State</span>{ <span style="color:#a6e22e">isEnd</span>: <span style="color:#66d9ef">false</span>, <span style="color:#a6e22e">transition</span>: make(<span style="color:#66d9ef">map</span>[<span style="color:#a6e22e">char</span>]<span style="color:#f92672">*</span><span style="color:#a6e22e">State</span>), <span style="color:#a6e22e">epsilonTransitions</span>: make([]<span style="color:#f92672">*</span><span style="color:#a6e22e">State</span>) }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">to</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">State</span> { <span style="color:#a6e22e">isEnd</span>: <span style="color:#66d9ef">true</span>, <span style="color:#a6e22e">transition</span>: make(<span style="color:#66d9ef">map</span>[<span style="color:#a6e22e">char</span>]<span style="color:#f92672">*</span><span style="color:#a6e22e">State</span>), <span style="color:#a6e22e">epsilonTransitions</span>: make([]<span style="color:#f92672">*</span><span style="color:#a6e22e">State</span>) }}
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">addTransition</span>(<span style="color:#a6e22e">from</span>, <span style="color:#a6e22e">to</span>, <span style="color:#a6e22e">symbol</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">NFA</span>{<span style="color:#a6e22e">start</span>: <span style="color:#a6e22e">from</span>, <span style="color:#a6e22e">end</span>: <span style="color:#a6e22e">to</span>}
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 接着可以构造稍微复杂点的NFA， 或， 与， star *
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">union</span>(<span style="color:#a6e22e">first</span>, <span style="color:#a6e22e">second</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">NFA</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">NFA</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">start</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">fromEpsilon</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><a href="https://en.wikipedia.org/wiki/Shunting_yard_algorithm" target="_blank" rel="noopener">Shunting yard algorithm infix-&gt;postfix</a></p>
 <h2 id="数学中的封闭">数学中的封闭 <a href="#%e6%95%b0%e5%ad%a6%e4%b8%ad%e7%9a%84%e5%b0%81%e9%97%ad" class="anchor">🔗</a></h2><p><a href="https://zh.wikipedia.org/wiki/%E4%BB%A3%E6%95%B0%E7%BB%93%E6%9E%84" target="_blank" rel="noopener">代数结构</a> （集合 + 运算操作）。</p>
 <p>加法运算和乘法运算是在自然数集和上是封闭的（closure）。但是减法和除法不是。</p>
 <h2 id="closure-at-rust">closure at rust <a href="#closure-at-rust" class="anchor">🔗</a></h2><h1 id="reference">reference <a href="#reference" class="anchor">🔗</a></h1><p>[]<a href="https://swtch.com/~rsc/regexp/" target="_blank" rel="noopener"> Implementing Regular Expressions</a><br>
 []<a href=""> </a><br>
 []<a href=""> </a><br>
 []<a href=""> </a><br>
-[]<a href=""> </a><br>
-[]<a href=""> </a><br>
+[]<a href="https://deniskyashif.com/2019/02/17/implementing-a-regular-expression-engine/" target="_blank" rel="noopener"> implementing-a-regular-expression-engine with js</a><br>
+[]<a href="https://github.com/deniskyashif/regexjs" target="_blank" rel="noopener"> A fast and minimal regular expression engine with js</a><br>
 []<a href="https://madebyevan.com/fsm/" target="_blank" rel="noopener"> Finite State Machine Designer</a><br></p>
 
     </div>
