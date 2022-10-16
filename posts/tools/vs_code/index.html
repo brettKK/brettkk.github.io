@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          1530 words
+          1620 words
         </span>
         <span class="split">
           ·
@@ -115,7 +115,6 @@
             <li><a href="#32-rust-环境配置">3.2 rust 环境配置</a></li>
             <li><a href="#33-cc-环境配置">3.3 c/c++ 环境配置</a>
               <ul>
-                <li><a href="#debugging">debugging</a></li>
                 <li><a href="#遇到的问题">遇到的问题</a></li>
               </ul>
             </li>
@@ -178,12 +177,12 @@ and only apply when the workspace is opened.
 <h3 id="32-rust-环境配置">3.2 rust 环境配置 <a href="#32-rust-%e7%8e%af%e5%a2%83%e9%85%8d%e7%bd%ae" class="anchor">🔗</a></h3><p> 插件：the rust-analyzer extension<br>
  编译器：installed via the rustup installer<br>
  验证一下编译器是否安装：rustc --version<br></p>
-<h3 id="33-cc-环境配置">3.3 c/c++ 环境配置 <a href="#33-cc-%e7%8e%af%e5%a2%83%e9%85%8d%e7%bd%ae" class="anchor">🔗</a></h3><p>官方文档：https://code.visualstudio.com/docs/cpp/introvideos-cpp <br></p>
-<p> 插件： Microsoft C/C++ extension 。<br>
+<h3 id="33-cc-环境配置">3.3 c/c++ 环境配置 <a href="#33-cc-%e7%8e%af%e5%a2%83%e9%85%8d%e7%bd%ae" class="anchor">🔗</a></h3><p>官方文档：https://code.visualstudio.com/docs/cpp/introvideos-cpp 介绍了如何配置智能提示（c_cpp_properties.json），如何配置编译项目（tasks.json），如何调试项目（launch.json） <br></p>
+<p>特别在macos上使<a href="https://code.visualstudio.com/docs/cpp/config-clang-mac" target="_blank" rel="noopener">Using Clang in Visual Studio Code</a> <br>
+ 插件： Microsoft C/C++ extension 。<br>
  编译器：Linux的 GNU Compiler Collection (GCC) 和 macOS的Clang tools with Xcode 已经安装了。<br>
  验证一下编译器是否安装g++ --version， clang --version</p>
-<p>Configure C++ IntelliSense</p>
-<h4 id="debugging">debugging <a href="#debugging" class="anchor">🔗</a></h4><ul>
+<ul>
 <li>.vscode文件夹
 <ul>
 <li>tasks.json (compiler build settings)，告诉VS Code如何编译程序</li>
