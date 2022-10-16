@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          1894 words
+          1961 words
         </span>
         <span class="split">
           ·
@@ -195,7 +195,8 @@
 	<polygon fill="black" stroke-width="1" points="191.864,340.222 201.227,341.373 197.001,332.31"/>
 	<text x="289.5" y="307.5" font-family="Times New Roman" font-size="20">1</text>
 </svg>
-<p>进行笛卡尔积后的状态机为：</p>
+<p>在正则表达式集合上 对于Kleene操作（或｜，连接.，star*）是闭合的。 <br>
+也就是说，如果L1 和 L2 是正则表达式，那么 L1 | L2 , L1.L2, L1* 也是正则表达式。</p>
 <p>正则表达式：</p>
 <p>wikipedia <a href="https://en.wikipedia.org/wiki/Regular_expression" target="_blank" rel="noopener">regular expression</a></p>
 <p><a href="https://people.computing.clemson.edu/~goddard/texts/theoryOfComputation/4a.pdf" target="_blank" rel="noopener">Closure Properties of Regular Languages</a></p>
@@ -211,7 +212,7 @@
 <p>Union, Concatenation,  Closure (Kleene Star)， todo画状态机描述下如何通过叠加最小的单元状态机去构造复杂的状态机。</p>
 <p>Thompson’s Construction思想是：</p>
 <ul>
-<li>将infix的正则表达式变为postfix表达式，为了方便在postfix中处理正则运算符的优先级。</li>
+<li>将infix的正则表达式变为postfix表达式(逆波兰式很方便计算机的栈式计算)，方便后续不用在考虑优先级的问题。</li>
 <li>将正则表达式分解为最小的子表达式，再通过最小的有限自动机单元（识别零个字符 $\epsilon$ 和 识别一个字符的最小单元）构造完整的FA。</li>
 </ul>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">State</span> <span style="color:#66d9ef">struct</span> {
