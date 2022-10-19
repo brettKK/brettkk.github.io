@@ -38,6 +38,9 @@
     <loc>http://brettkk.github.io/posts/rust/closure_at_go_c_py_rust/</loc>
     <lastmod>2022-08-05T11:33:56+08:00</lastmod>
   </url><url>
+    <loc>http://brettkk.github.io/posts/golang/golang/</loc>
+    <lastmod>2022-05-07T18:54:41+08:00</lastmod>
+  </url><url>
     <loc>http://brettkk.github.io/tags/linux/</loc>
     <lastmod>2022-05-05T11:33:56+08:00</lastmod>
   </url><url>
@@ -85,9 +88,6 @@
   </url><url>
     <loc>http://brettkk.github.io/posts/os/encrypt/</loc>
     <lastmod>2021-05-20T11:33:56+08:00</lastmod>
-  </url><url>
-    <loc>http://brettkk.github.io/posts/golang/golang/</loc>
-    <lastmod>2021-05-07T18:54:41+08:00</lastmod>
   </url><url>
     <loc>http://brettkk.github.io/posts/golang/golang_sync/</loc>
     <lastmod>2021-05-06T18:34:48+08:00</lastmod>
@@ -206,6 +206,8 @@
     <loc>http://brettkk.github.io/posts/culture/chinese_dynasty/</loc>
   </url><url>
     <loc>http://brettkk.github.io/posts/culture/jinrong/</loc>
+  </url><url>
+    <loc>http://brettkk.github.io/posts/culture/north_euro/</loc>
   </url><url>
     <loc>http://brettkk.github.io/posts/leetcode/other/</loc>
   </url><url>

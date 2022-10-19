@@ -8,7 +8,7 @@
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
 <meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta name="description" content="资料 🔗 目前golang的主要maintainer: Russ Cox 个人主">
+<meta name="description" content="资料 🔗 目前golang的主要maintainer之一: Russ Cox 个">
 <meta name="generator" content="Hugo 0.103.1" />
 
 
@@ -65,18 +65,18 @@
     <h1 class="title">golang</h1>
 
     <div class="tip">
-        <time datetime="2021-05-07 18:54:41 &#43;0800 CST">May 7, 2021</time>
+        <time datetime="2022-05-07 18:54:41 &#43;0800 CST">May 7, 2022</time>
         <span class="split">
           ·
         </span>
         <span>
-          4863 words
+          6353 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          10 minute read
+          13 minute read
         </span>
     </div>
 
@@ -95,6 +95,8 @@
       <ul>
         <li><a href="#资料">资料</a></li>
         <li><a href="#官方地址改动">官方地址改动</a></li>
+        <li><a href="#构建golang开发环境">构建golang开发环境</a></li>
+        <li><a href="#编译源码项目">编译源码项目</a></li>
         <li><a href="#变量的内存大小">变量的内存大小</a></li>
         <li><a href="#多态继承-范型">多态，继承， 范型</a>
           <ul>
@@ -117,6 +119,8 @@
             <li><a href="#内存管理">内存管理</a></li>
           </ul>
         </li>
+        <li><a href="#实际编译器">实际编译器</a></li>
+        <li><a href="#词法分析-和-语法分析">词法分析 和 语法分析</a></li>
         <li><a href="#go-抽象语法树ast">go 抽象语法树AST</a>
           <ul>
             <li><a href="#go的词法分析-fileset结构">Go的词法分析， FileSet结构</a></li>
@@ -164,7 +168,7 @@
     <div class="content">
       <h2 id="资料">资料 <a href="#%e8%b5%84%e6%96%99" class="anchor">🔗</a></h2><ol>
 <li>
-<p>目前golang的主要maintainer: Russ Cox</p>
+<p>目前golang的主要maintainer之一: Russ Cox</p>
 </li>
 <li>
 <p>个人主页：swtch.com/~rsc/</p>
@@ -176,6 +180,27 @@
 <p>练习操场playground: go.dev/play。  后有rust playground。</p>
 <h2 id="官方地址改动">官方地址改动 <a href="#%e5%ae%98%e6%96%b9%e5%9c%b0%e5%9d%80%e6%94%b9%e5%8a%a8" class="anchor">🔗</a></h2><p>golang.org =&gt; go.dev
 play.golang.org =&gt; go.dev/play</p>
+<h2 id="构建golang开发环境">构建golang开发环境 <a href="#%e6%9e%84%e5%bb%bagolang%e5%bc%80%e5%8f%91%e7%8e%af%e5%a2%83" class="anchor">🔗</a></h2><p>下载安装包 wget <a href="https://golang.google.cn/dl/go1.19.2.src.tar.gz" target="_blank" rel="noopener">https://golang.google.cn/dl/go1.19.2.src.tar.gz</a> <br>
+google域名下的地址可能被墙不能访问。 <br>
+或者 <a href="https://go.dev/dl/" target="_blank" rel="noopener">https://go.dev/dl/</a> 地址。 <br></p>
+<p>解压并安装到指定目录 tar -zxvf xx.tar.gz -C /usr/local</p>
+<p>配置环境变量
+vim .bash_profile
+export GOROOT=~/..
+export PATH=$PATH:$GOROOT/bin
+export GOPATH=~/..
+source .bash_profile</p>
+<p>验证一下 go version。go env。</p>
+<h2 id="编译源码项目">编译源码项目 <a href="#%e7%bc%96%e8%af%91%e6%ba%90%e7%a0%81%e9%a1%b9%e7%9b%ae" class="anchor">🔗</a></h2><p>从源码去编译golang项目。<br></p>
+<ul>
+<li>git clone <a href="https://github.com/golang/go.git" target="_blank" rel="noopener">https://github.com/golang/go.git</a></li>
+<li>设置golang自举编译器的地址。 export GOROOT_BOOTSTRAP=$GOROOT(或者其他)</li>
+<li>进去源码目录中的all.bash脚本。 ./go/src/all.bash。 或者./go/src/make.bash脚本会利用自居编译器GOROOT_BOOTSTRAP去编译golang源码项目。</li>
+<li>最后的编译产生了～/go/src/github.com/golang/go， ~/go/src/github.com/golang/go/bin, pkg库文件等。</li>
+<li>验证改动后的执行命令 利用新编译器的绝对路径。 ~/go/src/github.com/golang/go run test_print.go。</li>
+</ul>
+<p>go build -n main.go 不编译并打印编译的过程。 -n 参数和make的-n参数是一致的。</p>
+<hr>
 <h2 id="变量的内存大小">变量的内存大小 <a href="#%e5%8f%98%e9%87%8f%e7%9a%84%e5%86%85%e5%ad%98%e5%a4%a7%e5%b0%8f" class="anchor">🔗</a></h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
 </span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;fmt&#34;</span>
@@ -434,7 +459,65 @@ play.golang.org =&gt; go.dev/play</p>
 </ul>
 <br/>
 <hr>
-<h2 id="go-抽象语法树ast">go 抽象语法树AST <a href="#go-%e6%8a%bd%e8%b1%a1%e8%af%ad%e6%b3%95%e6%a0%91ast" class="anchor">🔗</a></h2><p>golang程序的另一种语义等价是go的抽象语法树。抽象语法树是基于每个文件独立进行的。</p>
+<h2 id="实际编译器">实际编译器 <a href="#%e5%ae%9e%e9%99%85%e7%bc%96%e8%af%91%e5%99%a8" class="anchor">🔗</a></h2><p>编译器入口： src/cmd/compile/internal/gc/main.go#Main。</p>
+<p>cmd/compile/internal/syntax 词法和语法分析
+<a href="https://golang.org/ref/spec" target="_blank" rel="noopener">词法分析</a></p>
+<p>cmd/compile/internal/gc 类型检查， 处理语法糖，改写关键字。</p>
+<p>后端</p>
+<p>转为为SSA。 生成中间代码cmd/compile/internal/gc.compileFunctions</p>
+<p>cmd/compile/internal/gc, cmd/compile/internal/ssa 将函数放入队列，协程并发生成中间代码。</p>
+<p>生成机器代码。 cmd/compile/internal/ssa , cmd/internal/obj
+scr/cmd/compile/internal 链接不同的指令集生成平台的机器码。</p>
+<h2 id="词法分析-和-语法分析">词法分析 和 语法分析 <a href="#%e8%af%8d%e6%b3%95%e5%88%86%e6%9e%90-%e5%92%8c-%e8%af%ad%e6%b3%95%e5%88%86%e6%9e%90" class="anchor">🔗</a></h2><p>词法分析器的主要结构src/cmd/compile/internal/syntax/scanner.go#scanner struct。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">scanner</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">source</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">mode</span> <span style="color:#66d9ef">uint</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">nlsemi</span> <span style="color:#66d9ef">bool</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">line</span>, <span style="color:#a6e22e">col</span> <span style="color:#66d9ef">uint</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">blank</span> <span style="color:#66d9ef">bool</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">tok</span> <span style="color:#a6e22e">token</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">lit</span> <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">bad</span> <span style="color:#66d9ef">bool</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">kind</span> <span style="color:#a6e22e">LitKind</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">op</span> <span style="color:#a6e22e">Operator</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">prec</span> <span style="color:#66d9ef">int</span> 
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>词法分析器的主要方法src/cmd/compile/internal/syntax/scanner.go#next function。</p>
+<p>todo read friendly code。</p>
+<p>语法分析 src/cmd/compile/internal/syntax/parser.go。
+<a href="https://go.dev/ref/spec" target="_blank" rel="noopener">golang语法规则language specification</a></p>
+<p>回到编译原理的课程上... 语法分析有两种分析方法。</p>
+<ul>
+<li>Lookahead。自然的想法，预读后续的token确定有什么文法进行向下推导，或者进行向上归约。</li>
+<li>自顶向下 选择一条文法规则，匹配规则产生式的左边时 用右边的字符串替换左边的非终结符
+<ul>
+<li>从抽象到具体</li>
+<li>LL文法</li>
+</ul>
+</li>
+<li>自底向上 从终结符开始推导，规约到某一条文法规则上
+<ul>
+<li>从具体到抽象</li>
+<li>LR(0)
+<ul>
+<li>用栈存储没有被归约的字符。 入栈shift。归约reduce，新字符进来时按照规则进行合并入栈。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>syntax.Parse() -&gt; syntax.fileOrNil()对当前文件的词法和语法进行解析。</p>
+<h2 id="go-抽象语法树ast">go 抽象语法树AST <a href="#go-%e6%8a%bd%e8%b1%a1%e8%af%ad%e6%b3%95%e6%a0%91ast" class="anchor">🔗</a></h2><p>golang程序的另一种语义等价是go的抽象语法树。<br>
+<a href="https://go.dev/ref/spec#Source_file_organization" target="_blank" rel="noopener">抽象语法树AST是基于每个文件独立进行生成的</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">SourceFile</span> = <span style="color:#a6e22e">PackageClause</span> <span style="color:#e6db74">&#34;;&#34;</span> {<span style="color:#a6e22e">ImportDecl</span> <span style="color:#e6db74">&#34;;&#34;</span>} {<span style="color:#a6e22e">TopLevelDecl</span> <span style="color:#e6db74">&#34;;&#34;</span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span><span style="color:#e6db74">&#34;main.go&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#960050;background-color:#1e0010">SourceFile</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#960050;background-color:#1e0010">PackageName:</span> <span style="color:#f92672">&#34;main&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#960050;background-color:#1e0010">ImportDecl:</span> <span style="color:#960050;background-color:#1e0010">[]Import{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;fmt&#34;</span>,
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#960050;background-color:#1e0010">TopLevelDecl:</span> <span style="color:#960050;background-color:#1e0010">...</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">}</span>
+</span></span></code></pre></div><p><a href="">golang的语法解释器使用 LALR(1)文法进行实现</a><br></p>
 <p><a href="">go tool</a>中的go fmt, go vet, go doc等命令都是基于go抽象语法树的分析工具。</p>
 <p>go/* 包是golang的库。</p>
 <p>go/token, go/scanner, go/parser, go/ast, go/ssa等源码包</p>
@@ -641,8 +724,24 @@ type IntArr [2]int</p>
 数据结构是程序状态的载体。
 语句的语法树最大特点是可以递归定义。类型的语法树不能递归定义自己。</p>
 <h3 id="对ast进行类型检查">对AST进行类型检查 <a href="#%e5%af%b9ast%e8%bf%9b%e8%a1%8c%e7%b1%bb%e5%9e%8b%e6%a3%80%e6%9f%a5" class="anchor">🔗</a></h3><p>go/types包。<br></p>
-<p>语义错误。 go语言是通过包和目录组织代码的，在生成语法树时没有关注包的依赖关系，所以可能会跨包的语义错误。</p>
-<h3 id="对ast的语义信息">对AST的语义信息 <a href="#%e5%af%b9ast%e7%9a%84%e8%af%ad%e4%b9%89%e4%bf%a1%e6%81%af" class="anchor">🔗</a></h3><h3 id="ast转换成ssa">AST转换成SSA <a href="#ast%e8%bd%ac%e6%8d%a2%e6%88%90ssa" class="anchor">🔗</a></h3><p>go/ssa包。</p>
+<p>在go/parser包中只处理当前包的ast，没有处理导入包的类型。
+语义错误。 go语言是通过包和目录组织代码的，在生成语法树时没有关注包的依赖关系，所以可能会跨包的语义错误。</p>
+<p>类型检查的tasklist</p>
+<ul>
+<li>检查常量、类型、函数的类型</li>
+<li>变量的赋值，初始化</li>
+<li>函数和闭包，如何捕获变量，内敛函数的类型</li>
+<li>哈希键值对的类型</li>
+<li>导入函数体</li>
+<li>检查外部依赖的声明</li>
+</ul>
+<p>结构体对接口的实现。</p>
+<p>在类型检查阶段除了对节点的类型进行检查外，还会对make、chan关键词进行改写为runtime.makeslice、runtime.makechan、makemap。</p>
+<p>完成typecheck之后，通过src/cmd/compile/internal/gc.compileFunctions编译go项目中的所有函数。<br>
+所有函数会在一个编译队列上被<strong>并发编译</strong>goroutine进行消费处理。 Functions -&gt; Queue -&gt; Goroutine consume。</p>
+<p>机器代码的生成。 src/cmd/compile/internal目录下有很多amd64, arm64, x86, wasm。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">GOARCH</span>=<span style="color:#a6e22e">wasm</span> <span style="color:#a6e22e">GOOS</span>=<span style="color:#a6e22e">js</span> <span style="color:#66d9ef">go</span> <span style="color:#a6e22e">build</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">o</span> <span style="color:#a6e22e">lib</span>.<span style="color:#a6e22e">wasm</span> <span style="color:#a6e22e">main</span>.<span style="color:#66d9ef">go</span>
+</span></span></code></pre></div><h3 id="对ast的语义信息">对AST的语义信息 <a href="#%e5%af%b9ast%e7%9a%84%e8%af%ad%e4%b9%89%e4%bf%a1%e6%81%af" class="anchor">🔗</a></h3><h3 id="ast转换成ssa">AST转换成SSA <a href="#ast%e8%bd%ac%e6%8d%a2%e6%88%90ssa" class="anchor">🔗</a></h3><p>go/ssa包。</p>
 <p>ast经过go/types包完成语义分析生成types.Package对象后，进行ssa格式的转换。</p>
 <p>SSA主要用于表示函数内的指令。</p>
 <h3 id="llvm的基础知识">LLVM的基础知识 <a href="#llvm%e7%9a%84%e5%9f%ba%e7%a1%80%e7%9f%a5%e8%af%86" class="anchor">🔗</a></h3><hr>

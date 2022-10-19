@@ -26,6 +26,15 @@
     </item>
     
     <item>
+      <title>golang</title>
+      <link>http://brettkk.github.io/posts/golang/golang/</link>
+      <pubDate>Sat, 07 May 2022 18:54:41 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/golang/golang/</guid>
+      <description>资料 🔗 目前golang的主要maintainer之一: Russ Cox 个</description>
+    </item>
+    
+    <item>
       <title>linux-base</title>
       <link>http://brettkk.github.io/posts/os/base_os/</link>
       <pubDate>Thu, 05 May 2022 11:33:56 +0800</pubDate>
@@ -95,15 +104,6 @@
       
       <guid>http://brettkk.github.io/posts/os/encrypt/</guid>
       <description>对称加密与散列 🔗有des, aes 方式， 计算性能好，但密钥的安全依</description>
-    </item>
-    
-    <item>
-      <title>golang</title>
-      <link>http://brettkk.github.io/posts/golang/golang/</link>
-      <pubDate>Fri, 07 May 2021 18:54:41 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/golang/golang/</guid>
-      <description>资料 🔗 目前golang的主要maintainer: Russ Cox 个人主</description>
     </item>
     
     <item>
@@ -184,7 +184,7 @@
       <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/tools/mac_start_dev/</guid>
-      <description>新电脑构建开发环境，安装指南 iterm2 brew zsh, ohmyzsh golang vscode hugo github direnv 安装终端窗口工</description>
+      <description>macbook的指令集 uname -a or uname -m 新m1芯片下是arm64 老i</description>
     </item>
     
     <item>
@@ -414,6 +414,17 @@
 美联储加息 🔗加息 与 通胀的关系。
 社会中钱和商品的数量需要有一定的对应关系。 如果钱的数量不随商品的增加而增加的话，物价会发生波动。 商品价格P * 商品数量Q = 货币总量。
 钱多了，商品增加数量根不上，商品价格会上涨，通货膨胀。</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://brettkk.github.io/posts/culture/north_euro/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/culture/north_euro/</guid>
+      <description>北欧文化。
+Gökotta： dawn picnic to hear the first birdsong. the act of rising in the early morning to watch the birds or to go outside to appreciate nature.
+在瑞典。在黎明是起床去听鸟叫的声音， 去外面感受大自然。</description>
     </item>
     
     <item>

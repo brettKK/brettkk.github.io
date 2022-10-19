@@ -26,6 +26,15 @@
     </item>
     
     <item>
+      <title>golang</title>
+      <link>http://brettkk.github.io/posts/golang/golang/</link>
+      <pubDate>Sat, 07 May 2022 18:54:41 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/golang/golang/</guid>
+      <description>资料 🔗 目前golang的主要maintainer之一: Russ Cox 个</description>
+    </item>
+    
+    <item>
       <title>linux-base</title>
       <link>http://brettkk.github.io/posts/os/base_os/</link>
       <pubDate>Thu, 05 May 2022 11:33:56 +0800</pubDate>
@@ -77,15 +86,6 @@
       
       <guid>http://brettkk.github.io/posts/os/encrypt/</guid>
       <description>对称加密与散列 🔗有des, aes 方式， 计算性能好，但密钥的安全依</description>
-    </item>
-    
-    <item>
-      <title>golang</title>
-      <link>http://brettkk.github.io/posts/golang/golang/</link>
-      <pubDate>Fri, 07 May 2021 18:54:41 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/golang/golang/</guid>
-      <description>资料 🔗 目前golang的主要maintainer: Russ Cox 个人主</description>
     </item>
     
     <item>
@@ -166,7 +166,7 @@
       <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/tools/mac_start_dev/</guid>
-      <description>新电脑构建开发环境，安装指南 iterm2 brew zsh, ohmyzsh golang vscode hugo github direnv 安装终端窗口工</description>
+      <description>macbook的指令集 uname -a or uname -m 新m1芯片下是arm64 老i</description>
     </item>
     
     <item>
