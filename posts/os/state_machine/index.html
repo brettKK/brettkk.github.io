@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<html lang="zh-cn">
+  <head>
+    <title>程序 等价 状态机 | brettkk</title>
+
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
+<meta name="viewport" content="width=device-width,minimum-scale=1">
+<meta name="description" content="软件、程序可以很复杂。但是计算机的本质还是冯诺伊曼定义的：程">
+<meta name="generator" content="Hugo 0.103.1" />
+
+
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+<link href="https://cdn.bootcss.com/highlight.js/9.15.10/styles/zenburn.min.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<link rel="stylesheet" href="http://brettkk.github.io/css/syntax.css" />
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js" integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+
+
+
+
+  </head>
+
+  <body>
+    <nav class="navigation">
+	
+		<a href="/"> <span class="arrow">←</span>Home</a>
+	
+	<a href="/posts">Archive</a>
+	<a href="/tags">Tags</a>
+	<a href="/about">About</a>
+
+	
+
+	
+</nav>
+
+
+    <main class="main">
+      
+
+<section id="single">
+    <h1 class="title">程序 等价 状态机</h1>
+
+    <div class="tip">
+        <time datetime="2022-01-05 11:33:56 &#43;0800 CST">Jan 5, 2022</time>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          945 words
+        </span>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          2 minute read
+        </span>
+    </div>
+
+    
+    
+        
+  
+
+
+    
+
+
+    <div class="content">
+      <p>软件、程序可以很复杂。但是计算机的本质还是冯诺伊曼定义的：程序存储，指令驱动执行。<br>
+程序存储在内存，程序里的指令驱动改变程序的状态机变化，变到下一个状态或者终止状态。<br></p>
+<p>每个人都在刷题、刷算法题，那这种自发的内卷和外部环境带来的外卷的意义是什么？<br>
+除了这题我遇到过，做过，这题我会做以外，能得出个什么信息和结论？</p>
+<p>为什么明明程序只有几行代码，确写错或者写不出来？ <br>
+因为程序虽然只有几行，但是程序执行过程中的状态机中状态挺多的。</p>
+<p>如何证明程序写得就是对的，或者如何模拟执行程序？<br>
+可以列出状态机，证明程序是work。<br>
+以快速排序为例，将程序描述为表格状态机，以状态机的视角解析程序执行的过程。
+表格的每一行可以认为是程序对应的等价状态机当前处于的一个状态描述。<br></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">quick_sort</span>(<span style="color:#a6e22e">arr</span> []<span style="color:#66d9ef">int</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">arr</span>) &lt; <span style="color:#ae81ff">2</span> {                                 <span style="color:#75715e">//1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">return</span>                                        <span style="color:#75715e">//2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }                                                 <span style="color:#75715e">//     
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">start</span>, <span style="color:#a6e22e">index</span> <span style="color:#66d9ef">int</span> = <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>                       <span style="color:#75715e">//3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">i</span> &lt; len(<span style="color:#a6e22e">arr</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {                   <span style="color:#75715e">//4
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">i</span>] &lt; <span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">start</span>] {                      <span style="color:#75715e">//5
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#a6e22e">index</span><span style="color:#f92672">++</span>                                   <span style="color:#75715e">//6
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">i</span>], <span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">index</span>] = <span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">index</span>], <span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">i</span>]   <span style="color:#75715e">//7
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        }                                             <span style="color:#75715e">//
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }                                                 <span style="color:#75715e">//
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">start</span>], <span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">index</span>] = <span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">index</span>], <span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">start</span>]   <span style="color:#75715e">//8
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">quick_sort</span>(<span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">start</span>:<span style="color:#a6e22e">index</span>])                      <span style="color:#75715e">//9
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">quick_sort</span>(<span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">index</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>:])                         <span style="color:#75715e">//10
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p>假设arr=[8, 5, 2, 6, 9, 3, 1, 4, 0, 7]<br></p>
+<table>
+<thead>
+<tr>
+<th>step</th>
+<th>i</th>
+<th>index</th>
+<th>start</th>
+<th>arr</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1#inc1</td>
+<td>undef</td>
+<td>undef</td>
+<td>undef</td>
+<td>[8, 5, 2, 6, 9, 3, 1, 4, 0, 7]</td>
+</tr>
+<tr>
+<td>2#inc3</td>
+<td>undef</td>
+<td>0</td>
+<td>0</td>
+<td>[8, 5, 2, 6, 9, 3, 1, 4, 0, 7]</td>
+</tr>
+<tr>
+<td>3#inc4</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>[8, 5, 2, 6, 9, 3, 1, 4, 0, 7]</td>
+</tr>
+<tr>
+<td>4#inc5</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>[8, 5, 2, 6, 9, 3, 1, 4, 0, 7]</td>
+</tr>
+<tr>
+<td>5#inc6</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>[8, 5, 2, 6, 9, 3, 1, 4, 0, 7]</td>
+</tr>
+<tr>
+<td>6#inc7</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>[8, 5, 2, 6, 9, 3, 1, 4, 0, 7]</td>
+</tr>
+<tr>
+<td>7#inc4</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td>[8, 5, 2, 6, 9, 3, 1, 4, 0, 7]</td>
+</tr>
+<tr>
+<td>8#inc5</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td>[8, 5, 2, 6, 9, 3, 1, 4, 0, 7]</td>
+</tr>
+<tr>
+<td>9#inc6</td>
+<td>2</td>
+<td>2</td>
+<td>0</td>
+<td>[8, 5, 2, 6, 9, 3, 1, 4, 0, 7]</td>
+</tr>
+<tr>
+<td>10#inc7</td>
+<td>2</td>
+<td>2</td>
+<td>0</td>
+<td>[8, 5, 2, 6, 9, 3, 1, 4, 0, 7]</td>
+</tr>
+<tr>
+<td>11#inc4</td>
+<td>3</td>
+<td>2</td>
+<td>0</td>
+<td>[8, 5, 2, 6, 9, 3, 1, 4, 0, 7]</td>
+</tr>
+<tr>
+<td>12#inc5</td>
+<td>3</td>
+<td>2</td>
+<td>0</td>
+<td>[8, 5, 2, 6, 9, 3, 1, 4, 0, 7]</td>
+</tr>
+<tr>
+<td>13#inc6</td>
+<td>3</td>
+<td>3</td>
+<td>0</td>
+<td>[8, 5, 2, 6, 9, 3, 1, 4, 0, 7]</td>
+</tr>
+<tr>
+<td>14#inc7</td>
+<td>3</td>
+<td>3</td>
+<td>0</td>
+<td>[8, 5, 2, 6, 9, 3, 1, 4, 0, 7]</td>
+</tr>
+<tr>
+<td>15#inc4</td>
+<td>4</td>
+<td>3</td>
+<td>0</td>
+<td>[8, 5, 2, 6, 9, 3, 1, 4, 0, 7]</td>
+</tr>
+<tr>
+<td>16#inc5</td>
+<td>4</td>
+<td>3</td>
+<td>0</td>
+<td>[8, 5, 2, 6, 9, 3, 1, 4, 0, 7]</td>
+</tr>
+<tr>
+<td>17#inc4</td>
+<td>5</td>
+<td>3</td>
+<td>0</td>
+<td>[8, 5, 2, 6, 9, 3, 1, 4, 0, 7]</td>
+</tr>
+<tr>
+<td>18#inc5</td>
+<td>5</td>
+<td>3</td>
+<td>0</td>
+<td>[8, 5, 2, 6, 9, 3, 1, 4, 0, 7]</td>
+</tr>
+<tr>
+<td>19#inc6</td>
+<td>5</td>
+<td>4</td>
+<td>0</td>
+<td>[8, 5, 2, 6, 9, 3, 1, 4, 0, 7]</td>
+</tr>
+<tr>
+<td>20#inc7</td>
+<td>5</td>
+<td>4</td>
+<td>0</td>
+<td>[8, 5, 2, 6, 3, 9, 1, 4, 0, 7]</td>
+</tr>
+<tr>
+<td>21#inc4</td>
+<td>6</td>
+<td>4</td>
+<td>0</td>
+<td>[8, 5, 2, 6, 3, 9, 1, 4, 0, 7]</td>
+</tr>
+<tr>
+<td>22#inc5</td>
+<td>6</td>
+<td>4</td>
+<td>0</td>
+<td>[8, 5, 2, 6, 3, 9, 1, 4, 0, 7]</td>
+</tr>
+<tr>
+<td>23#inc6</td>
+<td>6</td>
+<td>5</td>
+<td>0</td>
+<td>[8, 5, 2, 6, 3, 9, 1, 4, 0, 7]</td>
+</tr>
+<tr>
+<td>24#inc7</td>
+<td>6</td>
+<td>5</td>
+<td>0</td>
+<td>[8, 5, 2, 6, 3, 1, 9, 4, 0, 7]</td>
+</tr>
+<tr>
+<td>25#inc4</td>
+<td>7</td>
+<td>5</td>
+<td>0</td>
+<td>[8, 5, 2, 6, 3, 1, 9, 4, 0, 7]</td>
+</tr>
+<tr>
+<td>26#inc5</td>
+<td>7</td>
+<td>5</td>
+<td>0</td>
+<td>[8, 5, 2, 6, 3, 1, 9, 4, 0, 7]</td>
+</tr>
+<tr>
+<td>27#inc6</td>
+<td>7</td>
+<td>6</td>
+<td>0</td>
+<td>[8, 5, 2, 6, 3, 1, 9, 4, 0, 7]</td>
+</tr>
+<tr>
+<td>28#inc7</td>
+<td>7</td>
+<td>6</td>
+<td>0</td>
+<td>[8, 5, 2, 6, 3, 1, 4, 9, 0, 7]</td>
+</tr>
+<tr>
+<td>29#inc4</td>
+<td>8</td>
+<td>6</td>
+<td>0</td>
+<td>[8, 5, 2, 6, 3, 1, 4, 9, 0, 7]</td>
+</tr>
+<tr>
+<td>30#inc5</td>
+<td>8</td>
+<td>6</td>
+<td>0</td>
+<td>[8, 5, 2, 6, 3, 1, 4, 9, 0, 7]</td>
+</tr>
+<tr>
+<td>31#inc6</td>
+<td>8</td>
+<td>7</td>
+<td>0</td>
+<td>[8, 5, 2, 6, 3, 1, 4, 9, 0, 7]</td>
+</tr>
+<tr>
+<td>32#inc7</td>
+<td>8</td>
+<td>7</td>
+<td>0</td>
+<td>[8, 5, 2, 6, 3, 1, 4, 0, 9, 7]</td>
+</tr>
+<tr>
+<td>33#inc4</td>
+<td>9</td>
+<td>7</td>
+<td>0</td>
+<td>[8, 5, 2, 6, 3, 1, 4, 0, 9, 7]</td>
+</tr>
+<tr>
+<td>34#inc5</td>
+<td>9</td>
+<td>7</td>
+<td>0</td>
+<td>[8, 5, 2, 6, 3, 1, 4, 0, 9, 7]</td>
+</tr>
+<tr>
+<td>35#inc6</td>
+<td>9</td>
+<td>8</td>
+<td>0</td>
+<td>[8, 5, 2, 6, 3, 1, 4, 0, 9, 7]</td>
+</tr>
+<tr>
+<td>36#inc7</td>
+<td>9</td>
+<td>8</td>
+<td>0</td>
+<td>[8, 5, 2, 6, 3, 1, 4, 0, 7, 9]</td>
+</tr>
+<tr>
+<td>37#inc4</td>
+<td>10</td>
+<td>8</td>
+<td>0</td>
+<td>[8, 5, 2, 6, 3, 1, 4, 0, 7, 9]</td>
+</tr>
+<tr>
+<td>38#inc8</td>
+<td>undef</td>
+<td>8</td>
+<td>0</td>
+<td>[7, 5, 2, 6, 3, 1, 4, 0, 8, 9]</td>
+</tr>
+<tr>
+<td>39#inc1</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+</tbody>
+</table>
+
+    </div>
+
+    
+        <div class="tags">
+            
+                <a href="http://brettkk.github.io/tags/"></a>
+            
+        </div>
+    
+    
+    
+
+</section>
+
+
+    </main>
+    
+    <footer id="footer">
+    
+
+    <script src="https://utteranc.es/client.js"
+repo="brettKK/brettkk.github.io"
+issue-term="title"
+theme="github-light"
+crossorigin="anonymous"
+async>
+</script>  
+
+    <div class="copyright">
+    
+       © Copyright 
+       2022 
+       <span class="split">
+        <svg fill="#bbbbbb" width="15" height="15" version="1.1" id="heart-15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 15 15">
+  <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>
+</svg>
+       </span>
+       
+    
+    </div>
+
+    
+      <div class="powerby">
+        Powered by <a href='http://www.gohugo.io/'>Hugo</a> Theme By <a href='https://github.com/nodejh/hugo-theme-cactus-plus'>nodejh</a>
+      </div>
+    
+</footer>
+
+
+
+
+  </body>
+</html>

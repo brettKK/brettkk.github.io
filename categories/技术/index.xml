@@ -62,6 +62,15 @@
     </item>
     
     <item>
+      <title>程序 等价 状态机</title>
+      <link>http://brettkk.github.io/posts/os/state_machine/</link>
+      <pubDate>Wed, 05 Jan 2022 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/os/state_machine/</guid>
+      <description>软件、程序可以很复杂。但是计算机的本质还是冯诺伊曼定义的：程</description>
+    </item>
+    
+    <item>
       <title>runc</title>
       <link>http://brettkk.github.io/posts/cloud_native/runc/</link>
       <pubDate>Sat, 26 Jun 2021 18:34:48 +0800</pubDate>
