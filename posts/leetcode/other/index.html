@@ -73,13 +73,13 @@ type Node struct{ int num, next Node, } func createCircleLink(int n) Node{ head 
           ·
         </span>
         <span>
-          285 words
+          561 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          2 minute read
+          3 minute read
         </span>
     </div>
 
@@ -109,6 +109,16 @@ type Node struct{ int num, next Node, } func createCircleLink(int n) Node{ head 
             <li><a href="#接雨水">接雨水</a></li>
             <li><a href="#计算任意两个年月日之间相隔的天数">计算任意两个年月日之间相隔的天数</a></li>
             <li><a href="#取石子的游戏">取石子的游戏</a></li>
+            <li><a href="#丑数">丑数</a>
+              <ul>
+                <li><a href="#lc-263">lc 263</a></li>
+                <li><a href="#lc-264">lc 264</a></li>
+                <li><a href="#lc-313">lc 313</a></li>
+                <li><a href="#lc-1201">lc 1201</a></li>
+              </ul>
+            </li>
+            <li><a href="#素数">素数</a></li>
+            <li><a href="#如何求欧拉函数">如何求欧拉函数</a></li>
           </ul>
         </li>
       </ul>
@@ -215,6 +225,75 @@ type Node struct{ int num, next Node, } func createCircleLink(int n) Node{ head 
 <p>例如： N=8， M =3。</p>
 <p>N mod(M + 1) == 0, 首先取石头的小a必败。
 N mod(M + 1) != 0, 首先取石头的小a必胜。</p>
+<h3 id="丑数">丑数 <a href="#%e4%b8%91%e6%95%b0" class="anchor">🔗</a></h3><p>丑数是只能被质数2，3，5整数的数。</p>
+<h4 id="lc-263">lc 263 <a href="#lc-263" class="anchor">🔗</a></h4><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">is_ugly</span>(<span style="color:#a6e22e">n</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">bool</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">n</span> <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">0</span>) <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#a6e22e">n</span> <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) { <span style="color:#a6e22e">n</span> = <span style="color:#a6e22e">n</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span> }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#a6e22e">n</span> <span style="color:#f92672">%</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) { <span style="color:#a6e22e">n</span> = <span style="color:#a6e22e">n</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">3</span> }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#a6e22e">n</span> <span style="color:#f92672">%</span> <span style="color:#ae81ff">5</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) { <span style="color:#a6e22e">n</span> = <span style="color:#a6e22e">n</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">5</span> }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">n</span><span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h4 id="lc-264">lc 264 <a href="#lc-264" class="anchor">🔗</a></h4><p>计算第n个丑数是什么？<br>
+将丑数分成3类： 2的倍数， 3的倍数，5的倍数。合并链表。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">get_nth_ugly</span>(<span style="color:#a6e22e">n</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">p2</span>,<span style="color:#a6e22e">p3</span>,<span style="color:#a6e22e">p5</span> = <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">count</span>, <span style="color:#a6e22e">min</span> = <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#a6e22e">count</span> &lt; <span style="color:#a6e22e">n</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">min</span> = <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">Min</span>(<span style="color:#a6e22e">p2</span>, <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">Min</span>(<span style="color:#a6e22e">p3</span>, <span style="color:#a6e22e">p5</span>))
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">count</span><span style="color:#f92672">++</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">min</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">p2</span> { <span style="color:#a6e22e">p2</span> <span style="color:#f92672">+=</span> <span style="color:#ae81ff">2</span>}
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">min</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">p3</span> { <span style="color:#a6e22e">p3</span> <span style="color:#f92672">+=</span> <span style="color:#ae81ff">3</span>}
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">p5</span> <span style="color:#f92672">+=</span> <span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">min</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h4 id="lc-313">lc 313 <a href="#lc-313" class="anchor">🔗</a></h4><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">get_nth_superugly</span>(<span style="color:#a6e22e">n</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">primes</span> []<span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// primes 放入优先队列priority_queue中
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">pq</span> <span style="color:#a6e22e">PriorityQueue</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; len(<span style="color:#a6e22e">primes</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">pq</span>.<span style="color:#a6e22e">offer</span>(<span style="color:#66d9ef">interface</span>{}{
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">index</span>: <span style="color:#a6e22e">i</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">prime</span>: <span style="color:#a6e22e">primes</span>[<span style="color:#a6e22e">i</span>],
+</span></span><span style="display:flex;"><span>        })
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">min</span> = <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;=</span> <span style="color:#a6e22e">n</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">min</span> = <span style="color:#a6e22e">pq</span>.<span style="color:#a6e22e">poll</span>()
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">pq</span>.<span style="color:#a6e22e">offer</span>(<span style="color:#66d9ef">interface</span>{}{
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">index</span>: <span style="color:#a6e22e">min</span>.<span style="color:#a6e22e">index</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">prime</span>: <span style="color:#a6e22e">min</span>.<span style="color:#a6e22e">prime</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">primes</span>[<span style="color:#a6e22e">min</span>.<span style="color:#a6e22e">index</span>]
+</span></span><span style="display:flex;"><span>        })
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">min</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h4 id="lc-1201">lc 1201 <a href="#lc-1201" class="anchor">🔗</a></h4><h3 id="素数">素数 <a href="#%e7%b4%a0%e6%95%b0" class="anchor">🔗</a></h3><p><strong>素数：只能被1和本身整除。</strong> <br>
+<strong>欧拉函数f(n)： [1, n]中与n互素的数的个数。<strong> <br>
+<strong>a和b互素： gcd(a, b) = 1 </strong>  <br></p>
+<p>如何寻找素数？  wikipedia上介绍了 快速排除法： 素数的倍数一定不是素数。<br></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">count_primes</span>(<span style="color:#a6e22e">n</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">is_primes</span> []<span style="color:#66d9ef">int</span>= make([]<span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">n</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;=</span> <span style="color:#a6e22e">n</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">is_primes</span>[<span style="color:#a6e22e">i</span>] = <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">2</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">*</span><span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;=</span> <span style="color:#a6e22e">n</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">is_primes</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">==</span> <span style="color:#66d9ef">true</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">i</span><span style="color:#f92672">*</span><span style="color:#a6e22e">i</span>; <span style="color:#a6e22e">j</span> <span style="color:#f92672">&lt;=</span> <span style="color:#a6e22e">n</span>; <span style="color:#a6e22e">j</span> <span style="color:#f92672">+=</span> <span style="color:#a6e22e">i</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">is_primes</span>[<span style="color:#a6e22e">j</span>] = <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">count</span> = <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;=</span> <span style="color:#a6e22e">n</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">is_primes</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">==</span> <span style="color:#66d9ef">true</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">count</span><span style="color:#f92672">++</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">count</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="如何求欧拉函数">如何求欧拉函数 <a href="#%e5%a6%82%e4%bd%95%e6%b1%82%e6%ac%a7%e6%8b%89%e5%87%bd%e6%95%b0" class="anchor">🔗</a></h3><p>n是素数，那n的欧拉函数是n-1。 <br></p>
+<p>n 质因数分解。</p>
 
     </div>
 
