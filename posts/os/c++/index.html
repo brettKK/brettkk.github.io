@@ -76,7 +76,7 @@ C&#43;&#43; 动态特性。 🔗程序的功能是在运行时刻才能确定下
           ·
         </span>
         <span>
-          99 words
+          111 words
         </span>
         <span class="split">
           ·
@@ -109,6 +109,7 @@ C&#43;&#43; 动态特性。 🔗程序的功能是在运行时刻才能确定下
         <li><a href="#c-标准库">C++ 标准库</a></li>
         <li><a href="#vscode配置linux-kernel项目">vscode配置linux kernel项目</a>
           <ul>
+            <li><a href="#编程trick">编程trick</a></li>
             <li><a href="#gdb-complains-no-source-available">GDB complains No Source Available</a></li>
           </ul>
         </li>
@@ -160,9 +161,12 @@ $(error-if,$(success,test -z &#34;$(ld-info)&#34;),Sorry$(comma) this linker is 
 
 	default $(ld-version) if LD_IS_BFD
 	default 0
-</code></pre><h3 id="gdb-complains-no-source-available">GDB complains No Source Available <a href="#gdb-complains-no-source-available" class="anchor">🔗</a></h3><p>gcc -g hello.c
+</code></pre><h3 id="编程trick">编程trick <a href="#%e7%bc%96%e7%a8%8btrick" class="anchor">🔗</a></h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">// 6= （110）， lowerbit为2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">#define lowerbit(a) (a &amp; -a)
+</span></span></span></code></pre></div><h3 id="gdb-complains-no-source-available">GDB complains No Source Available <a href="#gdb-complains-no-source-available" class="anchor">🔗</a></h3><p>gcc -g hello.c
 gdb -tui hello</p>
 <p>well done.</p>
+<p>C/C++ 书写的是几十年计算机中软件的历史。</p>
 
     </div>
 
