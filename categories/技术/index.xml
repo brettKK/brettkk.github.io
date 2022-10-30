@@ -112,7 +112,7 @@
       <pubDate>Thu, 06 May 2021 18:34:48 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/golang/golang_sync/</guid>
-      <description>协程切换与线程切换的区别 切换需要切换2个地方：栈和寄存器。协</description>
+      <description>11 🔗 协程切换与线程切换的区别 切换需要切换2个地方：栈和寄存器</description>
     </item>
     
     <item>

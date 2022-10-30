@@ -130,7 +130,7 @@
       <pubDate>Thu, 06 May 2021 18:34:48 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/golang/golang_sync/</guid>
-      <description>协程切换与线程切换的区别 切换需要切换2个地方：栈和寄存器。协</description>
+      <description>11 🔗 协程切换与线程切换的区别 切换需要切换2个地方：栈和寄存器</description>
     </item>
     
     <item>
@@ -401,6 +401,17 @@
       
       <guid>http://brettkk.github.io/posts/math/%E8%AE%A1%E7%AE%97%E5%A4%8D%E6%9D%82%E5%BA%A6/</guid>
       <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://brettkk.github.io/about/tmp/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://brettkk.github.io/about/tmp/</guid>
+      <description>1 排序后根据index取 public int findKthLargest(int[] nums, int k) { int len = nums.length; Arrays.sort(nums); return nums[len - k]; }
+2 小顶堆 装数组，poll (len-k-1)后， peek为第k大的元素
+3 大顶堆 装数组， poll (k-1)后， peek为第k大的元素</description>
     </item>
     
     <item>
