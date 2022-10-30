@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<html lang="zh-cn">
+  <head>
+    <title>go embedding | brettkk</title>
+
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
+<meta name="viewport" content="width=device-width,minimum-scale=1">
+<meta name="description" content="why 为什么需要在golang使用embedding 🔗golan">
+<meta name="generator" content="Hugo 0.103.1" />
+
+
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+<link href="https://cdn.bootcss.com/highlight.js/9.15.10/styles/zenburn.min.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<link rel="stylesheet" href="http://brettkk.github.io/css/syntax.css" />
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js" integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+
+
+
+
+  </head>
+
+  <body>
+    <nav class="navigation">
+	
+		<a href="/"> <span class="arrow">←</span>Home</a>
+	
+	<a href="/posts">Archive</a>
+	<a href="/tags">Tags</a>
+	<a href="/about">About</a>
+
+	
+
+	
+</nav>
+
+
+    <main class="main">
+      
+
+<section id="single">
+    <h1 class="title">go embedding</h1>
+
+    <div class="tip">
+        <time datetime="2022-03-05 08:34:12 &#43;0800 CST">Mar 5, 2022</time>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          978 words
+        </span>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          2 minute read
+        </span>
+    </div>
+
+    
+    
+        
+  
+    <aside class="toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
+          <div>
+              <nav id="TableOfContents">
+  <ul>
+    <li><a href="#why-为什么需要在golang使用embedding">why 为什么需要在golang使用embedding</a></li>
+    <li><a href="#what">what</a>
+      <ul>
+        <li><a href="#在struct中嵌入struct">在struct中嵌入struct</a></li>
+        <li><a href="#在interface中嵌入interface">在interface中嵌入interface</a></li>
+        <li><a href="#在struct中嵌入interface">在struct中嵌入interface</a></li>
+      </ul>
+    </li>
+    <li><a href="#how">how</a></li>
+    <li><a href="#reference">reference</a></li>
+  </ul>
+</nav>
+          </div>
+      </details>
+    </aside>
+  
+
+
+    
+
+
+    <div class="content">
+      <h1 id="why-为什么需要在golang使用embedding">why 为什么需要在golang使用embedding <a href="#why-%e4%b8%ba%e4%bb%80%e4%b9%88%e9%9c%80%e8%a6%81%e5%9c%a8golang%e4%bd%bf%e7%94%a8embedding" class="anchor">🔗</a></h1><p>golang中没有extends， implement等继承概念。<br>
+golang中通过组合来实现类似继承的功能。embedding比较方便组合golang中的struct，interface来实现类似其他语言中的继承和实现的概念。<br></p>
+<h1 id="what">what <a href="#what" class="anchor">🔗</a></h1><p>有三种嵌入的情况：</p>
+<ul>
+<li>embedding struct in struct</li>
+<li>embedding interface in interface</li>
+<li>embedding interface in struct</li>
+</ul>
+<h2 id="在struct中嵌入struct">在struct中嵌入struct <a href="#%e5%9c%a8struct%e4%b8%ad%e5%b5%8c%e5%85%a5struct" class="anchor">🔗</a></h2><ul>
+<li>可以直接访问嵌入的结构体</li>
+<li>可以直接调用嵌入的结构体上的方法</li>
+<li>上一条满足，自然地被嵌入的结构体实现了接口，外层结构体也就实现了接口</li>
+</ul>
+<p>在go中目标结构体A中嵌入sync.Mutex。方便使用A.lock()可以加锁。如果lock只在内部使用，还是正常使用<code>mu sync.Mutex。</code> <br></p>
+<h2 id="在interface中嵌入interface">在interface中嵌入interface <a href="#%e5%9c%a8interface%e4%b8%ad%e5%b5%8c%e5%85%a5interface" class="anchor">🔗</a></h2><p>interface可以被嵌入到另一个interface中，也可以嵌入到struct中。<br>
+interface被嵌入到interface中，通过组合的方式扩展了接口中的函数集合。
+golang标准库中Reader和Writer接口被嵌入（组合）到ReadWriter接口。<br>
+golang的container包中子包heap中，通过embedding interface的方式表明若要实现heap.Interface接口必须要先实现sort.Interface接口。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span><span style="color:#75715e">// heap.Interface
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Interface</span> <span style="color:#66d9ef">interface</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">sort</span>.<span style="color:#a6e22e">Interface</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">Push</span>(<span style="color:#a6e22e">x</span> <span style="color:#66d9ef">interface</span>{}) <span style="color:#75715e">// add x as element Len()
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">Pop</span>() <span style="color:#66d9ef">interface</span>{}   <span style="color:#75715e">// remove and return element Len() - 1.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// sort.Interface
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Interface</span> <span style="color:#66d9ef">interface</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">Len</span>() <span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">Less</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">bool</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">Swap</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span> <span style="color:#66d9ef">int</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">Push</span>(<span style="color:#a6e22e">x</span> <span style="color:#66d9ef">interface</span>{}) <span style="color:#75715e">// add x as element Len()
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">Pop</span>() <span style="color:#66d9ef">interface</span>{}   <span style="color:#75715e">// remove and return element Len() - 1.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><h2 id="在struct中嵌入interface">在struct中嵌入interface <a href="#%e5%9c%a8struct%e4%b8%ad%e5%b5%8c%e5%85%a5interface" class="anchor">🔗</a></h2><p>这个是三种embedding中让人疑惑的一种。<br></p>
+<ul>
+<li>struct类型的对象可以访问内嵌接口中的方法（<strong>提升到外层结构体中</strong>）</li>
+<li>上一条满足，自然地 struct类型的对象也实现了内嵌接口。</li>
+</ul>
+<p>如果初始化struct类型对象时，没有初始化embedding interface则embedding interface被初始化为nil， 则访问embedding interface中的方法时panic。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">StatsConn</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">net</span>.<span style="color:#a6e22e">Conn</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">BytesRead</span> <span style="color:#66d9ef">uint64</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 拦截net.Conn.Read方法。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">sc</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">StatsConn</span>) <span style="color:#a6e22e">Read</span>(<span style="color:#a6e22e">p</span> []<span style="color:#66d9ef">byte</span>) (<span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">error</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">n</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">sc</span>.<span style="color:#a6e22e">Conn</span>.<span style="color:#a6e22e">Read</span>(<span style="color:#a6e22e">p</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">sc</span>.<span style="color:#a6e22e">BytesRead</span> <span style="color:#f92672">+=</span> uint64(<span style="color:#a6e22e">n</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">n</span>, <span style="color:#a6e22e">err</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">resp</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">ioutil</span>.<span style="color:#a6e22e">ReadAll</span>(<span style="color:#a6e22e">sconn</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">sconn</span>.<span style="color:#a6e22e">BytesRead</span>)
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">reverse</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">sort</span>.<span style="color:#a6e22e">Interface</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">r</span> <span style="color:#a6e22e">reverse</span>) <span style="color:#a6e22e">Less</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">bool</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">Interface</span>.<span style="color:#a6e22e">Less</span>(<span style="color:#a6e22e">j</span>, <span style="color:#a6e22e">i</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Reverse</span>(<span style="color:#a6e22e">data</span> <span style="color:#a6e22e">sort</span>.<span style="color:#a6e22e">Interface</span>) <span style="color:#a6e22e">sort</span>.<span style="color:#a6e22e">Interface</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">reverse</span>{<span style="color:#a6e22e">data</span>}
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">sort</span>.<span style="color:#a6e22e">Sort</span>(<span style="color:#a6e22e">sort</span>.<span style="color:#a6e22e">Reverse</span>(<span style="color:#a6e22e">sort</span>.<span style="color:#a6e22e">IntSlice</span>(<span style="color:#a6e22e">lst</span>)))
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">lst</span>)
+</span></span></code></pre></div><p>Example: context.WithValue.</p>
+<h1 id="how">how <a href="#how" class="anchor">🔗</a></h1><p>语法糖，依赖编译阶段的语法解析的处理。</p>
+<h1 id="reference">reference <a href="#reference" class="anchor">🔗</a></h1><p>[1]<a href="https://eli.thegreenplace.net/2020/embedding-in-go-part-1-structs-in-structs/" target="_blank" rel="noopener"> Embedding structs in structs</a><br>
+[2]<a href="https://gobyexample.com/struct-embedding" target="_blank" rel="noopener"> Go by Example: Struct Embedding</a><br>
+[3]<a href="https://golangbyexample.com/embedding-interfaces-go/" target="_blank" rel="noopener"> Embedding Interfaces in Go (Golang)</a><br>
+[4]<a href="https://eli.thegreenplace.net/2020/embedding-in-go-part-1-structs-in-structs/" target="_blank" rel="noopener"> Embedding in Go: Part 1 - structs in structs</a><br>
+[5]<a href="https://eli.thegreenplace.net/2020/embedding-in-go-part-3-interfaces-in-structs/" target="_blank" rel="noopener"> Embedding in Go: Part 3 - interfaces in structs</a><br></p>
+
+    </div>
+
+    
+        <div class="tags">
+            
+                <a href="http://brettkk.github.io/tags/golang">golang</a>
+            
+        </div>
+    
+    
+    
+
+</section>
+
+
+    </main>
+    
+    <footer id="footer">
+    
+
+    <script src="https://utteranc.es/client.js"
+repo="brettKK/brettkk.github.io"
+issue-term="title"
+theme="github-light"
+crossorigin="anonymous"
+async>
+</script>  
+
+    <div class="copyright">
+    
+       © Copyright 
+       2022 
+       <span class="split">
+        <svg fill="#bbbbbb" width="15" height="15" version="1.1" id="heart-15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 15 15">
+  <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>
+</svg>
+       </span>
+       
+    
+    </div>
+
+    
+      <div class="powerby">
+        Powered by <a href='http://www.gohugo.io/'>Hugo</a> Theme By <a href='https://github.com/nodejh/hugo-theme-cactus-plus'>nodejh</a>
+      </div>
+    
+</footer>
+
+
+
+
+  </body>
+</html>

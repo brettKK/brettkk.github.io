@@ -80,6 +80,15 @@
     </item>
     
     <item>
+      <title>go embedding</title>
+      <link>http://brettkk.github.io/posts/golang/golang_embedding/</link>
+      <pubDate>Sat, 05 Mar 2022 08:34:12 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/golang/golang_embedding/</guid>
+      <description>why 为什么需要在golang使用embedding 🔗golan</description>
+    </item>
+    
+    <item>
       <title>程序 等价 状态机</title>
       <link>http://brettkk.github.io/posts/os/state_machine/</link>
       <pubDate>Wed, 05 Jan 2022 11:33:56 +0800</pubDate>
