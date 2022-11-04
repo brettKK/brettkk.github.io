@@ -606,14 +606,13 @@ IDA, NDK。
       <description>今天要做什么？
 整理之前的笔记。
 ～～～～ 清晰的网页 ～～ 清晰的网页 ～～～～
-工作内容相关方面： 规则引擎grule， 工作流引擎，向量存储Faiss。
-golang方面： cloudwego, Istio, envoy
+工作内容相关方面： 规则引擎grule[11.1]， 工作流引擎，向量存储Faiss。
+golang方面： cloudwego, Istio, envoy, hystrix-go[10.31,11.1]
 密码方面： 零知识信任的代码库， rust。
 云原生方面：k8s, docker.
 数据库方面： TiDB， TiKV， rocksdb。
 编译器： llvm。 编译器基本知识。
-高并发方面： C++ 。
-～～～～</description>
+高并发方面： C++， redis， rocksdb， linux， xv6 。</description>
     </item>
     
     <item>
