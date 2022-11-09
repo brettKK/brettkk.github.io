@@ -70,13 +70,13 @@
           ·
         </span>
         <span>
-          335 words
+          556 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          1 minute read
+          2 minute read
         </span>
     </div>
 
@@ -160,10 +160,25 @@
 </ul>
 </li>
 </ul>
-<h2 id="reference">reference <a href="#reference" class="anchor">🔗</a></h2><p>[1]<a href="golang.org/ref/mem"> golang mem</a>
-[2]<a href=""> </a>
-[3]<a href=""> </a>
-[4]<a href=""> </a></p>
+<hr>
+<p>硬件上规定的内存一致性模型<br></p>
+<ul>
+<li>顺序一致模型（sequential consistency model，SC）</li>
+<li>完全存储定序（total store order，TSO）
+<ul>
+<li>出现store-load乱序的情况</li>
+<li>但是硬件保证：先进入store buffer的指令数据必须先于后面的指令数据写到存储器中。</li>
+</ul>
+</li>
+<li>部分存储定序（part store order，PSO）
+<ul>
+<li>CPU只保证地址相关指令在store buffer中才会以FIFO的形式进行处理</li>
+</ul>
+</li>
+<li>宽松存储模型（relax memory order，RMO）</li>
+</ul>
+<h2 id="reference">reference <a href="#reference" class="anchor">🔗</a></h2><p>[1]<a href="https://go.dev/ref/mem" target="_blank" rel="noopener">The Go Memory Model, Version of June 6, 2022</a>
+[2]<a href="https://research.swtch.com/mm" target="_blank" rel="noopener"> Memory Models written by Russ Cox</a></p>
 
     </div>
 

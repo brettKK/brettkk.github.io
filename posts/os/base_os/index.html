@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          3477 words
+          3504 words
         </span>
         <span class="split">
           ·
@@ -125,6 +125,7 @@
 <strong></strong>
 <strong></strong>
 <strong></strong></a></li>
+        <li><a href="#计算机的启动过程">计算机的启动过程</a></li>
         <li><a href="#跟踪一个系统调用write">跟踪一个系统调用write</a>
           <ul>
             <li><a href="#gdb的跟踪与观测">gdb的跟踪与观测</a></li>
@@ -585,7 +586,16 @@ net/built-in.o
 <strong></strong>
 <strong></strong>
 <strong></strong>
-<strong></strong> <a href="#strongstrong" class="anchor">🔗</a></h2><h2 id="跟踪一个系统调用write">跟踪一个系统调用write <a href="#%e8%b7%9f%e8%b8%aa%e4%b8%80%e4%b8%aa%e7%b3%bb%e7%bb%9f%e8%b0%83%e7%94%a8write" class="anchor">🔗</a></h2><h3 id="gdb的跟踪与观测">gdb的跟踪与观测 <a href="#gdb%e7%9a%84%e8%b7%9f%e8%b8%aa%e4%b8%8e%e8%a7%82%e6%b5%8b" class="anchor">🔗</a></h3><p>在编译时要加上-g选项，生成的可执行文件才能用gdb进行源码级调试</p>
+<strong></strong> <a href="#strongstrong" class="anchor">🔗</a></h2><h2 id="计算机的启动过程">计算机的启动过程 <a href="#%e8%ae%a1%e7%ae%97%e6%9c%ba%e7%9a%84%e5%90%af%e5%8a%a8%e8%bf%87%e7%a8%8b" class="anchor">🔗</a></h2><ul>
+<li>主板加电</li>
+<li>CPU Reset</li>
+<li>Fireware: BIOS/UEFI</li>
+<li>Bootloader: GRUB/FIFO</li>
+<li>kernel</li>
+<li>init进程</li>
+<li>shell/logins</li>
+</ul>
+<h2 id="跟踪一个系统调用write">跟踪一个系统调用write <a href="#%e8%b7%9f%e8%b8%aa%e4%b8%80%e4%b8%aa%e7%b3%bb%e7%bb%9f%e8%b0%83%e7%94%a8write" class="anchor">🔗</a></h2><h3 id="gdb的跟踪与观测">gdb的跟踪与观测 <a href="#gdb%e7%9a%84%e8%b7%9f%e8%b8%aa%e4%b8%8e%e8%a7%82%e6%b5%8b" class="anchor">🔗</a></h3><p>在编译时要加上-g选项，生成的可执行文件才能用gdb进行源码级调试</p>
 <hr>
 <h2 id="linux-内核中的数据结构">linux 内核中的数据结构 <a href="#linux-%e5%86%85%e6%a0%b8%e4%b8%ad%e7%9a%84%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84" class="anchor">🔗</a></h2><h3 id="双向循环链表list_head">双向循环链表list_head <a href="#%e5%8f%8c%e5%90%91%e5%be%aa%e7%8e%af%e9%93%be%e8%a1%a8list_head" class="anchor">🔗</a></h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">//list.h
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">struct</span> list_head {
