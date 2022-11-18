@@ -6,7 +6,25 @@
     <description>Recent content in Posts on brettkk</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 06 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://brettkk.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 05 Nov 2022 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>linux-tcp</title>
+      <link>http://brettkk.github.io/posts/os/tcp/</link>
+      <pubDate>Sat, 05 Nov 2022 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/os/tcp/</guid>
+      <description>tcp报文结构图 URG: 表示紧急指针（urgent pointer）</description>
+    </item>
+    
+    <item>
+      <title>rust-library-core</title>
+      <link>http://brettkk.github.io/posts/rust/rust_library_core/</link>
+      <pubDate>Sat, 05 Nov 2022 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/rust/rust_library_core/</guid>
+      <description>rust library core 🔗 common sense 🔗 unfold fold all 收拢代码细节 展开代码细节 pub(crate) struct NeverShortCircuit(pub T); item 可以在</description>
+    </item>
+    
     <item>
       <title>module name and module import path in Go</title>
       <link>http://brettkk.github.io/posts/golang/golang_mod/</link>
@@ -176,15 +194,6 @@
       
       <guid>http://brettkk.github.io/posts/os/shell-basic/</guid>
       <description>单引号，双引号，反引号区别 单引号之间的内容原封不动的输出 双引</description>
-    </item>
-    
-    <item>
-      <title>linux-tcp</title>
-      <link>http://brettkk.github.io/posts/os/tcp/</link>
-      <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/os/tcp/</guid>
-      <description>tcp报文结构图 URG: 表示紧急指针（urgent pointer）</description>
     </item>
     
     <item>
@@ -580,6 +589,15 @@ IDA, NDK。
     
     <item>
       <title></title>
+      <link>http://brettkk.github.io/posts/rust/rust_concurrency/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/rust/rust_concurrency/</guid>
+      <description>fn spawn&amp;lt;F, T&amp;gt;(f: F) -&amp;gt; JoinHandle&amp;lt;T&amp;gt; where F: FnOnce() -&amp;gt; T, F: Send + &amp;#39;static, T: Send + &amp;#39;static, </description>
+    </item>
+    
+    <item>
+      <title></title>
       <link>http://brettkk.github.io/posts/rust/rust_problem/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
@@ -625,9 +643,7 @@ golang方面： cloudwego, Istio, envoy, hystrix-go[10.31,11.1]
 git submodules
 https://git-scm.com/book/en/v2/Git-Tools-Submodules
 git clone --recursive https://github.com/rust-lang/rust.git
-git入门 🔗 搭建git环境 文件添加， 与git库的交互 解决合并冲突 创建分支列表 创建标签 git reflog 显示所有提交过的版本信息，包含提交，回退，删除的记录。 git log 不包含删除的commit记录和reset的操作。
-项目历史管理
-DAG，</description>
+LibreSSL SSL_read: error:02FFF03C:system library:func(4095):Operation timed out, errno 60 Failed to connect to github.com port 443 after 130469 ms: Connection timed out</description>
     </item>
     
     <item>

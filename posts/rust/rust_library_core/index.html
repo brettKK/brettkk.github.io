@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<html lang="zh-cn">
+  <head>
+    <title>rust-library-core | brettkk</title>
+
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
+<meta name="viewport" content="width=device-width,minimum-scale=1">
+<meta name="description" content="rust library core 🔗 common sense 🔗 unfold fold all 收拢代码细节 展开代码细节 pub(crate) struct NeverShortCircuit(pub T); item 可以在">
+<meta name="generator" content="Hugo 0.103.1" />
+
+
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+<link href="https://cdn.bootcss.com/highlight.js/9.15.10/styles/zenburn.min.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<link rel="stylesheet" href="http://brettkk.github.io/css/syntax.css" />
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js" integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+
+
+
+
+  </head>
+
+  <body>
+    <nav class="navigation">
+	
+		<a href="/"> <span class="arrow">←</span>Home</a>
+	
+	<a href="/posts">Archive</a>
+	<a href="/tags">Tags</a>
+	<a href="/about">About</a>
+
+	
+
+	
+</nav>
+
+
+    <main class="main">
+      
+
+<section id="single">
+    <h1 class="title">rust-library-core</h1>
+
+    <div class="tip">
+        <time datetime="2022-11-05 11:33:56 &#43;0800 CST">Nov 5, 2022</time>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          774 words
+        </span>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          2 minute read
+        </span>
+    </div>
+
+    
+    
+        
+  
+    <aside class="toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
+          <div>
+              <nav id="TableOfContents">
+  <ul>
+    <li><a href="#rust-library-core">rust library core</a>
+      <ul>
+        <li><a href="#common-sense">common sense</a>
+          <ul>
+            <li><a href="#catch-module">catch module</a></li>
+            <li><a href="#ignore-module">ignore module</a></li>
+          </ul>
+        </li>
+        <li><a href="#mem-module">[mem] module</a>
+          <ul>
+            <li><a href="#modrs">mod.rs</a></li>
+            <li><a href="#manually_droprs">manually_drop.rs</a></li>
+          </ul>
+        </li>
+        <li><a href="#ptr-module">[ptr] module</a>
+          <ul>
+            <li><a href="#modrs-1">mod.rs</a></li>
+            <li><a href="#mut_ptrrs">mut_ptr.rs</a></li>
+            <li><a href="#non_nullrs">non_null.rs</a></li>
+            <li><a href="#uniquers">unique.rs</a></li>
+          </ul>
+        </li>
+        <li><a href="#macros-module">[macros] module</a></li>
+        <li><a href="#alloc-module">[alloc] module</a></li>
+        <li><a href="#array-module">[array] module</a>
+          <ul>
+            <li><a href="#modrs-2">mod.rs</a></li>
+            <li><a href="#iterrs">iter.rs</a></li>
+            <li><a href="#equalityrs">equality.rs</a></li>
+          </ul>
+        </li>
+        <li><a href="#slice-module">[slice] module</a></li>
+        <li><a href="#async_iter-module">[async_iter] module</a></li>
+        <li><a href="#iter-module">[iter] module</a></li>
+        <li><a href="#ops-module">[ops] module</a></li>
+        <li><a href="#cmprs-module">[cmp.rs] module</a></li>
+        <li><a href="#str-module">[str] module</a></li>
+        <li><a href="#markerrs-module">[marker.rs] module</a></li>
+        <li><a href="#-module">[] module</a></li>
+        <li><a href="#-module-1">[] module</a></li>
+        <li><a href="#-module-2">[] module</a></li>
+        <li><a href="#-module-3">[] module</a></li>
+        <li><a href="#-module-4">[] module</a></li>
+        <li><a href="#-module-5">[] module</a></li>
+        <li><a href="#-module-6">[] module</a></li>
+        <li><a href="#-module-7">[] module</a></li>
+        <li><a href="#-module-8">[] module</a></li>
+        <li><a href="#-module-9">[] module</a></li>
+        <li><a href="#-module-10">[] module</a></li>
+        <li><a href="#-module-11">[] module</a></li>
+        <li><a href="#-module-12">[] module</a></li>
+        <li><a href="#-module-13">[] module</a></li>
+        <li><a href="#-module-14">[] module</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+          </div>
+      </details>
+    </aside>
+  
+
+
+    
+
+
+    <div class="content">
+      <h1 id="rust-library-core">rust library core <a href="#rust-library-core" class="anchor">🔗</a></h1><p><img src="/rust/rust-library-core.png" height = "400" /><br></p>
+<h2 id="common-sense">common sense <a href="#common-sense" class="anchor">🔗</a></h2><p><img src="/rust/rust-module.png" height = "500" /><br></p>
+<p>unfold  fold all 收拢代码细节 展开代码细节<br></p>
+<p>pub(crate) struct NeverShortCircuit<T>(pub T);  item 可以在本crate里普遍使用。<br></p>
+<h3 id="catch-module">catch module <a href="#catch-module" class="anchor">🔗</a></h3><p>[mem], [ptr], [macros], [task], [future]<em>, [iter]</em>, [], [], [], [], [], [], [], [], [], [], [], [],</p>
+<h3 id="ignore-module">ignore module <a href="#ignore-module" class="anchor">🔗</a></h3><p>[ffi], [hash], [num], [unicode]<br></p>
+<hr>
+<h2 id="mem-module">[mem] module <a href="#mem-module" class="anchor">🔗</a></h2><p>这个module是关于内存操作相关的接口。</p>
+<ul>
+<li>mod.rs</li>
+<li>manually_drop.rs</li>
+<li>maybe_uninit.rs</li>
+<li>transmutability.rs</li>
+</ul>
+<h3 id="modrs">mod.rs <a href="#modrs" class="anchor">🔗</a></h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">use</span> <span style="color:#66d9ef">crate</span>::intrinsics::transmute;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">size_of</span><span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>() -&gt; <span style="color:#66d9ef">usize</span> {
+</span></span><span style="display:flex;"><span>    intrinsics::size_of::<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//Returns the size of the pointed-to value in bytes.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">size_of_val</span><span style="color:#f92672">&lt;</span>T: <span style="color:#f92672">?</span>Sized<span style="color:#f92672">&gt;</span>(val: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">T</span>) -&gt; <span style="color:#66d9ef">usize</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// SAFETY: `val` is a reference, so it&#39;s a valid raw pointer
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">unsafe</span> { intrinsics::size_of_val(val) }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 对于[slice], [trait object] 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">unsafe</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">size_of_val_raw</span><span style="color:#f92672">&lt;</span>T: <span style="color:#f92672">?</span>Sized<span style="color:#f92672">&gt;</span>(val: <span style="color:#f92672">*</span><span style="color:#66d9ef">const</span> T) -&gt; <span style="color:#66d9ef">usize</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// SAFETY: the caller must provide a valid raw pointer
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">unsafe</span> { intrinsics::size_of_val(val) }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">// example
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> x: [<span style="color:#66d9ef">u8</span>; <span style="color:#ae81ff">13</span>] <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0</span>; <span style="color:#ae81ff">13</span>];
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> y: <span style="color:#66d9ef">&amp;</span>[<span style="color:#66d9ef">u8</span>] <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>x;
+</span></span><span style="display:flex;"><span>println!(<span style="color:#e6db74">&#34;slice size={}&#34;</span>, std::mem::size_of_val(<span style="color:#f92672">&amp;</span>y)); <span style="color:#75715e">// 16
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>println!(<span style="color:#e6db74">&#34;slice pointer to size = {}&#34;</span>, std::mem::size_of_val(y)); <span style="color:#75715e">//13
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">swap</span><span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>(x: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">mut</span> T, y: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">mut</span> T) {<span style="color:#f92672">..</span>.}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">pub</span>(<span style="color:#66d9ef">crate</span>) <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">swap_simple</span><span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>(x: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">mut</span> T, y: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">mut</span> T) {<span style="color:#f92672">..</span>.}
+</span></span></code></pre></div><p>... RTFM<br></p>
+<h3 id="manually_droprs">manually_drop.rs <a href="#manually_droprs" class="anchor">🔗</a></h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">//src/mem/manually_drop.rs#
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ManuallyDrop</span><span style="color:#f92672">&lt;</span>T: <span style="color:#f92672">?</span>Sized<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>    value: <span style="color:#a6e22e">T</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>maybe_uninit.rs...transmutability.rs<br></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#e6db74">///core/src/intrinsics.rs
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>    <span style="color:#75715e">#[rustc_diagnostic_item = </span><span style="color:#e6db74">&#34;transmute&#34;</span><span style="color:#75715e">]</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">transmute</span><span style="color:#f92672">&lt;</span>Src, Dst<span style="color:#f92672">&gt;</span>(src: <span style="color:#a6e22e">Src</span>) -&gt; <span style="color:#a6e22e">Dst</span>;
+</span></span></code></pre></div><h2 id="ptr-module">[ptr] module <a href="#ptr-module" class="anchor">🔗</a></h2><p><strong>core/src/ptr</strong> <br>
+Manually manage memory through raw pointers.<br></p>
+<h3 id="modrs-1">mod.rs <a href="#modrs-1" class="anchor">🔗</a></h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#e6db74">/// ```
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">/// let mut x = 0;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">/// let y = &amp;mut x as *mut i32;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">/// let z = 12;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">///
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">/// unsafe {
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">///     std::ptr::write(y, z);
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">///     assert_eq!(std::ptr::read(y), 12);
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">/// }
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">/// ```
+</span></span></span></code></pre></div><h3 id="mut_ptrrs">mut_ptr.rs <a href="#mut_ptrrs" class="anchor">🔗</a></h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span>    <span style="color:#e6db74">/// let mut s = [1, 2, 3];
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>    <span style="color:#e6db74">/// let ptr: *mut u32 = s.as_mut_ptr();
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>    <span style="color:#e6db74">///
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>    <span style="color:#e6db74">/// unsafe {
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>    <span style="color:#e6db74">///     println!(&#34;{}&#34;, *ptr.offset(1));
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>    <span style="color:#e6db74">///     println!(&#34;{}&#34;, *ptr.offset(2));
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>    <span style="color:#e6db74">/// }
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">unsafe</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">offset</span>(self, count: <span style="color:#66d9ef">isize</span>) -&gt; <span style="color:#f92672">*</span><span style="color:#66d9ef">mut</span> T
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">where</span>
+</span></span><span style="display:flex;"><span>        T: Sized,
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// SAFETY: the caller must uphold the safety contract for `offset`.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// The obtained pointer is valid for writes since the caller must
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// guarantee that it points to the same allocated object as `self`.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">unsafe</span> { intrinsics::offset(self, count) <span style="color:#66d9ef">as</span> <span style="color:#f92672">*</span><span style="color:#66d9ef">mut</span> T }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">/// ```
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>    <span style="color:#e6db74">/// let s: &amp;str = &#34;123&#34;;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>    <span style="color:#e6db74">/// let ptr: *const u8 = s.as_ptr();
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>    <span style="color:#e6db74">///
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>    <span style="color:#e6db74">/// unsafe {
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>    <span style="color:#e6db74">///     println!(&#34;{}&#34;, *ptr.add(1) as char);
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>    <span style="color:#e6db74">///     println!(&#34;{}&#34;, *ptr.add(2) as char);
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>    <span style="color:#e6db74">/// }
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>    <span style="color:#e6db74">/// ```
+</span></span></span></code></pre></div><h3 id="non_nullrs">non_null.rs <a href="#non_nullrs" class="anchor">🔗</a></h3><p>//core/src/ptr/non_null.rs</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">NonNull</span><span style="color:#f92672">&lt;</span>T: <span style="color:#f92672">?</span>Sized<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>    pointer: <span style="color:#f92672">*</span><span style="color:#66d9ef">const</span> T,
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="uniquers">unique.rs <a href="#uniquers" class="anchor">🔗</a></h3><p>//core/src/ptr/unique.rs</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Unique</span><span style="color:#f92672">&lt;</span>T: <span style="color:#f92672">?</span>Sized<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>    pointer: <span style="color:#a6e22e">NonNull</span><span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>,
+</span></span><span style="display:flex;"><span>    _marker: <span style="color:#a6e22e">PhantomData</span><span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="macros-module">[macros] module <a href="#macros-module" class="anchor">🔗</a></h2><ul>
+<li>mod.rs</li>
+<li>panic.md
+<ul>
+<li>unwrap() None, Err -&gt; panic!();</li>
+<li>panic! vs Result&lt;T, E&gt;</li>
+</ul>
+</li>
+</ul>
+<h2 id="alloc-module">[alloc] module <a href="#alloc-module" class="anchor">🔗</a></h2><p>Memory allocation APIs <br></p>
+<ul>
+<li>mod.rs</li>
+<li>global.rs</li>
+<li>layout.rs</li>
+</ul>
+<h2 id="array-module">[array] module <a href="#array-module" class="anchor">🔗</a></h2><p>Utilities for the array primitive type. <br></p>
+<ul>
+<li>mod.rs</li>
+<li>iter.rs</li>
+<li>equality.rs</li>
+</ul>
+<h3 id="modrs-2">mod.rs <a href="#modrs-2" class="anchor">🔗</a></h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">//core/src/array/mod.rs
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">mod</span> iter;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">use</span> iter::IntoIter; <span style="color:#75715e">// outside. use std::array::IntoIter;
+</span></span></span></code></pre></div><h3 id="iterrs">iter.rs <a href="#iterrs" class="anchor">🔗</a></h3><h3 id="equalityrs">equality.rs <a href="#equalityrs" class="anchor">🔗</a></h3><h2 id="slice-module">[slice] module <a href="#slice-module" class="anchor">🔗</a></h2><h2 id="async_iter-module">[async_iter] module <a href="#async_iter-module" class="anchor">🔗</a></h2><h2 id="iter-module">[iter] module <a href="#iter-module" class="anchor">🔗</a></h2><h2 id="ops-module">[ops] module <a href="#ops-module" class="anchor">🔗</a></h2><h2 id="cmprs-module">[cmp.rs] module <a href="#cmprs-module" class="anchor">🔗</a></h2><h2 id="str-module">[str] module <a href="#str-module" class="anchor">🔗</a></h2><h2 id="markerrs-module">[marker.rs] module <a href="#markerrs-module" class="anchor">🔗</a></h2><h2 id="-module">[] module <a href="#-module" class="anchor">🔗</a></h2><h2 id="-module-1">[] module <a href="#-module-1" class="anchor">🔗</a></h2><h2 id="-module-2">[] module <a href="#-module-2" class="anchor">🔗</a></h2><h2 id="-module-3">[] module <a href="#-module-3" class="anchor">🔗</a></h2><h2 id="-module-4">[] module <a href="#-module-4" class="anchor">🔗</a></h2><h2 id="-module-5">[] module <a href="#-module-5" class="anchor">🔗</a></h2><h2 id="-module-6">[] module <a href="#-module-6" class="anchor">🔗</a></h2><h2 id="-module-7">[] module <a href="#-module-7" class="anchor">🔗</a></h2><h2 id="-module-8">[] module <a href="#-module-8" class="anchor">🔗</a></h2><h2 id="-module-9">[] module <a href="#-module-9" class="anchor">🔗</a></h2><h2 id="-module-10">[] module <a href="#-module-10" class="anchor">🔗</a></h2><h2 id="-module-11">[] module <a href="#-module-11" class="anchor">🔗</a></h2><h2 id="-module-12">[] module <a href="#-module-12" class="anchor">🔗</a></h2><h2 id="-module-13">[] module <a href="#-module-13" class="anchor">🔗</a></h2><h2 id="-module-14">[] module <a href="#-module-14" class="anchor">🔗</a></h2>
+    </div>
+
+    
+        <div class="tags">
+            
+                <a href="http://brettkk.github.io/tags/rust">rust</a>
+            
+                <a href="http://brettkk.github.io/tags/library">library</a>
+            
+        </div>
+    
+    
+    
+
+</section>
+
+
+    </main>
+    
+    <footer id="footer">
+    
+
+    <script src="https://utteranc.es/client.js"
+repo="brettKK/brettkk.github.io"
+issue-term="title"
+theme="github-light"
+crossorigin="anonymous"
+async>
+</script>  
+
+    <div class="copyright">
+    
+       © Copyright 
+       2022 
+       <span class="split">
+        <svg fill="#bbbbbb" width="15" height="15" version="1.1" id="heart-15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 15 15">
+  <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>
+</svg>
+       </span>
+       
+    
+    </div>
+
+    
+      <div class="powerby">
+        Powered by <a href='http://www.gohugo.io/'>Hugo</a> Theme By <a href='https://github.com/nodejh/hugo-theme-cactus-plus'>nodejh</a>
+      </div>
+    
+</footer>
+
+
+
+
+  </body>
+</html>

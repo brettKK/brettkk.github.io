@@ -3,24 +3,42 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>http://brettkk.github.io/</loc>
-    <lastmod>2022-08-06T00:00:00+00:00</lastmod>
+    <lastmod>2022-11-05T11:33:56+08:00</lastmod>
   </url><url>
     <loc>http://brettkk.github.io/categories/</loc>
-    <lastmod>2022-08-06T00:00:00+00:00</lastmod>
+    <lastmod>2022-11-05T11:33:56+08:00</lastmod>
+  </url><url>
+    <loc>http://brettkk.github.io/tags/library/</loc>
+    <lastmod>2022-11-05T11:33:56+08:00</lastmod>
+  </url><url>
+    <loc>http://brettkk.github.io/tags/linux/</loc>
+    <lastmod>2022-11-05T11:33:56+08:00</lastmod>
+  </url><url>
+    <loc>http://brettkk.github.io/posts/os/tcp/</loc>
+    <lastmod>2022-11-05T11:33:56+08:00</lastmod>
+  </url><url>
+    <loc>http://brettkk.github.io/posts/</loc>
+    <lastmod>2022-11-05T11:33:56+08:00</lastmod>
+  </url><url>
+    <loc>http://brettkk.github.io/tags/protocol/</loc>
+    <lastmod>2022-11-05T11:33:56+08:00</lastmod>
+  </url><url>
+    <loc>http://brettkk.github.io/tags/rust/</loc>
+    <lastmod>2022-11-05T11:33:56+08:00</lastmod>
+  </url><url>
+    <loc>http://brettkk.github.io/posts/rust/rust_library_core/</loc>
+    <lastmod>2022-11-05T11:33:56+08:00</lastmod>
+  </url><url>
+    <loc>http://brettkk.github.io/tags/</loc>
+    <lastmod>2022-11-05T11:33:56+08:00</lastmod>
+  </url><url>
+    <loc>http://brettkk.github.io/categories/%E6%8A%80%E6%9C%AF/</loc>
+    <lastmod>2022-11-05T11:33:56+08:00</lastmod>
   </url><url>
     <loc>http://brettkk.github.io/tags/golang/</loc>
     <lastmod>2022-08-06T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://brettkk.github.io/posts/golang/golang_mod/</loc>
-    <lastmod>2022-08-06T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://brettkk.github.io/posts/</loc>
-    <lastmod>2022-08-06T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://brettkk.github.io/tags/</loc>
-    <lastmod>2022-08-06T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://brettkk.github.io/categories/%E6%8A%80%E6%9C%AF/</loc>
     <lastmod>2022-08-06T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://brettkk.github.io/tags/c/</loc>
@@ -40,9 +58,6 @@
   </url><url>
     <loc>http://brettkk.github.io/posts/golang/golang/</loc>
     <lastmod>2022-05-07T18:54:41+08:00</lastmod>
-  </url><url>
-    <loc>http://brettkk.github.io/tags/linux/</loc>
-    <lastmod>2022-05-05T11:33:56+08:00</lastmod>
   </url><url>
     <loc>http://brettkk.github.io/posts/os/base_os/</loc>
     <lastmod>2022-05-05T11:33:56+08:00</lastmod>
@@ -119,9 +134,6 @@
     <loc>http://brettkk.github.io/posts/os/shell-basic/</loc>
     <lastmod>2021-05-05T11:33:56+08:00</lastmod>
   </url><url>
-    <loc>http://brettkk.github.io/posts/os/tcp/</loc>
-    <lastmod>2021-05-05T11:33:56+08:00</lastmod>
-  </url><url>
     <loc>http://brettkk.github.io/posts/os/top/</loc>
     <lastmod>2021-05-05T11:33:56+08:00</lastmod>
   </url><url>
@@ -129,9 +141,6 @@
     <lastmod>2021-05-05T11:33:56+08:00</lastmod>
   </url><url>
     <loc>http://brettkk.github.io/posts/store_db/mysql/</loc>
-    <lastmod>2021-05-05T11:33:56+08:00</lastmod>
-  </url><url>
-    <loc>http://brettkk.github.io/tags/protocol/</loc>
     <lastmod>2021-05-05T11:33:56+08:00</lastmod>
   </url><url>
     <loc>http://brettkk.github.io/posts/store_db/redis/</loc>
@@ -236,6 +245,8 @@
     <loc>http://brettkk.github.io/posts/os/nju-os/nju_os/</loc>
   </url><url>
     <loc>http://brettkk.github.io/posts/rust/rust_chain/</loc>
+  </url><url>
+    <loc>http://brettkk.github.io/posts/rust/rust_concurrency/</loc>
   </url><url>
     <loc>http://brettkk.github.io/posts/rust/rust_problem/</loc>
   </url><url>

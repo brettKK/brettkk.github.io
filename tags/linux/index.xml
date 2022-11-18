@@ -6,7 +6,16 @@
     <description>Recent content in linux on brettkk</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 05 May 2022 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 05 Nov 2022 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>linux-tcp</title>
+      <link>http://brettkk.github.io/posts/os/tcp/</link>
+      <pubDate>Sat, 05 Nov 2022 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/os/tcp/</guid>
+      <description>tcp报文结构图 URG: 表示紧急指针（urgent pointer）</description>
+    </item>
+    
     <item>
       <title>linux-base</title>
       <link>http://brettkk.github.io/posts/os/base_os/</link>
@@ -50,15 +59,6 @@
       
       <guid>http://brettkk.github.io/posts/os/shell-basic/</guid>
       <description>单引号，双引号，反引号区别 单引号之间的内容原封不动的输出 双引</description>
-    </item>
-    
-    <item>
-      <title>linux-tcp</title>
-      <link>http://brettkk.github.io/posts/os/tcp/</link>
-      <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/os/tcp/</guid>
-      <description>tcp报文结构图 URG: 表示紧急指针（urgent pointer）</description>
     </item>
     
     <item>

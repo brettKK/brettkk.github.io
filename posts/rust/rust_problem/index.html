@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          147 words
+          191 words
         </span>
         <span class="split">
           ·
@@ -103,7 +103,17 @@ error: failed to load manifest for workspace member <code>/Users/gonglei/rust-wo
 failed to read <code>/Users/gonglei/rust-workspace/rust/src/tools/rust-installer/Cargo.toml</code></p>
 <p>Caused by:
 No such file or directory (os error 2)</p>
+<pre tabindex="0"><code>Blocking waiting for file lock on package cache
+</code></pre><pre tabindex="0"><code>&#34;a&#34;.to_string() vs &#34;a&#34;.to_owned() 
 
+https://users.rust-lang.org/t/to-string-vs-to-owned-for-string-literals/1441
+</code></pre><p><code>How to step into std source code when debugging in VS Code?</code>
+<a href="https://users.rust-lang.org/t/solved-how-to-step-into-std-source-code-when-debugging-in-vs-code/25319" target="_blank" rel="noopener">solved</a> <br>
+<a href="https://github.com/vadimcn/vscode-lldb/blob/master/MANUAL.md#source-path-remapping" target="_blank" rel="noopener">Source Path Remapping</a><br></p>
+<p>直接访问Vec结构体中的len字段，可以吗？ 分两种情况吧，<a href="https://doc.rust-lang.org/beta/error_codes/E0616.html" target="_blank" rel="noopener">safe rust不行</a>。 unsafe rust下 mem::transmute 应该是可以的。</p>
+<pre tabindex="0"><code>error[E0616]: field `len` of struct `Vec` is private
+https://doc.rust-lang.org/beta/error_codes/E0616.html
+</code></pre>
     </div>
 
     

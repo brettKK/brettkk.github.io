@@ -6,7 +6,43 @@
     <description>Recent content in Tags on brettkk</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 06 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://brettkk.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 05 Nov 2022 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>library</title>
+      <link>http://brettkk.github.io/tags/library/</link>
+      <pubDate>Sat, 05 Nov 2022 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/tags/library/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>linux</title>
+      <link>http://brettkk.github.io/tags/linux/</link>
+      <pubDate>Sat, 05 Nov 2022 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/tags/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>protocol</title>
+      <link>http://brettkk.github.io/tags/protocol/</link>
+      <pubDate>Sat, 05 Nov 2022 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/tags/protocol/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rust</title>
+      <link>http://brettkk.github.io/tags/rust/</link>
+      <pubDate>Sat, 05 Nov 2022 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/tags/rust/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>golang</title>
       <link>http://brettkk.github.io/tags/golang/</link>
@@ -49,15 +85,6 @@
       <pubDate>Fri, 05 Aug 2022 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/tags/rustc/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>linux</title>
-      <link>http://brettkk.github.io/tags/linux/</link>
-      <pubDate>Thu, 05 May 2022 11:33:56 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/tags/linux/</guid>
       <description></description>
     </item>
     
@@ -121,15 +148,6 @@
       <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/tags/language/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>protocol</title>
-      <link>http://brettkk.github.io/tags/protocol/</link>
-      <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/tags/protocol/</guid>
       <description></description>
     </item>
     

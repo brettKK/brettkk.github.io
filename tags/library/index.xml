@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>library on brettkk</title>
+    <link>http://brettkk.github.io/tags/library/</link>
+    <description>Recent content in library on brettkk</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 05 Nov 2022 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/tags/library/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>rust-library-core</title>
+      <link>http://brettkk.github.io/posts/rust/rust_library_core/</link>
+      <pubDate>Sat, 05 Nov 2022 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/rust/rust_library_core/</guid>
+      <description>rust library core 🔗 common sense 🔗 unfold fold all 收拢代码细节 展开代码细节 pub(crate) struct NeverShortCircuit(pub T); item 可以在</description>
+    </item>
+    
+  </channel>
+</rss>
