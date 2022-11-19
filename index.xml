@@ -22,7 +22,7 @@
       <pubDate>Sat, 05 Nov 2022 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/rust/rust_library_core/</guid>
-      <description>rust library core 🔗 common sense 🔗 unfold fold all 收拢代码细节 展开代码细节 pub(crate) struct NeverShortCircuit(pub T); item 可以在</description>
+      <description>rust library core 🔗读一下 rust-lang的源码， core正好是不依赖</description>
     </item>
     
     <item>

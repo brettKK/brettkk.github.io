@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>rust on brettkk</title>
-    <link>http://brettkk.github.io/tags/rust/</link>
-    <description>Recent content in rust on brettkk</description>
+    <title>library core on brettkk</title>
+    <link>http://brettkk.github.io/tags/library-core/</link>
+    <description>Recent content in library core on brettkk</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 05 Nov 2022 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/tags/rust/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 05 Nov 2022 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/tags/library-core/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>rust-library-core</title>
       <link>http://brettkk.github.io/posts/rust/rust_library_core/</link>

@@ -8,7 +8,7 @@
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
 <meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta name="description" content="rust library core 🔗 common sense 🔗 unfold fold all 收拢代码细节 展开代码细节 pub(crate) struct NeverShortCircuit(pub T); item 可以在">
+<meta name="description" content="rust library core 🔗读一下 rust-lang的源码， core正好是不依赖">
 <meta name="generator" content="Hugo 0.103.1" />
 
 
@@ -70,13 +70,13 @@
           ·
         </span>
         <span>
-          774 words
+          3333 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          2 minute read
+          7 minute read
         </span>
     </div>
 
@@ -91,61 +91,80 @@
           <div>
               <nav id="TableOfContents">
   <ul>
-    <li><a href="#rust-library-core">rust library core</a>
+    <li><a href="#rust-library-core">rust library core</a></li>
+    <li><a href="#基本常识common-sense">基本常识common sense</a>
       <ul>
-        <li><a href="#common-sense">common sense</a>
+        <li><a href="#我们会关注的模块catch-module">我们会关注的模块catch module</a></li>
+        <li><a href="#我们不关心的模块ignore-module">我们不关心的模块ignore module</a></li>
+      </ul>
+    </li>
+    <li><a href="#mem-module">[mem] module</a>
+      <ul>
+        <li><a href="#modrs">mod.rs</a>
           <ul>
-            <li><a href="#catch-module">catch module</a></li>
-            <li><a href="#ignore-module">ignore module</a></li>
-          </ul>
-        </li>
-        <li><a href="#mem-module">[mem] module</a>
-          <ul>
-            <li><a href="#modrs">mod.rs</a></li>
             <li><a href="#manually_droprs">manually_drop.rs</a></li>
           </ul>
         </li>
-        <li><a href="#ptr-module">[ptr] module</a>
-          <ul>
-            <li><a href="#modrs-1">mod.rs</a></li>
-            <li><a href="#mut_ptrrs">mut_ptr.rs</a></li>
-            <li><a href="#non_nullrs">non_null.rs</a></li>
-            <li><a href="#uniquers">unique.rs</a></li>
-          </ul>
-        </li>
-        <li><a href="#macros-module">[macros] module</a></li>
-        <li><a href="#alloc-module">[alloc] module</a></li>
-        <li><a href="#array-module">[array] module</a>
-          <ul>
-            <li><a href="#modrs-2">mod.rs</a></li>
-            <li><a href="#iterrs">iter.rs</a></li>
-            <li><a href="#equalityrs">equality.rs</a></li>
-          </ul>
-        </li>
-        <li><a href="#slice-module">[slice] module</a></li>
-        <li><a href="#async_iter-module">[async_iter] module</a></li>
-        <li><a href="#iter-module">[iter] module</a></li>
-        <li><a href="#ops-module">[ops] module</a></li>
-        <li><a href="#cmprs-module">[cmp.rs] module</a></li>
-        <li><a href="#str-module">[str] module</a></li>
-        <li><a href="#markerrs-module">[marker.rs] module</a></li>
-        <li><a href="#-module">[] module</a></li>
-        <li><a href="#-module-1">[] module</a></li>
-        <li><a href="#-module-2">[] module</a></li>
-        <li><a href="#-module-3">[] module</a></li>
-        <li><a href="#-module-4">[] module</a></li>
-        <li><a href="#-module-5">[] module</a></li>
-        <li><a href="#-module-6">[] module</a></li>
-        <li><a href="#-module-7">[] module</a></li>
-        <li><a href="#-module-8">[] module</a></li>
-        <li><a href="#-module-9">[] module</a></li>
-        <li><a href="#-module-10">[] module</a></li>
-        <li><a href="#-module-11">[] module</a></li>
-        <li><a href="#-module-12">[] module</a></li>
-        <li><a href="#-module-13">[] module</a></li>
-        <li><a href="#-module-14">[] module</a></li>
       </ul>
     </li>
+    <li><a href="#ptr-module">[ptr] module</a>
+      <ul>
+        <li><a href="#modrs-1">mod.rs</a></li>
+        <li><a href="#mut_ptrrs">mut_ptr.rs</a></li>
+        <li><a href="#non_nullrs">non_null.rs</a></li>
+        <li><a href="#uniquers">unique.rs</a></li>
+      </ul>
+    </li>
+    <li><a href="#macros-module">[macros] module</a></li>
+    <li><a href="#alloc-module">[alloc] module</a></li>
+    <li><a href="#array-module">[array] module</a>
+      <ul>
+        <li><a href="#modrs-2">mod.rs</a></li>
+        <li><a href="#iterrs">iter.rs</a></li>
+        <li><a href="#equalityrs">equality.rs</a></li>
+      </ul>
+    </li>
+    <li><a href="#slice-module">[slice] module</a>
+      <ul>
+        <li><a href="#modrs-3">mod.rs</a></li>
+        <li><a href="#iterrs-module-in-slice-module">iter.rs module in [slice] module</a></li>
+      </ul>
+    </li>
+    <li><a href="#async_iter-module">[async_iter] module</a></li>
+    <li><a href="#strongfont-colorrediterfontstrong--module"><strong><font color=red>[iter]</font></strong>  module</a>
+      <ul>
+        <li><a href="#modrs-4">mod.rs</a></li>
+        <li><a href="#sources-module-in-iter-module">[sources] module in [iter] module</a>
+          <ul>
+            <li><a href="#emptyrs-module">empty.rs module</a></li>
+            <li><a href="#from_fnrs-module">from_fn.rs module</a></li>
+            <li><a href="#from_generatorrs-module">from_generator.rs module</a></li>
+            <li><a href="#其他-module-once_withrs-oncers-repeat_withrs-repeatrs-successorsrs">[其他] module， once_with.rs, once.rs, repeat_with.rs, repeat.rs, successors.rs</a></li>
+          </ul>
+        </li>
+        <li><a href="#traits-module-in-iter-module">[traits] module in [iter] module</a>
+          <ul>
+            <li><a href="#collectrs">collect.rs</a></li>
+            <li><a href="#iteratorrs">iterator.rs</a></li>
+          </ul>
+        </li>
+        <li><a href="#adapters-module-in-iter-module">[adapters] module in [iter] module</a>
+          <ul>
+            <li><a href="#maprs-module">map.rs module</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#ops-module">[ops] module</a></li>
+    <li><a href="#str-module">[str] module</a></li>
+    <li><a href="#cellrs-module">cell.rs module</a></li>
+    <li><a href="#cmprs-module">cmp.rs module</a></li>
+    <li><a href="#errorrs-module-and-errormd">error.rs module and error.md</a></li>
+    <li><a href="#markerrs-module">marker.rs module</a></li>
+    <li><a href="#optionrs-module">option.rs module</a></li>
+    <li><a href="#resultrs-module">result.rs module</a></li>
+    <li><a href="#pinrs-module">pin.rs module</a></li>
+    <li><a href="#librs-module">lib.rs module</a></li>
   </ul>
 </nav>
           </div>
@@ -158,21 +177,27 @@
 
 
     <div class="content">
-      <h1 id="rust-library-core">rust library core <a href="#rust-library-core" class="anchor">🔗</a></h1><p><img src="/rust/rust-library-core.png" height = "400" /><br></p>
-<h2 id="common-sense">common sense <a href="#common-sense" class="anchor">🔗</a></h2><p><img src="/rust/rust-module.png" height = "500" /><br></p>
+      <h1 id="rust-library-core">rust library core <a href="#rust-library-core" class="anchor">🔗</a></h1><p>读一下 rust-lang的源码， core正好是不依赖于其他rust-lang的workspce里其他member， 自给自足所以优先查看。<br>
+<img src="/rust/rust-library-core.png" height = "400" /><br></p>
+<h1 id="基本常识common-sense">基本常识common sense <a href="#%e5%9f%ba%e6%9c%ac%e5%b8%b8%e8%af%86common-sense" class="anchor">🔗</a></h1><p><strong>基本常识：有助先bfs看一下目录和范围，然后找一个module dfs看下去</strong><br>
+每个module下的mod.rs优先看 -&gt; mod.rs内部优先看pub use的行 </br></p>
+<p>docs.rs &lt;--&gt; 代码。</p>
+<p>docs.rs上只会出现pub fn， pub struct， pub trait。<br></p>
+<p><img src="/rust/rust-module.png" height = "500" /><br></p>
 <p>unfold  fold all 收拢代码细节 展开代码细节<br></p>
 <p>pub(crate) struct NeverShortCircuit<T>(pub T);  item 可以在本crate里普遍使用。<br></p>
-<h3 id="catch-module">catch module <a href="#catch-module" class="anchor">🔗</a></h3><p>[mem], [ptr], [macros], [task], [future]<em>, [iter]</em>, [], [], [], [], [], [], [], [], [], [], [], [],</p>
-<h3 id="ignore-module">ignore module <a href="#ignore-module" class="anchor">🔗</a></h3><p>[ffi], [hash], [num], [unicode]<br></p>
+<p>core 和 alloc 的联系和区别是什么？ <std></p>
+<h2 id="我们会关注的模块catch-module">我们会关注的模块catch module <a href="#%e6%88%91%e4%bb%ac%e4%bc%9a%e5%85%b3%e6%b3%a8%e7%9a%84%e6%a8%a1%e5%9d%97catch-module" class="anchor">🔗</a></h2><p>[mem], [ptr], [macros], [task], [future]<em>, [iter]</em>, [], [], [], [], [], [], [], [], [], [], [], [],</p>
+<h2 id="我们不关心的模块ignore-module">我们不关心的模块ignore module <a href="#%e6%88%91%e4%bb%ac%e4%b8%8d%e5%85%b3%e5%bf%83%e7%9a%84%e6%a8%a1%e5%9d%97ignore-module" class="anchor">🔗</a></h2><p>[ffi], [hash], [num], [unicode]<br></p>
 <hr>
-<h2 id="mem-module">[mem] module <a href="#mem-module" class="anchor">🔗</a></h2><p>这个module是关于内存操作相关的接口。</p>
+<h1 id="mem-module">[mem] module <a href="#mem-module" class="anchor">🔗</a></h1><p>这个module是关于内存操作相关的接口。</p>
 <ul>
 <li>mod.rs</li>
 <li>manually_drop.rs</li>
 <li>maybe_uninit.rs</li>
 <li>transmutability.rs</li>
 </ul>
-<h3 id="modrs">mod.rs <a href="#modrs" class="anchor">🔗</a></h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">use</span> <span style="color:#66d9ef">crate</span>::intrinsics::transmute;
+<h2 id="modrs">mod.rs <a href="#modrs" class="anchor">🔗</a></h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">use</span> <span style="color:#66d9ef">crate</span>::intrinsics::transmute;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">size_of</span><span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>() -&gt; <span style="color:#66d9ef">usize</span> {
 </span></span><span style="display:flex;"><span>    intrinsics::size_of::<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>()
@@ -204,9 +229,9 @@
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#e6db74">///core/src/intrinsics.rs
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>    <span style="color:#75715e">#[rustc_diagnostic_item = </span><span style="color:#e6db74">&#34;transmute&#34;</span><span style="color:#75715e">]</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">transmute</span><span style="color:#f92672">&lt;</span>Src, Dst<span style="color:#f92672">&gt;</span>(src: <span style="color:#a6e22e">Src</span>) -&gt; <span style="color:#a6e22e">Dst</span>;
-</span></span></code></pre></div><h2 id="ptr-module">[ptr] module <a href="#ptr-module" class="anchor">🔗</a></h2><p><strong>core/src/ptr</strong> <br>
+</span></span></code></pre></div><h1 id="ptr-module">[ptr] module <a href="#ptr-module" class="anchor">🔗</a></h1><p><strong>core/src/ptr</strong> <br>
 Manually manage memory through raw pointers.<br></p>
-<h3 id="modrs-1">mod.rs <a href="#modrs-1" class="anchor">🔗</a></h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#e6db74">/// ```
+<h2 id="modrs-1">mod.rs <a href="#modrs-1" class="anchor">🔗</a></h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#e6db74">/// ```
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">/// let mut x = 0;
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">/// let y = &amp;mut x as *mut i32;
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">/// let z = 12;
@@ -216,7 +241,7 @@ Manually manage memory through raw pointers.<br></p>
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">///     assert_eq!(std::ptr::read(y), 12);
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">/// }
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">/// ```
-</span></span></span></code></pre></div><h3 id="mut_ptrrs">mut_ptr.rs <a href="#mut_ptrrs" class="anchor">🔗</a></h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span>    <span style="color:#e6db74">/// let mut s = [1, 2, 3];
+</span></span></span></code></pre></div><h2 id="mut_ptrrs">mut_ptr.rs <a href="#mut_ptrrs" class="anchor">🔗</a></h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span>    <span style="color:#e6db74">/// let mut s = [1, 2, 3];
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>    <span style="color:#e6db74">/// let ptr: *mut u32 = s.as_mut_ptr();
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>    <span style="color:#e6db74">///
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>    <span style="color:#e6db74">/// unsafe {
@@ -242,16 +267,16 @@ Manually manage memory through raw pointers.<br></p>
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>    <span style="color:#e6db74">///     println!(&#34;{}&#34;, *ptr.add(2) as char);
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>    <span style="color:#e6db74">/// }
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>    <span style="color:#e6db74">/// ```
-</span></span></span></code></pre></div><h3 id="non_nullrs">non_null.rs <a href="#non_nullrs" class="anchor">🔗</a></h3><p>//core/src/ptr/non_null.rs</p>
+</span></span></span></code></pre></div><h2 id="non_nullrs">non_null.rs <a href="#non_nullrs" class="anchor">🔗</a></h2><p>//core/src/ptr/non_null.rs</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">NonNull</span><span style="color:#f92672">&lt;</span>T: <span style="color:#f92672">?</span>Sized<span style="color:#f92672">&gt;</span> {
 </span></span><span style="display:flex;"><span>    pointer: <span style="color:#f92672">*</span><span style="color:#66d9ef">const</span> T,
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h3 id="uniquers">unique.rs <a href="#uniquers" class="anchor">🔗</a></h3><p>//core/src/ptr/unique.rs</p>
+</span></span></code></pre></div><h2 id="uniquers">unique.rs <a href="#uniquers" class="anchor">🔗</a></h2><p>//core/src/ptr/unique.rs</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Unique</span><span style="color:#f92672">&lt;</span>T: <span style="color:#f92672">?</span>Sized<span style="color:#f92672">&gt;</span> {
 </span></span><span style="display:flex;"><span>    pointer: <span style="color:#a6e22e">NonNull</span><span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>,
 </span></span><span style="display:flex;"><span>    _marker: <span style="color:#a6e22e">PhantomData</span><span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>,
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h2 id="macros-module">[macros] module <a href="#macros-module" class="anchor">🔗</a></h2><ul>
+</span></span></code></pre></div><h1 id="macros-module">[macros] module <a href="#macros-module" class="anchor">🔗</a></h1><ul>
 <li>mod.rs</li>
 <li>panic.md
 <ul>
@@ -260,22 +285,294 @@ Manually manage memory through raw pointers.<br></p>
 </ul>
 </li>
 </ul>
-<h2 id="alloc-module">[alloc] module <a href="#alloc-module" class="anchor">🔗</a></h2><p>Memory allocation APIs <br></p>
+<h1 id="alloc-module">[alloc] module <a href="#alloc-module" class="anchor">🔗</a></h1><p>Memory allocation APIs <br></p>
 <ul>
 <li>mod.rs</li>
 <li>global.rs</li>
 <li>layout.rs</li>
 </ul>
-<h2 id="array-module">[array] module <a href="#array-module" class="anchor">🔗</a></h2><p>Utilities for the array primitive type. <br></p>
+<h1 id="array-module">[array] module <a href="#array-module" class="anchor">🔗</a></h1><p>Utilities for the array primitive type. <br></p>
 <ul>
 <li>mod.rs</li>
 <li>iter.rs</li>
 <li>equality.rs</li>
 </ul>
-<h3 id="modrs-2">mod.rs <a href="#modrs-2" class="anchor">🔗</a></h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">//core/src/array/mod.rs
+<h2 id="modrs-2">mod.rs <a href="#modrs-2" class="anchor">🔗</a></h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">//core/src/array/mod.rs
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">mod</span> iter;
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">use</span> iter::IntoIter; <span style="color:#75715e">// outside. use std::array::IntoIter;
-</span></span></span></code></pre></div><h3 id="iterrs">iter.rs <a href="#iterrs" class="anchor">🔗</a></h3><h3 id="equalityrs">equality.rs <a href="#equalityrs" class="anchor">🔗</a></h3><h2 id="slice-module">[slice] module <a href="#slice-module" class="anchor">🔗</a></h2><h2 id="async_iter-module">[async_iter] module <a href="#async_iter-module" class="anchor">🔗</a></h2><h2 id="iter-module">[iter] module <a href="#iter-module" class="anchor">🔗</a></h2><h2 id="ops-module">[ops] module <a href="#ops-module" class="anchor">🔗</a></h2><h2 id="cmprs-module">[cmp.rs] module <a href="#cmprs-module" class="anchor">🔗</a></h2><h2 id="str-module">[str] module <a href="#str-module" class="anchor">🔗</a></h2><h2 id="markerrs-module">[marker.rs] module <a href="#markerrs-module" class="anchor">🔗</a></h2><h2 id="-module">[] module <a href="#-module" class="anchor">🔗</a></h2><h2 id="-module-1">[] module <a href="#-module-1" class="anchor">🔗</a></h2><h2 id="-module-2">[] module <a href="#-module-2" class="anchor">🔗</a></h2><h2 id="-module-3">[] module <a href="#-module-3" class="anchor">🔗</a></h2><h2 id="-module-4">[] module <a href="#-module-4" class="anchor">🔗</a></h2><h2 id="-module-5">[] module <a href="#-module-5" class="anchor">🔗</a></h2><h2 id="-module-6">[] module <a href="#-module-6" class="anchor">🔗</a></h2><h2 id="-module-7">[] module <a href="#-module-7" class="anchor">🔗</a></h2><h2 id="-module-8">[] module <a href="#-module-8" class="anchor">🔗</a></h2><h2 id="-module-9">[] module <a href="#-module-9" class="anchor">🔗</a></h2><h2 id="-module-10">[] module <a href="#-module-10" class="anchor">🔗</a></h2><h2 id="-module-11">[] module <a href="#-module-11" class="anchor">🔗</a></h2><h2 id="-module-12">[] module <a href="#-module-12" class="anchor">🔗</a></h2><h2 id="-module-13">[] module <a href="#-module-13" class="anchor">🔗</a></h2><h2 id="-module-14">[] module <a href="#-module-14" class="anchor">🔗</a></h2>
+</span></span></span></code></pre></div><h2 id="iterrs">iter.rs <a href="#iterrs" class="anchor">🔗</a></h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">//core/src/array/iter.rs
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">IntoIter</span><span style="color:#f92672">&lt;</span>T, <span style="color:#66d9ef">const</span> N: <span style="color:#66d9ef">usize</span><span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">/// This is the array we are iterating over.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>    data: [MaybeUninit<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>; N],
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">/// The elements in `data` that have not been yielded yet.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>    alive: <span style="color:#a6e22e">IndexRange</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="equalityrs">equality.rs <a href="#equalityrs" class="anchor">🔗</a></h2><h1 id="slice-module">[slice] module <a href="#slice-module" class="anchor">🔗</a></h1><h2 id="modrs-3">mod.rs <a href="#modrs-3" class="anchor">🔗</a></h2><h2 id="iterrs-module-in-slice-module">iter.rs module in [slice] module <a href="#iterrs-module-in-slice-module" class="anchor">🔗</a></h2><h1 id="async_iter-module">[async_iter] module <a href="#async_iter-module" class="anchor">🔗</a></h1><hr>
+<h1 id="strongfont-colorrediterfontstrong--module"><strong><font color=red>[iter]</font></strong>  module <a href="#strongfont-colorrediterfontstrong--module" class="anchor">🔗</a></h1><p>函数式语言的特点： 迭代器。在这个module下实现了。<br></p>
+<h2 id="modrs-4">mod.rs <a href="#modrs-4" class="anchor">🔗</a></h2><p>组织外部可见的迭代相关的功能。 Composable external iteration.<br>
+<strong>trait Iterator {...}</strong> 是整个迭代功能妥妥的C位<br>
+碰到集合类型时想到iter module里有一些方便的操作定义在<code>Iterator</code> trait中。 <br></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#e6db74">//! The heart and soul of this module is the [`Iterator`] trait. The core of
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">//! [`Iterator`] looks like this:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">//!
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">//! ```
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">//! trait Iterator {
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">//!     type Item;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">//!     fn next(&amp;mut self) -&gt; Option&lt;Self::Item&gt;;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">//! }
+</span></span></span></code></pre></div><p>如何实现去实现Iterator trait？</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#e6db74">//! # Implementing Iterator
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">//!
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">//! Creating an iterator of your own involves two steps: 1 creating a `struct` to
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">//! hold the iterator&#39;s state, and 2 then implementing [`Iterator`] for that `struct`.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">//! This is why there are so many `struct`s in this module: there is one for
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">//! each iterator and iterator adapter.
+</span></span></span></code></pre></div><p>单独地掉Iterator::next方法有点重复且乏味。 所以提供了语法糖（内部还是调用next）来进行迭代。<br></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#e6db74">//! There are three common methods which can create iterators from a collection:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">//!
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">//! * `iter()`, which iterates over `&amp;T`.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">//! * `iter_mut()`, which iterates over `&amp;mut T`.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">//! * `into_iter()`, which iterates over `T`.
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> values <span style="color:#f92672">=</span> vec![<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>];
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> x <span style="color:#66d9ef">in</span> values {
+</span></span><span style="display:flex;"><span>    println!(<span style="color:#e6db74">&#34;{x}&#34;</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//  IntoIterator trait: into_iter() convert collection (like vector) into an Iterator.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// desugar
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> values <span style="color:#f92672">=</span> vec![<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>];
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> result <span style="color:#f92672">=</span> <span style="color:#66d9ef">match</span> IntoIterator::into_iter(values) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">mut</span> iter <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">loop</span>{
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">let</span> next;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">match</span> iter.next() {
+</span></span><span style="display:flex;"><span>                Some(Val) <span style="color:#f92672">=&gt;</span>  next <span style="color:#f92672">=</span> val;
+</span></span><span style="display:flex;"><span>                None <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>            };
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">let</span> x<span style="color:#f92672">=</span> next;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">let</span> () <span style="color:#f92672">=</span> {println!(<span style="color:#e6db74">&#34;{x}&#34;</span>);};
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>    result
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">// 所有迭代器都实现了IntoIterator, 意味着： 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//   1 Iterator类型的迭代器可以在for 循环上使用；
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//   2 集合colllection实现了IntoIterator, 集合可以在for循环上使用。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">impl</span><span style="color:#f92672">&lt;</span>I: Iterator<span style="color:#f92672">&gt;</span> IntoIterator <span style="color:#66d9ef">for</span> I
+</span></span></code></pre></div><p>into_iter() 会消费所有权， ref不会。<br></p>
+<p><strong>Iterating by reference</strong>, iter(), iter_mut()的实现。 分散在collection自己的module中，
+例如 Slice module。</p>
+<p>迭代器adaptor是可以组合的。<br> 例如：map, filter, take, 输入一个Iterator，返回一个Iterator。<br>
+所有的适配器都是lazy的。 调用<code>collect</code>执行迭代返回新集合。<br></p>
+<h2 id="sources-module-in-iter-module">[sources] module in [iter] module <a href="#sources-module-in-iter-module" class="anchor">🔗</a></h2><p><strong>sources文件夹下提供了一些迭代器的实现，例如通过闭包来创建一个Iterator。</strong></p>
+<h3 id="emptyrs-module">empty.rs module <a href="#emptyrs-module" class="anchor">🔗</a></h3><p>创建一个迭代器，不产生value。 Creates an iterator that yields nothing <br></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">//example
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">use</span> std::iter;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> nope <span style="color:#f92672">=</span> iter::empty::<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">i32</span><span style="color:#f92672">&gt;</span>();
+</span></span><span style="display:flex;"><span>assert_eq!(None, nope);
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">empty</span><span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>() -&gt; <span style="color:#a6e22e">Empty</span><span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>    Empty(marker::PhantomData)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Empty</span><span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>(marker::PhantomData<span style="color:#f92672">&lt;</span>FnReturning<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&gt;</span>);
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">//为Empty实现Iterator trait， Empty类型是Iterator的子类型，Empty认为是一种迭代器。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">impl</span><span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> Iterator <span style="color:#66d9ef">for</span> Empty<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Item</span> <span style="color:#f92672">=</span> T;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">next</span>(<span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> self) -&gt; Option<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>        None
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="from_fnrs-module">from_fn.rs module <a href="#from_fnrs-module" class="anchor">🔗</a></h3><p>通过闭包来创建一个迭代器。Creates a new iterator where each iteration calls the provided closure<br></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">//example
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> count <span style="color:#f92672">=</span> <span style="color:#ae81ff">6</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> counter <span style="color:#f92672">=</span> std::iter::from_fn(<span style="color:#66d9ef">move</span> <span style="color:#f92672">||</span>{
+</span></span><span style="display:flex;"><span>        count <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> count <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">6</span> {
+</span></span><span style="display:flex;"><span>            Some(count)
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>            None
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    });
+</span></span><span style="display:flex;"><span>assert_eq!(counter.collect::<span style="color:#f92672">&lt;</span>Vec<span style="color:#f92672">&lt;</span>_<span style="color:#f92672">&gt;&gt;</span>(), <span style="color:#f92672">&amp;</span>[<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>]);
+</span></span></code></pre></div><p>FromFn迭代器的实现：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">//core/src/iter/from_fn.rs
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">from_fn</span><span style="color:#f92672">&lt;</span>T, F<span style="color:#f92672">&gt;</span>(f: <span style="color:#a6e22e">F</span>) -&gt; <span style="color:#a6e22e">FromFn</span><span style="color:#f92672">&lt;</span>F<span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">where</span>
+</span></span><span style="display:flex;"><span>    F: FnMut() -&gt; Option<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>,
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    FromFn(f)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">FromFn</span><span style="color:#f92672">&lt;</span>F<span style="color:#f92672">&gt;</span>(F);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 为FromFn类型实现Iterator trait。FromFn是Iterator的子类型， FromFn是一种实现了迭代器接口的迭代器。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">impl</span><span style="color:#f92672">&lt;</span>T, F<span style="color:#f92672">&gt;</span> Iterator <span style="color:#66d9ef">for</span> FromFn<span style="color:#f92672">&lt;</span>F<span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">where</span>
+</span></span><span style="display:flex;"><span>    F: FnMut() -&gt; Option<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>,
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Item</span> <span style="color:#f92672">=</span> T;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">next</span>(<span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> self) -&gt; Option<span style="color:#f92672">&lt;</span>Self::Item<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>        (self.<span style="color:#ae81ff">0</span>)()
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="from_generatorrs-module">from_generator.rs module <a href="#from_generatorrs-module" class="anchor">🔗</a></h3><p>#[unstable(feature = &quot;iter_from_generator&quot;, issue = &quot;43122&quot;, reason = &quot;generators are unstable&quot;)]<br> 不稳定的功能， 在使用时add <code>#![feature(iter_from_generator)]</code> to the crate attributes to enablerustcE0658。<br></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span> <span style="color:#66d9ef">let</span> it <span style="color:#f92672">=</span> std::iter::from_generator(<span style="color:#f92672">||</span> {
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">yield</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">yield</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">yield</span> <span style="color:#ae81ff">3</span>;
+</span></span><span style="display:flex;"><span> });
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">let</span> v: Vec<span style="color:#f92672">&lt;</span>_<span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> it.collect();
+</span></span><span style="display:flex;"><span> assert_eq!(v, [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>]);
+</span></span></code></pre></div><h3 id="其他-module-once_withrs-oncers-repeat_withrs-repeatrs-successorsrs">[其他] module， once_with.rs, once.rs, repeat_with.rs, repeat.rs, successors.rs <a href="#%e5%85%b6%e4%bb%96-module-once_withrs-oncers-repeat_withrs-repeatrs-successorsrs" class="anchor">🔗</a></h3><p>也是为一个tuple struct类型去实现Iterator, 产生一种迭代器。 所以大同、小异在迭代器next方法上<br>
+所以skip。<br>
+struct<T>(T), T可以是函数闭包，Generator(unstable功能)，</p>
+<h2 id="traits-module-in-iter-module">[traits] module in [iter] module <a href="#traits-module-in-iter-module" class="anchor">🔗</a></h2><p>定义了迭代相关的所有行为，也就是规约了所有迭代的trait的格式<br></p>
+<h3 id="collectrs">collect.rs <a href="#collectrs" class="anchor">🔗</a></h3><p>从具体的集合类转为Iterator。 <br></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">trait</span> IntoIterator {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Item</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">IntoIter</span>: Iterator<span style="color:#f92672">&lt;</span>Item <span style="color:#f92672">=</span> Self::Item<span style="color:#f92672">&gt;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">into_iter</span>(self) -&gt; <span style="color:#a6e22e">Self</span>::IntoIter;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>从Iterator转换为具体的集合类。 例如调用collect()时。<br></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">trait</span> FromIterator<span style="color:#f92672">&lt;</span>A<span style="color:#f92672">&gt;</span>: Sized {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">from_iter</span><span style="color:#f92672">&lt;</span>T: IntoIterator<span style="color:#f92672">&lt;</span>Item <span style="color:#f92672">=</span> A<span style="color:#f92672">&gt;&gt;</span>(iter: <span style="color:#a6e22e">T</span>) -&gt; <span style="color:#a6e22e">Self</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="iteratorrs">iterator.rs <a href="#iteratorrs" class="anchor">🔗</a></h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">trait</span> Iterator {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Item</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">next</span>(<span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> self) -&gt; Option<span style="color:#f92672">&lt;</span>Self::Item<span style="color:#f92672">&gt;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 很多已经有实现的默认方法，amount of default methods
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// map, take, filter, count ...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#f92672">..</span>.
+</span></span></code></pre></div><p>适配器的组合实现了链式调用。 过程如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span>[<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>].iter().map(<span style="color:#f92672">|</span>x<span style="color:#f92672">|</span> x <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>).filter(<span style="color:#f92672">||</span>).take(<span style="color:#ae81ff">2</span>).collect()<span style="color:#f92672">&lt;</span>Vec<span style="color:#f92672">&lt;</span>_<span style="color:#f92672">&gt;&gt;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// type array -&gt; &amp;[1,2,3] 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//     -&gt; 迭代器struct Iter (在/core/src/slice/iter.rs#Iter下定义，并实现Iterator, 实现方式是macro  https://doc.rust-lang.org/stable/src/core/slice/iter.rs.html#135-145 ）
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// .   -&gt; 适配器结构体Map struct(Iterator) 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//     -&gt; 适配器结构体Filter struct (Iterator) 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//     -&gt; 适配器结构体Take strcut(Iterator)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// -   -&gt; Vec&lt;_&gt;::from_iter() (在alloc/src/vec/mod.rs中，实现方式是https://doc.rust-lang.org/stable/src/alloc/vec/mod.rs.html#2648-2650)
+</span></span></span></code></pre></div><h2 id="adapters-module-in-iter-module">[adapters] module in [iter] module <a href="#adapters-module-in-iter-module" class="anchor">🔗</a></h2><h3 id="maprs-module">map.rs module <a href="#maprs-module" class="anchor">🔗</a></h3><p>创建一个Map结构体，实现Iterator接口。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Map</span><span style="color:#f92672">&lt;</span>I, F<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">pub</span>(<span style="color:#66d9ef">crate</span>) iter: <span style="color:#a6e22e">I</span>,
+</span></span><span style="display:flex;"><span>    f: <span style="color:#a6e22e">F</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">impl</span><span style="color:#f92672">&lt;</span>B, I: Iterator, F<span style="color:#f92672">&gt;</span> Iterator <span style="color:#66d9ef">for</span> Map<span style="color:#f92672">&lt;</span>I, F<span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">where</span>
+</span></span><span style="display:flex;"><span>    F: FnMut(I::Item) -&gt; <span style="color:#a6e22e">B</span>,
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Item</span> <span style="color:#f92672">=</span> B;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">next</span>(<span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> self) -&gt; Option<span style="color:#f92672">&lt;</span>B<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>        self.iter.next().map(<span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> self.f)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>take.rs module， filter.rs module，类似</p>
+<hr>
+<h1 id="ops-module">[ops] module <a href="#ops-module" class="anchor">🔗</a></h1><h1 id="str-module">[str] module <a href="#str-module" class="anchor">🔗</a></h1><h1 id="cellrs-module">cell.rs module <a href="#cellrs-module" class="anchor">🔗</a></h1><p>保持一个Obj的多个可变引用的容器 Shareable mutable containers.<br>
+<code>Cell&lt;T&gt;</code> , <code>RefCell&lt;T&gt;</code> 没有实现<code>sync</code> , 只能在单线程中<br></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">use</span> std::cell::{RefCell, RefMut};
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">use</span> std::collections::HashMap;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">use</span> std::rc::Rc;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> shared_map: <span style="color:#a6e22e">Rc</span><span style="color:#f92672">&lt;</span>RefCell<span style="color:#f92672">&lt;</span>_<span style="color:#f92672">&gt;&gt;</span> <span style="color:#f92672">=</span> Rc::new(RefCell::new(HashMap::new()));
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Create a new block to limit the scope of the dynamic borrow
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> map: <span style="color:#a6e22e">RefMut</span><span style="color:#f92672">&lt;</span>_<span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> shared_map.borrow_mut();
+</span></span><span style="display:flex;"><span>        map.insert(<span style="color:#e6db74">&#34;africa&#34;</span>, <span style="color:#ae81ff">92388</span>);
+</span></span><span style="display:flex;"><span>        map.insert(<span style="color:#e6db74">&#34;kyoto&#34;</span>, <span style="color:#ae81ff">11837</span>);
+</span></span><span style="display:flex;"><span>        map.insert(<span style="color:#e6db74">&#34;piccadilly&#34;</span>, <span style="color:#ae81ff">11826</span>);
+</span></span><span style="display:flex;"><span>        map.insert(<span style="color:#e6db74">&#34;marbles&#34;</span>, <span style="color:#ae81ff">38</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> total: <span style="color:#66d9ef">i32</span> <span style="color:#f92672">=</span> shared_map.borrow().values().sum();
+</span></span><span style="display:flex;"><span>    println!(<span style="color:#e6db74">&#34;{total}&#34;</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><code>Rc&lt;T&gt;</code> clone时Rc::clone(&amp;T)持有不可变引用，想要引用计数，所以内部的引用计数用Cell包裹起来。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">use</span> std::cell::Cell;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">use</span> std::ptr::NonNull;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">use</span> std::process::abort;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">use</span> std::marker::PhantomData;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Rc</span><span style="color:#f92672">&lt;</span>T: <span style="color:#f92672">?</span>Sized<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>    ptr: <span style="color:#a6e22e">NonNull</span><span style="color:#f92672">&lt;</span>RcBox<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&gt;</span>,
+</span></span><span style="display:flex;"><span>    phantom: <span style="color:#a6e22e">PhantomData</span><span style="color:#f92672">&lt;</span>RcBox<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&gt;</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">RcBox</span><span style="color:#f92672">&lt;</span>T: <span style="color:#f92672">?</span>Sized<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>    strong: <span style="color:#a6e22e">Cell</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">usize</span><span style="color:#f92672">&gt;</span>,
+</span></span><span style="display:flex;"><span>    refcount: <span style="color:#a6e22e">Cell</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">usize</span><span style="color:#f92672">&gt;</span>,
+</span></span><span style="display:flex;"><span>    value: <span style="color:#a6e22e">T</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">impl</span><span style="color:#f92672">&lt;</span>T: <span style="color:#f92672">?</span>Sized<span style="color:#f92672">&gt;</span> Clone <span style="color:#66d9ef">for</span> Rc<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">clone</span>(<span style="color:#f92672">&amp;</span>self) -&gt; <span style="color:#a6e22e">Rc</span><span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>        self.inc_strong();
+</span></span><span style="display:flex;"><span>        Rc {
+</span></span><span style="display:flex;"><span>            ptr: <span style="color:#a6e22e">self</span>.ptr,
+</span></span><span style="display:flex;"><span>            phantom: <span style="color:#a6e22e">PhantomData</span>,
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">trait</span> RcBoxPtr<span style="color:#f92672">&lt;</span>T: <span style="color:#f92672">?</span>Sized<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">inner</span>(<span style="color:#f92672">&amp;</span>self) -&gt; <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">RcBox</span><span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">strong</span>(<span style="color:#f92672">&amp;</span>self) -&gt; <span style="color:#66d9ef">usize</span> {
+</span></span><span style="display:flex;"><span>        self.inner().strong.get()
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">inc_strong</span>(<span style="color:#f92672">&amp;</span>self) {
+</span></span><span style="display:flex;"><span>        self.inner()
+</span></span><span style="display:flex;"><span>            .strong
+</span></span><span style="display:flex;"><span>            .set(self.strong()
+</span></span><span style="display:flex;"><span>                     .checked_add(<span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>                     .unwrap_or_else(<span style="color:#f92672">||</span> abort() ));
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">impl</span><span style="color:#f92672">&lt;</span>T: <span style="color:#f92672">?</span>Sized<span style="color:#f92672">&gt;</span> RcBoxPtr<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">for</span> Rc<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">inner</span>(<span style="color:#f92672">&amp;</span>self) -&gt; <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">RcBox</span><span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">unsafe</span> {
+</span></span><span style="display:flex;"><span>           self.ptr.as_ref()
+</span></span><span style="display:flex;"><span>       }
+</span></span><span style="display:flex;"><span>   }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><code>Cell&lt;T&gt;</code> 没有实现Deref trait<br>
+Cell, RefCell和一般的智能指针有区别<br></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">//core/src/cell.rs#
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Cell</span><span style="color:#f92672">&lt;</span>T: <span style="color:#f92672">?</span>Sized<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>    value: <span style="color:#a6e22e">UnsafeCell</span><span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">UnsafeCell</span><span style="color:#f92672">&lt;</span>T: <span style="color:#f92672">?</span>Sized<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>    value: <span style="color:#a6e22e">T</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>UnsafeCell<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>.get() -&gt;  <span style="color:#f92672">*</span><span style="color:#66d9ef">mut</span> T 
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//get the cloned value
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//set根据引用地址， as 裸指针， 改内存。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">impl</span><span style="color:#f92672">&lt;</span>T: <span style="color:#f92672">?</span>Sized<span style="color:#f92672">&gt;</span> UnsafeCell<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">get</span>(<span style="color:#f92672">&amp;</span>self) -&gt; <span style="color:#f92672">*</span><span style="color:#66d9ef">mut</span> T {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 根据不可变引用 -》直接给你可变的裸指针。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        self <span style="color:#66d9ef">as</span> <span style="color:#f92672">*</span><span style="color:#66d9ef">const</span> UnsafeCell<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">as</span> <span style="color:#f92672">*</span><span style="color:#66d9ef">const</span> T <span style="color:#66d9ef">as</span> <span style="color:#f92672">*</span><span style="color:#66d9ef">mut</span> T
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 运行时检查借用规则，不符合则panic
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">RefCell</span><span style="color:#f92672">&lt;</span>T: <span style="color:#f92672">?</span>Sized<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>    borrow: <span style="color:#a6e22e">Cell</span><span style="color:#f92672">&lt;</span>BorrowFlag<span style="color:#f92672">&gt;</span>,
+</span></span><span style="display:flex;"><span>    value: <span style="color:#a6e22e">UnsafeCell</span><span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><code>Mutex&lt;T&gt;</code>, <code>RwLock&lt;T&gt;</code>, <code>atomic</code>可以在多线程中处理<br></p>
+<h1 id="cmprs-module">cmp.rs module <a href="#cmprs-module" class="anchor">🔗</a></h1><p>提供比较和排序的工具<br>
+为类型实现了Eq、 PartialEq 等价于 重载了 ==  != 操作符<br>
+为类型实现了Ord、PartialOrd 等价于 重载了 &lt;, &lt;=, &gt;,  &gt;= 操作符<br></p>
+<h1 id="errorrs-module-and-errormd">error.rs module and error.md <a href="#errorrs-module-and-errormd" class="anchor">🔗</a></h1><p>rust提供了两个错误处理方式: <code>panic</code> , <code>Result&lt;T, E&gt;</code> <br>
+<a href="https://doc.rust-lang.org/stable/std/error/trait.Error.html" target="_blank" rel="noopener"><code>trait std::error::Error</code></a> <font color=blue>所有error的祖先。</font><br></p>
+<h1 id="markerrs-module">marker.rs module <a href="#markerrs-module" class="anchor">🔗</a></h1><p><a href="https://doc.rust-lang.org/stable/std/marker/index.html" target="_blank" rel="noopener">marker.rs</a>定义类型的几种基本行为。 <br></p>
+<ul>
+<li>Copy	Types whose values can be duplicated simply by copying bits.</li>
+<li>Send	Types that can be transferred across thread boundaries.</li>
+<li>Sized	Types with a constant size known at compile time.</li>
+<li>Sync	Types for which it is safe to share references between threads.</li>
+<li>Unpin	Types that can be safely moved after being pinned.</li>
+</ul>
+<p>todo going on...</p>
+<h1 id="optionrs-module">option.rs module <a href="#optionrs-module" class="anchor">🔗</a></h1><h1 id="resultrs-module">result.rs module <a href="#resultrs-module" class="anchor">🔗</a></h1><h1 id="pinrs-module">pin.rs module <a href="#pinrs-module" class="anchor">🔗</a></h1><h1 id="librs-module">lib.rs module <a href="#librs-module" class="anchor">🔗</a></h1><p>整个core crate向外提供了哪些功能？</p>
+
     </div>
 
     
@@ -283,7 +580,7 @@ Manually manage memory through raw pointers.<br></p>
             
                 <a href="http://brettkk.github.io/tags/rust">rust</a>
             
-                <a href="http://brettkk.github.io/tags/library">library</a>
+                <a href="http://brettkk.github.io/tags/library-core">library core</a>
             
         </div>
     
