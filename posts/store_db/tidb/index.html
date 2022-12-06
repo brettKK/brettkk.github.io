@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<html lang="zh-cn">
+  <head>
+    <title>tidb学习 | brettkk</title>
+
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
+<meta name="viewport" content="width=device-width,minimum-scale=1">
+<meta name="description" content="整体架构 🔗二层（sql层无状态，处理用户请求和sql运算逻辑">
+<meta name="generator" content="Hugo 0.103.1" />
+
+
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+<link href="https://cdn.bootcss.com/highlight.js/9.15.10/styles/zenburn.min.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<link rel="stylesheet" href="http://brettkk.github.io/css/syntax.css" />
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js" integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+
+
+
+
+  </head>
+
+  <body>
+    <nav class="navigation">
+	
+		<a href="/"> <span class="arrow">←</span>Home</a>
+	
+	<a href="/posts">Archive</a>
+	<a href="/tags">Tags</a>
+	<a href="/about">About</a>
+
+	
+
+	
+</nav>
+
+
+    <main class="main">
+      
+
+<section id="single">
+    <h1 class="title">tidb学习</h1>
+
+    <div class="tip">
+        <time datetime="2021-05-05 11:33:56 &#43;0800 CST">May 5, 2021</time>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          1709 words
+        </span>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          4 minute read
+        </span>
+    </div>
+
+    
+    
+        
+  
+    <aside class="toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
+          <div>
+              <nav id="TableOfContents">
+  <ul>
+    <li><a href="#整体架构">整体架构</a></li>
+    <li><a href="#窥探一二">窥探一二</a>
+      <ul>
+        <li><a href="#为什么只是窥探一二">为什么只是窥探一二</a></li>
+        <li><a href="#模块">模块</a></li>
+        <li><a href="#select语句的处理过程">select语句的处理过程</a></li>
+        <li><a href="#tikv-client">tikv-client</a></li>
+        <li><a href="#数据库相关计算逻辑tidb-server">数据库相关计算逻辑、tidb-server</a>
+          <ul>
+            <li><a href="#heading"></a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#tikv">tikv</a></li>
+    <li><a href="#rocksdb">rocksdb</a></li>
+  </ul>
+</nav>
+          </div>
+      </details>
+    </aside>
+  
+
+
+    
+
+
+    <div class="content">
+      <h1 id="整体架构">整体架构 <a href="#%e6%95%b4%e4%bd%93%e6%9e%b6%e6%9e%84" class="anchor">🔗</a></h1><p>二层（sql层无状态，处理用户请求和sql运算逻辑， kv层存储kv）。三个组件（tidb-server, tikv-server, pd-server）<br></p>
+<p><a href="https://github.com/pingcap/tidb" target="_blank" rel="noopener">tidb</a>: 支持mysql协议，以支持事务的分布式kv存储引擎为底层存储的数据库。</p>
+<h1 id="窥探一二">窥探一二 <a href="#%e7%aa%a5%e6%8e%a2%e4%b8%80%e4%ba%8c" class="anchor">🔗</a></h1><h2 id="为什么只是窥探一二">为什么只是窥探一二 <a href="#%e4%b8%ba%e4%bb%80%e4%b9%88%e5%8f%aa%e6%98%af%e7%aa%a5%e6%8e%a2%e4%b8%80%e4%ba%8c" class="anchor">🔗</a></h2><p>为什么只是窥探一二，为什么要忽略。<br>
+软件并非一朝一夕构建出来的，是一群人在很长时间上累加出来的产物。例如<code>linux</code>，<code>gcc</code>,<code>llvm</code>等大型软件，一个人是不可能完全看完的。<br>
+一个人时间、精力、能力有限，会选择忽略掉一些内容，能够构建出自己的脉络和完全理解其中一两个点就可以了。<br>
+整体与局部： 先有整体，知道整体大致是怎么work的，然后对于有意思的部分进行理解，不然容易迷失在茫茫代码中。 <br></p>
+<p>有一些模块是make it work， 有一些模块是make it fast。</p>
+<h2 id="模块">模块 <a href="#%e6%a8%a1%e5%9d%97" class="anchor">🔗</a></h2><p>tidb-server中分三层：<br>
+mysql协议解析和转换为ast，protocol layer: server包负责， <br>
+sql layer:  Sesssion(), RecordSet(), Plan(), Logical Plan, Physical Plan, Executor, distsql, store/tikv client <br>
+kv api layer: Mock-Tikv <br></p>
+<table>
+<thead>
+<tr>
+<th>模块</th>
+<th>功能</th>
+<th>其他</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>tidb-server</td>
+<td>服务的入口main</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>server</td>
+<td>mysql协议，session管理逻辑 ， protocol layer</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>plan</td>
+<td>查询优化相关的逻辑</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>expression</td>
+<td>表达式相关的逻辑</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>executor</td>
+<td>sql语句的执行器</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>distsql</td>
+<td>把executor和tikv client做隔离</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>store/tikv</td>
+<td>sql层与存储引擎的交互</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>ddl</td>
+<td>ddl的执行逻辑</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>tablecodec</td>
+<td>sql到kv的编解码</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>types</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>kv</td>
+<td>规定了kv引擎的接口，tikv实现定义的接口 kv api layer</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>tidb</td>
+<td></td>
+<td>✅</td>
+</tr>
+</tbody>
+</table>
+<p><a href="">server/conn.go 大循环中不断读取数据包</a><br>
+<a href="">server/conn.go#Dispatch函数处理sql文本</a><br>
+处理sql文本的函数<code>handleQuery</code>收到sql文本，返回client最后的结果<br></p>
+<p><a href="https://github.com/pingcap/tidb/blob/0b1096eac5a500f8c624f08f384d0194da5386f4/session/session.go#L167" target="_blank" rel="noopener">session/session.go#ExecuteStmt</a> 拿到ast。<code>visitor</code> 模式进行遍历.<br></p>
+<p><a href="https://github.com/pingcap/tidb/blob/0b1096eac5a500f8c624f08f384d0194da5386f4/session/session.go#L2168" target="_blank" rel="noopener">compiler.Compile对sql的ast做验证，优化动作的入口</a><br>
+plan.Preprocess合法性检查等。 plan.Optimize生成查询计划。 executor.ExecStmt结构体（有final plan）信息，后续执行的基础。<br></p>
+<p>生成执行器executor/adaptor.go#Exec()..buildExcecutor(): plan -&gt; executor。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">select</span> a <span style="color:#66d9ef">from</span> t <span style="color:#66d9ef">where</span> c1 <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>;
+</span></span></code></pre></div><p>执行器 projection(a) -&gt; filter(c1 &gt; 1) -&gt; table scan(t)。
+获取数据时rs.Next()方法链式调用到底层，当前层的处理依赖于下层返回的数据。</p>
+<p><a href="">server/conn.go#writeResultset写回client</a><br></p>
+<p>client &lt;--&gt;sql处理 &lt;--&gt; 生成执行计划 &lt;---&gt; 生成执行器<br>
+执行器的执行是：在需要给客户端返回数据的地方调Next()方法获取结果数据。<br>
+还有很多模块和细节，<code>ast</code>, todo...<br></p>
+<h2 id="select语句的处理过程">select语句的处理过程 <a href="#select%e8%af%ad%e5%8f%a5%e7%9a%84%e5%a4%84%e7%90%86%e8%bf%87%e7%a8%8b" class="anchor">🔗</a></h2><p>ast - buildSelect()-&gt; Logical plan - doOptimize(logicalOptimize, dagPhysicalOptimize) -&gt; final plan<br></p>
+<p>sql层发过来key range， 请求pd拿到region信息，将key range按region划分，将请求发送到tikv上的region。</p>
+<p>单个tidb-server发送任务到多个tikv-server，在进行汇总<br></p>
+<p>sql优化过程： 逻辑优化（根据rule，列裁剪）， 物理优化（基于代价）。</p>
+<p>列裁剪 plan/column_pruning.go <br>
+最大最小消除, 投影消除<br>
+谓词下推: 把过滤条件推到leaf node，减少数据访问。</p>
+<h2 id="tikv-client">tikv-client <a href="#tikv-client" class="anchor">🔗</a></h2><p>TiDB的数据分布是以Region为单位的，一个region包含一个范围的数据。<br></p>
+<p>kv.Storage接口方便外部调用。 tikv- client实现kv.Storage接口，封装rpc细节。</p>
+<p>tikv-client 缓存region信息，RegionCache(map, B-tree)。</p>
+<h2 id="数据库相关计算逻辑tidb-server">数据库相关计算逻辑、tidb-server <a href="#%e6%95%b0%e6%8d%ae%e5%ba%93%e7%9b%b8%e5%85%b3%e8%ae%a1%e7%ae%97%e9%80%bb%e8%be%91tidb-server" class="anchor">🔗</a></h2><p>一般tidb指的是tidb-server。
+<a href="https://github.com/pingcap/tidb/tree/master/store/mockstore" target="_blank" rel="noopener">tidb-server里模拟tikv中的计算逻辑mock-tikv</a><br></p>
+<p>tidb(tidb-server)，有哪些模块，哪些好入手的模块。<br>
+tidb-server的入口tidb-server/main.go,</p>
+<h3 id="heading"> <a href="#heading" class="anchor">🔗</a></h3><p>可以深入的模块， 优化器的实现， 逻辑优化，物理优化。</p>
+<pre tabindex="0"><code>行数据的kv格式
+key: t{tableID}_r{rowID}
+val:[col1, col2, col3]
+
+unique index的kv格式
+key: t{tableID}_i{indexID}_columnsValue
+value: rowID
+
+non-unique index
+key: t{tableID}_i{indexID}_columnsValue_rowID
+value: null
+
+row和index的key具有相同的prefix，一个table内的数据在tikv的key空间内是排列在一起的。
+</code></pre><h1 id="tikv">tikv <a href="#tikv" class="anchor">🔗</a></h1><p>单机存储靠rocksdb来存储到磁盘上。分布式数据复制靠raft。
+忽略raft。</p>
+<p>rust代码，加入assert！。</p>
+<h1 id="rocksdb">rocksdb <a href="#rocksdb" class="anchor">🔗</a></h1>
+    </div>
+
+    
+        <div class="tags">
+            
+                <a href="http://brettkk.github.io/tags/%E5%AD%98%E5%82%A8">存储</a>
+            
+        </div>
+    
+    
+    
+
+</section>
+
+
+    </main>
+    
+    <footer id="footer">
+    
+
+    <script src="https://utteranc.es/client.js"
+repo="brettKK/brettkk.github.io"
+issue-term="title"
+theme="github-light"
+crossorigin="anonymous"
+async>
+</script>  
+
+    <div class="copyright">
+    
+       © Copyright 
+       2022 
+       <span class="split">
+        <svg fill="#bbbbbb" width="15" height="15" version="1.1" id="heart-15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 15 15">
+  <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>
+</svg>
+       </span>
+       
+    
+    </div>
+
+    
+      <div class="powerby">
+        Powered by <a href='http://www.gohugo.io/'>Hugo</a> Theme By <a href='https://github.com/nodejh/hugo-theme-cactus-plus'>nodejh</a>
+      </div>
+    
+</footer>
+
+
+
+
+  </body>
+</html>

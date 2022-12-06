@@ -76,13 +76,13 @@ C&#43;&#43; 动态特性。 🔗程序的功能是在运行时刻才能确定下
           ·
         </span>
         <span>
-          111 words
+          249 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          1 minute read
+          2 minute read
         </span>
     </div>
 
@@ -167,7 +167,58 @@ $(error-if,$(success,test -z &#34;$(ld-info)&#34;),Sorry$(comma) this linker is 
 gdb -tui hello</p>
 <p>well done.</p>
 <p>C/C++ 书写的是几十年计算机中软件的历史。</p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#75715e">// lock free stack
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">struct</span> Node {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">int</span> value;
+</span></span><span style="display:flex;"><span>	Node <span style="color:#f92672">*</span>next;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> Stack {
+</span></span><span style="display:flex;"><span>	Node <span style="color:#f92672">*</span>top;
+</span></span><span style="display:flex;"><span>} 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> init(Stack <span style="color:#f92672">*</span>s) {
+</span></span><span style="display:flex;"><span>	s<span style="color:#f92672">-&gt;</span>top <span style="color:#f92672">=</span> NULL;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> push(Stack <span style="color:#f92672">*</span>s, Node <span style="color:#f92672">*</span>n) {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">while</span>(<span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>		Node <span style="color:#f92672">*</span>old_top <span style="color:#f92672">=</span> s<span style="color:#f92672">-&gt;</span>top;
+</span></span><span style="display:flex;"><span>		n<span style="color:#f92672">-&gt;</span>next <span style="color:#f92672">=</span> old_top;
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> (compare_and_swap(<span style="color:#f92672">&amp;</span>s<span style="color:#f92672">-&gt;</span>top, old_top, n) <span style="color:#f92672">==</span> old_top) {
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>Node<span style="color:#f92672">*</span> pop(Stack <span style="color:#f92672">*</span>s) {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">while</span>(<span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>		Node <span style="color:#f92672">*</span>old_top <span style="color:#f92672">=</span> s<span style="color:#f92672">-&gt;</span>top;
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> old_top <span style="color:#f92672">==</span> NULL { <span style="color:#66d9ef">return</span> NULL;}
+</span></span><span style="display:flex;"><span>		Node <span style="color:#f92672">*</span>new_top <span style="color:#f92672">=</span> old_top<span style="color:#f92672">-&gt;</span>next;
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> (compare_and_swap(<span style="color:#f92672">&amp;</span>s<span style="color:#f92672">-&gt;</span>top, old_top, new_top)<span style="color:#f92672">==</span>old_top) {
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">return</span> old_top;
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>// solved ABA</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> Node {
+</span></span><span style="display:flex;"><span>	Node<span style="color:#f92672">*</span> next;
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">int</span> value;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> Stack {
+</span></span><span style="display:flex;"><span>	Node<span style="color:#f92672">*</span> top;
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">int</span> pop_count;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>Node<span style="color:#f92672">*</span> <span style="color:#a6e22e">pop</span>(Stack<span style="color:#f92672">*</span> s) {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">while</span> (<span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">int</span> pop_count <span style="color:#f92672">=</span> s<span style="color:#f92672">-&gt;</span>pop_count;
+</span></span><span style="display:flex;"><span>		Node<span style="color:#f92672">*</span> top <span style="color:#f92672">=</span> s<span style="color:#f92672">-&gt;</span>top;
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> (top <span style="color:#f92672">==</span> NULL)
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">return</span> NULL;
+</span></span><span style="display:flex;"><span>		Node<span style="color:#f92672">*</span> new_top <span style="color:#f92672">=</span> top<span style="color:#f92672">-&gt;</span>next;
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> (double_compare_and_swap(<span style="color:#f92672">&amp;</span>s<span style="color:#f92672">-&gt;</span>top, top, new_top,
+</span></span><span style="display:flex;"><span>			<span style="color:#f92672">&amp;</span>s<span style="color:#f92672">-&gt;</span>pop_count, pop_count, pop_count<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>))
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">return</span> top;
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
     </div>
 
     

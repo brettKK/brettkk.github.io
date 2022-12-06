@@ -8,7 +8,7 @@
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
 <meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta name="description" content="资料 🔗操作系统：南大 jyy。 http://jyywiki.cn/OS/2022/ https://elixir.bootlin.com/linux/lastest/source Linux 版本 🔗uname -a 查看系统">
+<meta name="description" content="资料 🔗操作系统：南大 jyy。 http://jyywiki.cn/OS/2022/ MIT 6.S081 https://elixir.bootlin.com/linux/lastest/source Linux 版本 🔗uname -a 查看">
 <meta name="generator" content="Hugo 0.103.1" />
 
 
@@ -70,13 +70,13 @@
           ·
         </span>
         <span>
-          3504 words
+          3635 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          7 minute read
+          8 minute read
         </span>
     </div>
 
@@ -150,6 +150,11 @@
         <li><a href="#reference">reference</a></li>
       </ul>
     </li>
+    <li><a href="#软件中的大局观">软件中的大局观</a>
+      <ul>
+        <li><a href="#空间和时间的取舍">空间和时间的取舍</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
           </div>
@@ -162,7 +167,8 @@
 
 
     <div class="content">
-      <h2 id="资料">资料 <a href="#%e8%b5%84%e6%96%99" class="anchor">🔗</a></h2><p>操作系统：南大 jyy。 <a href="http://jyywiki.cn/OS/2022/" target="_blank" rel="noopener">http://jyywiki.cn/OS/2022/</a></p>
+      <h2 id="资料">资料 <a href="#%e8%b5%84%e6%96%99" class="anchor">🔗</a></h2><p>操作系统：南大 jyy。 <a href="http://jyywiki.cn/OS/2022/" target="_blank" rel="noopener">http://jyywiki.cn/OS/2022/</a><br>
+<code>MIT 6.S081</code><br></p>
 <p><a href="https://elixir.bootlin.com/linux/lastest/source" target="_blank" rel="noopener">https://elixir.bootlin.com/linux/lastest/source</a></p>
 <h3 id="linux-版本">Linux 版本 <a href="#linux-%e7%89%88%e6%9c%ac" class="anchor">🔗</a></h3><p>uname -a 查看系统的版本</p>
 <ul>
@@ -615,6 +621,12 @@ lock           -------｜｜｜-------------｜｜｜—————————
 [2]<a href="https://www.google.com.hk/search?q=building&#43;linux&#43;kernel&#43;from&#43;source&#43;code" target="_blank" rel="noopener"> query= building linux kernel from source code</a> <br>
 [3]<a href="https://0xax.gitbooks.io/linux-insides/content/" target="_blank" rel="noopener"> linux-insides</a><br></p>
 <p>Arm64 入门 developer.arm.com/documentation/102374/0100</p>
+<h1 id="软件中的大局观">软件中的大局观 <a href="#%e8%bd%af%e4%bb%b6%e4%b8%ad%e7%9a%84%e5%a4%a7%e5%b1%80%e8%a7%82" class="anchor">🔗</a></h1><p>软件是取、舍的平衡艺术。<br></p>
+<h2 id="空间和时间的取舍">空间和时间的取舍 <a href="#%e7%a9%ba%e9%97%b4%e5%92%8c%e6%97%b6%e9%97%b4%e7%9a%84%e5%8f%96%e8%88%8d" class="anchor">🔗</a></h2><p>性能优化：空间和时间的互换。<br></p>
+<p>索引： 空间换时间<br>
+hash表， 二叉搜索树，avl树，红黑树，降低树的深度，变成多叉树（B树， B+树，LSM树，Trie树），跳表skiplist， 倒排索引<br></p>
+<p>压缩： 时间换空间<br>
+缓存<br></p>
 
     </div>
 

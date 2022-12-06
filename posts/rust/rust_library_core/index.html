@@ -70,13 +70,13 @@
           ·
         </span>
         <span>
-          3333 words
+          3514 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          7 minute read
+          8 minute read
         </span>
     </div>
 
@@ -564,13 +564,29 @@ Cell, RefCell和一般的智能指针有区别<br></p>
 <a href="https://doc.rust-lang.org/stable/std/error/trait.Error.html" target="_blank" rel="noopener"><code>trait std::error::Error</code></a> <font color=blue>所有error的祖先。</font><br></p>
 <h1 id="markerrs-module">marker.rs module <a href="#markerrs-module" class="anchor">🔗</a></h1><p><a href="https://doc.rust-lang.org/stable/std/marker/index.html" target="_blank" rel="noopener">marker.rs</a>定义类型的几种基本行为。 <br></p>
 <ul>
-<li>Copy	Types whose values can be duplicated simply by copying bits.</li>
-<li>Send	Types that can be transferred across thread boundaries.</li>
-<li>Sized	Types with a constant size known at compile time.</li>
-<li>Sync	Types for which it is safe to share references between threads.</li>
-<li>Unpin	Types that can be safely moved after being pinned.</li>
+<li>Copy	Types whose values can be duplicated simply by copying bits。
++
++</li>
+<li>Send	Types that can be transferred across thread boundaries。
++</li>
+<li>Sized	Types with a constant size known at compile time。
++</li>
+<li>Sync
+<ul>
+<li>类型的引用在多线程间可共享。</li>
+<li>定义是 当前仅当 &amp;T: Send -&gt; T: Sync。 也就是说&amp;T给到线程后不存在未定义的竞争行为，标记引用传给线程后的安全性。</li>
+<li></li>
 </ul>
-<p>todo going on...</p>
+</li>
+<li>Unpin	Types that can be safely moved after being pinned.
++</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">spawn</span><span style="color:#f92672">&lt;</span>F, T<span style="color:#f92672">&gt;</span>(f: <span style="color:#a6e22e">F</span>) -&gt; <span style="color:#a6e22e">JoinHandle</span><span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">where</span>
+</span></span><span style="display:flex;"><span>    F: FnOnce() -&gt; <span style="color:#a6e22e">T</span>,      <span style="color:#75715e">// 闭合
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    F: Send <span style="color:#f92672">+</span> <span style="color:#f92672">&#39;</span>static,     <span style="color:#75715e">// 闭包满足Send规则（closure is passed by value from the thread）， 闭合的生命周期是whole 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    T: Send <span style="color:#f92672">+</span> <span style="color:#f92672">&#39;</span>static,     <span style="color:#75715e">// 返回值满足Send规则（），返回值的生命周期是whole
+</span></span></span></code></pre></div><p>todo going on...</p>
 <h1 id="optionrs-module">option.rs module <a href="#optionrs-module" class="anchor">🔗</a></h1><h1 id="resultrs-module">result.rs module <a href="#resultrs-module" class="anchor">🔗</a></h1><h1 id="pinrs-module">pin.rs module <a href="#pinrs-module" class="anchor">🔗</a></h1><h1 id="librs-module">lib.rs module <a href="#librs-module" class="anchor">🔗</a></h1><p>整个core crate向外提供了哪些功能？</p>
 
     </div>

@@ -6,7 +6,34 @@
     <description>Recent content in 技术 on brettkk</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 05 Nov 2022 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/categories/%E6%8A%80%E6%9C%AF/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 21 Nov 2022 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/categories/%E6%8A%80%E6%9C%AF/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>环境问题 &#43; 类型系统疑问</title>
+      <link>http://brettkk.github.io/posts/rust/rust_problem/</link>
+      <pubDate>Mon, 21 Nov 2022 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/rust/rust_problem/</guid>
+      <description>在vscode下配置rust项目的阅读和debug 🔗rust</description>
+    </item>
+    
+    <item>
+      <title>rustc</title>
+      <link>http://brettkk.github.io/posts/rust/rustc/</link>
+      <pubDate>Tue, 15 Nov 2022 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/rust/rustc/</guid>
+      <description>快速看下rust语言，very fast rust primer 🔗 low-level, no language runtime (like c/c++) focus on memory safety and</description>
+    </item>
+    
+    <item>
+      <title>《The Rust Programming Language》book</title>
+      <link>http://brettkk.github.io/posts/rust/rust-lang/</link>
+      <pubDate>Sat, 05 Nov 2022 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/rust/rust-lang/</guid>
+      <description>Tour of Rust 以简单的例子串讲，很好入手 《The Rust Programming Language</description>
+    </item>
+    
     <item>
       <title>linux-tcp</title>
       <link>http://brettkk.github.io/posts/os/tcp/</link>
@@ -23,6 +50,15 @@
       
       <guid>http://brettkk.github.io/posts/rust/rust_library_core/</guid>
       <description>rust library core 🔗读一下 rust-lang的源码， core正好是不依赖</description>
+    </item>
+    
+    <item>
+      <title>rust-library-std</title>
+      <link>http://brettkk.github.io/posts/rust/rust_library_std/</link>
+      <pubDate>Sat, 05 Nov 2022 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/rust/rust_library_std/</guid>
+      <description>HashMap 🔗#[derive(Clone)] pub struct RandomState { k0: u64, k1: u64, } // hashmap 的</description>
     </item>
     
     <item>
@@ -58,7 +94,7 @@
       <pubDate>Thu, 05 May 2022 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/os/base_os/</guid>
-      <description>资料 🔗操作系统：南大 jyy。 http://jyywiki.cn/OS/2022/ https://elixir.bootlin.com/linux/lastest/source Linux 版本 🔗uname -a 查看系统</description>
+      <description>资料 🔗操作系统：南大 jyy。 http://jyywiki.cn/OS/2022/ MIT 6.S081 https://elixir.bootlin.com/linux/lastest/source Linux 版本 🔗uname -a 查看</description>
     </item>
     
     <item>
@@ -215,21 +251,21 @@
     </item>
     
     <item>
-      <title>rustc</title>
-      <link>http://brettkk.github.io/posts/rust/rustc/</link>
-      <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/rust/rustc/</guid>
-      <description>very fast rust primer 🔗 low-level, no language runtime (like c/c++) focus on memory safety and practicality ownership, lefttime, borrow checking for references. https://doc.rust-lang.org/book/ help forum: https://user.rust-lang.org rustc architecture 🔗</description>
-    </item>
-    
-    <item>
       <title>soot, wala</title>
       <link>http://brettkk.github.io/posts/java/soot_wala/</link>
       <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/java/soot_wala/</guid>
       <description>4中IR Baf 在bytecode上进行的抽象，忽略字节码对于常量</description>
+    </item>
+    
+    <item>
+      <title>tidb学习</title>
+      <link>http://brettkk.github.io/posts/store_db/tidb/</link>
+      <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/store_db/tidb/</guid>
+      <description>整体架构 🔗二层（sql层无状态，处理用户请求和sql运算逻辑</description>
     </item>
     
     <item>

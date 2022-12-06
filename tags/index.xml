@@ -6,13 +6,49 @@
     <description>Recent content in Tags on brettkk</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 05 Nov 2022 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 21 Nov 2022 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>rust</title>
+      <link>http://brettkk.github.io/tags/rust/</link>
+      <pubDate>Mon, 21 Nov 2022 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/tags/rust/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>compiler</title>
+      <link>http://brettkk.github.io/tags/compiler/</link>
+      <pubDate>Tue, 15 Nov 2022 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/tags/compiler/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rustc</title>
+      <link>http://brettkk.github.io/tags/rustc/</link>
+      <pubDate>Tue, 15 Nov 2022 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/tags/rustc/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>library core</title>
       <link>http://brettkk.github.io/tags/library-core/</link>
       <pubDate>Sat, 05 Nov 2022 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/tags/library-core/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>library std</title>
+      <link>http://brettkk.github.io/tags/library-std/</link>
+      <pubDate>Sat, 05 Nov 2022 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/tags/library-std/</guid>
       <description></description>
     </item>
     
@@ -35,15 +71,6 @@
     </item>
     
     <item>
-      <title>rust</title>
-      <link>http://brettkk.github.io/tags/rust/</link>
-      <pubDate>Sat, 05 Nov 2022 11:33:56 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/tags/rust/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>golang</title>
       <link>http://brettkk.github.io/tags/golang/</link>
       <pubDate>Sat, 06 Aug 2022 00:00:00 +0000</pubDate>
@@ -62,29 +89,11 @@
     </item>
     
     <item>
-      <title>compiler</title>
-      <link>http://brettkk.github.io/tags/compiler/</link>
-      <pubDate>Fri, 05 Aug 2022 11:33:56 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/tags/compiler/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>python</title>
       <link>http://brettkk.github.io/tags/python/</link>
       <pubDate>Fri, 05 Aug 2022 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/tags/python/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>rustc</title>
-      <link>http://brettkk.github.io/tags/rustc/</link>
-      <pubDate>Fri, 05 Aug 2022 11:33:56 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/tags/rustc/</guid>
       <description></description>
     </item>
     

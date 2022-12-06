@@ -6,7 +6,34 @@
     <description>Recent content on brettkk</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 05 Nov 2022 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 21 Nov 2022 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>环境问题 &#43; 类型系统疑问</title>
+      <link>http://brettkk.github.io/posts/rust/rust_problem/</link>
+      <pubDate>Mon, 21 Nov 2022 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/rust/rust_problem/</guid>
+      <description>在vscode下配置rust项目的阅读和debug 🔗rust</description>
+    </item>
+    
+    <item>
+      <title>rustc</title>
+      <link>http://brettkk.github.io/posts/rust/rustc/</link>
+      <pubDate>Tue, 15 Nov 2022 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/rust/rustc/</guid>
+      <description>快速看下rust语言，very fast rust primer 🔗 low-level, no language runtime (like c/c++) focus on memory safety and</description>
+    </item>
+    
+    <item>
+      <title>《The Rust Programming Language》book</title>
+      <link>http://brettkk.github.io/posts/rust/rust-lang/</link>
+      <pubDate>Sat, 05 Nov 2022 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/rust/rust-lang/</guid>
+      <description>Tour of Rust 以简单的例子串讲，很好入手 《The Rust Programming Language</description>
+    </item>
+    
     <item>
       <title>linux-tcp</title>
       <link>http://brettkk.github.io/posts/os/tcp/</link>
@@ -23,6 +50,15 @@
       
       <guid>http://brettkk.github.io/posts/rust/rust_library_core/</guid>
       <description>rust library core 🔗读一下 rust-lang的源码， core正好是不依赖</description>
+    </item>
+    
+    <item>
+      <title>rust-library-std</title>
+      <link>http://brettkk.github.io/posts/rust/rust_library_std/</link>
+      <pubDate>Sat, 05 Nov 2022 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/rust/rust_library_std/</guid>
+      <description>HashMap 🔗#[derive(Clone)] pub struct RandomState { k0: u64, k1: u64, } // hashmap 的</description>
     </item>
     
     <item>
@@ -58,7 +94,7 @@
       <pubDate>Thu, 05 May 2022 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/os/base_os/</guid>
-      <description>资料 🔗操作系统：南大 jyy。 http://jyywiki.cn/OS/2022/ https://elixir.bootlin.com/linux/lastest/source Linux 版本 🔗uname -a 查看系统</description>
+      <description>资料 🔗操作系统：南大 jyy。 http://jyywiki.cn/OS/2022/ MIT 6.S081 https://elixir.bootlin.com/linux/lastest/source Linux 版本 🔗uname -a 查看</description>
     </item>
     
     <item>
@@ -233,21 +269,21 @@
     </item>
     
     <item>
-      <title>rustc</title>
-      <link>http://brettkk.github.io/posts/rust/rustc/</link>
-      <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/rust/rustc/</guid>
-      <description>very fast rust primer 🔗 low-level, no language runtime (like c/c++) focus on memory safety and practicality ownership, lefttime, borrow checking for references. https://doc.rust-lang.org/book/ help forum: https://user.rust-lang.org rustc architecture 🔗</description>
-    </item>
-    
-    <item>
       <title>soot, wala</title>
       <link>http://brettkk.github.io/posts/java/soot_wala/</link>
       <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/java/soot_wala/</guid>
       <description>4中IR Baf 在bytecode上进行的抽象，忽略字节码对于常量</description>
+    </item>
+    
+    <item>
+      <title>tidb学习</title>
+      <link>http://brettkk.github.io/posts/store_db/tidb/</link>
+      <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/store_db/tidb/</guid>
+      <description>整体架构 🔗二层（sql层无状态，处理用户请求和sql运算逻辑</description>
     </item>
     
     <item>
@@ -592,7 +628,8 @@ gdb a.out layout src (c程序视角) layout asm （汇编视角） start
       <description>https://justjjy.com/ solidity 智能合约语言。
 exa = rust ls
 tokio, axum
-github.com/skerkour/kerkour.com
+Bytes crate
+let data = ptr_map(ptr, |addr| addr | KIND_VEC); f_closure = ｜addr｜(addr|KIND_VEC) github.com/skerkour/kerkour.com
 rCore OS.
 IDA, NDK。
 虚拟人， metaverse NFT</description>
@@ -604,16 +641,9 @@ IDA, NDK。
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>http://brettkk.github.io/posts/rust/rust_concurrency/</guid>
-      <description>fn spawn&amp;lt;F, T&amp;gt;(f: F) -&amp;gt; JoinHandle&amp;lt;T&amp;gt; where F: FnOnce() -&amp;gt; T, F: Send + &amp;#39;static, T: Send + &amp;#39;static, </description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>http://brettkk.github.io/posts/rust/rust_problem/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/rust/rust_problem/</guid>
-      <description>rust-analyzer failed to load workspace: Failed to read Cargo metadata from Cargo.toml file /Users/gonglei/rust-workspace/rust/Cargo.toml, cargo 1.53.0 (4369396ce 2021-04-27): Failed to run &amp;quot;cargo&amp;quot; &amp;quot;metadata&amp;quot; &amp;quot;--format-version&amp;quot; &amp;quot;1&amp;quot; &amp;quot;--manifest-path&amp;quot; &amp;quot;/Users/gonglei/rust-workspace/rust/Cargo.toml&amp;quot; &amp;quot;--filter-platform&amp;quot; &amp;quot;aarch64-apple-darwin&amp;quot;: cargo metadata exited with an error: error: failed to load manifest for workspace member /Users/gonglei/rust-workspace/rust/src/bootstrap Caused by: failed to parse manifest at /Users/gonglei/rust-workspace/rust/src/bootstrap/Cargo.</description>
+      <description>关于rust的异步编程 🔗Async-await on stable Rust
+async, .await， Future 🔗async/.await是了为了更简单实现Future的语法糖
+async fn foo1() -&amp;gt; usize{ 0 } // foo1 == foo2 fn foo2() -&amp;gt; impl std::future::Future&amp;lt;Output = usize&amp;gt; { async{0} } async语法糖把代码块或者函数转换为 实现了trait Future的enum结构的状态机</description>
     </item>
     
     <item>
@@ -635,7 +665,7 @@ IDA, NDK。
       <description>今天要做什么？
 整理之前的笔记。
 ～～～～ 清晰的网页 ～～ 清晰的网页 ～～～～
-工作内容相关方面： 规则引擎grule[11.1]， 工作流引擎，向量存储Faiss。
+工作内容相关方面： 规则引擎grule[11.1]， 工作流引擎， 向量存储Faiss。
 golang方面： cloudwego, Istio, envoy, hystrix-go[10.31,11.1]
 密码方面： 零知识信任的代码库， rust。
 云原生方面：k8s, docker.
@@ -654,7 +684,7 @@ golang方面： cloudwego, Istio, envoy, hystrix-go[10.31,11.1]
 git submodules
 https://git-scm.com/book/en/v2/Git-Tools-Submodules
 git clone --recursive https://github.com/rust-lang/rust.git
-LibreSSL SSL_read: error:02FFF03C:system library:func(4095):Operation timed out, errno 60 Failed to connect to github.com port 443 after 130469 ms: Connection timed out</description>
+LibreSSL SSL_read: error:02FFF03C:system library:func(4095):Operation timed out, errno 60 fatal: unable to access error:02FFF036:system library:func(4095):Connection reset by peer // 通过https://www.</description>
     </item>
     
     <item>

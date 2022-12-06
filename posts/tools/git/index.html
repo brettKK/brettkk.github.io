@@ -12,7 +12,7 @@
 git submodules
 https://git-scm.com/book/en/v2/Git-Tools-Submodules
 git clone --recursive https://github.com/rust-lang/rust.git
-LibreSSL SSL_read: error:02FFF03C:system library:func(4095):Operation timed out, errno 60 Failed to connect to github.com port 443 after 130469 ms: Connection timed out">
+LibreSSL SSL_read: error:02FFF03C:system library:func(4095):Operation timed out, errno 60 fatal: unable to access error:02FFF036:system library:func(4095):Connection reset by peer // 通过https://www.">
 <meta name="generator" content="Hugo 0.103.1" />
 
 
@@ -74,7 +74,7 @@ LibreSSL SSL_read: error:02FFF03C:system library:func(4095):Operation timed out,
           ·
         </span>
         <span>
-          62 words
+          78 words
         </span>
         <span class="split">
           ·
@@ -118,6 +118,11 @@ LibreSSL SSL_read: error:02FFF03C:system library:func(4095):Operation timed out,
 <p><a href="https://git-scm.com/book/en/v2/Git-Tools-Submodules" target="_blank" rel="noopener">https://git-scm.com/book/en/v2/Git-Tools-Submodules</a></p>
 <p>git clone --recursive <a href="https://github.com/rust-lang/rust.git" target="_blank" rel="noopener">https://github.com/rust-lang/rust.git</a></p>
 <pre tabindex="0"><code>LibreSSL SSL_read: error:02FFF03C:system library:func(4095):Operation timed out, errno 60
+
+fatal: unable to access  error:02FFF036:system library:func(4095):Connection reset by peer
+
+// 通过https://www.ipaddress.com/ 查询github.com的ip。
+// 改/etc/hosts.  140.82.114.3    github.com
 </code></pre><p>Failed to connect to github.com port 443 after 130469 ms: Connection timed out</p>
 <h2 id="git入门">git入门 <a href="#git%e5%85%a5%e9%97%a8" class="anchor">🔗</a></h2><ul>
 <li>搭建git环境</li>

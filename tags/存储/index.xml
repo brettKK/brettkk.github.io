@@ -26,6 +26,15 @@
     </item>
     
     <item>
+      <title>tidb学习</title>
+      <link>http://brettkk.github.io/posts/store_db/tidb/</link>
+      <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/store_db/tidb/</guid>
+      <description>整体架构 🔗二层（sql层无状态，处理用户请求和sql运算逻辑</description>
+    </item>
+    
+    <item>
       <title>lsm 小结</title>
       <link>http://brettkk.github.io/posts/store_db/log_structure_tree/</link>
       <pubDate>Wed, 03 Mar 2021 18:34:48 +0800</pubDate>

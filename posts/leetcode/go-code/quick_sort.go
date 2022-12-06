@@ -2,6 +2,21 @@ package main
 
 import "fmt"
 
+// func partition(arr []int) int{
+// 	if len(arr) <= 1 {
+// 		return 0
+// 	}
+// 	var pivot int = arr[0]
+// 	var latestSmall = 0
+// 	for i := 1; i < len(arr); i++ {
+// 		if arr[i] < pivot {
+// 			latestSmall++
+// 			arr[latestSmall], arr[i] = arr[i], arr[latestSmall]
+// 		}
+// 	}
+// 	return latestSmall
+// }
+
 func quick_sort(arr []int) {
 	if len(arr) <= 1 {
 		return
