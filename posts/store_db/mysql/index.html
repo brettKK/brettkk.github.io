@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          2110 words
+          2170 words
         </span>
         <span class="split">
           ·
@@ -233,7 +233,7 @@
 </li>
 <li>read committed (no repeatable read)
 <ul>
-<li>不可重复读（事务中两次读的结果不一致）</li>
+<li>不可重复读（事务中两次读的结果不一致，事务执行select时没有获得读锁，或者释放了读锁）</li>
 <li>事务1等读到事务2的commit， 从数据库对事务ACID角度上讲，违背了隔离性</li>
 </ul>
 </li>
@@ -241,6 +241,7 @@
 <ul>
 <li>事务在运行时看到相同的数据，可重复读</li>
 <li>存在幻读（innodb的间隙锁解决）</li>
+<li>mysql的可重复读隔离级别，可以防止幻读吗？可以 mvcc 在rr下防止幻读</li>
 </ul>
 </li>
 <li>seriablizable</li>
@@ -361,7 +362,7 @@ async>
     <div class="copyright">
     
        © Copyright 
-       2022 
+       2023 
        <span class="split">
         <svg fill="#bbbbbb" width="15" height="15" version="1.1" id="heart-15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 15 15">
   <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>

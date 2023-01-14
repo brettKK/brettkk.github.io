@@ -23,6 +23,9 @@
     <loc>http://brettkk.github.io/posts/rust/rust_problem/</loc>
     <lastmod>2022-11-21T11:33:56+08:00</lastmod>
   </url><url>
+    <loc>http://brettkk.github.io/tags/async-runtime/</loc>
+    <lastmod>2022-11-15T11:33:56+08:00</lastmod>
+  </url><url>
     <loc>http://brettkk.github.io/tags/compiler/</loc>
     <lastmod>2022-11-15T11:33:56+08:00</lastmod>
   </url><url>
@@ -30,6 +33,9 @@
     <lastmod>2022-11-15T11:33:56+08:00</lastmod>
   </url><url>
     <loc>http://brettkk.github.io/posts/rust/rustc/</loc>
+    <lastmod>2022-11-15T11:33:56+08:00</lastmod>
+  </url><url>
+    <loc>http://brettkk.github.io/posts/rust/tokio/</loc>
     <lastmod>2022-11-15T11:33:56+08:00</lastmod>
   </url><url>
     <loc>http://brettkk.github.io/posts/rust/rust-lang/</loc>
@@ -204,9 +210,6 @@
     <lastmod>2021-04-05T11:33:56+08:00</lastmod>
   </url><url>
     <loc>http://brettkk.github.io/posts/math/matrix/</loc>
-    <lastmod>2021-04-05T11:33:56+08:00</lastmod>
-  </url><url>
-    <loc>http://brettkk.github.io/posts/culture/point_of_view/</loc>
     <lastmod>2021-04-05T11:33:56+08:00</lastmod>
   </url><url>
     <loc>http://brettkk.github.io/posts/culture/ming/</loc>

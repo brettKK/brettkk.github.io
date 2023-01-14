@@ -70,19 +70,40 @@
           ·
         </span>
         <span>
-          945 words
+          1112 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          2 minute read
+          3 minute read
         </span>
     </div>
 
     
     
         
+  
+    <aside class="toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
+          <div>
+              <nav id="TableOfContents">
+  <ul>
+    <li><a href="#简单8位二进制cpu的设计与实现">简单8位二进制CPU的设计与实现</a>
+      <ul>
+        <li><a href="#一位二进制的加法器">一位二进制的加法器</a></li>
+        <li><a href="#全加器两位以上">全加器（两位以上）</a></li>
+        <li><a href="#减法补码">减法（补码）</a></li>
+        <li><a href="#r-s触发器">R-S触发器</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+          </div>
+      </details>
+    </aside>
   
 
 
@@ -409,6 +430,55 @@
 </tr>
 </tbody>
 </table>
+<h1 id="简单8位二进制cpu的设计与实现">简单8位二进制CPU的设计与实现 <a href="#%e7%ae%80%e5%8d%958%e4%bd%8d%e4%ba%8c%e8%bf%9b%e5%88%b6cpu%e7%9a%84%e8%ae%be%e8%ae%a1%e4%b8%8e%e5%ae%9e%e7%8e%b0" class="anchor">🔗</a></h1><p>半导体 -〉逻辑门 -〉模块 -〉 CPU</p>
+<h2 id="一位二进制的加法器">一位二进制的加法器 <a href="#%e4%b8%80%e4%bd%8d%e4%ba%8c%e8%bf%9b%e5%88%b6%e7%9a%84%e5%8a%a0%e6%b3%95%e5%99%a8" class="anchor">🔗</a></h2><p><font color=green>真值表 -〉 真值表达式 -〉 与或非的门电路</font><br>
+真值表:<br></p>
+<table>
+<thead>
+<tr>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>S</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>只需要关心真值表中等于1的行<br>
+真值表达式:<br>
+$$
+\begin{aligned}
+S = &amp; \overline{A}B + A\overline{B}   \
+C = &amp; AB
+\end{aligned}
+$$</p>
+<h2 id="全加器两位以上">全加器（两位以上） <a href="#%e5%85%a8%e5%8a%a0%e5%99%a8%e4%b8%a4%e4%bd%8d%e4%bb%a5%e4%b8%8a" class="anchor">🔗</a></h2><h2 id="减法补码">减法（补码） <a href="#%e5%87%8f%e6%b3%95%e8%a1%a5%e7%a0%81" class="anchor">🔗</a></h2><p>减一个数X == 利用加一个数（- X）的补码。<br></p>
+<h2 id="r-s触发器">R-S触发器 <a href="#r-s%e8%a7%a6%e5%8f%91%e5%99%a8" class="anchor">🔗</a></h2><p>。。。</p>
 
     </div>
 
@@ -441,7 +511,7 @@ async>
     <div class="copyright">
     
        © Copyright 
-       2022 
+       2023 
        <span class="split">
         <svg fill="#bbbbbb" width="15" height="15" version="1.1" id="heart-15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 15 15">
   <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>

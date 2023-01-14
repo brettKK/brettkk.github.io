@@ -17,7 +17,8 @@ n元线性方程组， 矩阵消元法，增广矩阵经过初等行变换，变
 高斯消元法 --初等变换--》 阶梯形方程组 --》 非零行的行数为矩阵的秩
 解的情况判定和解的结构 矩阵的秩与解的关系
 矩阵的特征值和特征向量，几何意义 相似矩阵，相似对角化，二次型的标准型与规范型 合同变换，合同矩阵。 正交矩阵，正交变换
-偏序关系 集合之间的包含关系 实数之间的小于等于关系 实数之间的大于等于关系 整数之间的整除关系 自反： 反对称： R是集合A上的关系，如果R是自反的，反对称的，传递的，R是A上的一个偏序或者半序。 偏序集合 ">
+抽象代数（近世代数） 🔗galois理论，一元五次方程的求根公式是否存在？ 引起的。 阿贝尔。
+整除 🔗b｜a 表示 a=Nb or b是a的因子，b整除a， or a是b的倍数">
 <meta name="generator" content="Hugo 0.103.1" />
 
 
@@ -79,7 +80,7 @@ n元线性方程组， 矩阵消元法，增广矩阵经过初等行变换，变
           ·
         </span>
         <span>
-          32 words
+          170 words
         </span>
         <span class="split">
           ·
@@ -92,6 +93,30 @@ n元线性方程组， 矩阵消元法，增广矩阵经过初等行变换，变
     
     
         
+  
+    <aside class="toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
+          <div>
+              <nav id="TableOfContents">
+  <ul>
+    <li><a href="#抽象代数近世代数">抽象代数（近世代数）</a>
+      <ul>
+        <li><a href="#整除">整除</a></li>
+        <li><a href="#素数-prime">素数 prime</a></li>
+        <li><a href="#模运算-mod">模运算 mod</a></li>
+        <li><a href="#最大公约数">最大公约数</a></li>
+        <li><a href="#最小公倍数">最小公倍数</a></li>
+        <li><a href="#同余">同余</a></li>
+        <li><a href="#群">群</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+          </div>
+      </details>
+    </aside>
   
 
 
@@ -115,6 +140,24 @@ n元线性方程组， 矩阵消元法，增广矩阵经过初等行变换，变
 相似矩阵，相似对角化，二次型的标准型与规范型
 合同变换，合同矩阵。
 正交矩阵，正交变换</p>
+<h1 id="抽象代数近世代数">抽象代数（近世代数） <a href="#%e6%8a%bd%e8%b1%a1%e4%bb%a3%e6%95%b0%e8%bf%91%e4%b8%96%e4%bb%a3%e6%95%b0" class="anchor">🔗</a></h1><p>galois理论，一元五次方程的求根公式是否存在？ 引起的。
+阿贝尔。</p>
+<h2 id="整除">整除 <a href="#%e6%95%b4%e9%99%a4" class="anchor">🔗</a></h2><p><code>b｜a</code>  表示 <code>a=Nb</code> or b是a的因子，b整除a， or a是b的倍数</p>
+<h2 id="素数-prime">素数 prime <a href="#%e7%b4%a0%e6%95%b0-prime" class="anchor">🔗</a></h2><p>算术基本定理： 任何一个整数都可以分解成一系列素数的乘积的形式。$$ n = (p_1)^e_1 ...(P_r)^e_r $$
+欧几里得定理： 素数有无穷个。</p>
+<h2 id="模运算-mod">模运算 mod <a href="#%e6%a8%a1%e8%bf%90%e7%ae%97-mod" class="anchor">🔗</a></h2><p><code>a mod b</code> 表示 <code>a = Nb + r</code>, <code>a mod b === r</code></p>
+<h2 id="最大公约数">最大公约数 <a href="#%e6%9c%80%e5%a4%a7%e5%85%ac%e7%ba%a6%e6%95%b0" class="anchor">🔗</a></h2><p><code>gcd(a, b) = x</code> : x｜a 且 x|b ，所有公因子中最大的。<br>
+欧几里德算法， 辗转相除法求最大公约数<br></p>
+<p>a = Nb + r <br>
+gcd（a,b）== gcd(b,r)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">gcd</span>(<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">b</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">a</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">b</span> &gt; <span style="color:#ae81ff">0</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">gcd</span>(<span style="color:#a6e22e">b</span>, <span style="color:#a6e22e">a</span><span style="color:#f92672">%</span><span style="color:#a6e22e">b</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>a和b互素的定义： gcd(a, b) = 1。<br></p>
+<h2 id="最小公倍数">最小公倍数 <a href="#%e6%9c%80%e5%b0%8f%e5%85%ac%e5%80%8d%e6%95%b0" class="anchor">🔗</a></h2><p>lcm（least common multiple）  $$ lcm(a,b) = ab / gcd(a,d) $$</p>
 <ul>
 <li>偏序关系
 <ul>
@@ -125,6 +168,16 @@ n元线性方程组， 矩阵消元法，增广矩阵经过初等行变换，变
 </ul>
 </li>
 </ul>
+<h2 id="同余">同余 <a href="#%e5%90%8c%e4%bd%99" class="anchor">🔗</a></h2><p>等价关系：需要满足自反，对称，传递的关系。</p>
+<p>a=== b mod n , a 和 b在mod n下满足同余关系, 同余是描述的关系，不是运算。<br></p>
+<p>中国剩余定理， 欧拉函数(0-n-1中与n互素的数的个数)， 欧拉定理， 费马小定理<br></p>
+<p>乘法逆元modular inverse</p>
+<p>陪集。</p>
+<h2 id="群">群 <a href="#%e7%be%a4" class="anchor">🔗</a></h2><p>代数结构（集合， 运算）。
+群： 封闭，结合律， 单位元，逆元<br></p>
+<p>群同态 （G， *） --f--&gt; (G', X) <br>
+元素之间的运算仍可以得到保持 $$ f(a * b) = f(a) X f(b) $$</p>
+<p>循环群</p>
 <pre tabindex="0"><code>自反：
 
 反对称：
@@ -159,7 +212,7 @@ async>
     <div class="copyright">
     
        © Copyright 
-       2022 
+       2023 
        <span class="split">
         <svg fill="#bbbbbb" width="15" height="15" version="1.1" id="heart-15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 15 15">
   <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>

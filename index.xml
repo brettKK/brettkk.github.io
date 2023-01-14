@@ -26,6 +26,15 @@
     </item>
     
     <item>
+      <title>tokio</title>
+      <link>http://brettkk.github.io/posts/rust/tokio/</link>
+      <pubDate>Tue, 15 Nov 2022 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/rust/tokio/</guid>
+      <description>忽略 time, process, signal</description>
+    </item>
+    
+    <item>
       <title>《The Rust Programming Language》book</title>
       <link>http://brettkk.github.io/posts/rust/rust-lang/</link>
       <pubDate>Sat, 05 Nov 2022 11:33:56 +0800</pubDate>
@@ -377,15 +386,6 @@
     </item>
     
     <item>
-      <title>point of view</title>
-      <link>http://brettkk.github.io/posts/culture/point_of_view/</link>
-      <pubDate>Mon, 05 Apr 2021 11:33:56 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/culture/point_of_view/</guid>
-      <description>关于信息 🔗现代人的信息困境： 一面焦虑错过信息，一面对某些信息</description>
-    </item>
-    
-    <item>
       <title>明</title>
       <link>http://brettkk.github.io/posts/culture/ming/</link>
       <pubDate>Mon, 05 Apr 2021 11:33:56 +0800</pubDate>
@@ -555,7 +555,8 @@ n元线性方程组， 矩阵消元法，增广矩阵经过初等行变换，变
 高斯消元法 --初等变换--》 阶梯形方程组 --》 非零行的行数为矩阵的秩
 解的情况判定和解的结构 矩阵的秩与解的关系
 矩阵的特征值和特征向量，几何意义 相似矩阵，相似对角化，二次型的标准型与规范型 合同变换，合同矩阵。 正交矩阵，正交变换
-偏序关系 集合之间的包含关系 实数之间的小于等于关系 实数之间的大于等于关系 整数之间的整除关系 自反： 反对称： R是集合A上的关系，如果R是自反的，反对称的，传递的，R是A上的一个偏序或者半序。 偏序集合 </description>
+抽象代数（近世代数） 🔗galois理论，一元五次方程的求根公式是否存在？ 引起的。 阿贝尔。
+整除 🔗b｜a 表示 a=Nb or b是a的因子，b整除a， or a是b的倍数</description>
     </item>
     
     <item>
@@ -652,7 +653,9 @@ async fn foo1() -&amp;gt; usize{ 0 } // foo1 == foo2 fn foo2() -&amp;gt; impl st
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>http://brettkk.github.io/posts/store_db/store/</guid>
-      <description>块存储 🔗文件存储 🔗对象存储 🔗对象存储系统： 接入层， 索引层（mysql， redis，etcd），存储层，服务平台
+      <description>网上课程 🔗CMU 15-445/645
+MIT 6.172 Performance Engineering of Software Systems, Fall 2018
+etcd 🔗块存储 🔗文件存储 🔗对象存储 🔗对象存储系统： 接入层， 索引层（mysql， redis，etcd），存储层，服务平台
 索引： 单对象，分片对象</description>
     </item>
     
@@ -684,7 +687,7 @@ golang方面： cloudwego, Istio, envoy, hystrix-go[10.31,11.1]
 git submodules
 https://git-scm.com/book/en/v2/Git-Tools-Submodules
 git clone --recursive https://github.com/rust-lang/rust.git
-LibreSSL SSL_read: error:02FFF03C:system library:func(4095):Operation timed out, errno 60 fatal: unable to access error:02FFF036:system library:func(4095):Connection reset by peer // 通过https://www.</description>
+LibreSSL SSL_read: error:02FFF03C:system library:func(4095):Operation timed out, errno 60 fatal: unable to access error:02FFF036:system library:func(4095):Connection reset by peer 如果开了vpn：export https_proxy=http://127.</description>
     </item>
     
     <item>

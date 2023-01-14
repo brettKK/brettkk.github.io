@@ -26,6 +26,15 @@
     </item>
     
     <item>
+      <title>tokio</title>
+      <link>http://brettkk.github.io/posts/rust/tokio/</link>
+      <pubDate>Tue, 15 Nov 2022 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/rust/tokio/</guid>
+      <description>忽略 time, process, signal</description>
+    </item>
+    
+    <item>
       <title>《The Rust Programming Language》book</title>
       <link>http://brettkk.github.io/posts/rust/rust-lang/</link>
       <pubDate>Sat, 05 Nov 2022 11:33:56 +0800</pubDate>

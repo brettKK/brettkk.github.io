@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          2056 words
+          2146 words
         </span>
         <span class="split">
           ·
@@ -127,6 +127,7 @@
         <li><a href="#abe">ABE</a></li>
       </ul>
     </li>
+    <li><a href="#introduction-to-modern-cryptography-现代密码学导论">《introduction to modern cryptography》 现代密码学导论</a></li>
   </ul>
 </nav>
           </div>
@@ -167,11 +168,11 @@
 <li>费马小定理</li>
 </ul>
 <p>当n为质数时，则：$$a^{n-1}\equiv 1\left( mod\ n\right)$$</p>
-<h3 id="rsa-生成过程">rsa 生成过程 <a href="#rsa-%e7%94%9f%e6%88%90%e8%bf%87%e7%a8%8b" class="anchor">🔗</a></h3><p>找两个大质数p, q</p>
-<p>求乘积 n=p * q， $$ \Phi(n) = \Phi (p * q)=(p-1)*(q-1) $$</p>
-<p>在0 ～ n的欧拉函数之间找一个e，使得e与欧拉函数互质</p>
-<p>找一个d， 使得 $$e * d \equiv 1 mod\Phi(n) $$</p>
-<p>则(n, e)公钥， (n, d)私钥</p>
+<h3 id="rsa-生成过程">rsa 生成过程 <a href="#rsa-%e7%94%9f%e6%88%90%e8%bf%87%e7%a8%8b" class="anchor">🔗</a></h3><p>1 找两个大质数p, q</p>
+<p>2 求乘积 n=p * q， $$ \Phi(n) = \Phi (p * q)=(p-1)*(q-1) $$</p>
+<p>3 在0 ～ n的欧拉函数之间找一个e，使得e与欧拉函数互质</p>
+<p>4 找一个d， 使得 $$e * d \equiv 1 mod\Phi(n) $$</p>
+<p>5 则(n, e)公钥， (n, d)私钥</p>
 <ul>
 <li>加密公式 $$x^e mod n = y $$</li>
 <li>解密公式 $$y^d mod n = x $$</li>
@@ -252,13 +253,21 @@ B: 使用public key1构建自己的密钥对 private key2 和 public key2；
 B--&gt;&gt; A: 返回自己的public key2；
 A: 使用private key1 和 public key2 构建本地密钥；
 B : 使用private key2 和 public key1构建本地密钥；
-</code></pre><h4 id="dh-形式话描述">DH 形式话描述 <a href="#dh-%e5%bd%a2%e5%bc%8f%e8%af%9d%e6%8f%8f%e8%bf%b0" class="anchor">🔗</a></h4><p>算法形式化描述： 已知变量对(p, q),</p>
+</code></pre><h4 id="dh-形式话描述">DH 形式话描述 <a href="#dh-%e5%bd%a2%e5%bc%8f%e8%af%9d%e6%8f%8f%e8%bf%b0" class="anchor">🔗</a></h4><p>alice 的私钥x， blob的私钥y<br></p>
+<p>$$
+(a^x mod p)^y mod p == a^(xy) mod p
+y_a = a^x mod p
+y_b = a^y mod p</p>
+<p>k = (y_b)^x mod p
+k = (y_a)^y mod p
+$$</p>
 <p>alice 本地生成随机数a， 计算$$ G_a= (p^a) mod q$$</p>
 <p>bob 本地生成随机数b， 计算$$ G_b = (p^b) mod q $$</p>
 <p>进而 alice 计算出通信密钥为： $$ S_a = G_b^a mod q $$</p>
 <p>bob 也计算出通信密钥为：   $$ S_b =G_a^b mod q $$</p>
 <p>需证明 $$S_a == S_b$$</p>
 <h4 id="ecdh">ECDH <a href="#ecdh" class="anchor">🔗</a></h4><p>ECC</p>
+<p>算法形式化描述： 已知变量对(p, q),</p>
 <p>给定椭圆曲线上的一个点P，一个整数k，求解Q=kP很容易；给定一个点P、Q，知道Q=kP，求整数k确是一个难题。ECDH即建立在此数学难题之上。</p>
 <pre tabindex="0"><code>Alice生成随机整数a，计算A=a*G。 #生成Alice公钥
 
@@ -298,7 +307,7 @@ Alice计算  Q = a * B  , Bob就算 Q = b * A
 <p>CP-ABE： 策略嵌入密文，通过设定策略去决定拥有哪些属性的人能够访问这份密文</p>
 <p>公有云上的数据加密存储与细粒度共享。</p>
 <p>联邦学习：为解决AI技术落地的数据安全隐私问题。</p>
-
+<h1 id="introduction-to-modern-cryptography-现代密码学导论">《introduction to modern cryptography》 现代密码学导论 <a href="#introduction-to-modern-cryptography-%e7%8e%b0%e4%bb%a3%e5%af%86%e7%a0%81%e5%ad%a6%e5%af%bc%e8%ae%ba" class="anchor">🔗</a></h1>
     </div>
 
     
@@ -330,7 +339,7 @@ async>
     <div class="copyright">
     
        © Copyright 
-       2022 
+       2023 
        <span class="split">
         <svg fill="#bbbbbb" width="15" height="15" version="1.1" id="heart-15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 15 15">
   <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>

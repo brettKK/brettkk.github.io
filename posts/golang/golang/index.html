@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          8273 words
+          8282 words
         </span>
         <span class="split">
           ·
@@ -944,7 +944,8 @@ type IntArr [2]int</p>
 <p>goroot/src/syscall --》 建议使用 golang.org/x/sys</p>
 </li>
 </ul>
-<h3 id="go-设计模式">go 设计模式 <a href="#go-%e8%ae%be%e8%ae%a1%e6%a8%a1%e5%bc%8f" class="anchor">🔗</a></h3><h4 id="责任链">责任链 <a href="#%e8%b4%a3%e4%bb%bb%e9%93%be" class="anchor">🔗</a></h4><p>通过闭包实现的http中间件，在原有函数的基础上包裹中间功能，而不破坏原有函数</p>
+<h3 id="go-设计模式">go 设计模式 <a href="#go-%e8%ae%be%e8%ae%a1%e6%a8%a1%e5%bc%8f" class="anchor">🔗</a></h3><p>search keyword <code>go patterns</code> <br></p>
+<h4 id="责任链">责任链 <a href="#%e8%b4%a3%e4%bb%bb%e9%93%be" class="anchor">🔗</a></h4><p>通过闭包实现的http中间件，在原有函数的基础上包裹中间功能，而不破坏原有函数</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">HandleFunc</span>(<span style="color:#e6db74">&#34;/hello&#34;</span>, <span style="color:#a6e22e">timewrapper</span>(<span style="color:#a6e22e">hello</span>))
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ListenAndServe</span>(<span style="color:#e6db74">&#34;:8888&#34;</span>, <span style="color:#66d9ef">nil</span>)
@@ -990,7 +991,7 @@ async>
     <div class="copyright">
     
        © Copyright 
-       2022 
+       2023 
        <span class="split">
         <svg fill="#bbbbbb" width="15" height="15" version="1.1" id="heart-15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 15 15">
   <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>

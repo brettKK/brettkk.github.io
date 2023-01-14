@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          3093 words
+          3172 words
         </span>
         <span class="split">
           ·
@@ -105,6 +105,8 @@
     <li><a href="#ref">ref</a></li>
     <li><a href="#static">'static</a></li>
     <li><a href="#迭代器中的类型疑问">迭代器中的类型疑问</a></li>
+    <li><a href="#as-_">as _</a></li>
+    <li><a href="#intoiterator">IntoIterator</a></li>
     <li><a href="#智能指针">智能指针</a></li>
     <li><a href="#pint">Pin<T></a></li>
     <li><a href="#send-sync">Send, Sync</a></li>
@@ -251,6 +253,10 @@ auto-referencing, auto-dereferencing, and coercion until types match. copy由编
 </span></span></code></pre></div><p><code>&amp;</code>借用（引用）是blanket implement，所有类型都实现了<br>
 <code>Borrow</code> <br>
 <code>AsRef</code>是做类型转换了。 定制化 <code>as_ref</code> 后的类型, 可能self不同的另外一种（String -&gt; &amp;str）, 可能是self结构下的某一个字段的引用。<br></p>
+<ul>
+<li>对值类型的转换 <code>From&lt;T&gt;</code>, <code>Into&lt;T&gt;</code></li>
+<li>对引用类型的转换 <code>AsRef&lt;T&gt;</code>, <code>AsMut&lt;T&gt;</code></li>
+</ul>
 <h1 id="trait的关联类型">trait的关联类型 <a href="#trait%e7%9a%84%e5%85%b3%e8%81%94%e7%b1%bb%e5%9e%8b" class="anchor">🔗</a></h1><p><strong>为什么需要关联类型？</strong><br>
 使用上不方便的地方。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">container</span>(<span style="color:#66d9ef">i32</span>, <span style="color:#66d9ef">i32</span>);
@@ -299,8 +305,7 @@ auto-referencing, auto-dereferencing, and coercion until types match. copy由编
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>println!(<span style="color:#e6db74">&#34;find 2 in vec1: {:?}&#34;</span>, vec1.iter().find(<span style="color:#f92672">|&amp;&amp;</span>x<span style="color:#f92672">|</span> x <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span>));
 </span></span><span style="display:flex;"><span><span style="color:#75715e">// 
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>println!(<span style="color:#e6db74">&#34;find 2 in vec2: {:?}&#34;</span>, vec2.iter().find(<span style="color:#f92672">|&amp;</span>x<span style="color:#f92672">|</span> x <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span>));
-</span></span></code></pre></div><p>as _</p>
-<h1 id="智能指针">智能指针 <a href="#%e6%99%ba%e8%83%bd%e6%8c%87%e9%92%88" class="anchor">🔗</a></h1><p><code>Rc&lt;RefCell&lt;T&gt;&gt;</code>  一个RefCell<T> 可以有多个所有者。
+</span></span></code></pre></div><h1 id="as-_">as _ <a href="#as-_" class="anchor">🔗</a></h1><h1 id="intoiterator">IntoIterator <a href="#intoiterator" class="anchor">🔗</a></h1><h1 id="智能指针">智能指针 <a href="#%e6%99%ba%e8%83%bd%e6%8c%87%e9%92%88" class="anchor">🔗</a></h1><p><code>Rc&lt;RefCell&lt;T&gt;&gt;</code>  一个RefCell<T> 可以有多个所有者。
 <code>RefCell&lt;Rc&lt;T&gt;&gt;</code> <br></p>
 <p>Cell， RefCell在功能上没有区别。<br>
 Cell<T> 使用于 T实现了Copy的情况<br>
@@ -406,7 +411,11 @@ std::ptr::Unique<T></p>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> a <span style="color:#f92672">=</span> <span style="color:#ae81ff">42</span>;
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> memory_location <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>a <span style="color:#66d9ef">as</span> <span style="color:#f92672">*</span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">i32</span> <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">usize</span>;
-</span></span></code></pre></div><p>std::ptr::NonNull<br></p>
+</span></span></code></pre></div><p>todo  Cell Vs RefCell UnsafeCell(&amp;T --&gt; &amp;mut T)</p>
+<p>Cell 不能get到inner ref， 所以修改inner是ok的<br>
+impl !sync for Cell <br></p>
+<p>Rc vs Arc <br></p>
+<p>std::ptr::NonNull<br></p>
 <h2 id="optiont-会用到的api">Option<T> 会用到的API <a href="#optiont-%e4%bc%9a%e7%94%a8%e5%88%b0%e7%9a%84api" class="anchor">🔗</a></h2><p>as_ref(): Converts <code>&amp;Option&lt;T&gt;</code> to <code>Option&lt;&amp;T&gt;</code>.<code>&lt;br&gt; as_mut(): from</code>&amp;mut Option<T><code>-&gt;</code>Option&lt;&amp;mut T&gt;` <br></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">enum</span> Option<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> {
 </span></span><span style="display:flex;"><span>  None,
@@ -432,7 +441,9 @@ std::ptr::Unique<T></p>
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
 </span></span><span style="display:flex;"><span>take()   <span style="color:#75715e">//
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>replace() <span style="color:#75715e">//
-</span></span></span></code></pre></div><p>take(): <br></p>
+</span></span></span></code></pre></div><p>and_then()</p>
+<p>take(): <br></p>
+<p>deref_mut() <br></p>
 <h2 id="asreft">AsRef<T> <a href="#asreft" class="anchor">🔗</a></h2><p>String -&gt; &amp;str (&quot;abc&quot;.to_string().as_ref())</p>
 <h1 id="stdsyncatmoic-memory-ordering">std::sync::atmoic, memory ordering <a href="#stdsyncatmoic-memory-ordering" class="anchor">🔗</a></h1><p>compare_exchange , compare_exchange_weak<br></p>
 <h1 id="包模块可见性">包，模块，可见性 <a href="#%e5%8c%85%e6%a8%a1%e5%9d%97%e5%8f%af%e8%a7%81%e6%80%a7" class="anchor">🔗</a></h1><p>模块foo可以有2种表示： <br></p>
@@ -506,7 +517,7 @@ async>
     <div class="copyright">
     
        © Copyright 
-       2022 
+       2023 
        <span class="split">
         <svg fill="#bbbbbb" width="15" height="15" version="1.1" id="heart-15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 15 15">
   <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>

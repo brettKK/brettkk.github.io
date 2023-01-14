@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          1709 words
+          1793 words
         </span>
         <span class="split">
           ·
@@ -105,7 +105,11 @@
         </li>
       </ul>
     </li>
-    <li><a href="#tikv">tikv</a></li>
+    <li><a href="#tikv">tikv</a>
+      <ul>
+        <li><a href="#分布式事务">分布式事务</a></li>
+      </ul>
+    </li>
     <li><a href="#rocksdb">rocksdb</a></li>
   </ul>
 </nav>
@@ -243,8 +247,40 @@ key: t{tableID}_i{indexID}_columnsValue_rowID
 value: null
 
 row和index的key具有相同的prefix，一个table内的数据在tikv的key空间内是排列在一起的。
-</code></pre><h1 id="tikv">tikv <a href="#tikv" class="anchor">🔗</a></h1><p>单机存储靠rocksdb来存储到磁盘上。分布式数据复制靠raft。
-忽略raft。</p>
+</code></pre><h1 id="tikv">tikv <a href="#tikv" class="anchor">🔗</a></h1><p><code>分布式</code> <code>事务</code> <code>k-v pair</code> <br>
+单机存储靠rocksdb来存储到磁盘上。分布式数据复制靠raft。</p>
+<table>
+<thead>
+<tr>
+<th>分层</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>kv api / coprocessor api</td>
+<td>kv 请求， sql计算</td>
+</tr>
+<tr>
+<td>transaction</td>
+<td>mvcc</td>
+</tr>
+<tr>
+<td>consensus（raft）</td>
+<td>日志复制，分布式一致性</td>
+</tr>
+<tr>
+<td>storage engine</td>
+<td>rocksdb 单机存储</td>
+</tr>
+<tr>
+<td>os file system</td>
+<td>负责磁盘存储</td>
+</tr>
+</tbody>
+</table>
+<p>忽略raft。</p>
+<h2 id="分布式事务">分布式事务 <a href="#%e5%88%86%e5%b8%83%e5%bc%8f%e4%ba%8b%e5%8a%a1" class="anchor">🔗</a></h2><p>tidb --&gt; tikv_1 and tikv node_2 <br></p>
 <p>rust代码，加入assert！。</p>
 <h1 id="rocksdb">rocksdb <a href="#rocksdb" class="anchor">🔗</a></h1>
     </div>
@@ -278,7 +314,7 @@ async>
     <div class="copyright">
     
        © Copyright 
-       2022 
+       2023 
        <span class="split">
         <svg fill="#bbbbbb" width="15" height="15" version="1.1" id="heart-15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 15 15">
   <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>
