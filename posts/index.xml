@@ -535,8 +535,7 @@ type Node struct{ int num, next Node, } func createCircleLink(int n) Node{ head 
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>http://brettkk.github.io/posts/math/algeb/</guid>
-      <description>高等代数
-研究对象 初中， 方程，一元一次方程。ax+b = c。 一元二次方程，求根公式。
+      <description>高等代数 🔗 研究对象 初中， 方程，一元一次方程。ax+b = c。 一元二次方程，求根公式。
 一元高次方程的求根
 n元线性方程组， 矩阵消元法，增广矩阵经过初等行变换，变为阶梯形矩阵。
 二元一次方程。
@@ -554,7 +553,7 @@ n元线性方程组， 矩阵消元法，增广矩阵经过初等行变换，变
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>http://brettkk.github.io/posts/math/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/</guid>
-      <description>1 极限，连续 🔗连续的定义 🔗初等函数在定义域内都是连续的。 一般讨论高等函数，如分段函数。
+      <description>数学分析 🔗1 极限，连续 🔗连续的定义 🔗初等函数在定义域内都是连续的。 一般讨论高等函数，如分段函数。
 极限的定义 🔗极限的求法 🔗无穷小 $$ lim $$
 ，无穷大
 洛必达法则求极限
@@ -563,8 +562,7 @@ n元线性方程组， 矩阵消元法，增广矩阵经过初等行变换，变
 求导的方法 🔗复合函数的求导
 隐函数的求导。
 导数的应用 🔗单调性，求极值，凹凸性（二阶导数）
-3 不定积分，定积分 🔗不定积分 🔗不定积分： 求函数f的全部原函数。
-4 定积分的应用 🔗定积分：给定区间里无限分割求和</description>
+3 不定积分，定积分 🔗不定积分 🔗不定积分： 求函数f的全部原函数。</description>
     </item>
     
     <item>

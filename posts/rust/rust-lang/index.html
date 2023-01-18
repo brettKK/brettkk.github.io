@@ -70,13 +70,13 @@
           ·
         </span>
         <span>
-          10516 words
+          10705 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          21 minute read
+          22 minute read
         </span>
     </div>
 
@@ -91,7 +91,8 @@
           <div>
               <nav id="TableOfContents">
   <ul>
-    <li>
+    <li><a href="#google-comprehensive-rust-4days">google comprehensive-rust 4days</a></li>
+    <li><a href="#the-rust-programming-language">《The Rust Programming Language》</a>
       <ul>
         <li><a href="#1-开始开发环境文档">1 开始(开发环境，文档)</a></li>
         <li><a href="#2-project动手猜数小游戏">2 project：动手猜数小游戏。</a></li>
@@ -226,6 +227,55 @@
 <a href="https://cheats.rs/#data-structures" target="_blank" rel="noopener">Rust Language Cheat Sheet</a> 适合快速浏览，有问题时查看的工具书 done<br>
 <a href="https://doc.rust-lang.org/nightly/rust-by-example" target="_blank" rel="noopener">rust by example</a> 每篇都很短并配有例子，很好入手。done<br>
 <a href="https://github.com/google/comprehensive-rust" target="_blank" rel="noopener">google comprehensive-rust 4days</a><br></p>
+<h1 id="google-comprehensive-rust-4days">google comprehensive-rust 4days <a href="#google-comprehensive-rust-4days" class="anchor">🔗</a></h1><p>较短时间入门。</p>
+<p>摘要</p>
+<p>standard library <br></p>
+<ul>
+<li>Option, Result, error handling</li>
+<li>String</li>
+<li>Vec</li>
+<li>HashMap, config hash algorithm</li>
+<li>Box: an owned pointer for heap-alloc data</li>
+<li>Rc: a shared reference counted pointer for heap-alloc data</li>
+</ul>
+<p>重要的traits<br>
+Iterator , IntoIterator(for in)
+From<T> Into<T> convert type, Drop.</p>
+<p>shared state 共享内存的状态<br></p>
+<ul>
+<li>Arc<T>: share read-only access via <code>clone()</code></li>
+<li>Mutex<T>: allow mutable access to T behind a read-only interfz</li>
+<li><code>Arc&lt;Mutex&lt;Vec&lt;i32&gt;&gt;&gt;</code></li>
+</ul>
+<p>Send &amp; Sync <br></p>
+<ul>
+<li>T: send, T can move to thread. T alloc at t1 and de-alloc at t2</li>
+<li>T: Sync, &amp;T can move to thread.  only if &amp;T: Send.</li>
+<li>Send + Sync
+<ul>
+<li>大部分类型都是 i32, char, &amp;str, String, Arc<T>, Mutex<T> AtomicBool</li>
+</ul>
+</li>
+<li>Send + !Sync
+<ul>
+<li>interior mutability</li>
+<li>mpsc::Sender<T>, mpsc::Receiver<T></li>
+<li>Cell<T> RefCell<T></li>
+</ul>
+</li>
+<li>!Send + Sync
+<ul>
+<li>MutexGuard<T>,  alloc at t1 and should de-alloc at t2</li>
+</ul>
+</li>
+<li>!Send + !Sync
+<ul>
+<li>Rc<T></li>
+<li>*const T, *mut T</li>
+</ul>
+</li>
+</ul>
+<h1 id="the-rust-programming-language">《The Rust Programming Language》 <a href="#the-rust-programming-language" class="anchor">🔗</a></h1><p>比较全面，看完需要较长时间</p>
 <h2 id="1-开始开发环境文档">1 开始(开发环境，文档) <a href="#1-%e5%bc%80%e5%a7%8b%e5%bc%80%e5%8f%91%e7%8e%af%e5%a2%83%e6%96%87%e6%a1%a3" class="anchor">🔗</a></h2><ul>
 <li>rustup.rs安装rustc， cargo， rustfmt, etc...</li>
 <li>rustup update 更新rustc版本， rustc --version</li>
