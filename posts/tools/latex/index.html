@@ -75,7 +75,7 @@ utf-8历史， 开发plan 9操作系统的产物，发明了后来广泛使用�
           ·
         </span>
         <span>
-          58 words
+          59 words
         </span>
         <span class="split">
           ·
@@ -101,6 +101,10 @@ utf-8历史， 开发plan 9操作系统的产物，发明了后来广泛使用�
         <li>
           <ul>
             <li><a href="#字符编码">字符编码</a></li>
+          </ul>
+        </li>
+        <li><a href="#浮点数的存储与处理">浮点数的存储与处理</a>
+          <ul>
             <li><a href="#使用中文字体">使用中文字体</a></li>
             <li><a href="#gif-image-in-latex-beamer">gif image in laTex Beamer</a></li>
             <li><a href="#js-写ppt">js 写ppt</a></li>
@@ -132,7 +136,7 @@ utf-8 是一种针对unicode的变长字符编码的实现方式。
 如果第一位是1，连续有多少个1，表示当前字符占用多少个字节, 后面字节的前两位均以10开头。</p>
 <p>例如 严。 unicode = 100111000100101 = 4E25,
 utf-8=11100100 10111000 10100101 = E4B8A5.</p>
-<h3 id="使用中文字体">使用中文字体 <a href="#%e4%bd%bf%e7%94%a8%e4%b8%ad%e6%96%87%e5%ad%97%e4%bd%93" class="anchor">🔗</a></h3><p>使用xeCJK包，同时需要使用xeLaTex进行编译</p>
+<h2 id="浮点数的存储与处理">浮点数的存储与处理 <a href="#%e6%b5%ae%e7%82%b9%e6%95%b0%e7%9a%84%e5%ad%98%e5%82%a8%e4%b8%8e%e5%a4%84%e7%90%86" class="anchor">🔗</a></h2><h3 id="使用中文字体">使用中文字体 <a href="#%e4%bd%bf%e7%94%a8%e4%b8%ad%e6%96%87%e5%ad%97%e4%bd%93" class="anchor">🔗</a></h3><p>使用xeCJK包，同时需要使用xeLaTex进行编译</p>
 <h3 id="gif-image-in-latex-beamer">gif image in laTex Beamer <a href="#gif-image-in-latex-beamer" class="anchor">🔗</a></h3><p>brew install imagemagick</p>
 <p>convert kiss.gif -coalesce foo.png</p>
 <p>mac原生的mac previewer无法浏览gif, 下载Adobe Reader, then All is well.</p>

@@ -13,7 +13,7 @@
       <pubDate>Sat, 05 Nov 2022 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/os/tcp/</guid>
-      <description>tcp报文结构图 URG: 表示紧急指针（urgent pointer）</description>
+      <description>tcp 🔗用寄明信片的方式传送一本书 明文， 乱序，丢包 可靠： 带重传的</description>
     </item>
     
     <item>

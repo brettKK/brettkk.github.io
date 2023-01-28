@@ -6,7 +6,16 @@
     <description>Recent content on brettkk</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 21 Nov 2022 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 05 Jan 2023 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>tidb学习</title>
+      <link>http://brettkk.github.io/posts/store_db/tidb/</link>
+      <pubDate>Thu, 05 Jan 2023 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/store_db/tidb/</guid>
+      <description>整体架构 🔗二层（1 sql层无状态，处理用户请求和sql运算逻</description>
+    </item>
+    
     <item>
       <title>环境问题 &#43; 类型系统疑问</title>
       <link>http://brettkk.github.io/posts/rust/rust_problem/</link>
@@ -49,7 +58,7 @@
       <pubDate>Sat, 05 Nov 2022 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/os/tcp/</guid>
-      <description>tcp报文结构图 URG: 表示紧急指针（urgent pointer）</description>
+      <description>tcp 🔗用寄明信片的方式传送一本书 明文， 乱序，丢包 可靠： 带重传的</description>
     </item>
     
     <item>
@@ -284,15 +293,6 @@
       
       <guid>http://brettkk.github.io/posts/java/soot_wala/</guid>
       <description>4中IR Baf 在bytecode上进行的抽象，忽略字节码对于常量</description>
-    </item>
-    
-    <item>
-      <title>tidb学习</title>
-      <link>http://brettkk.github.io/posts/store_db/tidb/</link>
-      <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/store_db/tidb/</guid>
-      <description>整体架构 🔗二层（sql层无状态，处理用户请求和sql运算逻辑</description>
     </item>
     
     <item>
@@ -554,8 +554,9 @@ n元线性方程组， 矩阵消元法，增广矩阵经过初等行变换，变
 高斯消元法 --初等变换--》 阶梯形方程组 --》 非零行的行数为矩阵的秩
 解的情况判定和解的结构 矩阵的秩与解的关系
 矩阵的特征值和特征向量，几何意义 相似矩阵，相似对角化，二次型的标准型与规范型 合同变换，合同矩阵。 正交矩阵，正交变换
-抽象代数（近世代数） 🔗galois理论，一元五次方程的求根公式是否存在？ 引起的。 阿贝尔。
-整除 🔗b｜a 表示 a=Nb or b是a的因子，b整除a， or a是b的倍数</description>
+抽象代数（近世代数） 🔗幺半群 🔗二元运算满足结合律，具有单位元
+满足交换律的幺半群称为交换幺半群
+同态： 保持运算， 同构：一致的运算， 双射（元素之间一一对应）</description>
     </item>
     
     <item>
@@ -640,9 +641,9 @@ IDA, NDK。
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>http://brettkk.github.io/posts/rust/rust_concurrency/</guid>
-      <description>关于rust的异步编程 🔗Async-await on stable Rust
-async, .await， Future 🔗async/.await是了为了更简单实现Future的语法糖
-async fn foo1() -&amp;gt; usize{ 0 } // foo1 == foo2 fn foo2() -&amp;gt; impl std::future::Future&amp;lt;Output = usize&amp;gt; { async{0} } async语法糖把代码块或者函数转换为 实现了trait Future的enum结构的状态机</description>
+      <description>《rust atomics and locks》 🔗读书 和example 代码笔记
+并发的基本概念 🔗 线程 std::thread::spawn, std::thread::Builder::new(),scoped thread
+static X: [i32; 3] = [1,2,3]; thread::spawn(||dbg!(&amp;amp;X)); let x: &amp;amp;&amp;#39;static [i32; 3] = Box::leak(Box::new([1,2,3])); thread::spawn(move || dbg!(x)); thread::spawn(move || dbg!</description>
     </item>
     
     <item>

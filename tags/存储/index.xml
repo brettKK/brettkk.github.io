@@ -6,7 +6,16 @@
     <description>Recent content in 存储 on brettkk</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 05 May 2021 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/tags/%E5%AD%98%E5%82%A8/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 05 Jan 2023 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/tags/%E5%AD%98%E5%82%A8/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>tidb学习</title>
+      <link>http://brettkk.github.io/posts/store_db/tidb/</link>
+      <pubDate>Thu, 05 Jan 2023 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/store_db/tidb/</guid>
+      <description>整体架构 🔗二层（1 sql层无状态，处理用户请求和sql运算逻</description>
+    </item>
+    
     <item>
       <title>mysql 小结</title>
       <link>http://brettkk.github.io/posts/store_db/mysql/</link>
@@ -23,15 +32,6 @@
       
       <guid>http://brettkk.github.io/posts/store_db/redis/</guid>
       <description>支持的value类型： 字符串，hash，列表，集合，有序集合</description>
-    </item>
-    
-    <item>
-      <title>tidb学习</title>
-      <link>http://brettkk.github.io/posts/store_db/tidb/</link>
-      <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/store_db/tidb/</guid>
-      <description>整体架构 🔗二层（sql层无状态，处理用户请求和sql运算逻辑</description>
     </item>
     
     <item>

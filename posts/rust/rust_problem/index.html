@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          3172 words
+          3351 words
         </span>
         <span class="split">
           ·
@@ -170,7 +170,7 @@ rustup安装完后
 复制后， lldb debug step into compiler了。<br>
 <img src="/rust/rust_step_in_compiler.png" width = "605" /><br></p>
 <hr>
-<h1 id="stdoptionoption的疑问">std::option::Option的疑问 <a href="#stdoptionoption%e7%9a%84%e7%96%91%e9%97%ae" class="anchor">🔗</a></h1><p>std::option::Option的map方法消耗所有权且返回Option<U>类型， 与迭代器中的map方法同名，但是返回值不相同。<br></p>
+<h1 id="stdoptionoption的疑问">std::option::Option的疑问 <a href="#stdoptionoption%e7%9a%84%e7%96%91%e9%97%ae" class="anchor">🔗</a></h1><p>std::option::Option的map方法消耗所有权且返回<code>Option&lt;U&gt;</code>类型， 与迭代器中的map方法同名，但是返回值不相同。<br></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> maybe_some_string <span style="color:#f92672">=</span> Some(String::from(<span style="color:#e6db74">&#34;Hello, World!&#34;</span>));
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> maybe_some_len <span style="color:#f92672">=</span> maybe_some_string.map(<span style="color:#f92672">|</span>s<span style="color:#f92672">|</span> s.len());
 </span></span><span style="display:flex;"><span>assert_eq!(maybe_some_len, Some(<span style="color:#ae81ff">13</span>));
@@ -417,6 +417,91 @@ impl !sync for Cell <br></p>
 <p>Rc vs Arc <br></p>
 <p>std::ptr::NonNull<br></p>
 <h2 id="optiont-会用到的api">Option<T> 会用到的API <a href="#optiont-%e4%bc%9a%e7%94%a8%e5%88%b0%e7%9a%84api" class="anchor">🔗</a></h2><p>as_ref(): Converts <code>&amp;Option&lt;T&gt;</code> to <code>Option&lt;&amp;T&gt;</code>.<code>&lt;br&gt; as_mut(): from</code>&amp;mut Option<T><code>-&gt;</code>Option&lt;&amp;mut T&gt;` <br></p>
+<p>Option 与 Result 常见方法的对比: <br></p>
+<table>
+<thead>
+<tr>
+<th>Option<T></th>
+<th>函数的功能</th>
+<th>Result&lt;T, E&gt;</th>
+<th>函数的功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>is_some(&amp;self), is_none()</td>
+<td></td>
+<td>is_ok(&amp;self), is_err()</td>
+<td></td>
+</tr>
+<tr>
+<td>ok_or<E>(self, err: E) -&gt; Result&lt;T, E&gt;()</td>
+<td>-&gt;Result&lt;T, E&gt;</td>
+<td>ok(self) -&gt; Option<T>, err(self) -&gt; Option<E></td>
+<td>Result-&gt;Option</td>
+</tr>
+<tr>
+<td>as_ref(&amp;self) -&gt; Option&lt;&amp;T&gt;</td>
+<td>&amp;Option&lt;T -&gt; Option&lt;&amp;T&gt;</td>
+<td>as_ref(&amp;self) -&gt;Result&lt;&amp;T, &amp;E&gt;</td>
+<td></td>
+</tr>
+<tr>
+<td>as_mut(&amp;mut self) -&gt; Option&lt;&amp;mut T&gt;</td>
+<td>&amp;mut Option<T> -&gt; Option&lt;&amp;mut T&gt;</td>
+<td>as_mut(&amp;mut self) -&gt; Result&lt;&amp;mut T, &amp;mut E&gt;</td>
+<td></td>
+</tr>
+<tr>
+<td>map&lt;U, F&gt;(self, f: F) -&gt; Option<U> where F: FnOnce(T) -&gt; U</td>
+<td>consume the orignal</td>
+<td>map(self, op: F)</td>
+<td>Result&lt;T, E&gt; -&gt; Result&lt;U, E&gt;</td>
+</tr>
+<tr>
+<td>as_deref(&amp;self) -&gt; Option&lt;&amp;<T as Deref>::Target&gt; where T: Deref,</td>
+<td>&amp;Option&lt;T -&gt; Option&lt;&amp;T::Target&gt;</td>
+<td>as_deref(&amp;self) -&gt; &lt;&amp;<T as deref>::Target, &amp;E&gt;</td>
+<td>Result&lt;String, u32&gt; -&gt; Result&lt;&amp;str, &amp;u32&gt;</td>
+</tr>
+<tr>
+<td>as_deref_mut(&amp;mut self) -&gt; Option&lt;&amp;mut <T as Deref>::Target&gt; where T: DerefMut,</td>
+<td>&amp;mut Option<T> -&gt; Option&lt;&amp;mut T::Target&gt;</td>
+<td>as_deref_mut(&amp;mut self)</td>
+<td></td>
+</tr>
+<tr>
+<td>expect(self, msg: &amp;str)</td>
+<td>may panic</td>
+<td>expect(self, msg: &amp;str) -&gt; T</td>
+<td>may panic</td>
+</tr>
+<tr>
+<td>unwrap(self) -&gt; T</td>
+<td>my panic</td>
+<td>unwrap(self)-&gt;T</td>
+<td>may panic</td>
+</tr>
+<tr>
+<td>unwrap_or_default(self)-&gt; T where T: Default,</td>
+<td>no panic</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>take(&amp;mut self) -&gt; Option<T></td>
+<td>leave none, return Option</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>replace(&amp;mut self, value: T) -&gt; Option<T></td>
+<td>change and return old value</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">enum</span> Option<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> {
 </span></span><span style="display:flex;"><span>  None,
 </span></span><span style="display:flex;"><span>  Some(T),

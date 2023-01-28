@@ -152,9 +152,9 @@ IDA, NDK。
           </div>
 
           
-              <div class="summary">关于rust的异步编程 🔗Async-await on stable Rust
-async, .await， Future 🔗async/.await是了为了更简单实现Future的语法糖
-async fn foo1() -&gt; usize{ 0 } // foo1 == foo2 fn foo2() -&gt; impl std::future::Future&lt;Output = usize&gt; { async{0} } async语法糖把代码块或者函数转换为 实现了trait Future的enum结构的状态机</div>
+              <div class="summary">《rust atomics and locks》 🔗读书 和example 代码笔记
+并发的基本概念 🔗 线程 std::thread::spawn, std::thread::Builder::new(),scoped thread
+static X: [i32; 3] = [1,2,3]; thread::spawn(||dbg!(&amp;X)); let x: &amp;&#39;static [i32; 3] = Box::leak(Box::new([1,2,3])); thread::spawn(move || dbg!(x)); thread::spawn(move || dbg!</div>
           
 
         </section>

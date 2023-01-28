@@ -6,7 +6,16 @@
     <description>Recent content in 技术 on brettkk</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 21 Nov 2022 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/categories/%E6%8A%80%E6%9C%AF/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 05 Jan 2023 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/categories/%E6%8A%80%E6%9C%AF/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>tidb学习</title>
+      <link>http://brettkk.github.io/posts/store_db/tidb/</link>
+      <pubDate>Thu, 05 Jan 2023 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/store_db/tidb/</guid>
+      <description>整体架构 🔗二层（1 sql层无状态，处理用户请求和sql运算逻</description>
+    </item>
+    
     <item>
       <title>环境问题 &#43; 类型系统疑问</title>
       <link>http://brettkk.github.io/posts/rust/rust_problem/</link>
@@ -49,7 +58,7 @@
       <pubDate>Sat, 05 Nov 2022 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/os/tcp/</guid>
-      <description>tcp报文结构图 URG: 表示紧急指针（urgent pointer）</description>
+      <description>tcp 🔗用寄明信片的方式传送一本书 明文， 乱序，丢包 可靠： 带重传的</description>
     </item>
     
     <item>
@@ -266,15 +275,6 @@
       
       <guid>http://brettkk.github.io/posts/java/soot_wala/</guid>
       <description>4中IR Baf 在bytecode上进行的抽象，忽略字节码对于常量</description>
-    </item>
-    
-    <item>
-      <title>tidb学习</title>
-      <link>http://brettkk.github.io/posts/store_db/tidb/</link>
-      <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/store_db/tidb/</guid>
-      <description>整体架构 🔗二层（sql层无状态，处理用户请求和sql运算逻辑</description>
     </item>
     
     <item>

@@ -8,7 +8,7 @@
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
 <meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta name="description" content="tcp报文结构图 URG: 表示紧急指针（urgent pointer）">
+<meta name="description" content="tcp 🔗用寄明信片的方式传送一本书 明文， 乱序，丢包 可靠： 带重传的">
 <meta name="generator" content="Hugo 0.103.1" />
 
 
@@ -70,13 +70,13 @@
           ·
         </span>
         <span>
-          1888 words
+          2051 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          4 minute read
+          5 minute read
         </span>
     </div>
 
@@ -84,13 +84,42 @@
     
         
   
+    <aside class="toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
+          <div>
+              <nav id="TableOfContents">
+  <ul>
+    <li><a href="#tcp">tcp</a></li>
+  </ul>
+</nav>
+          </div>
+      </details>
+    </aside>
+  
 
 
     
 
 
     <div class="content">
-      <p>tcp报文结构图
+      <h1 id="tcp">tcp <a href="#tcp" class="anchor">🔗</a></h1><p><code>用寄明信片的方式传送一本书</code><br></p>
+<p>明文， 乱序，丢包<br></p>
+<ul>
+<li>可靠： 带重传的累积正向应答
+<ul>
+<li>编号</li>
+<li>累计的正向应答（ack number1， number1之前均收到）</li>
+<li>超时没收到ack则重传。<br></li>
+</ul>
+</li>
+<li>flow control 滑动窗口</li>
+<li>congestion control 拥塞控制</li>
+</ul>
+<p>tcp中最主要消耗cpu的状态是established<br></p>
+<p>学的时候教handshake， byebye status。学车是教倒车入库，但是路上开车是主要点<br></p>
+<p>tcp报文结构图
 <img src="/os/tcp-header.png" width = "400" /><br></p>
 <ul>
 <li>URG: 表示紧急指针（urgent pointer）是否有效</li>
