@@ -70,5 +70,14 @@
       <description>linux top命令（mac top结果显示有一些区别） Linux下常</description>
     </item>
     
+    <item>
+      <title>rust unsafe</title>
+      <link>http://brettkk.github.io/posts/rust/rust_unsafe/</link>
+      <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/rust/rust_unsafe/</guid>
+      <description>fn main() { let mut d = String::from(&amp;#34;aaaa&amp;#34;); let d_len = d.len(); { // 去掉 or 不去掉 let mut e = String::wtih_capacity(d_len); unsafe { // 两个</description>
+    </item>
+    
   </channel>
 </rss>

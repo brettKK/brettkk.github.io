@@ -3,14 +3,12 @@
 <script src="https://cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
 <html lang="zh-cn">
   <head>
-    <title>brettkk</title>
+    <title>rust concurrency | brettkk</title>
 
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
 <meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta name="description" content="《rust atomics and locks》 🔗读书 和example 代码笔记
-并发的基本概念 🔗 线程 std::thread::spawn, std::thread::Builder::new(),scoped thread
-static X: [i32; 3] = [1,2,3]; thread::spawn(||dbg!(&amp;X)); let x: &amp;&#39;static [i32; 3] = Box::leak(Box::new([1,2,3])); thread::spawn(move || dbg!(x)); thread::spawn(move || dbg!">
+<meta name="description" content="lock free structure 🔗不用上锁,利用原子操作实现的并发安全的数据结构。 single producer,">
 <meta name="generator" content="Hugo 0.103.1" />
 
 
@@ -64,21 +62,21 @@ static X: [i32; 3] = [1,2,3]; thread::spawn(||dbg!(&amp;X)); let x: &amp;&#39;st
       
 
 <section id="single">
-    <h1 class="title"></h1>
+    <h1 class="title">rust concurrency</h1>
 
     <div class="tip">
-        <time datetime="0001-01-01 00:00:00 &#43;0000 UTC">Jan 1, 0001</time>
+        <time datetime="2023-01-05 11:33:56 &#43;0800 CST">Jan 5, 2023</time>
         <span class="split">
           ·
         </span>
         <span>
-          676 words
+          2377 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          4 minute read
+          5 minute read
         </span>
     </div>
 
@@ -93,6 +91,16 @@ static X: [i32; 3] = [1,2,3]; thread::spawn(||dbg!(&amp;X)); let x: &amp;&#39;st
           <div>
               <nav id="TableOfContents">
   <ul>
+    <li><a href="#lock-free-structure">lock free structure</a>
+      <ul>
+        <li><a href="#single-producer-multi-consumer-broadcast-spmc">single producer, multi-consumer (broadcast, spmc)</a></li>
+        <li><a href="#multi-producer-single-consumer-mpsc">multi producer, single consumer (mpsc)</a>
+          <ul>
+            <li><a href="#multi-producer-multi-consumermpmc">multi producer, multi consumer(mpmc)</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
     <li><a href="#rust-atomics-and-locks">《rust atomics and locks》</a>
       <ul>
         <li><a href="#并发的基本概念">并发的基本概念</a></li>
@@ -125,7 +133,6 @@ static X: [i32; 3] = [1,2,3]; thread::spawn(||dbg!(&amp;X)); let x: &amp;&#39;st
         <li><a href="#send">Send</a></li>
         <li><a href="#sync">Sync</a></li>
         <li><a href="#unsafecell-isnt-sync-and-therefore-cell-and-refcell-arent-br">UnsafeCell isn't Sync (and therefore Cell and RefCell aren't). <br></a></li>
-        <li><a href="#并发编程">并发编程</a></li>
       </ul>
     </li>
   </ul>
@@ -140,7 +147,27 @@ static X: [i32; 3] = [1,2,3]; thread::spawn(||dbg!(&amp;X)); let x: &amp;&#39;st
 
 
     <div class="content">
-      <h1 id="rust-atomics-and-locks">《rust atomics and locks》 <a href="#rust-atomics-and-locks" class="anchor">🔗</a></h1><p>读书 和example 代码笔记</p>
+      <h1 id="lock-free-structure">lock free structure <a href="#lock-free-structure" class="anchor">🔗</a></h1><p>不用上锁,利用原子操作实现的并发安全的数据结构。</p>
+<h2 id="single-producer-multi-consumer-broadcast-spmc">single producer, multi-consumer (broadcast, spmc) <a href="#single-producer-multi-consumer-broadcast-spmc" class="anchor">🔗</a></h2><p><a href="https://github.com/jonhoo/bus" target="_blank" rel="noopener">仓库地址：bus, broadcast channel</a><br>
+依赖了<code>crossbeam-channel</code><br></p>
+<pre tabindex="0"><code>                            --&gt; consumer
+producer broadcast ==&gt;      --&gt; consumer
+                            --&gt; consumer
+</code></pre><p>创建数据结构<code>Bus::new()</code></p>
+<p>添加consumer<code>Bus::add_rx() -&gt; BusReader</code></p>
+<p>发送广播<code>try_broadcast()</code></p>
+<p>接受消息<code>try_recv()</code></p>
+<pre tabindex="0"><code>Bus(Arc&lt;BusInner&gt;...)
+BusInner(Vec&lt;Seat&gt;...)
+Seat(read_num, data)
+
+每一份数据`Seat(read_num, data)`需要额外记录被consumer读取的次数。
+
+写时无锁，vec为缓行队列，当tail+1的位置Seat中read_num已到达consumer num时则覆盖写，否则等待
+读时无锁，修改vec中seat中的read_num++。
+</code></pre><h2 id="multi-producer-single-consumer-mpsc">multi producer, single consumer (mpsc) <a href="#multi-producer-single-consumer-mpsc" class="anchor">🔗</a></h2><p>标准库中<code>std::sync::mpsc</code>有实现</p>
+<h3 id="multi-producer-multi-consumermpmc">multi producer, multi consumer(mpmc) <a href="#multi-producer-multi-consumermpmc" class="anchor">🔗</a></h3><p><code>crossbeam channel</code>: unbounded channel(list), bounded channel(array)</p>
+<h1 id="rust-atomics-and-locks">《rust atomics and locks》 <a href="#rust-atomics-and-locks" class="anchor">🔗</a></h1><p>读书 和example 代码笔记</p>
 <h2 id="并发的基本概念">并发的基本概念 <a href="#%e5%b9%b6%e5%8f%91%e7%9a%84%e5%9f%ba%e6%9c%ac%e6%a6%82%e5%bf%b5" class="anchor">🔗</a></h2><p> 线程 <code>std::thread::spawn</code>, <code>std::thread::Builder::new()</code>,<code>scoped thread</code></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">static</span> X: [<span style="color:#66d9ef">i32</span>; <span style="color:#ae81ff">3</span>] <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>];
 </span></span><span style="display:flex;"><span>thread::spawn(<span style="color:#f92672">||</span>dbg!(<span style="color:#f92672">&amp;</span>X));
@@ -202,7 +229,8 @@ get方法返回raw pointer。 UnsafeCell不直接使用， 在Rc，Cell， RefCe
 <p><code>Fences</code>: std::sync::atomic::fence</p>
 <h2 id="build-own-spin-lock-channels-arc">build own spin lock, channels, <code>Arc</code>, <a href="#build-own-spin-lock-channels-arc" class="anchor">🔗</a></h2><p>todo</p>
 <h2 id="processor">processor <a href="#processor" class="anchor">🔗</a></h2><h2 id="os-primitives">os primitives <a href="#os-primitives" class="anchor">🔗</a></h2><h2 id="build-own-locks">build own locks <a href="#build-own-locks" class="anchor">🔗</a></h2><h1 id="关于rust的异步编程">关于rust的异步编程 <a href="#%e5%85%b3%e4%ba%8erust%e7%9a%84%e5%bc%82%e6%ad%a5%e7%bc%96%e7%a8%8b" class="anchor">🔗</a></h1><p><a href="https://blog.rust-lang.org/2019/11/07/Async-await-stable.html" target="_blank" rel="noopener">Async-await on stable Rust</a><br></p>
-<h2 id="async-await-future">async, .await， Future <a href="#async-await-future" class="anchor">🔗</a></h2><p>async/.await是了为了更简单实现Future的语法糖<br></p>
+<h2 id="async-await-future">async, .await， Future <a href="#async-await-future" class="anchor">🔗</a></h2><p>async/.await是了为了更简单实现Future的语法糖<br>
+async -&gt; 生成实现了Future trait的结构体, await -&gt; 触发Future的执行<br></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">async</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">foo1</span>() -&gt; <span style="color:#66d9ef">usize</span>{ <span style="color:#ae81ff">0</span> } 
 </span></span><span style="display:flex;"><span><span style="color:#75715e">// foo1 == foo2
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">foo2</span>() -&gt; <span style="color:#a6e22e">impl</span> std::future::Future<span style="color:#f92672">&lt;</span>Output <span style="color:#f92672">=</span> <span style="color:#66d9ef">usize</span><span style="color:#f92672">&gt;</span> {
@@ -349,10 +377,17 @@ RefCell<T> 和 Cell<T> 系列类型不是 Sync 的。 RefCell<T> 在运行时所
 </span></span><span style="display:flex;"><span>          F: Send <span style="color:#f92672">+</span> <span style="color:#f92672">&#39;</span>static,
 </span></span><span style="display:flex;"><span>          T: Send <span style="color:#f92672">+</span> <span style="color:#f92672">&#39;</span>static,
 </span></span></code></pre></div><p>1 需要修改这个值， 2 需要把值赋予给多个所有者 。 <code>Rc&lt;RefCell&lt;T&gt;&gt;</code>。 多线程下<code>Arc&lt;Mutex&lt;T&gt;&gt;</code> <br></p>
-<h2 id="并发编程">并发编程 <a href="#%e5%b9%b6%e5%8f%91%e7%bc%96%e7%a8%8b" class="anchor">🔗</a></h2><p>多线程 + async/await <br></p>
 
     </div>
 
+    
+        <div class="tags">
+            
+                <a href="http://brettkk.github.io/tags/rust">rust</a>
+            
+                <a href="http://brettkk.github.io/tags/game">game</a>
+            
+        </div>
     
     
     

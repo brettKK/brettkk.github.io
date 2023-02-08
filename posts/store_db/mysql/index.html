@@ -8,7 +8,7 @@
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
 <meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta name="description" content="存储 🔗存储引擎-是创建表时设置，存储引擎是表级别的使用 innodb: 只有">
+<meta name="description" content="mysql 起源&amp;基础 🔗 创建表时的存储引擎 🔗 存储引擎-是创建表">
 <meta name="generator" content="Hugo 0.103.1" />
 
 
@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          2170 words
+          2022 words
         </span>
         <span class="split">
           ·
@@ -93,13 +93,15 @@
   <ul>
     <li>
       <ul>
-        <li><a href="#存储">存储</a></li>
-        <li><a href="#索引">索引</a></li>
+        <li><a href="#mysql-起源基础">mysql 起源&amp;基础</a></li>
+        <li><a href="#创建表时的存储引擎">创建表时的存储引擎</a></li>
+        <li><a href="#一般索引的结构">一般索引的结构</a></li>
         <li><a href="#sql优化">sql优化</a></li>
         <li><a href="#锁">锁</a></li>
         <li><a href="#事务原理">事务原理</a></li>
-        <li><a href="#数据同步">数据同步</a></li>
-        <li><a href="#使用">使用</a></li>
+        <li><a href="#高可用与数据同步">高可用与数据同步</a></li>
+        <li><a href="#使用时注意">使用时注意</a></li>
+        <li><a href="#reference">reference</a></li>
       </ul>
     </li>
   </ul>
@@ -114,57 +116,61 @@
 
 
     <div class="content">
-      <h2 id="存储">存储 <a href="#%e5%ad%98%e5%82%a8" class="anchor">🔗</a></h2><p>存储引擎-是创建表时设置，存储引擎是表级别的使用</p>
+      <h2 id="mysql-起源基础">mysql 起源&amp;基础 <a href="#mysql-%e8%b5%b7%e6%ba%90%e5%9f%ba%e7%a1%80" class="anchor">🔗</a></h2><p><img src="/store_db/mysql_start.png" width = "600" /><br></p>
+<h2 id="创建表时的存储引擎">创建表时的存储引擎 <a href="#%e5%88%9b%e5%bb%ba%e8%a1%a8%e6%97%b6%e7%9a%84%e5%ad%98%e5%82%a8%e5%bc%95%e6%93%8e" class="anchor">🔗</a></h2><p> 存储引擎-是创建表时设置，存储引擎是表级别的使用<br></p>
+<p> mysql常见可配置的存储引擎：</p>
 <ul>
-<li>
-<p>innodb: 只有数据文件即时索引文件，聚集索引，一个表对应一个文件</p>
-</li>
-<li>
-<p>mysiam: 既有数据文件，又有索引文件</p>
-</li>
-<li>
-<p>InnoDB表中数据按行存储 类似网络协议栈，由页头，区头，段头，表头
-扇区：磁盘的最小存储单位 512b；</p>
-</li>
-</ul>
-<p>磁盘块：文件系统读写数据的最小单位 4KB；</p>
-<p>页：内存的最小存储单位 4KB； 16k，包含多行</p>
-<p>一个区由64个页组成，为1M</p>
-<p>一个段由多个区组成，构成表空间文件ibd （数据段、索引段、回滚段）</p>
+<li>innodb
 <ul>
-<li>mysql innodb存储引擎的文件结构
+<li>只有数据文件也是索引文件，聚集索引，一个表对应一个文件</li>
+<li>innodb存储引擎的文件结构
 <ul>
-<li>共享表空间文件（ibdata1）</li>
-<li>独占表空间文件（ibd）</li>
-<li>表结构文件（user.frm， 表名 + .frm组成整个名称），与具体存储引擎无关</li>
+<li>数据按行存储 类似网络协议栈，由页头，区头，段头，表头</li>
+<li>表结构文件（user.frm， 表名 + .frm组成整个名称）</li>
 <li>日志文件（redo文件等）</li>
 </ul>
 </li>
 </ul>
-<p>机械磁盘</p>
+</li>
+<li>mysiam
 <ul>
-<li>RAID 0</li>
-<li>RAID 1 磁盘镜像，可靠性</li>
-<li>RAID 5</li>
-<li>RAID 10  RAID 1 后 RAID 0</li>
+<li>既有数据文件，又有索引文件</li>
+<li>不支持事务</li>
 </ul>
-<p>固态硬盘 Sata SSD， PCI-E SSD</p>
+</li>
+</ul>
 <hr>
-<h2 id="索引">索引 <a href="#%e7%b4%a2%e5%bc%95" class="anchor">🔗</a></h2><ul>
-<li>红黑树 二叉树，深度可能很深</li>
-<li>B树 mongodb，允许一个树节点中存多个数据，中间节点存了数据</li>
+<h2 id="一般索引的结构">一般索引的结构 <a href="#%e4%b8%80%e8%88%ac%e7%b4%a2%e5%bc%95%e7%9a%84%e7%bb%93%e6%9e%84" class="anchor">🔗</a></h2><pre tabindex="0"><code>数据库系统内幕：存储引擎
+    单机角度介绍 磁盘存储格式，索引数据结构，事务处理。
+    其他的查询计划，查询优化等不介绍，
+    负责内存和磁盘上的存储、检索。
+
+    数据库是构建在存储引擎之上的，提供了表结构，sql，索引，事务等特性。
+    数据库使用文件来存储数据，但不依赖于目录和文件系统来定位数据。
+</code></pre><ul>
+<li>红黑树，AVL等二叉树导致树的深度可能很深。</li>
+<li>为了降低树的高度，多叉树。
+<ul>
+<li>B树 mongodb，允许一个树节点中存多个数据，中间节点存了数据
+<ul>
+<li>etcd</li>
+</ul>
+</li>
 <li>B+树 innodb
 <ul>
-<li>只有叶子节点存数据，叶子节点左从到右，从小到达，叶子之间有指针，方便区间查询</li>
+<li>只有叶子节点存数据</li>
+<li>叶子节点根据key从小到大，叶子之间有指针，方便区间查询</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 <h2 id="sql优化">sql优化 <a href="#sql%e4%bc%98%e5%8c%96" class="anchor">🔗</a></h2><ul>
-<li>搜索字段上建索引，不在索引字段上使用函数</li>
-<li>避免select * ,  这样杜绝去使用覆盖索引
+<li>搜索字段上建索引，同时不在索引字段上使用聚合函数</li>
+<li>避免select *，这样不能使用覆盖索引
 <ul>
 <li>在innodb引擎下，select a,b,c 可以走辅助索引找到所有的数据，避免走到聚集索引上，减少一次聚集索引查询过程</li>
-<li>减少数据传输量，limit 好习惯</li>
+<li>减少数据传输量，limit</li>
 </ul>
 </li>
 <li>不使用like ‘%xx’, 多用区间操作, 能用 between 就不要用 in</li>
@@ -173,7 +179,6 @@
 <li>复合索引底层存储也是一颗B+树，只不过排序key=（a,b,c）, 这样是复合索引使用时需要满足最左前缀的原理</li>
 </ul>
 </li>
-<li>避免大事务（避免夹杂rpc）</li>
 <li>避免使用子查询， 子查询产生的临时表再扫描无索引可走，会全表扫描</li>
 <li>explain 显示select语句的执行计划
 <ul>
@@ -184,53 +189,35 @@
 </li>
 </ul>
 <h2 id="锁">锁 <a href="#%e9%94%81" class="anchor">🔗</a></h2><ul>
-<li>mysql 锁
-<ul>
-<li>mysql锁类型，锁机制 （InnoDB 检索数据走索引是行锁，不走索引是表锁）
-<ul>
-<li>行级锁
+<li>
+<p>InnoDB 检索数据走索引是行锁，不走索引是表锁。</p>
+</li>
+<li>
+<p>行级锁</p>
 <ul>
 <li>Record Lockx 对索引项加锁，锁定一条记录</li>
 <li>Gap Lockx 锁定一个范围，不包含记录本身</li>
-<li>Next-Key Lock = gap + record lock, 锁定一个范围 并锁定记录本身
+<li>Next-Key Lock = gap + record lock, 锁定一个范围 并锁定记录本身</li>
+</ul>
+</li>
+<li>
+<p>表级锁</p>
+</li>
+<li>
+<p>死锁的必要条件：互斥，请求并保留，不剥夺，循环等待。</p>
 <ul>
-<li>查询的索引包含唯一属性时，next-key lock 降级为record lock</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>表级锁</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>死锁的必要条件
-<ul>
-<li>互斥</li>
-<li>请求并保留</li>
-<li>不剥夺</li>
-<li>循环等待</li>
-</ul>
-</li>
-<li>死锁的注意事项：
-<ul>
-<li>InnoDB的索引的修改会锁定更多的行</li>
-<li>InnoDB加锁是边查询边加锁，逐行获得锁</li>
-<li>InnoDB表的并发过多，会达到锁的最大深度，或者锁的最大</li>
-<li>锁的升级也会导致死锁，建议事务开始就获得所有资源</li>
+<li>show engine innodb status</li>
+<li>show open tables where in_use&gt;0;</li>
+<li>show full processlist;</li>
 </ul>
 </li>
 </ul>
 <h2 id="事务原理">事务原理 <a href="#%e4%ba%8b%e5%8a%a1%e5%8e%9f%e7%90%86" class="anchor">🔗</a></h2><ul>
-<li>mysql transaction （ACID 锁保证隔离性， relog 保证原子性和持久性， undo保证一致性）
+<li>mysql transaction （ACID 锁、mvcc保证隔离性， undo log 保证原子和一致性，relog 保证持久性）
 <ul>
-<li>隔离级别 可在终端进行模拟
-<ul>
-<li>read uncommited （tranx will read dity data）
-<ul>
-<li>读脏数据</li>
-</ul>
-</li>
+<li>隔离级别在终端进行模拟</li>
+<li>隔离级别：事务之间的可见性。 select @@global.tx_isolation</li>
+<li>read uncommited （tranx will read dity data）</li>
 <li>read committed (no repeatable read)
 <ul>
 <li>不可重复读（事务中两次读的结果不一致，事务执行select时没有获得读锁，或者释放了读锁）</li>
@@ -240,55 +227,40 @@
 <li>repeatable read (default mode)
 <ul>
 <li>事务在运行时看到相同的数据，可重复读</li>
-<li>存在幻读（innodb的间隙锁解决）</li>
-<li>mysql的可重复读隔离级别，可以防止幻读吗？可以 mvcc 在rr下防止幻读</li>
+<li>insert，delete存在幻读（innodb的间隙锁解决）</li>
 </ul>
 </li>
 <li>seriablizable</li>
-</ul>
-</li>
-<li>mvcc
+<li>mvcc （ read-view  回滚段）
 <ul>
 <li>Read View生成时机的不同，从而造成RC,RR级别下快照读的结果的不同</li>
-<li>对某条记录的第一次快照读会创建一个快照及Read View，之后的快照读获取的都是同一个Read View， RR</li>
-<li>每次快照读都会新生成一个快照和Read View, 在RC级别下的事务中可以看到别的事务提交的更新</li>
+<li>在RR级别下对第一次快照读会快照Read View，之后的快照读获取的都是同一个Read View。</li>
+<li>在RC级别下的事务中可以看到别的事务提交的更新，每次快照读都会新生成一个快照和Read View。</li>
 </ul>
 </li>
 </ul>
 </li>
-<li>innodb重要的日志，undo logs, redo logs
+<li>重要的日志: <strong>undo logs</strong>, <strong>redo logs</strong>
 <ul>
-<li>undo logs: 记录某数据被修改前的值，可以用来在事务失败时进行rollback，保证一致性
-<ul>
-<li>逻辑日志，随机写，每行记录修改， 采用段的方式</li>
-<li>帮助事务回滚以及MVCC功能</li>
-</ul>
-</li>
-<li>redo logs: 保证事务的原子性和持久性
+<li>undo logs: 记录某数据被修改前的值，可以用来在事务失败时进行rollback，帮助事务回滚以及MVCC功能,保证原子性，一致性</li>
+<li>redo logs: 为保证事务的持久性，事务提交前先写redo log持久化（WAL）
 <ul>
 <li>物理日志，顺序写，512字节，记录的是页的物理修改操作</li>
-<li>确保redo log写入磁盘，事务提交前需要fsync操作。 因此磁盘的性能决定了事务提交的性能。</li>
+<li>确保redo log写入磁盘，事务提交前需要fsync操作，磁盘的性能也决定了事务提交的性能。</li>
 </ul>
 </li>
-</ul>
-</li>
-<li>undo+redo log
-<ul>
-<li>为保证事务的持久性，事务提交前先写redo log持久化（WAL）</li>
-<li>数据不需要在事务提交前写入磁盘，而是在内存的缓存中</li>
-<li>redo log保证事务的持久性， undo log保证事务的原子性</li>
 </ul>
 </li>
 </ul>
 <hr>
-<h2 id="数据同步">数据同步 <a href="#%e6%95%b0%e6%8d%ae%e5%90%8c%e6%ad%a5" class="anchor">🔗</a></h2><ul>
+<h2 id="高可用与数据同步">高可用与数据同步 <a href="#%e9%ab%98%e5%8f%af%e7%94%a8%e4%b8%8e%e6%95%b0%e6%8d%ae%e5%90%8c%e6%ad%a5" class="anchor">🔗</a></h2><ul>
 <li>Master-Slave 原理 （Binlog, Relay log）
 <ul>
 <li>异步复制
 <ul>
 <li>主库
 <ul>
-<li>当从库连接式，binlog dump thread发送binlog event,并持有event的lock</li>
+<li>当从库连接时，binlog dump thread发送binlog event,并持有event的lock</li>
 <li>IO thread 读完后释放lock</li>
 </ul>
 </li>
@@ -300,10 +272,8 @@
 </li>
 </ul>
 </li>
-<li>Binlog, Relay log
+<li>Binlog： SQL(增删改查，DDL)语句按 提交顺序 生成的日志，用于数据回滚，异步复制
 <ul>
-<li>SQL(增删改查，DDL)语句按 提交顺序 生成的日志，用于数据回滚，异步复制</li>
-<li>Relay log通过异步复制Master中的binlog，生成slave的执行日志</li>
 <li>Binlog的3种存储格式：binlog_format(row, statement, mixed)
 <ul>
 <li>statement格式： 每一条会修改数据的sql都会记录在binlog中</li>
@@ -313,15 +283,20 @@
 </li>
 </ul>
 </li>
+<li>Relay log： 通过异步复制Master中的binlog，生成slave的执行日志</li>
 </ul>
 </li>
 </ul>
 <hr>
-<h2 id="使用">使用 <a href="#%e4%bd%bf%e7%94%a8" class="anchor">🔗</a></h2><p>数据库使用自增主键作为唯一key时可能的问题： 分库分表时，会出现主键重复。</p>
+<h2 id="使用时注意">使用时注意 <a href="#%e4%bd%bf%e7%94%a8%e6%97%b6%e6%b3%a8%e6%84%8f" class="anchor">🔗</a></h2><p>  数据库使用自增主键作为唯一key时可能的问题： 当需要分库分表时，会出现主键重复。</p>
 <ul>
-<li>字符类 (char,varchar,text,blob)</li>
+<li>explain 看mysql的执行计划，是否走索引</li>
+<li>字符类
+<ul>
 <li>varchar(50)表示最大存放50个字符, char</li>
 <li>int(10)表示最大显示宽度为10,存储还是占4字节</li>
+</ul>
+</li>
 <li>时间日期类
 <ul>
 <li>date, '1000-01-01' to '9999-12-31'</li>
@@ -330,6 +305,8 @@
 </ul>
 </li>
 </ul>
+<h2 id="reference">reference <a href="#reference" class="anchor">🔗</a></h2><p>《深入浅出MySQL 数据库开发、优化与管理维护》</p>
+<p>CMU 15-445/645，MIT 6.172 Performance Engineering of Software Systems, Fall 2018</p>
 
     </div>
 

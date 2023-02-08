@@ -6,7 +6,16 @@
     <description>Recent content in rust on brettkk</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 21 Nov 2022 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/tags/rust/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 05 Jan 2023 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/tags/rust/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>rust concurrency</title>
+      <link>http://brettkk.github.io/posts/rust/rust_concurrency/</link>
+      <pubDate>Thu, 05 Jan 2023 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/rust/rust_concurrency/</guid>
+      <description>lock free structure 🔗不用上锁,利用原子操作实现的并发安全的数据结构。 single producer,</description>
+    </item>
+    
     <item>
       <title>环境问题 &#43; 类型系统疑问</title>
       <link>http://brettkk.github.io/posts/rust/rust_problem/</link>

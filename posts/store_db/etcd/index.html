@@ -3,12 +3,12 @@
 <script src="https://cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
 <html lang="zh-cn">
   <head>
-    <title>brettkk</title>
+    <title>etcd 小结 | brettkk</title>
 
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
 <meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta name="description" content="">
+<meta name="description" content="etcd arch 🔗 etcd中的事务隔离级别的实现。 在server的mvc">
 <meta name="generator" content="Hugo 0.103.1" />
 
 
@@ -40,16 +40,13 @@
 
 
 
-  
-    <link href="/index.xml" rel="alternate" type="application/rss+xml" title="brettkk" />
-    <link href="/index.xml" rel="feed" type="application/rss+xml" title="brettkk" />
-  
-
 
   </head>
 
   <body>
     <nav class="navigation">
+	
+		<a href="/"> <span class="arrow">←</span>Home</a>
 	
 	<a href="/posts">Archive</a>
 	<a href="/tags">Tags</a>
@@ -63,107 +60,108 @@
 
     <main class="main">
       
-<header class="profile">
-    
-        <img class="avatar" alt="avatar" src="/images/avatar.png" />
-    
 
-    <h1>brettkk</h1>
-    
-    
-</header>
+<section id="single">
+    <h1 class="title">etcd 小结</h1>
 
-<div id="list-page">
-    
+    <div class="tip">
+        <time datetime="2022-12-05 11:33:56 &#43;0800 CST">Dec 5, 2022</time>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          549 words
+        </span>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          2 minute read
+        </span>
+    </div>
+
     
     
         
-        
-        <section class="item">
+  
+    <aside class="toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
           <div>
-            <h1 class="title"><a href='/posts/math/loan/'>等额本息</a></h1>
-            <div class ="date">
-                <time datetime="2021-04-05 11:33:56 &#43;0800 CST">Apr 5, 2021</time>  
-            </div>
+              <nav id="TableOfContents">
+  <ul>
+    <li><a href="#etcd-arch">etcd arch</a></li>
+  </ul>
+</nav>
           </div>
+      </details>
+    </aside>
+  
 
-          
-              <div class="summary">涉及的变量 🔗 本金M 期数N 利率R 等额本息X 公式推导 🔗当N=1时</div>
-          
-
-        </section>
-    
-        
-        
-        <section class="item">
-          <div>
-            <h1 class="title"><a href='/posts/culture/jinrong/'>金融行为与钱</a></h1>
-            <div class ="date">
-                <time datetime="2021-04-05 11:33:56 &#43;0800 CST">Apr 5, 2021</time>  
-            </div>
-          </div>
-
-          
-              <div class="summary">大A指数。 换筹。确定2800底部。 美元指数见底，即美元即将出</div>
-          
-
-        </section>
-    
-        
-        
-        <section class="item">
-          <div>
-            <h1 class="title"><a href='/posts/java/java/'>java 小结</a></h1>
-            <div class ="date">
-                <time datetime="2021-03-05 11:33:56 &#43;0800 CST">Mar 5, 2021</time>  
-            </div>
-          </div>
-
-          
-              <div class="summary">Class文件格式图 1 class文件由十个部分组成 javap</div>
-          
-
-        </section>
-    
-        
-        
-        <section class="item">
-          <div>
-            <h1 class="title"><a href='/posts/cloud_native/my-first-post/'>kubernetes</a></h1>
-            <div class ="date">
-                <time datetime="2021-03-03 18:34:48 &#43;0800 CST">Mar 3, 2021</time>  
-            </div>
-          </div>
-
-          
-              <div class="summary">service mesh 🔗微服务内部有分布式环境下的通用功能：熔断策略、负载均衡</div>
-          
-
-        </section>
-    
 
     
-        <div class="pagination">
-          
-              <span class="prev">
-                  <a href="/page/12/">
-                      <span class="arrow">←</span> Newer posts
-                  </a>
-            </span>
-          
-          
-          
-              <span class="next">
-                  <a href="/page/14/">
-                      Older posts <span class="arrow">→</span>
-                  </a>
-              </span>
-          
+
+
+    <div class="content">
+      <h1 id="etcd-arch">etcd arch <a href="#etcd-arch" class="anchor">🔗</a></h1><p><img src="/store_db/etcd_arch.png" width = "600" /><br></p>
+<p>etcd中的事务隔离级别的实现。
+在server的mvcc基础上， 在client上事务。
+client v3中concurrency包。
+mutex.go 分布式锁的实现
+stm.go  在客户端实现的事务框架</p>
+<pre><code>    stm（software transactional memory）
+type STM interface {
+    Get(key)  // 返回value，并insert到txn的read set中。
+    Put(key, value) //写kv，并insert到txn的write set中。
+    ......
+</code></pre>
+<p>}</p>
+<p>struct stm 实现了repeat read隔离级别，STM接口。
+rset readset， wset writeset， conflicts func() []v3.Cmp 冲突检测。
+读请求： 先以本地为准，没有则去server获取，并缓存，
+以此来实现可重复读。
+可重复读的实现关键点：
+1. readset缓存已经读过的数据，保持可重复读。
+2. readset中数据的modrevision与server中的modrevision
+相同，保持事务读到的数据是server中最新的。
+读已提交（read committed）实现上 仅仅是conflicts没有做
+检测。</p>
+<p>MVCC 的实现： 内存treeIndex（B树）， boltdb（B+树）</p>
+<pre><code>treeIndex 原理： 
+B树 （google开源的go版本codebase）
+key在内存中的布局
+节点的定义：
+</code></pre>
+<p>type treeIndex struct{
+tree *btree.BTree
+}</p>
+<pre><code>type KeyIndex struct {
+key []byte 
+modified reversion         // 最后一次修改的版本
+generations []generation // 多次轮的create delete
+</code></pre>
+<p>}</p>
+<p>type generation {
+ver int //修改次数
+created revision
+revs []revision //一轮从创建到删除的过程
+}</p>
+
+    </div>
+
+    
+        <div class="tags">
+            
+                <a href="http://brettkk.github.io/tags/%E5%AD%98%E5%82%A8">存储</a>
+            
         </div>
     
+    
+    
 
+</section>
 
-</div>
 
     </main>
     

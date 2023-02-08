@@ -13,7 +13,7 @@
 ～～～～ 清晰的网页 ～～ 清晰的网页 ～～～～
 工作内容相关方面： 规则引擎grule[11.1]， 工作流引擎， 向量存储Faiss。
 golang方面： cloudwego, Istio, envoy, hystrix-go[10.31,11.1]
-密码方面： 零知识信任的代码库， rust。
+密码方面： 零知识信任的代码库，spartan rust。
 云原生方面：k8s, docker.
 数据库方面： TiDB， TiKV， rocksdb。
 编译器： llvm。 编译器基本知识。
@@ -79,7 +79,7 @@ golang方面： cloudwego, Istio, envoy, hystrix-go[10.31,11.1]
           ·
         </span>
         <span>
-          40 words
+          73 words
         </span>
         <span class="split">
           ·
@@ -107,13 +107,29 @@ golang方面： cloudwego, Istio, envoy, hystrix-go[10.31,11.1]
 工作流引擎，
 向量存储Faiss。</p>
 <p>golang方面： cloudwego, Istio, envoy, hystrix-go[10.31,11.1]</p>
-<p>密码方面： 零知识信任的代码库， rust。</p>
+<p>密码方面： 零知识信任的代码库，spartan rust。</p>
 <p>云原生方面：k8s, docker.</p>
 <p>数据库方面： TiDB， TiKV， rocksdb。</p>
 <p>编译器： llvm。 编译器基本知识。</p>
 <p>高并发方面： C++， redis， rocksdb， linux， xv6 。</p>
-<p>～～～～</p>
+<p>ai框架： Pytorch, TensorFlow, TensorRT</p>
+<p>～～～～
+tokio</p>
 <p>crossbeam segqueue, lock free</p>
+<p>B tree, B+ tree, RB tree, Skiplist, BTreeMap</p>
+<p>分布式锁： redis, etcd, zookeeper (done)</p>
+<p>flink</p>
+<p>分布式事务2PC</p>
+<p>MIT 6.824</p>
+<p>ADT, PQ, 优先队列， golang库中实。</p>
+<ul>
+<li>exactly once 有且仅有一次，（与外部存储系统协作）
+<ul>
+<li>生产者发消息时附带pid+messageid， broker检查messageid是否比我的messageid大于1， 是则接受；不是拒接</li>
+<li>消费者更新数据和更新offet需要事务支持，一起成功或者一起失败，保证正好消费一次</li>
+</ul>
+</li>
+</ul>
 
     </div>
 

@@ -17,12 +17,21 @@
     </item>
     
     <item>
+      <title>etcd 小结</title>
+      <link>http://brettkk.github.io/posts/store_db/etcd/</link>
+      <pubDate>Mon, 05 Dec 2022 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/store_db/etcd/</guid>
+      <description>etcd arch 🔗 etcd中的事务隔离级别的实现。 在server的mvc</description>
+    </item>
+    
+    <item>
       <title>mysql 小结</title>
       <link>http://brettkk.github.io/posts/store_db/mysql/</link>
       <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/store_db/mysql/</guid>
-      <description>存储 🔗存储引擎-是创建表时设置，存储引擎是表级别的使用 innodb: 只有</description>
+      <description>mysql 起源&amp;amp;基础 🔗 创建表时的存储引擎 🔗 存储引擎-是创建表</description>
     </item>
     
     <item>
@@ -31,7 +40,7 @@
       <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/store_db/redis/</guid>
-      <description>支持的value类型： 字符串，hash，列表，集合，有序集合</description>
+      <description>redis 安装、使用 🔗redis 安装 wget https://download.redis.io/releases/redis-6.2.4.tar.gz tar -zvxf redis-6.2.4 mv ~/redis-6.2.4 /usr/local/redis cd /usr/local/redis make 编译 make PREFIX=/usr/local/redis install</description>
     </item>
     
     <item>

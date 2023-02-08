@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          3635 words
+          3944 words
         </span>
         <span class="split">
           ·
@@ -99,6 +99,12 @@
             <li><a href="#磁盘相关的命令">磁盘相关的命令</a></li>
             <li><a href="#有显示功能的命令">有显示功能的命令</a></li>
             <li><a href="#网络常用工具命令文件夹network">网络常用工具命令（文件夹network）</a></li>
+          </ul>
+        </li>
+        <li><a href="#两个进程监听同一个端口so_reuseportsince-linux-39">socket option： socket ,bind, listen, accpet
+man 7 socket
+两个进程监听同一个端口，so_reuseport（since linux 3.9）。</a>
+          <ul>
             <li><a href="#进程相关的命令">进程相关的命令</a></li>
           </ul>
         </li>
@@ -153,6 +159,11 @@
     <li><a href="#软件中的大局观">软件中的大局观</a>
       <ul>
         <li><a href="#空间和时间的取舍">空间和时间的取舍</a></li>
+      </ul>
+    </li>
+    <li><a href="#开发risc-v上的操作系统">开发RISC-V上的操作系统</a>
+      <ul>
+        <li><a href="#risc-v-isa">risc-v ISA</a></li>
       </ul>
     </li>
   </ul>
@@ -324,8 +335,27 @@
 </li>
 <li>tcpdump</li>
 </ul>
-<hr>
-<h3 id="进程相关的命令">进程相关的命令 <a href="#%e8%bf%9b%e7%a8%8b%e7%9b%b8%e5%85%b3%e7%9a%84%e5%91%bd%e4%bb%a4" class="anchor">🔗</a></h3><ul>
+<pre tabindex="0"><code>常见命令：
+#netstat -antp [n是ip显示，不用域名，t是tcp， ]
+recv-q, send-q。
+#cat /proc/net/netstat 计数器 netstat -st
+  TCPListenOverflows 全连接队列，没处理accept。
+#netstat -nr 看路由表 route -n
+#ss -antp -m -i
+listen状态下 send-q表示backlog的长度。
+#ifconfig, txqueuelen 发送队列的包数量
+#sar -n DEV 1
+#查看有些路由表 vim /etc/iproute2/rt_tables
+# ip rule show table all 查看所有路由
+# telnet
+# nmap
+# tcpdump
+</code></pre><p>traffic control 流量控制 入门：</p>
+<pre tabindex="0"><code>#tc qdisc show 显示网卡的排队规则
+# tc qd add dev ens33 root netem delay 200ms
+</code></pre><h2 id="两个进程监听同一个端口so_reuseportsince-linux-39">socket option： socket ,bind, listen, accpet
+man 7 socket
+两个进程监听同一个端口，so_reuseport（since linux 3.9）。 <a href="#%e4%b8%a4%e4%b8%aa%e8%bf%9b%e7%a8%8b%e7%9b%91%e5%90%ac%e5%90%8c%e4%b8%80%e4%b8%aa%e7%ab%af%e5%8f%a3so_reuseportsince-linux-39" class="anchor">🔗</a></h2><h3 id="进程相关的命令">进程相关的命令 <a href="#%e8%bf%9b%e7%a8%8b%e7%9b%b8%e5%85%b3%e7%9a%84%e5%91%bd%e4%bb%a4" class="anchor">🔗</a></h3><ul>
 <li>
 <p>ps</p>
 <ul>
@@ -627,6 +657,8 @@ lock           -------｜｜｜-------------｜｜｜—————————
 hash表， 二叉搜索树，avl树，红黑树，降低树的深度，变成多叉树（B树， B+树，LSM树，Trie树），跳表skiplist， 倒排索引<br></p>
 <p>压缩： 时间换空间<br>
 缓存<br></p>
+<h1 id="开发risc-v上的操作系统">开发RISC-V上的操作系统 <a href="#%e5%bc%80%e5%8f%91risc-v%e4%b8%8a%e7%9a%84%e6%93%8d%e4%bd%9c%e7%b3%bb%e7%bb%9f" class="anchor">🔗</a></h1><p>来源 b站和mooc上。</p>
+<h2 id="risc-v-isa">risc-v ISA <a href="#risc-v-isa" class="anchor">🔗</a></h2><p>命名格式： <code>RV[32|64|128][abc.....xyz]</code>   <code>[abc...xyz]</code>:标识该处理器支持的指令集模块集合, 1 个基本整数指令集 + 多个可选的扩展指令集。<br></p>
 
     </div>
 

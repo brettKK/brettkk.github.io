@@ -17,6 +17,15 @@
     </item>
     
     <item>
+      <title>软件工具集</title>
+      <link>http://brettkk.github.io/posts/tools/pkg_tools/</link>
+      <pubDate>Thu, 05 May 2022 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/tools/pkg_tools/</guid>
+      <description>tldr (too long didn&#39;t read) . brew install tldr nano 画图 draw.io （加载速度慢） xournal （操作不方便） excalidraw （</description>
+    </item>
+    
+    <item>
       <title>mac上安装和使用虚拟机</title>
       <link>http://brettkk.github.io/posts/tools/%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA/</link>
       <pubDate>Fri, 18 Sep 2020 11:33:56 +0800</pubDate>

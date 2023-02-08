@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          3351 words
+          3454 words
         </span>
         <span class="split">
           ·
@@ -305,7 +305,30 @@ auto-referencing, auto-dereferencing, and coercion until types match. copy由编
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>println!(<span style="color:#e6db74">&#34;find 2 in vec1: {:?}&#34;</span>, vec1.iter().find(<span style="color:#f92672">|&amp;&amp;</span>x<span style="color:#f92672">|</span> x <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span>));
 </span></span><span style="display:flex;"><span><span style="color:#75715e">// 
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>println!(<span style="color:#e6db74">&#34;find 2 in vec2: {:?}&#34;</span>, vec2.iter().find(<span style="color:#f92672">|&amp;</span>x<span style="color:#f92672">|</span> x <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span>));
-</span></span></code></pre></div><h1 id="as-_">as _ <a href="#as-_" class="anchor">🔗</a></h1><h1 id="intoiterator">IntoIterator <a href="#intoiterator" class="anchor">🔗</a></h1><h1 id="智能指针">智能指针 <a href="#%e6%99%ba%e8%83%bd%e6%8c%87%e9%92%88" class="anchor">🔗</a></h1><p><code>Rc&lt;RefCell&lt;T&gt;&gt;</code>  一个RefCell<T> 可以有多个所有者。
+</span></span></code></pre></div><h1 id="as-_">as _ <a href="#as-_" class="anchor">🔗</a></h1><h1 id="intoiterator">IntoIterator <a href="#intoiterator" class="anchor">🔗</a></h1><h1 id="智能指针">智能指针 <a href="#%e6%99%ba%e8%83%bd%e6%8c%87%e9%92%88" class="anchor">🔗</a></h1><p>在指针的基础上，附加元数据+功能<br></p>
+<p>在rust中trait决定了类型的行为， 智能指针的行为涉及到<code>Deref trait</code> , <code>Drop trait</code>, 拥有指针语义，拥有内存自动管理。<br></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">trait</span> Deref {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Target</span>: <span style="color:#f92672">?</span>size;
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">/// Dereference the value 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>  <span style="color:#e6db74">/// *X =》 *(X.deref())
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>  <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">deref</span>(<span style="color:#f92672">&amp;</span>self) -&gt; <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">Self</span>::Target;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><code>Box</code></p>
+<p><code>Vec&lt;T&gt;, String</code></p>
+<p><code>Rc, Arc</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">RcBox</span><span style="color:#f92672">&lt;</span>T: <span style="color:#f92672">?</span>Sized<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>  strong: <span style="color:#a6e22e">Cell</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">usize</span><span style="color:#f92672">&gt;</span>,
+</span></span><span style="display:flex;"><span>  weak: <span style="color:#a6e22e">Cell</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">usize</span><span style="color:#f92672">&gt;</span>,
+</span></span><span style="display:flex;"><span>  value: <span style="color:#a6e22e">T</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ArcInner</span><span style="color:#f92672">&lt;</span>T: <span style="color:#f92672">?</span>Sized<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>  strong: <span style="color:#a6e22e">atomic</span>::AtmoicUsize,
+</span></span><span style="display:flex;"><span>  weak: <span style="color:#a6e22e">atmoic</span>::AtomicUsize,
+</span></span><span style="display:flex;"><span>  data: <span style="color:#a6e22e">T</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><code>Cell, RefCell</code> 内部可变性<br></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"></code></pre></div><p><code>Mutex, RwLock</code></p>
+<p><code>Rc&lt;RefCell&lt;T&gt;&gt;</code>  一个RefCell<T> 可以有多个所有者。
 <code>RefCell&lt;Rc&lt;T&gt;&gt;</code> <br></p>
 <p>Cell， RefCell在功能上没有区别。<br>
 Cell<T> 使用于 T实现了Copy的情况<br>

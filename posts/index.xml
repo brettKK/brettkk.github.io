@@ -8,12 +8,30 @@
     <language>zh-cn</language>
     <lastBuildDate>Thu, 05 Jan 2023 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>rust concurrency</title>
+      <link>http://brettkk.github.io/posts/rust/rust_concurrency/</link>
+      <pubDate>Thu, 05 Jan 2023 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/rust/rust_concurrency/</guid>
+      <description>lock free structure 🔗不用上锁,利用原子操作实现的并发安全的数据结构。 single producer,</description>
+    </item>
+    
+    <item>
       <title>tidb学习</title>
       <link>http://brettkk.github.io/posts/store_db/tidb/</link>
       <pubDate>Thu, 05 Jan 2023 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/store_db/tidb/</guid>
       <description>整体架构 🔗二层（1 sql层无状态，处理用户请求和sql运算逻</description>
+    </item>
+    
+    <item>
+      <title>etcd 小结</title>
+      <link>http://brettkk.github.io/posts/store_db/etcd/</link>
+      <pubDate>Mon, 05 Dec 2022 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/store_db/etcd/</guid>
+      <description>etcd arch 🔗 etcd中的事务隔离级别的实现。 在server的mvc</description>
     </item>
     
     <item>
@@ -122,6 +140,15 @@
       
       <guid>http://brettkk.github.io/posts/tools/vs_code/</guid>
       <description>1 vscode 快捷键 🔗1.1 工作区快捷键 🔗 Cmd + Shift + P -》显示命令面板 Cmd+P</description>
+    </item>
+    
+    <item>
+      <title>软件工具集</title>
+      <link>http://brettkk.github.io/posts/tools/pkg_tools/</link>
+      <pubDate>Thu, 05 May 2022 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/tools/pkg_tools/</guid>
+      <description>tldr (too long didn&#39;t read) . brew install tldr nano 画图 draw.io （加载速度慢） xournal （操作不方便） excalidraw （</description>
     </item>
     
     <item>
@@ -274,7 +301,7 @@
       <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/store_db/mysql/</guid>
-      <description>存储 🔗存储引擎-是创建表时设置，存储引擎是表级别的使用 innodb: 只有</description>
+      <description>mysql 起源&amp;amp;基础 🔗 创建表时的存储引擎 🔗 存储引擎-是创建表</description>
     </item>
     
     <item>
@@ -283,7 +310,16 @@
       <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/store_db/redis/</guid>
-      <description>支持的value类型： 字符串，hash，列表，集合，有序集合</description>
+      <description>redis 安装、使用 🔗redis 安装 wget https://download.redis.io/releases/redis-6.2.4.tar.gz tar -zvxf redis-6.2.4 mv ~/redis-6.2.4 /usr/local/redis cd /usr/local/redis make 编译 make PREFIX=/usr/local/redis install</description>
+    </item>
+    
+    <item>
+      <title>rust unsafe</title>
+      <link>http://brettkk.github.io/posts/rust/rust_unsafe/</link>
+      <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/rust/rust_unsafe/</guid>
+      <description>fn main() { let mut d = String::from(&amp;#34;aaaa&amp;#34;); let d_len = d.len(); { // 去掉 or 不去掉 let mut e = String::wtih_capacity(d_len); unsafe { // 两个</description>
     </item>
     
     <item>
@@ -310,7 +346,7 @@
       <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/francais/common_sense/</guid>
-      <description>《scent of a woman》 Slade this is such a crock of shit Slade you are in the Barrett school not</description>
+      <description>《scent of a woman》 西班牙歌曲 Por una Cabeza Slade this is such a crock of shit</description>
     </item>
     
     <item>
@@ -382,7 +418,16 @@
       <pubDate>Mon, 05 Apr 2021 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/math/matrix/</guid>
-      <description>3b1b 视频系列 线性代数 矩阵的几何意义 矩阵是对空间的一次变化 行列式</description>
+      <description>3b1b 视频系列 线性代数 矩阵的几何意义 矩阵是空间的一次变化 行列式的</description>
+    </item>
+    
+    <item>
+      <title>字符串匹配KMP</title>
+      <link>http://brettkk.github.io/posts/leetcode/string/</link>
+      <pubDate>Mon, 05 Apr 2021 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/leetcode/string/</guid>
+      <description>字符串匹配算法 🔗为了加速字符串的匹配 KMP： input source string</description>
     </item>
     
     <item>
@@ -401,6 +446,15 @@
       
       <guid>http://brettkk.github.io/posts/math/loan/</guid>
       <description>涉及的变量 🔗 本金M 期数N 利率R 等额本息X 公式推导 🔗当N=1时</description>
+    </item>
+    
+    <item>
+      <title>金融行为与钱</title>
+      <link>http://brettkk.github.io/posts/culture/jinrong/</link>
+      <pubDate>Mon, 05 Apr 2021 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/culture/jinrong/</guid>
+      <description>大A指数。 换筹。确定2800底部。 美元指数见底，即美元即将出</description>
     </item>
     
     <item>
@@ -428,6 +482,15 @@
       
       <guid>http://brettkk.github.io/posts/store_db/log_structure_tree/</guid>
       <description>lsm 基本想法 🔗使用场景， 写多读少，例如存调用链的服务。 应用：l</description>
+    </item>
+    
+    <item>
+      <title>代数</title>
+      <link>http://brettkk.github.io/posts/math/algeb/</link>
+      <pubDate>Fri, 05 Feb 2021 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/math/algeb/</guid>
+      <description>高等代数 🔗 研究对象 初中， 方程，一元一次方程。ax+b = c。 一</description>
     </item>
     
     <item>
@@ -463,20 +526,6 @@
 五代十国 五代907-960. 辽907-1124
 宋 960 - 1276
 北宋 960 - 1127 宋太祖 960 - 976 宋太宗 976 - 997 宋真宗 997 - 1022 宋仁宗 1022 - 1063 宋英宗 1063 - 1067 宋神宗 1067 - 1085 熙宁 1068 - 1077， 元丰 1078 - 1085 宋哲宗 1085 - 1100 神宗的儿子，徽宗的哥哥。</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>http://brettkk.github.io/posts/culture/jinrong/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/culture/jinrong/</guid>
-      <description>大A指数。 换筹。确定2800底部。
-美元指数见底，即美元即将出逃。 现在的美元指数顶背离走，美元通胀，加息。
-本质A股市场应对美元加息回流的战役。 将投机性美元回来之前，将市场拉到更高的位置。
-美联储加息 🔗加息 与 通胀的关系。
-社会中钱和商品的数量需要有一定的对应关系。 如果钱的数量不随商品的增加而增加的话，物价会发生波动。 商品价格P * 商品数量Q = 货币总量。
-钱多了，商品增加数量根不上，商品价格会上涨，通货膨胀。</description>
     </item>
     
     <item>
@@ -518,34 +567,6 @@ type Node struct{ int num, next Node, } func createCircleLink(int n) Node{ head 
       
       <guid>http://brettkk.github.io/posts/leetcode/skiplist/</guid>
       <description> type Element struct { score float64 value interface{} forward []*Element } type SkipList struct { header *Element len int level int } </description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>http://brettkk.github.io/posts/leetcode/string/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/leetcode/string/</guid>
-      <description>字符串格式的数字相加 🔗最长回文子串 🔗字符串匹配算法 🔗BM KMP</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>http://brettkk.github.io/posts/math/algeb/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/math/algeb/</guid>
-      <description>高等代数 🔗 研究对象 初中， 方程，一元一次方程。ax+b = c。 一元二次方程，求根公式。
-一元高次方程的求根
-n元线性方程组， 矩阵消元法，增广矩阵经过初等行变换，变为阶梯形矩阵。
-二元一次方程。
-行列式，矩阵，初等变换，线性方程组求解。
-高斯消元法 --初等变换--》 阶梯形方程组 --》 非零行的行数为矩阵的秩
-解的情况判定和解的结构 矩阵的秩与解的关系
-矩阵的特征值和特征向量，几何意义 相似矩阵，相似对角化，二次型的标准型与规范型 合同变换，合同矩阵。 正交矩阵，正交变换
-抽象代数（近世代数） 🔗幺半群 🔗二元运算满足结合律，具有单位元
-满足交换律的幺半群称为交换幺半群
-同态： 保持运算， 同构：一致的运算， 双射（元素之间一一对应）</description>
     </item>
     
     <item>
@@ -626,29 +647,6 @@ IDA, NDK。
     
     <item>
       <title></title>
-      <link>http://brettkk.github.io/posts/rust/rust_concurrency/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/rust/rust_concurrency/</guid>
-      <description>《rust atomics and locks》 🔗读书 和example 代码笔记
-并发的基本概念 🔗 线程 std::thread::spawn, std::thread::Builder::new(),scoped thread
-static X: [i32; 3] = [1,2,3]; thread::spawn(||dbg!(&amp;amp;X)); let x: &amp;amp;&amp;#39;static [i32; 3] = Box::leak(Box::new([1,2,3])); thread::spawn(move || dbg!(x)); thread::spawn(move || dbg!</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>http://brettkk.github.io/posts/store_db/store/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/store_db/store/</guid>
-      <description>网上课程 🔗CMU 15-445/645
-MIT 6.172 Performance Engineering of Software Systems, Fall 2018
-etcd 🔗块存储 🔗文件存储 🔗对象存储 🔗对象存储系统： 接入层， 索引层（mysql， redis，etcd），存储层，服务平台
-索引： 单对象，分片对象</description>
-    </item>
-    
-    <item>
-      <title></title>
       <link>http://brettkk.github.io/posts/todo_list/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
@@ -658,7 +656,7 @@ etcd 🔗块存储 🔗文件存储 🔗对象存储 🔗对象存储系统： �
 ～～～～ 清晰的网页 ～～ 清晰的网页 ～～～～
 工作内容相关方面： 规则引擎grule[11.1]， 工作流引擎， 向量存储Faiss。
 golang方面： cloudwego, Istio, envoy, hystrix-go[10.31,11.1]
-密码方面： 零知识信任的代码库， rust。
+密码方面： 零知识信任的代码库，spartan rust。
 云原生方面：k8s, docker.
 数据库方面： TiDB， TiKV， rocksdb。
 编译器： llvm。 编译器基本知识。
@@ -690,21 +688,6 @@ LibreSSL SSL_read: error:02FFF03C:system library:func(4095):Operation timed out,
 unicode 万国码。只是定义了符号的二进制代码，如何区分不同的编码？没有规定二进制如何存放。
 utf-8历史， 开发plan 9操作系统的产物，发明了后来广泛使用的字符编码。 utf-8 是一种针对unicode的变长字符编码的实现方式。 使用1-4个字节表示一个字符。 二进制代码第一位是0， 则这个字符只占一个字节。 如果第一位是1，连续有多少个1，表示当前字符占用多少个字节, 后面字节的前两位均以10开头。
 例如 严。 unicode = 100111000100101 = 4E25, utf-8=11100100 10111000 10100101 = E4B8A5.</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>http://brettkk.github.io/posts/tools/pkg_tools/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/tools/pkg_tools/</guid>
-      <description>安装goyacc
-go get modernc.org/goyacc
-https://pkg.go.dev/golang.org/x/tools/cmd/goyacc
-tldr (too long didn&#39;t read) . brew install tldr
-nano
-画图
-draw.io （加载速度慢） xournal （操作不方便） excalidraw （本地localhost web） cd excalidraw(source code directory) docker-compose up --build -d NDK, IDA</description>
     </item>
     
     <item>
