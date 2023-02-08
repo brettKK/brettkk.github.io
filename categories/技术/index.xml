@@ -31,7 +31,7 @@
       <pubDate>Mon, 05 Dec 2022 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/store_db/etcd/</guid>
-      <description>etcd arch 🔗 etcd中的事务隔离级别的实现。 在server的mvc</description>
+      <description>etcd使用场景 🔗 共享配置 服务发现 选主 分布式队列 分布式锁 etcd arch</description>
     </item>
     
     <item>
@@ -179,24 +179,6 @@
     </item>
     
     <item>
-      <title>runc</title>
-      <link>http://brettkk.github.io/posts/cloud_native/runc/</link>
-      <pubDate>Sat, 26 Jun 2021 18:34:48 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/cloud_native/runc/</guid>
-      <description>runc 是根据OCI（Open Container Initiative）开放容器标准</description>
-    </item>
-    
-    <item>
-      <title>prometheus</title>
-      <link>http://brettkk.github.io/posts/cloud_native/prometheus/</link>
-      <pubDate>Thu, 24 Jun 2021 18:34:48 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/cloud_native/prometheus/</guid>
-      <description>在解决内存与磁盘的读写模式、性能的不匹配问题。有以下两点： 在</description>
-    </item>
-    
-    <item>
       <title>加密相关</title>
       <link>http://brettkk.github.io/posts/os/encrypt/</link>
       <pubDate>Thu, 20 May 2021 11:33:56 +0800</pubDate>
@@ -287,6 +269,15 @@
     </item>
     
     <item>
+      <title>python</title>
+      <link>http://brettkk.github.io/posts/tools/python/</link>
+      <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/tools/python/</guid>
+      <description>python 解释器 🔗cpython， pypy https://github.com/makeyourownneuralnetwork Colab服务： colab.research.google.com 数据分析包：</description>
+    </item>
+    
+    <item>
       <title>redis 小结</title>
       <link>http://brettkk.github.io/posts/store_db/redis/</link>
       <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
@@ -306,10 +297,10 @@
     
     <item>
       <title>soot, wala</title>
-      <link>http://brettkk.github.io/posts/java/soot_wala/</link>
+      <link>http://brettkk.github.io/posts/tools/soot_wala/</link>
       <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
       
-      <guid>http://brettkk.github.io/posts/java/soot_wala/</guid>
+      <guid>http://brettkk.github.io/posts/tools/soot_wala/</guid>
       <description>4中IR Baf 在bytecode上进行的抽象，忽略字节码对于常量</description>
     </item>
     
@@ -360,20 +351,11 @@
     
     <item>
       <title>java 小结</title>
-      <link>http://brettkk.github.io/posts/java/java/</link>
+      <link>http://brettkk.github.io/posts/tools/java/</link>
       <pubDate>Fri, 05 Mar 2021 11:33:56 +0800</pubDate>
       
-      <guid>http://brettkk.github.io/posts/java/java/</guid>
+      <guid>http://brettkk.github.io/posts/tools/java/</guid>
       <description>Class文件格式图 1 class文件由十个部分组成 javap</description>
-    </item>
-    
-    <item>
-      <title>kubernetes</title>
-      <link>http://brettkk.github.io/posts/cloud_native/my-first-post/</link>
-      <pubDate>Wed, 03 Mar 2021 18:34:48 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/cloud_native/my-first-post/</guid>
-      <description>service mesh 🔗微服务内部有分布式环境下的通用功能：熔断策略、负载均衡</description>
     </item>
     
     <item>

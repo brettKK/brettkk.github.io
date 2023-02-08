@@ -3,12 +3,12 @@
 <script src="https://cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
 <html lang="zh-cn">
   <head>
-    <title>中国历史的时间表 | brettkk</title>
+    <title>soot, wala | brettkk</title>
 
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
 <meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta name="description" content="历史的编年体。 夏商周秦西东汉 三国两晋南北朝 隋唐五代北南宋 下接">
+<meta name="description" content="4中IR Baf 在bytecode上进行的抽象，忽略字节码对于常量">
 <meta name="generator" content="Hugo 0.103.1" />
 
 
@@ -62,21 +62,21 @@
       
 
 <section id="single">
-    <h1 class="title">中国历史的时间表</h1>
+    <h1 class="title">soot, wala</h1>
 
     <div class="tip">
-        <time datetime="2021-04-05 11:33:56 &#43;0800 CST">Apr 5, 2021</time>
+        <time datetime="2021-05-05 11:33:56 &#43;0800 CST">May 5, 2021</time>
         <span class="split">
           ·
         </span>
         <span>
-          284 words
+          571 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          1 minute read
+          2 minute read
         </span>
     </div>
 
@@ -90,50 +90,82 @@
 
 
     <div class="content">
-      <p>历史的编年体。</p>
-<p>夏商周秦西东汉
-三国两晋南北朝
-隋唐五代北南宋
-下接元明与清朝。</p>
-<p>商朝 公元前1570 - 前1045</p>
-<p>周朝 前1045 - 前256</p>
-<p>汉朝 前202 - 220</p>
-<p>隋唐 581 - 907</p>
-<p>五代十国 五代907-960. 辽907-1124</p>
-<p>宋 960 - 1276</p>
-<p>北宋 960 - 1127
-宋太祖 960 - 976
-宋太宗 976 - 997
-宋真宗 997 - 1022
-宋仁宗 1022 - 1063
-宋英宗 1063 - 1067
-宋神宗 1067 - 1085
-熙宁 1068 - 1077， 元丰 1078 - 1085
-宋哲宗 1085 - 1100 神宗的儿子，徽宗的哥哥。</p>
-<p>元祐 1086 - 1093 绍圣 1094 - 1097 元符 1098 - 1100</p>
-<p>宋徽宗 1100 - 1125</p>
-<p>建中靖国 1101
-崇宁 1102 - 1106
-大观 1107 - 1110
-政和 1111 - 1117  金朝 女真 1115 - 1234
-重合 1118 - 1125
-宣和 1119 - 1125</p>
-<p>宋钦宗 1125 - 1127
-靖康 1126 - 1127</p>
-<p>南宋 1127 - 1279
-宋高宗 1127 - 1162 8个皇帝。</p>
-<p>元 1215 -1368</p>
-<p>明 1368 -1644</p>
-<p>清 1644 - 1911</p>
-<p>中国民国</p>
-<p>中国人民共和国 1949 ～</p>
+      <p>4中IR</p>
+<ul>
+<li>Baf
+<ul>
+<li>在bytecode上进行的抽象，忽略字节码对于常量池和type的依赖</li>
+</ul>
+</li>
+<li>Jimple
+<ul>
+<li>重要的IR，三地址表达式res = num1 op num2，一个表达式最多有三个引用地址</li>
+<li>15条指令</li>
+<li>SSA,Static Single-Assignment。 每个变量仅被赋值一次，保证每个被使用的变量都有唯一的定义</li>
+</ul>
+</li>
+<li>Grimple</li>
+<li>Shimple</li>
+</ul>
+<p>Soot中的数据结构</p>
+<ul>
+<li>Scene类, 环境上下文</li>
+<li>SootClass， 代表类</li>
+<li>SootMethod，类的方法</li>
+<li>SootField，类的属性</li>
+<li>Body，方法体</li>
+</ul>
+<p>Soot支持的分析：</p>
+<ul>
+<li>Call-graph构建</li>
+<li>Points-to分析</li>
+<li>Def/use链</li>
+<li>模板驱动的过程间数据流分析</li>
+<li>模板驱动的跨过程数据流分析（与heros组合使用）</li>
+<li>污点分析（与FlowDroid组合使用）</li>
+</ul>
+<p>Body类 （用来存放方法的代码）</p>
+<ul>
+<li>BafBody, JimpleBody, ShimpleBody, GrimpBody 四种不同IR所对应的Body类</li>
+<li>3中主要的chain， Unints chain, Locals chain, Traps chain</li>
+</ul>
+<p>Jimple 代码</p>
+<p>locals
+方法内的局部变量在方法的顶部
+$开头的变量为原java代码中没有的变量</p>
+<p>traps: 异常处理被表示为一个tuple(元组，异常，开始，结束，处理器)</p>
+<p>units: body中包含的实际代码, 语句</p>
+<ul>
+<li>interface Unit, Jimple使用Stmt， Grimp使用Inst</li>
+</ul>
+<p>Value接口（代表数据）： Locals, Constants, Expressions, ParameterRefs</p>
+<p>Boxes(代表指针)： ValueBox, UnitBox</p>
+<hr>
+<p>AnalysisScope</p>
+<ul>
+<li>用于指定用户静态代码分析的程序或库</li>
+<li>format: Classloader, Language,  Type, Location</li>
+</ul>
+<p>CallGraphBuilder</p>
+<ul>
+<li>makeCallGraph() = CallGraph</li>
+<li>getPointerAnalysis() = PointerAnalysis</li>
+</ul>
+<p>Representation of Code Structure</p>
+<ul>
+<li>AnalysisScope</li>
+<li>IClassHierarchy</li>
+</ul>
+<hr>
+<p>IR -&gt; 代码生成器 -&gt; 目标代码</p>
+<p>代码生成器： 指令选择，寄存器分配和指派，指令排序</p>
 
     </div>
 
     
         <div class="tags">
             
-                <a href="http://brettkk.github.io/tags/culture">culture</a>
+                <a href="http://brettkk.github.io/tags/java">java</a>
             
         </div>
     

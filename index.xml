@@ -31,7 +31,7 @@
       <pubDate>Mon, 05 Dec 2022 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/store_db/etcd/</guid>
-      <description>etcd arch 🔗 etcd中的事务隔离级别的实现。 在server的mvc</description>
+      <description>etcd使用场景 🔗 共享配置 服务发现 选主 分布式队列 分布式锁 etcd arch</description>
     </item>
     
     <item>
@@ -197,21 +197,12 @@
     </item>
     
     <item>
-      <title>runc</title>
-      <link>http://brettkk.github.io/posts/cloud_native/runc/</link>
-      <pubDate>Sat, 26 Jun 2021 18:34:48 +0800</pubDate>
+      <title>容器 &amp; k8s</title>
+      <link>http://brettkk.github.io/posts/os/dockerk8s/</link>
+      <pubDate>Sun, 27 Jun 2021 11:33:56 +0800</pubDate>
       
-      <guid>http://brettkk.github.io/posts/cloud_native/runc/</guid>
-      <description>runc 是根据OCI（Open Container Initiative）开放容器标准</description>
-    </item>
-    
-    <item>
-      <title>prometheus</title>
-      <link>http://brettkk.github.io/posts/cloud_native/prometheus/</link>
-      <pubDate>Thu, 24 Jun 2021 18:34:48 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/cloud_native/prometheus/</guid>
-      <description>在解决内存与磁盘的读写模式、性能的不匹配问题。有以下两点： 在</description>
+      <guid>http://brettkk.github.io/posts/os/dockerk8s/</guid>
+      <description>容器 🔗docker架构，镜像，容器，网络，存储。 容器规范OC</description>
     </item>
     
     <item>
@@ -305,6 +296,15 @@
     </item>
     
     <item>
+      <title>python</title>
+      <link>http://brettkk.github.io/posts/tools/python/</link>
+      <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/tools/python/</guid>
+      <description>python 解释器 🔗cpython， pypy https://github.com/makeyourownneuralnetwork Colab服务： colab.research.google.com 数据分析包：</description>
+    </item>
+    
+    <item>
       <title>redis 小结</title>
       <link>http://brettkk.github.io/posts/store_db/redis/</link>
       <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
@@ -324,10 +324,10 @@
     
     <item>
       <title>soot, wala</title>
-      <link>http://brettkk.github.io/posts/java/soot_wala/</link>
+      <link>http://brettkk.github.io/posts/tools/soot_wala/</link>
       <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
       
-      <guid>http://brettkk.github.io/posts/java/soot_wala/</guid>
+      <guid>http://brettkk.github.io/posts/tools/soot_wala/</guid>
       <description>4中IR Baf 在bytecode上进行的抽象，忽略字节码对于常量</description>
     </item>
     
@@ -404,21 +404,12 @@
     </item>
     
     <item>
-      <title>k8s 编码模式学习</title>
-      <link>http://brettkk.github.io/posts/cloud_native/k8s_code_pattern/</link>
+      <title>中国历史的时间表</title>
+      <link>http://brettkk.github.io/posts/culture/chinese_dynasty/</link>
       <pubDate>Mon, 05 Apr 2021 11:33:56 +0800</pubDate>
       
-      <guid>http://brettkk.github.io/posts/cloud_native/k8s_code_pattern/</guid>
-      <description>draft todo k8s 组件 kubectl client-go kube-apiserver kube-controller kube-scheduler kubelet kube-proxy 周围项目 🔗k8s.io/gengo k8s.io/client-go</description>
-    </item>
-    
-    <item>
-      <title>matrix</title>
-      <link>http://brettkk.github.io/posts/math/matrix/</link>
-      <pubDate>Mon, 05 Apr 2021 11:33:56 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/math/matrix/</guid>
-      <description>3b1b 视频系列 线性代数 矩阵的几何意义 矩阵是空间的一次变化 行列式的</description>
+      <guid>http://brettkk.github.io/posts/culture/chinese_dynasty/</guid>
+      <description>历史的编年体。 夏商周秦西东汉 三国两晋南北朝 隋唐五代北南宋 下接</description>
     </item>
     
     <item>
@@ -459,20 +450,11 @@
     
     <item>
       <title>java 小结</title>
-      <link>http://brettkk.github.io/posts/java/java/</link>
+      <link>http://brettkk.github.io/posts/tools/java/</link>
       <pubDate>Fri, 05 Mar 2021 11:33:56 +0800</pubDate>
       
-      <guid>http://brettkk.github.io/posts/java/java/</guid>
+      <guid>http://brettkk.github.io/posts/tools/java/</guid>
       <description>Class文件格式图 1 class文件由十个部分组成 javap</description>
-    </item>
-    
-    <item>
-      <title>kubernetes</title>
-      <link>http://brettkk.github.io/posts/cloud_native/my-first-post/</link>
-      <pubDate>Wed, 03 Mar 2021 18:34:48 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/cloud_native/my-first-post/</guid>
-      <description>service mesh 🔗微服务内部有分布式环境下的通用功能：熔断策略、负载均衡</description>
     </item>
     
     <item>
@@ -490,7 +472,7 @@
       <pubDate>Fri, 05 Feb 2021 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/math/algeb/</guid>
-      <description>高等代数 🔗 研究对象 初中， 方程，一元一次方程。ax+b = c。 一</description>
+      <description>高等代数 🔗3b1b 视频系列 线性代数 矩阵的几何意义 矩阵是空间的</description>
     </item>
     
     <item>
@@ -520,23 +502,6 @@
       <description>1 排序后根据index取 public int findKthLargest(int[] nums, int k) { int len = nums.length; Arrays.sort(nums); return nums[len - k]; }
 2 小顶堆 装数组，poll (len-k-1)后， peek为第k大的元素
 3 大顶堆 装数组， poll (k-1)后， peek为第k大的元素</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>http://brettkk.github.io/posts/culture/chinese_dynasty/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/culture/chinese_dynasty/</guid>
-      <description>中国朝代表。
-夏商周秦西东汉 三国两晋南北朝 隋唐五代北南宋 下接元明与清朝。
-商朝 公元前1570 - 前1045
-周朝 前1045 - 前256
-汉朝 前202 - 220
-隋唐 581 - 907
-五代十国 五代907-960. 辽907-1124
-宋 960 - 1276
-北宋 960 - 1127 宋太祖 960 - 976 宋太宗 976 - 997 宋真宗 997 - 1022 宋仁宗 1022 - 1063 宋英宗 1063 - 1067 宋神宗 1067 - 1085 熙宁 1068 - 1077， 元丰 1078 - 1085 宋哲宗 1085 - 1100 神宗的儿子，徽宗的哥哥。</description>
     </item>
     
     <item>

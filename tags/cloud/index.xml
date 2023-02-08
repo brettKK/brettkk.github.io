@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>cloud on brettkk</title>
+    <link>http://brettkk.github.io/tags/cloud/</link>
+    <description>Recent content in cloud on brettkk</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 27 Jun 2021 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/tags/cloud/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>容器 &amp; k8s</title>
+      <link>http://brettkk.github.io/posts/os/dockerk8s/</link>
+      <pubDate>Sun, 27 Jun 2021 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/os/dockerk8s/</guid>
+      <description>容器 🔗docker架构，镜像，容器，网络，存储。 容器规范OC</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -26,6 +26,15 @@
     </item>
     
     <item>
+      <title>rustc</title>
+      <link>http://brettkk.github.io/posts/rust/rustc/</link>
+      <pubDate>Tue, 15 Nov 2022 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/rust/rustc/</guid>
+      <description>快速看下rust语言，very fast rust primer 🔗 low-level, no language runtime (like c/c++) focus on memory safety and</description>
+    </item>
+    
+    <item>
       <title>tokio</title>
       <link>http://brettkk.github.io/posts/rust/tokio/</link>
       <pubDate>Tue, 15 Nov 2022 11:33:56 +0800</pubDate>
@@ -59,6 +68,24 @@
       
       <guid>http://brettkk.github.io/posts/rust/rust_library_std/</guid>
       <description>HashMap 🔗#[derive(Clone)] pub struct RandomState { k0: u64, k1: u64, } // hashmap 的</description>
+    </item>
+    
+    <item>
+      <title>闭包closure</title>
+      <link>http://brettkk.github.io/posts/rust/closure_at_go_c_py_rust/</link>
+      <pubDate>Fri, 05 Aug 2022 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/rust/closure_at_go_c_py_rust/</guid>
+      <description>why PL need closure? 🔗想一下在函数式编程语言中，宣传函数是一等公民，把函</description>
+    </item>
+    
+    <item>
+      <title>rust unsafe</title>
+      <link>http://brettkk.github.io/posts/rust/rust_unsafe/</link>
+      <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/rust/rust_unsafe/</guid>
+      <description>fn main() { let mut d = String::from(&amp;#34;aaaa&amp;#34;); let d_len = d.len(); { // 去掉 or 不去掉 let mut e = String::wtih_capacity(d_len); unsafe { // 两个</description>
     </item>
     
   </channel>

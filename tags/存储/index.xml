@@ -22,7 +22,7 @@
       <pubDate>Mon, 05 Dec 2022 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/store_db/etcd/</guid>
-      <description>etcd arch 🔗 etcd中的事务隔离级别的实现。 在server的mvc</description>
+      <description>etcd使用场景 🔗 共享配置 服务发现 选主 分布式队列 分布式锁 etcd arch</description>
     </item>
     
     <item>

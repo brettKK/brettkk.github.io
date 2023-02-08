@@ -8,15 +8,6 @@
     <language>zh-cn</language>
     <lastBuildDate>Thu, 05 May 2022 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/tags/soft_tools/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>vs code 小结</title>
-      <link>http://brettkk.github.io/posts/tools/vs_code/</link>
-      <pubDate>Thu, 05 May 2022 11:33:56 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/tools/vs_code/</guid>
-      <description>1 vscode 快捷键 🔗1.1 工作区快捷键 🔗 Cmd + Shift + P -》显示命令面板 Cmd+P</description>
-    </item>
-    
-    <item>
       <title>软件工具集</title>
       <link>http://brettkk.github.io/posts/tools/pkg_tools/</link>
       <pubDate>Thu, 05 May 2022 11:33:56 +0800</pubDate>

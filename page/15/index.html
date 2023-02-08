@@ -81,66 +81,6 @@
         
         <section class="item">
           <div>
-            <h1 class="title"><a href='/about/tmp/'></a></h1>
-            <div class ="date">
-                <time datetime="0001-01-01 00:00:00 &#43;0000 UTC">Jan 1, 0001</time>  
-            </div>
-          </div>
-
-          
-              <div class="summary">1 排序后根据index取 public int findKthLargest(int[] nums, int k) { int len = nums.length; Arrays.sort(nums); return nums[len - k]; }
-2 小顶堆 装数组，poll (len-k-1)后， peek为第k大的元素
-3 大顶堆 装数组， poll (k-1)后， peek为第k大的元素</div>
-          
-
-        </section>
-    
-        
-        
-        <section class="item">
-          <div>
-            <h1 class="title"><a href='/posts/culture/chinese_dynasty/'></a></h1>
-            <div class ="date">
-                <time datetime="0001-01-01 00:00:00 &#43;0000 UTC">Jan 1, 0001</time>  
-            </div>
-          </div>
-
-          
-              <div class="summary">中国朝代表。
-夏商周秦西东汉 三国两晋南北朝 隋唐五代北南宋 下接元明与清朝。
-商朝 公元前1570 - 前1045
-周朝 前1045 - 前256
-汉朝 前202 - 220
-隋唐 581 - 907
-五代十国 五代907-960. 辽907-1124
-宋 960 - 1276
-北宋 960 - 1127 宋太祖 960 - 976 宋太宗 976 - 997 宋真宗 997 - 1022 宋仁宗 1022 - 1063 宋英宗 1063 - 1067 宋神宗 1067 - 1085 熙宁 1068 - 1077， 元丰 1078 - 1085 宋哲宗 1085 - 1100 神宗的儿子，徽宗的哥哥。</div>
-          
-
-        </section>
-    
-        
-        
-        <section class="item">
-          <div>
-            <h1 class="title"><a href='/posts/culture/north_euro/'></a></h1>
-            <div class ="date">
-                <time datetime="0001-01-01 00:00:00 &#43;0000 UTC">Jan 1, 0001</time>  
-            </div>
-          </div>
-
-          
-              <div class="summary">北欧文化。
-Gökotta： dawn picnic to hear the first birdsong. the act of rising in the early morning to watch the birds or to go outside to appreciate nature.
-在瑞典。在黎明是起床去听鸟叫的声音， 去外面感受大自然。</div>
-          
-
-        </section>
-    
-        
-        
-        <section class="item">
-          <div>
             <h1 class="title"><a href='/posts/leetcode/other/'></a></h1>
             <div class ="date">
                 <time datetime="0001-01-01 00:00:00 &#43;0000 UTC">Jan 1, 0001</time>  
@@ -152,6 +92,63 @@ Gökotta： dawn picnic to hear the first birdsong. the act of rising in the ear
 数组 🔗遍历数组，数到m的位置标记为-1， 直到数组中仅剩一个非-1的元素，返回元素的位置
 环形链表 🔗不做标记，直接从环形链表中删除。
 type Node struct{ int num, next Node, } func createCircleLink(int n) Node{ head := Node{num: 1} cur = head for i := 2; i &lt; n; i&#43;&#43; { tmp := Node{num: i} cur.</div>
+          
+
+        </section>
+    
+        
+        
+        <section class="item">
+          <div>
+            <h1 class="title"><a href='/posts/leetcode/queue/'></a></h1>
+            <div class ="date">
+                <time datetime="0001-01-01 00:00:00 &#43;0000 UTC">Jan 1, 0001</time>  
+            </div>
+          </div>
+
+          
+              <div class="summary">type Queue struct { items []int } func New() *Queue { return &amp;Queue{ items: []int{} } } func (q *Queue) Enqueue(item int) { q.items = append(q.items, item) } func (q *Queue) Dequeue() int { if len(q.</div>
+          
+
+        </section>
+    
+        
+        
+        <section class="item">
+          <div>
+            <h1 class="title"><a href='/posts/leetcode/skiplist/'></a></h1>
+            <div class ="date">
+                <time datetime="0001-01-01 00:00:00 &#43;0000 UTC">Jan 1, 0001</time>  
+            </div>
+          </div>
+
+          
+              <div class="summary"> type Element struct { score float64 value interface{} forward []*Element } type SkipList struct { header *Element len int level int } </div>
+          
+
+        </section>
+    
+        
+        
+        <section class="item">
+          <div>
+            <h1 class="title"><a href='/posts/math/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/'></a></h1>
+            <div class ="date">
+                <time datetime="0001-01-01 00:00:00 &#43;0000 UTC">Jan 1, 0001</time>  
+            </div>
+          </div>
+
+          
+              <div class="summary">数学分析 🔗1 极限，连续 🔗连续的定义 🔗初等函数在定义域内都是连续的。 一般讨论高等函数，如分段函数。
+极限的定义 🔗极限的求法 🔗无穷小 $$ lim $$
+，无穷大
+洛必达法则求极限
+2 导数（微商），微分 🔗导数叫微商，是极限。
+导数的定义。 🔗导数的几何意义。 🔗斜率
+求导的方法 🔗复合函数的求导
+隐函数的求导。
+导数的应用 🔗单调性，求极值，凹凸性（二阶导数）
+3 不定积分，定积分 🔗不定积分 🔗不定积分： 求函数f的全部原函数。</div>
           
 
         </section>
