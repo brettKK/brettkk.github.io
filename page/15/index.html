@@ -81,17 +81,18 @@
         
         <section class="item">
           <div>
-            <h1 class="title"><a href='/posts/leetcode/other/'></a></h1>
+            <h1 class="title"><a href='/posts/os/file_system/'></a></h1>
             <div class ="date">
                 <time datetime="0001-01-01 00:00:00 &#43;0000 UTC">Jan 1, 0001</time>  
             </div>
           </div>
 
           
-              <div class="summary">约瑟夫环 🔗 1-N个人，形成一个圈，从编号为1开始报数1，数到M的人x出列，x之后的人再次从1开始喊 直到最后一个人，求这个人的编号
-数组 🔗遍历数组，数到m的位置标记为-1， 直到数组中仅剩一个非-1的元素，返回元素的位置
-环形链表 🔗不做标记，直接从环形链表中删除。
-type Node struct{ int num, next Node, } func createCircleLink(int n) Node{ head := Node{num: 1} cur = head for i := 2; i &lt; n; i&#43;&#43; { tmp := Node{num: i} cur.</div>
+              <div class="summary">块存储、文件存储、对象存储
+存储的两种方式 用电子存储数据 U盘，固态硬盘SSD 用磁性记录数据 机械硬盘HDD 垂直式 叠瓦式 linux: 一切皆文件。
+分布式存储
+同步IO 异步IO： 指的是I/O 的执行者，是同步处理后返回，还是先返回给应用程序后异步通知。
+阻塞IO 非阻塞IO： 指的是IO的调用者，是阻塞等待结果，还是异步等通知。</div>
           
 
         </section>
@@ -100,14 +101,19 @@ type Node struct{ int num, next Node, } func createCircleLink(int n) Node{ head 
         
         <section class="item">
           <div>
-            <h1 class="title"><a href='/posts/leetcode/queue/'></a></h1>
+            <h1 class="title"><a href='/posts/os/nju-os/nju_os/'></a></h1>
             <div class ="date">
                 <time datetime="0001-01-01 00:00:00 &#43;0000 UTC">Jan 1, 0001</time>  
             </div>
           </div>
 
           
-              <div class="summary">type Queue struct { items []int } func New() *Queue { return &amp;Queue{ items: []int{} } } func (q *Queue) Enqueue(item int) { q.items = append(q.items, item) } func (q *Queue) Dequeue() int { if len(q.</div>
+              <div class="summary">http://jyywiki.cn/os/2022/
+02 程序与编译器 🔗在vi里编译c文件。 :!gcc %
+什么是程序？ 🔗你在南京大学上过最牛的课是什么？
+《程序设计语言的形式语义》 梁红瑾
+gdb a.out layout src (c程序视角) layout asm （汇编视角） start
+问题1: gdb Unable to find Mach task port 解决过程： mac下不能安装gdb， lldb替代。</div>
           
 
         </section>
@@ -116,14 +122,21 @@ type Node struct{ int num, next Node, } func createCircleLink(int n) Node{ head 
         
         <section class="item">
           <div>
-            <h1 class="title"><a href='/posts/leetcode/skiplist/'></a></h1>
+            <h1 class="title"><a href='/posts/rust/rust_chain/'></a></h1>
             <div class ="date">
                 <time datetime="0001-01-01 00:00:00 &#43;0000 UTC">Jan 1, 0001</time>  
             </div>
           </div>
 
           
-              <div class="summary"> type Element struct { score float64 value interface{} forward []*Element } type SkipList struct { header *Element len int level int } </div>
+              <div class="summary">https://justjjy.com/ solidity 智能合约语言。
+exa = rust ls
+tokio, axum
+Bytes crate
+let data = ptr_map(ptr, |addr| addr | KIND_VEC); f_closure = ｜addr｜(addr|KIND_VEC) github.com/skerkour/kerkour.com
+rCore OS.
+IDA, NDK。
+虚拟人， metaverse NFT</div>
           
 
         </section>
@@ -132,23 +145,23 @@ type Node struct{ int num, next Node, } func createCircleLink(int n) Node{ head 
         
         <section class="item">
           <div>
-            <h1 class="title"><a href='/posts/math/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/'></a></h1>
+            <h1 class="title"><a href='/posts/todo_list/'></a></h1>
             <div class ="date">
                 <time datetime="0001-01-01 00:00:00 &#43;0000 UTC">Jan 1, 0001</time>  
             </div>
           </div>
 
           
-              <div class="summary">数学分析 🔗1 极限，连续 🔗连续的定义 🔗初等函数在定义域内都是连续的。 一般讨论高等函数，如分段函数。
-极限的定义 🔗极限的求法 🔗无穷小 $$ lim $$
-，无穷大
-洛必达法则求极限
-2 导数（微商），微分 🔗导数叫微商，是极限。
-导数的定义。 🔗导数的几何意义。 🔗斜率
-求导的方法 🔗复合函数的求导
-隐函数的求导。
-导数的应用 🔗单调性，求极值，凹凸性（二阶导数）
-3 不定积分，定积分 🔗不定积分 🔗不定积分： 求函数f的全部原函数。</div>
+              <div class="summary">今天要做什么？
+整理之前的笔记。
+～～～～ 清晰的网页 ～～ 清晰的网页 ～～～～
+工作内容相关方面： 规则引擎grule[11.1]， 工作流引擎， 向量存储Faiss。
+golang方面： cloudwego, Istio, envoy, hystrix-go[10.31,11.1]
+密码方面： 零知识信任的代码库，spartan rust。
+云原生方面：k8s, docker.
+数据库方面： TiDB， TiKV， rocksdb。
+编译器： llvm。 编译器基本知识。
+高并发方面： C&#43;&#43;， redis， rocksdb， linux， xv6 。</div>
           
 
         </section>

@@ -6,23 +6,23 @@
     <description>Recent content in life on brettkk</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 05 Apr 2022 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/categories/life/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 05 Oct 2022 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/categories/life/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>欧州与宗教</title>
+      <title>跑步</title>
+      <link>http://brettkk.github.io/posts/culture/running/</link>
+      <pubDate>Wed, 05 Oct 2022 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/culture/running/</guid>
+      <description>Eliud Kipchoge: no human is limited 🔗The Last Milestone: https://www.bilibili.com/video/BV1Ca411n74Z</description>
+    </item>
+    
+    <item>
+      <title>历史文化：欧州与宗教</title>
       <link>http://brettkk.github.io/posts/culture/euro/</link>
       <pubDate>Tue, 05 Apr 2022 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/culture/euro/</guid>
-      <description>1亚伯拉罕，犹太历史 🔗亚伯拉罕是犹太教、基督教和伊斯兰教共同</description>
-    </item>
-    
-    <item>
-      <title>跑步</title>
-      <link>http://brettkk.github.io/posts/culture/sport/</link>
-      <pubDate>Tue, 05 Apr 2022 11:33:56 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/culture/sport/</guid>
-      <description>Eliud Kipchoge: no human is limited The Last Milestone: https://www.bilibili.com/video/BV1Ca411n74Z</description>
+      <description>犹太教 基督教 新教 （源于马丁路德） 天主教 基督教的宗派之一，罗马</description>
     </item>
     
     <item>
@@ -44,21 +44,12 @@
     </item>
     
     <item>
-      <title>europe</title>
-      <link>http://brettkk.github.io/posts/francais/euro/</link>
-      <pubDate>Mon, 05 Apr 2021 11:33:56 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/francais/euro/</guid>
-      <description>欧洲历史 🔗 欧洲历史 古希腊，罗马文明 古希腊文明 苏格拉底 柏拉图 亚</description>
-    </item>
-    
-    <item>
       <title>中国历史的时间表</title>
       <link>http://brettkk.github.io/posts/culture/chinese_dynasty/</link>
       <pubDate>Mon, 05 Apr 2021 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/culture/chinese_dynasty/</guid>
-      <description>历史的编年体。 夏商周秦西东汉 三国两晋南北朝 隋唐五代北南宋 下接</description>
+      <description>历史的编年体 🔗夏商周秦西东汉 三国两晋南北朝 隋唐五代北南宋 下接</description>
     </item>
     
     <item>
@@ -71,15 +62,6 @@
     </item>
     
     <item>
-      <title>明</title>
-      <link>http://brettkk.github.io/posts/culture/ming/</link>
-      <pubDate>Mon, 05 Apr 2021 11:33:56 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/culture/ming/</guid>
-      <description>为什么研究历史的人，喜欢研究明历史？ 🔗无少数民族干涉，汉族正</description>
-    </item>
-    
-    <item>
       <title>等额本息</title>
       <link>http://brettkk.github.io/posts/math/loan/</link>
       <pubDate>Mon, 05 Apr 2021 11:33:56 +0800</pubDate>
@@ -89,21 +71,12 @@
     </item>
     
     <item>
-      <title>金融行为与钱</title>
-      <link>http://brettkk.github.io/posts/culture/jinrong/</link>
-      <pubDate>Mon, 05 Apr 2021 11:33:56 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/culture/jinrong/</guid>
-      <description>大A指数。 换筹。确定2800底部。 美元指数见底，即美元即将出</description>
-    </item>
-    
-    <item>
       <title>代数</title>
       <link>http://brettkk.github.io/posts/math/algeb/</link>
       <pubDate>Fri, 05 Feb 2021 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/math/algeb/</guid>
-      <description>高等代数 🔗3b1b 视频系列 线性代数 矩阵的几何意义 矩阵是空间的</description>
+      <description>高等代数 🔗3Blue1Brown的系列视频 线性代数的本质 矩阵</description>
     </item>
     
     <item>

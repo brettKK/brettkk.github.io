@@ -81,48 +81,14 @@
         
         <section class="item">
           <div>
-            <h1 class="title"><a href='/posts/tools/%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA/'>mac上安装和使用虚拟机</a></h1>
-            <div class ="date">
-                <time datetime="2020-09-18 11:33:56 &#43;0800 CST">Sep 18, 2020</time>  
-            </div>
-          </div>
-
-          
-              <div class="summary">必要性 🔗 因为使用的是mac笔记本，实验和开发上需要利用lin</div>
-          
-
-        </section>
-    
-        
-        
-        <section class="item">
-          <div>
-            <h1 class="title"><a href='/posts/math/%E8%AE%A1%E7%AE%97%E5%A4%8D%E6%9D%82%E5%BA%A6/'>计算复杂度--P, NP, NPC, NP hard</a></h1>
-            <div class ="date">
-                <time datetime="2020-09-18 09:13:56 &#43;0800 CST">Sep 18, 2020</time>  
-            </div>
-          </div>
-
-          
-              <div class="summary"></div>
-          
-
-        </section>
-    
-        
-        
-        <section class="item">
-          <div>
-            <h1 class="title"><a href='/about/tmp/'></a></h1>
+            <h1 class="title"><a href='/posts/leetcode/queue/'></a></h1>
             <div class ="date">
                 <time datetime="0001-01-01 00:00:00 &#43;0000 UTC">Jan 1, 0001</time>  
             </div>
           </div>
 
           
-              <div class="summary">1 排序后根据index取 public int findKthLargest(int[] nums, int k) { int len = nums.length; Arrays.sort(nums); return nums[len - k]; }
-2 小顶堆 装数组，poll (len-k-1)后， peek为第k大的元素
-3 大顶堆 装数组， poll (k-1)后， peek为第k大的元素</div>
+              <div class="summary">type Queue struct { items []int } func New() *Queue { return &amp;Queue{ items: []int{} } } func (q *Queue) Enqueue(item int) { q.items = append(q.items, item) } func (q *Queue) Dequeue() int { if len(q.</div>
           
 
         </section>
@@ -131,16 +97,61 @@
         
         <section class="item">
           <div>
-            <h1 class="title"><a href='/posts/culture/north_euro/'></a></h1>
+            <h1 class="title"><a href='/posts/leetcode/skiplist/'></a></h1>
             <div class ="date">
                 <time datetime="0001-01-01 00:00:00 &#43;0000 UTC">Jan 1, 0001</time>  
             </div>
           </div>
 
           
-              <div class="summary">北欧文化。
-Gökotta： dawn picnic to hear the first birdsong. the act of rising in the early morning to watch the birds or to go outside to appreciate nature.
-在瑞典。在黎明是起床去听鸟叫的声音， 去外面感受大自然。</div>
+              <div class="summary"> type Element struct { score float64 value interface{} forward []*Element } type SkipList struct { header *Element len int level int } </div>
+          
+
+        </section>
+    
+        
+        
+        <section class="item">
+          <div>
+            <h1 class="title"><a href='/posts/math/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/'></a></h1>
+            <div class ="date">
+                <time datetime="0001-01-01 00:00:00 &#43;0000 UTC">Jan 1, 0001</time>  
+            </div>
+          </div>
+
+          
+              <div class="summary">数学分析 🔗1 极限，连续 🔗连续的定义 🔗初等函数在定义域内都是连续的。 一般讨论高等函数，如分段函数。
+极限的定义 🔗极限的求法 🔗无穷小 $$ lim $$
+，无穷大
+洛必达法则求极限
+2 导数（微商），微分 🔗导数叫微商，是极限。
+导数的定义。 🔗导数的几何意义。 🔗斜率
+求导的方法 🔗复合函数的求导
+隐函数的求导。
+导数的应用 🔗单调性，求极值，凹凸性（二阶导数）
+3 不定积分，定积分 🔗不定积分 🔗不定积分： 求函数f的全部原函数。</div>
+          
+
+        </section>
+    
+        
+        
+        <section class="item">
+          <div>
+            <h1 class="title"><a href='/posts/os/c&#43;&#43;/'></a></h1>
+            <div class ="date">
+                <time datetime="0001-01-01 00:00:00 &#43;0000 UTC">Jan 1, 0001</time>  
+            </div>
+          </div>
+
+          
+              <div class="summary">概念
+指针不扎手，但扎心。C語言: &#43;&#43;*p, *p&#43;&#43;和 *&#43;&#43;p的不同
+纯虚函数， 改写，虚函数。 抽象基类， 派生类。
+is-a 关系是传递的。派生类 is a 基类，可以直接将派生类对象转换为基类对象。
+表达式是一个递归定义的概念。 一个单独的标识符（变量，常量，函数等）是表达式。 表达式和运算符按照语法规则构成的复杂表达式是表达式。
+C&#43;&#43; 动态特性。 🔗程序的功能是在运行时刻才能确定下来的。 C&#43;&#43; 虚函数， 抽象基类，动态绑定，多态。
+虚函数 🔗class Shape{ public: virtual void Draw(void); }; class Rectangle : public Shape { public: virtual void Draw(void); } 抽象基类 🔗class Shape { // 抽象基类 public: virtual void Draw(void)=0; //纯虚函数 } 动态绑定 🔗程序中通过基类指针对虚函数的调用。</div>
           
 
         </section>
