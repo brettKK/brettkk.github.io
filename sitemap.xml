@@ -50,10 +50,7 @@
     <loc>http://brettkk.github.io/tags/linux/</loc>
     <lastmod>2022-11-05T11:33:56+08:00</lastmod>
   </url><url>
-    <loc>http://brettkk.github.io/posts/os/tcp/</loc>
-    <lastmod>2022-11-05T11:33:56+08:00</lastmod>
-  </url><url>
-    <loc>http://brettkk.github.io/tags/protocol/</loc>
+    <loc>http://brettkk.github.io/posts/os/tcp_udp/</loc>
     <lastmod>2022-11-05T11:33:56+08:00</lastmod>
   </url><url>
     <loc>http://brettkk.github.io/posts/rust/rust_library_core/</loc>
@@ -62,7 +59,7 @@
     <loc>http://brettkk.github.io/posts/rust/rust_library_std/</loc>
     <lastmod>2022-11-05T11:33:56+08:00</lastmod>
   </url><url>
-    <loc>http://brettkk.github.io/tags/cultrue/</loc>
+    <loc>http://brettkk.github.io/tags/culture/</loc>
     <lastmod>2022-10-05T11:33:56+08:00</lastmod>
   </url><url>
     <loc>http://brettkk.github.io/categories/life/</loc>
@@ -107,12 +104,6 @@
     <loc>http://brettkk.github.io/posts/tools/pkg_tools/</loc>
     <lastmod>2022-05-05T11:33:56+08:00</lastmod>
   </url><url>
-    <loc>http://brettkk.github.io/posts/os/makefile/</loc>
-    <lastmod>2022-05-05T10:13:56+08:00</lastmod>
-  </url><url>
-    <loc>http://brettkk.github.io/tags/culture/</loc>
-    <lastmod>2022-04-05T11:33:56+08:00</lastmod>
-  </url><url>
     <loc>http://brettkk.github.io/posts/culture/euro/</loc>
     <lastmod>2022-04-05T11:33:56+08:00</lastmod>
   </url><url>
@@ -131,7 +122,7 @@
     <loc>http://brettkk.github.io/tags/encrypt/</loc>
     <lastmod>2021-05-20T11:33:56+08:00</lastmod>
   </url><url>
-    <loc>http://brettkk.github.io/posts/os/encrypt/</loc>
+    <loc>http://brettkk.github.io/posts/math/encrypt/</loc>
     <lastmod>2021-05-20T11:33:56+08:00</lastmod>
   </url><url>
     <loc>http://brettkk.github.io/posts/golang/golang_sync/</loc>
@@ -143,22 +134,13 @@
     <loc>http://brettkk.github.io/posts/golang/go_timer/</loc>
     <lastmod>2021-05-05T18:34:48+08:00</lastmod>
   </url><url>
-    <loc>http://brettkk.github.io/posts/os/http/</loc>
-    <lastmod>2021-05-05T11:33:56+08:00</lastmod>
-  </url><url>
     <loc>http://brettkk.github.io/tags/java/</loc>
     <lastmod>2021-05-05T11:33:56+08:00</lastmod>
   </url><url>
     <loc>http://brettkk.github.io/tags/language/</loc>
     <lastmod>2021-05-05T11:33:56+08:00</lastmod>
   </url><url>
-    <loc>http://brettkk.github.io/posts/os/free/</loc>
-    <lastmod>2021-05-05T11:33:56+08:00</lastmod>
-  </url><url>
-    <loc>http://brettkk.github.io/posts/os/shell-basic/</loc>
-    <lastmod>2021-05-05T11:33:56+08:00</lastmod>
-  </url><url>
-    <loc>http://brettkk.github.io/posts/os/top/</loc>
+    <loc>http://brettkk.github.io/posts/os/shell/</loc>
     <lastmod>2021-05-05T11:33:56+08:00</lastmod>
   </url><url>
     <loc>http://brettkk.github.io/posts/tools/mac_start_dev/</loc>
@@ -177,9 +159,6 @@
     <lastmod>2021-05-05T11:33:56+08:00</lastmod>
   </url><url>
     <loc>http://brettkk.github.io/posts/tools/soot_wala/</loc>
-    <lastmod>2021-05-05T11:33:56+08:00</lastmod>
-  </url><url>
-    <loc>http://brettkk.github.io/posts/os/secure_risk/</loc>
     <lastmod>2021-05-05T11:33:56+08:00</lastmod>
   </url><url>
     <loc>http://brettkk.github.io/posts/francais/common_sense/</loc>
@@ -243,10 +222,6 @@
     <loc>http://brettkk.github.io/posts/leetcode/skiplist/</loc>
   </url><url>
     <loc>http://brettkk.github.io/posts/math/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/</loc>
-  </url><url>
-    <loc>http://brettkk.github.io/posts/os/c&#43;&#43;/</loc>
-  </url><url>
-    <loc>http://brettkk.github.io/posts/os/file_system/</loc>
   </url><url>
     <loc>http://brettkk.github.io/posts/os/nju-os/nju_os/</loc>
   </url><url>

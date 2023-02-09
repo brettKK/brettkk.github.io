@@ -81,14 +81,23 @@
         
         <section class="item">
           <div>
-            <h1 class="title"><a href='/posts/leetcode/queue/'></a></h1>
+            <h1 class="title"><a href='/posts/todo_list/'></a></h1>
             <div class ="date">
                 <time datetime="0001-01-01 00:00:00 &#43;0000 UTC">Jan 1, 0001</time>  
             </div>
           </div>
 
           
-              <div class="summary">type Queue struct { items []int } func New() *Queue { return &amp;Queue{ items: []int{} } } func (q *Queue) Enqueue(item int) { q.items = append(q.items, item) } func (q *Queue) Dequeue() int { if len(q.</div>
+              <div class="summary">今天要做什么？
+整理之前的笔记。
+～～～～ 清晰的网页 ～～ 清晰的网页 ～～～～
+工作内容相关方面： 规则引擎grule[11.1]， 工作流引擎， 向量存储Faiss。
+golang方面： cloudwego, Istio, envoy, hystrix-go[10.31,11.1]
+密码方面： 零知识信任的代码库，spartan rust。
+云原生方面：k8s, docker.
+数据库方面： TiDB， TiKV， rocksdb。
+编译器： llvm。 编译器基本知识。
+高并发方面： C&#43;&#43;， redis， rocksdb， linux， xv6 。</div>
           
 
         </section>
@@ -97,14 +106,18 @@
         
         <section class="item">
           <div>
-            <h1 class="title"><a href='/posts/leetcode/skiplist/'></a></h1>
+            <h1 class="title"><a href='/posts/tools/git/'></a></h1>
             <div class ="date">
                 <time datetime="0001-01-01 00:00:00 &#43;0000 UTC">Jan 1, 0001</time>  
             </div>
           </div>
 
           
-              <div class="summary"> type Element struct { score float64 value interface{} forward []*Element } type SkipList struct { header *Element len int level int } </div>
+              <div class="summary">git clone 🔗clone时的shadow clone 和 deep clone
+git submodules
+https://git-scm.com/book/en/v2/Git-Tools-Submodules
+git clone --recursive https://github.com/rust-lang/rust.git
+LibreSSL SSL_read: error:02FFF03C:system library:func(4095):Operation timed out, errno 60 fatal: unable to access error:02FFF036:system library:func(4095):Connection reset by peer 如果开了vpn：export https_proxy=http://127.</div>
           
 
         </section>
@@ -113,23 +126,19 @@
         
         <section class="item">
           <div>
-            <h1 class="title"><a href='/posts/math/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/'></a></h1>
+            <h1 class="title"><a href='/posts/tools/latex/'></a></h1>
             <div class ="date">
                 <time datetime="0001-01-01 00:00:00 &#43;0000 UTC">Jan 1, 0001</time>  
             </div>
           </div>
 
           
-              <div class="summary">数学分析 🔗1 极限，连续 🔗连续的定义 🔗初等函数在定义域内都是连续的。 一般讨论高等函数，如分段函数。
-极限的定义 🔗极限的求法 🔗无穷小 $$ lim $$
-，无穷大
-洛必达法则求极限
-2 导数（微商），微分 🔗导数叫微商，是极限。
-导数的定义。 🔗导数的几何意义。 🔗斜率
-求导的方法 🔗复合函数的求导
-隐函数的求导。
-导数的应用 🔗单调性，求极值，凹凸性（二阶导数）
-3 不定积分，定积分 🔗不定积分 🔗不定积分： 求函数f的全部原函数。</div>
+              <div class="summary">字符编码 🔗ascii码，占一个字节，实际使用了7 bit,128个字符，表示英语够了。 在ascii码的第8位置为0，这个特点深深影响了其他国家和后来的字符编码方式。
+欧洲法语é等字符，采用Latin1, 利用acsii码的最高位， 可以表示了。
+亚洲国家的文字符号更多，汉字10万加，必须多个字节表示一个符号。 GB2312
+unicode 万国码。只是定义了符号的二进制代码，如何区分不同的编码？没有规定二进制如何存放。
+utf-8历史， 开发plan 9操作系统的产物，发明了后来广泛使用的字符编码。 utf-8 是一种针对unicode的变长字符编码的实现方式。 使用1-4个字节表示一个字符。 二进制代码第一位是0， 则这个字符只占一个字节。 如果第一位是1，连续有多少个1，表示当前字符占用多少个字节, 后面字节的前两位均以10开头。
+例如 严。 unicode = 100111000100101 = 4E25, utf-8=11100100 10111000 10100101 = E4B8A5.</div>
           
 
         </section>
@@ -138,20 +147,28 @@
         
         <section class="item">
           <div>
-            <h1 class="title"><a href='/posts/os/c&#43;&#43;/'></a></h1>
+            <h1 class="title"><a href='/posts/tools/pku_%E8%BD%AF%E4%BB%B6%E5%88%86%E6%9E%90%E6%8A%80%E6%9C%AF/'></a></h1>
             <div class ="date">
                 <time datetime="0001-01-01 00:00:00 &#43;0000 UTC">Jan 1, 0001</time>  
             </div>
           </div>
 
           
-              <div class="summary">概念
-指针不扎手，但扎心。C語言: &#43;&#43;*p, *p&#43;&#43;和 *&#43;&#43;p的不同
-纯虚函数， 改写，虚函数。 抽象基类， 派生类。
-is-a 关系是传递的。派生类 is a 基类，可以直接将派生类对象转换为基类对象。
-表达式是一个递归定义的概念。 一个单独的标识符（变量，常量，函数等）是表达式。 表达式和运算符按照语法规则构成的复杂表达式是表达式。
-C&#43;&#43; 动态特性。 🔗程序的功能是在运行时刻才能确定下来的。 C&#43;&#43; 虚函数， 抽象基类，动态绑定，多态。
-虚函数 🔗class Shape{ public: virtual void Draw(void); }; class Rectangle : public Shape { public: virtual void Draw(void); } 抽象基类 🔗class Shape { // 抽象基类 public: virtual void Draw(void)=0; //纯虚函数 } 动态绑定 🔗程序中通过基类指针对虚函数的调用。</div>
+              <div class="summary">软件分析技术（Software Analysis）
+哥德尔不完备定理
+莱斯定理
+数据流分析
+过程间分析，指针分析，控制流分析，抽象解释
+约束求解，符号执行
+数据流分析 🔗活跃变量分析
+可达性分析
+可用表达式分析
+https://xiongyingfei.github.io/SA/2020/main.htm
+《编译原理》Aho
+《Lecture notes on static analysis》Moller and Schwartzbach
+https://cs.au.dk/~amoeller/spa/
+南京大学《软件分析》课（B站视频）
+《Decision Procedures -- An Algorithmic Point of View》 Daniel Kroening and Ofer Strichman</div>
           
 
         </section>
@@ -167,12 +184,6 @@ C&#43;&#43; 动态特性。 🔗程序的功能是在运行时刻才能确定下
             </span>
           
           
-          
-              <span class="next">
-                  <a href="/page/15/">
-                      Older posts <span class="arrow">→</span>
-                  </a>
-              </span>
           
         </div>
     

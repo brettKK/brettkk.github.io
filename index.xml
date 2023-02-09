@@ -71,12 +71,12 @@
     </item>
     
     <item>
-      <title>linux-tcp</title>
-      <link>http://brettkk.github.io/posts/os/tcp/</link>
+      <title>linux-tcp，http, curl, dns</title>
+      <link>http://brettkk.github.io/posts/os/tcp_udp/</link>
       <pubDate>Sat, 05 Nov 2022 11:33:56 +0800</pubDate>
       
-      <guid>http://brettkk.github.io/posts/os/tcp/</guid>
-      <description>tcp 🔗用寄明信片的方式传送一本书 明文， 乱序，丢包 可靠： 带重传的</description>
+      <guid>http://brettkk.github.io/posts/os/tcp_udp/</guid>
+      <description>udp 🔗光速：30万千米/s 中美具体大约：1.5万千米 光纤网络耗</description>
     </item>
     
     <item>
@@ -134,7 +134,7 @@
     </item>
     
     <item>
-      <title>linux-base</title>
+      <title>linux</title>
       <link>http://brettkk.github.io/posts/os/base_os/</link>
       <pubDate>Thu, 05 May 2022 11:33:56 +0800</pubDate>
       
@@ -161,15 +161,6 @@
     </item>
     
     <item>
-      <title>makefile</title>
-      <link>http://brettkk.github.io/posts/os/makefile/</link>
-      <pubDate>Thu, 05 May 2022 10:13:56 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/os/makefile/</guid>
-      <description>GNU make is implemented by Richard Stallman and Roland McGrath. Respect. why 🔗大型项目编译过程复杂，需要管理编译</description>
-    </item>
-    
-    <item>
       <title>历史文化：欧州与宗教</title>
       <link>http://brettkk.github.io/posts/culture/euro/</link>
       <pubDate>Tue, 05 Apr 2022 11:33:56 +0800</pubDate>
@@ -188,12 +179,12 @@
     </item>
     
     <item>
-      <title>程序 等价 状态机</title>
+      <title>计算机程序 等价于 状态机</title>
       <link>http://brettkk.github.io/posts/os/state_machine/</link>
       <pubDate>Wed, 05 Jan 2022 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/os/state_machine/</guid>
-      <description>软件、程序可以很复杂。但是计算机的本质还是冯诺伊曼定义的：程</description>
+      <description>计算机的本质 🔗软件、程序可以很复杂。但是计算机的本质还是冯诺</description>
     </item>
     
     <item>
@@ -207,10 +198,10 @@
     
     <item>
       <title>加密相关</title>
-      <link>http://brettkk.github.io/posts/os/encrypt/</link>
+      <link>http://brettkk.github.io/posts/math/encrypt/</link>
       <pubDate>Thu, 20 May 2021 11:33:56 +0800</pubDate>
       
-      <guid>http://brettkk.github.io/posts/os/encrypt/</guid>
+      <guid>http://brettkk.github.io/posts/math/encrypt/</guid>
       <description>对称加密与散列 🔗有des, aes 方式， 计算性能好，但密钥的安全依</description>
     </item>
     
@@ -242,39 +233,12 @@
     </item>
     
     <item>
-      <title>http, curl, dns</title>
-      <link>http://brettkk.github.io/posts/os/http/</link>
+      <title>linux shell 工具命令</title>
+      <link>http://brettkk.github.io/posts/os/shell/</link>
       <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
       
-      <guid>http://brettkk.github.io/posts/os/http/</guid>
-      <description>http 🔗 http header 常用字段 content-type (如何解析body) application/x-www-form-urlencoded multipart/from-data, 上传文件 application/json, text/plain text/xml, XM</description>
-    </item>
-    
-    <item>
-      <title>linux-free</title>
-      <link>http://brettkk.github.io/posts/os/free/</link>
-      <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/os/free/</guid>
-      <description>free查看内存使用情况，包含已用内存，可用内存，交换内存的</description>
-    </item>
-    
-    <item>
-      <title>linux-shell</title>
-      <link>http://brettkk.github.io/posts/os/shell-basic/</link>
-      <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/os/shell-basic/</guid>
-      <description>单引号，双引号，反引号区别 单引号之间的内容原封不动的输出 双引</description>
-    </item>
-    
-    <item>
-      <title>linux-top</title>
-      <link>http://brettkk.github.io/posts/os/top/</link>
-      <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/os/top/</guid>
-      <description>linux top命令（mac top结果显示有一些区别） Linux下常</description>
+      <guid>http://brettkk.github.io/posts/os/shell/</guid>
+      <description>ls = list ls -a (display all files) ls -l (more infomation) ls -lh (file size k) 磁盘相关的命令 🔗 du 显示某个</description>
     </item>
     
     <item>
@@ -329,15 +293,6 @@
       
       <guid>http://brettkk.github.io/posts/tools/soot_wala/</guid>
       <description>4中IR Baf 在bytecode上进行的抽象，忽略字节码对于常量</description>
-    </item>
-    
-    <item>
-      <title>安全与风控</title>
-      <link>http://brettkk.github.io/posts/os/secure_risk/</link>
-      <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/os/secure_risk/</guid>
-      <description>漏洞 🔗起因是信任了用户的任意输入。 sql注入 🔗危害： 执行任意</description>
     </item>
     
     <item>
@@ -516,34 +471,6 @@ type Node struct{ int num, next Node, } func createCircleLink(int n) Node{ head 
     
     <item>
       <title></title>
-      <link>http://brettkk.github.io/posts/os/c&#43;&#43;/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/os/c&#43;&#43;/</guid>
-      <description>概念
-指针不扎手，但扎心。C語言: ++*p, *p++和 *++p的不同
-纯虚函数， 改写，虚函数。 抽象基类， 派生类。
-is-a 关系是传递的。派生类 is a 基类，可以直接将派生类对象转换为基类对象。
-表达式是一个递归定义的概念。 一个单独的标识符（变量，常量，函数等）是表达式。 表达式和运算符按照语法规则构成的复杂表达式是表达式。
-C++ 动态特性。 🔗程序的功能是在运行时刻才能确定下来的。 C++ 虚函数， 抽象基类，动态绑定，多态。
-虚函数 🔗class Shape{ public: virtual void Draw(void); }; class Rectangle : public Shape { public: virtual void Draw(void); } 抽象基类 🔗class Shape { // 抽象基类 public: virtual void Draw(void)=0; //纯虚函数 } 动态绑定 🔗程序中通过基类指针对虚函数的调用。</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>http://brettkk.github.io/posts/os/file_system/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/os/file_system/</guid>
-      <description>块存储、文件存储、对象存储
-存储的两种方式 用电子存储数据 U盘，固态硬盘SSD 用磁性记录数据 机械硬盘HDD 垂直式 叠瓦式 linux: 一切皆文件。
-分布式存储
-同步IO 异步IO： 指的是I/O 的执行者，是同步处理后返回，还是先返回给应用程序后异步通知。
-阻塞IO 非阻塞IO： 指的是IO的调用者，是阻塞等待结果，还是异步等通知。</description>
-    </item>
-    
-    <item>
-      <title></title>
       <link>http://brettkk.github.io/posts/os/nju-os/nju_os/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
@@ -562,14 +489,10 @@ gdb a.out layout src (c程序视角) layout asm （汇编视角） start
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>http://brettkk.github.io/posts/rust/rust_chain/</guid>
-      <description>https://justjjy.com/ solidity 智能合约语言。
-exa = rust ls
-tokio, axum
-Bytes crate
-let data = ptr_map(ptr, |addr| addr | KIND_VEC); f_closure = ｜addr｜(addr|KIND_VEC) github.com/skerkour/kerkour.com
+      <description>let data = ptr_map(ptr, |addr| addr | KIND_VEC); f_closure = ｜addr｜(addr|KIND_VEC) github.com/skerkour/kerkour.com
 rCore OS.
 IDA, NDK。
-虚拟人， metaverse NFT</description>
+计算机软件 = 存储（tidb，tikv，rocksdb）， 计算（zero knoledge）， 网络（tokio） 网络 🔗futures-rs 🔗futres-channel 🔗tokio-rs/Bytes 🔗Bytes BytesMut 存储连续字节的容器结构。 trait Buf BufMut 提供读，写行为。</description>
     </item>
     
     <item>

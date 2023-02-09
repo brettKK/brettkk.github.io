@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<html lang="zh-cn">
+  <head>
+    <title>linux shell 工具命令 | brettkk</title>
+
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
+<meta name="viewport" content="width=device-width,minimum-scale=1">
+<meta name="description" content="ls = list ls -a (display all files) ls -l (more infomation) ls -lh (file size k) 磁盘相关的命令 🔗 du 显示某个">
+<meta name="generator" content="Hugo 0.103.1" />
+
+
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+<link href="https://cdn.bootcss.com/highlight.js/9.15.10/styles/zenburn.min.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<link rel="stylesheet" href="http://brettkk.github.io/css/syntax.css" />
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js" integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+
+
+
+
+  </head>
+
+  <body>
+    <nav class="navigation">
+	
+		<a href="/"> <span class="arrow">←</span>Home</a>
+	
+	<a href="/posts">Archive</a>
+	<a href="/tags">Tags</a>
+	<a href="/about">About</a>
+
+	
+
+	
+</nav>
+
+
+    <main class="main">
+      
+
+<section id="single">
+    <h1 class="title">linux shell 工具命令</h1>
+
+    <div class="tip">
+        <time datetime="2021-05-05 11:33:56 &#43;0800 CST">May 5, 2021</time>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          2716 words
+        </span>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          6 minute read
+        </span>
+    </div>
+
+    
+    
+        
+  
+    <aside class="toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
+          <div>
+              <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#磁盘相关的命令">磁盘相关的命令</a></li>
+            <li><a href="#有显示功能的命令">有显示功能的命令</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#shell">shell</a>
+      <ul>
+        <li><a href="#awk">awk</a>
+          <ul>
+            <li><a href="#sed">sed</a></li>
+          </ul>
+        </li>
+        <li><a href="#查找某个字符串">查找某个字符串</a></li>
+      </ul>
+    </li>
+    <li><a href="#top-命令">top 命令</a></li>
+    <li><a href="#free-命令">free 命令</a></li>
+  </ul>
+</nav>
+          </div>
+      </details>
+    </aside>
+  
+
+
+    
+
+
+    <div class="content">
+      <ul>
+<li>ls = list
+<ul>
+<li>ls -a (display all files)</li>
+<li>ls -l (more infomation)</li>
+<li>ls -lh (file size k)</li>
+</ul>
+</li>
+</ul>
+<h3 id="磁盘相关的命令">磁盘相关的命令 <a href="#%e7%a3%81%e7%9b%98%e7%9b%b8%e5%85%b3%e7%9a%84%e5%91%bd%e4%bb%a4" class="anchor">🔗</a></h3><ul>
+<li>
+<p>du 显示某个目录或者文件占用的磁盘空间</p>
+<ul>
+<li>查看文件大小 与ls 的区别</li>
+</ul>
+</li>
+<li>
+<p>df 显示整个磁盘的使用情况</p>
+</li>
+<li>
+<p>find</p>
+<ul>
+<li>以文件名查找 find . -name &quot;xx.txt&quot;</li>
+<li>以文件从属关系查找 find . -user brett</li>
+<li>以文件类型查找 find . -type f(普通文件，d目录文件，p管道文件)</li>
+<li>以文件大小查找 find . -size -1M(小于1M的文件，+1M大于1M的文件)</li>
+<li>以时间查找
+<ul>
+<li>-atime 文件访问时间，天为单位</li>
+<li>-mtime 文件数据修改时间</li>
+<li>-ctime 文件元数据修改时间</li>
+</ul>
+</li>
+<li>指定查找深度	-maxdepth, -mindepth</li>
+<li>find与xargs结合
+<ul>
+<li>find . -name &quot;a.txt&quot; | grep 'key'</li>
+<li>find . -name &quot;a.txt&quot; | xargs grep 'key'</li>
+<li>find . -name &quot;a.txt&quot; | xargs rm</li>
+</ul>
+</li>
+<li>find -exec 与其他命令结合使用
+<ul>
+<li>find . -name &quot;a.txt&quot; -exec rm {} ;</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>管道与xargs</p>
+<ul>
+<li>
+<p>管道：将前面的标准输出作为后面的标准输入 echo &quot;--help&quot; | cat</p>
+</li>
+<li>
+<p>xargs：将前面的标准输入作为后面命令的参数 echo &quot;--help&quot; | xargs cat</p>
+</li>
+<li>
+<p>文件特殊权限</p>
+<ul>
+<li>suid</li>
+<li>sgid</li>
+<li>sticky</li>
+</ul>
+</li>
+<li>
+<p>用户权限-文件</p>
+<ul>
+<li>chown = change owner</li>
+<li>chgrp = change group</li>
+<li>chmod = change mode</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="有显示功能的命令">有显示功能的命令 <a href="#%e6%9c%89%e6%98%be%e7%a4%ba%e5%8a%9f%e8%83%bd%e7%9a%84%e5%91%bd%e4%bb%a4" class="anchor">🔗</a></h3><ul>
+<li>cat</li>
+<li>cut 按列分文件</li>
+<li>head -n 5 a.txt</li>
+<li>tail
+<ul>
+<li>tail -n 10 a.txt</li>
+<li>tail -f xx.log | grep hello</li>
+</ul>
+</li>
+<li>利用head和tail查看文件中3000-5000的行
+<ul>
+<li>cat a.txt | head -n 5000 | tail -n 2000</li>
+<li>cat a.txt | tail -n + 3000 | head -n 2000</li>
+</ul>
+</li>
+<li>sed也可以查看文件中特定的行
+<ul>
+<li>sed -n &quot;3000,5000p&quot; a.txt</li>
+</ul>
+</li>
+<li>more , less(更新一点)，功能上没看到区别</li>
+<li>grep -i 匹配时忽略大小写, --color</li>
+<li>sort
+<ul>
+<li>-k  (按某一个列排序)</li>
+<li>-n （按数值降序排序， 不加-n可以出现10小于2的情况）</li>
+<li>-nr （按数字逆序排序）</li>
+<li>文件A， B 差集（A - B） sort a.csv b.csv|uniq -u &gt; c.csv</li>
+</ul>
+</li>
+<li>uniq = unique
+<ul>
+<li>uniq -c  (相同行爱在一起 所以前面是sort命令)</li>
+</ul>
+</li>
+<li>wc = word count
+<ul>
+<li>wc -c</li>
+<li>wc -l</li>
+</ul>
+</li>
+<li>awk， sed功能有些复杂，可以google search...
+<ul>
+<li>sed 删除文件总的行。  sed -i '1,72000d' a.csv</li>
+<li>分割文件为小文件。 split -l 5000 -d a.csv index_</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="shell">shell <a href="#shell" class="anchor">🔗</a></h1><p>单引号，双引号，反引号区别:</p>
+<ul>
+<li>单引号之间的内容原封不动的输出</li>
+<li>双引号取消空格的作用， 特殊符号含义会保留</li>
+<li>反引号，用来包装命令的结果，多用$()</li>
+</ul>
+<pre tabindex="0"><code>	将一个命令的执行结果赋给变量
+	A=`date` 将date的执行结果赋值给变量A
+	B=$(ls -l) 将ls -l这个命令给变量B
+</code></pre><ul>
+<li>
+<p>shell 数组</p>
+<ul>
+<li>定义数组	array_name=(v0 v1 v2 v3)</li>
+<li>读取数组 value1=${array_name[1]}</li>
+<li>获取所有元素	@，*</li>
+<li>获取数组长度 echo ${#array_name[ * ]}</li>
+</ul>
+</li>
+<li>
+<p>shell 传递参数</p>
+<ul>
+<li>$n 位置变量
+<ul>
+<li>n为一个数字，0为执行的文件，1位第一个参数，类推</li>
+</ul>
+</li>
+<li>特殊字符
+<ul>
+<li>$# 传递到脚本的参数个数</li>
+<li>$* 以字符串的显示参数 “$1..$n”</li>
+<li>$@ 与$* 类似 加引号</li>
+<li>$$ 这个程序的pid</li>
+<li>$! 执行上一个后台程序的pid</li>
+<li>$? 执行上一个指令的返回值</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="awk">awk <a href="#awk" class="anchor">🔗</a></h2><p>awk 脚本基本结构 awk 'BEGIN{ print &quot;start&quot; } pattern{ commands } END{ print &quot;end&quot; }' file</p>
+<p>使用AWK做文本处理， 语句由模式和动作组成</p>
+<ul>
+<li>模式，决定动作的触发条件和时间</li>
+<li>动作
+<ul>
+<li>BEGIN， 设置计数和头部信息， 在任何动作之前进行</li>
+<li>END， 输出统计结果， 在完成动作之后执行</li>
+</ul>
+</li>
+</ul>
+<p>默认分隔符为空格， 也可以-F改变为其他符号，例如冒号，-F：</p>
+<p>例自定义日期显示
+date|awk '{print &quot;year:&quot;$1 &quot;month:&quot;$2}'</p>
+<p>自定义输出一些列
+awk 'BEGIN {print &quot;begin&quot;} {print $1, $2, $3} END{print &quot;end&quot;}' file</p>
+<p>满足某个模式的行
+awk '$2&gt;9 {print $0}' file</p>
+<p>awk '{if($1==&quot;kk&quot; &amp;&amp; $2&gt;5) print $0}' file</p>
+<hr>
+<h3 id="sed">sed <a href="#sed" class="anchor">🔗</a></h3><p>替换s命令
+sed 's/old/new/' file</p>
+<p>-n -p 一起使用只打印发生替换的行
+sed -n 's/old/new/p' file
+显示第三行
+sed -n '3p' file</p>
+<p>全部替换g命令
+sed 's/old/new/g' file</p>
+<p>删除d命令
+sed '2d' file</p>
+<p>插入i命令
+追加a命令</p>
+<hr>
+<ul>
+<li>
+<p>/etc/profile</p>
+<ul>
+<li>为系统中每个用户设置环境信息，只在用户第一次登陆时，被执行</li>
+<li>并从/etc/profile.d目录中搜索shell的配置</li>
+</ul>
+</li>
+<li>
+<p>/etc/bashrc</p>
+<ul>
+<li>bash shell被打开，就被执行</li>
+</ul>
+</li>
+<li>
+<p>～/.bashrc</p>
+<ul>
+<li>每次打开shell时，被执行</li>
+</ul>
+</li>
+<li>
+<p>~/.bash_profile</p>
+<ul>
+<li>用户登陆时仅执行一次，执行用户的bashrc</li>
+</ul>
+</li>
+<li>
+<p>重定向</p>
+<ul>
+<li>stdin(0), stdout(1), stderr(2)</li>
+<li>runApp &lt; data.in &gt; results.out</li>
+<li>
+<blockquote>
+<p>/dev/null 丢弃输出信息</p>
+</blockquote>
+</li>
+<li>2&gt;&amp;1 错误输出重定向到标准输出中</li>
+<li>
+<blockquote>
+<blockquote>
+<p>a.log  追加写文件</p>
+</blockquote>
+</blockquote>
+</li>
+<li>&amp;&gt;a.log  将标准输出和错误输出的组合重定向到a.log里</li>
+<li>单独的 &amp; 将任务发送到shell后台执行
+<ul>
+<li>jobs 列出在后台执行的所有任务</li>
+<li>fg 任务编号 将任务带回前台</li>
+<li>ctrl+z 暂停进程， bg 将任务继续带回后台执行</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="查找某个字符串">查找某个字符串 <a href="#%e6%9f%a5%e6%89%be%e6%9f%90%e4%b8%aa%e5%ad%97%e7%ac%a6%e4%b8%b2" class="anchor">🔗</a></h2><ul>
+<li>
+<p>命令模式:／strings ，光标位置向下查找</p>
+</li>
+<li>
+<p>:?strings, 光标位置向上查找</p>
+</li>
+<li>
+<p>在整个文件中替换特定字符串</p>
+<ul>
+<li>:%s/old_word/new_word/g // %s/old_word/new_word/gc  每次替换会确认一下</li>
+<li>g/old_word/s//new_word/g</li>
+</ul>
+</li>
+<li>
+<p>zero copy</p>
+<ul>
+<li>tradeoff between performance and security technologies.</li>
+<li>implementation:  1 memory remapping, 2 shared buffers, 3 different system calls, and hardware support.</li>
+<li><a href="https://pdfs.semanticscholar.org/6a35/60046cb8d3258669c86072a7cab05e1d2300.pd" target="_blank" rel="noopener">https://pdfs.semanticscholar.org/6a35/60046cb8d3258669c86072a7cab05e1d2300.pd</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="top-命令">top 命令 <a href="#top-%e5%91%bd%e4%bb%a4" class="anchor">🔗</a></h1><p>linux top命令（mac top结果显示有一些区别）</p>
+<ul>
+<li>Linux下常用的性能分析工具，可以通过按键进行交互显示</li>
+<li>能够实时显示系统中各个进程的资源占用状况,类似windows下的任务管理器</li>
+</ul>
+<hr>
+<p>以ubuntu top命令结果为2类信息(中间由一个空行分开)
+<img src="/os/top.png" width = "600" /><br></p>
+<ul>
+<li>
+<p>5行统计信息</p>
+<ul>
+<li>任务队列信息，uptime命令的结果类似
+<ul>
+<li>load average: 1分钟，5分钟，15分钟内的系统平均负荷</li>
+</ul>
+</li>
+<li>进程统计信息
+<ul>
+<li>系统中一共由290个进程，running状态为1个，休眠状态为289个， stopped状态和zombie状态为0</li>
+</ul>
+</li>
+<li>CPU状态
+<ul>
+<li>3.0 us：用户程序占用cpu的比例3.0%</li>
+<li>1.2 sy：内核程序占用cpu的比例1.2%</li>
+<li>0.0 ni：改变过优先级的进程占用CPU的百分比</li>
+<li>95.5 id：空闲CPU百分比95.5%</li>
+<li>0.3 wa：IO等待占用CPU的百分比0.3%</li>
+<li>0.0 hi：硬中断（Hardware IRQ）占用CPU的百分比0.0%</li>
+<li>0.0 st：软中断（Software Interrupts）占用CPU的百分比0.0%</li>
+</ul>
+</li>
+<li>内存信息
+<ul>
+<li>total： 8G空间</li>
+<li>free： 空余1433236kb</li>
+<li>used： 使用4856164kb</li>
+<li>buff/cache：主存上缓存大小1787556kb</li>
+</ul>
+</li>
+<li>swap交换区信息（虚拟内存，在磁盘上）
+<ul>
+<li>total： 交换区总量为8G多</li>
+<li>cached： 交换区上缓冲的大小</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>各进程的状态监控信息</p>
+<ul>
+<li>进程pid， 拥有者user， 进程优先级PR， NI nice值</li>
+<li>VIRT（占有的虚拟内存总量kb，virt=swap+res）， RES（内存res=code+data），SHR（共享内存）</li>
+<li>进程状态（D不能中断的睡眠， R运行， S睡眠，T跟踪/停止， Z僵尸）</li>
+<li>%CPU（占cpu百分比），%MEM（占内存百分比）， TIME（进程使用cpu的时间，单位1/100秒）， COMMAND（进程名称）</li>
+</ul>
+</li>
+</ul>
+<h1 id="free-命令">free 命令 <a href="#free-%e5%91%bd%e4%bb%a4" class="anchor">🔗</a></h1><p>free查看内存使用情况，包含已用内存，可用内存，交换内存的情况，默认以字节为单位( 简单版的top命令 )
+<img src="/os/free.png" width = "600" /><br></p>
+<ul>
+<li>free 查看内存使用情况
+<ul>
+<li>free -m (以mb为单位显示)</li>
+<li>free -h ()</li>
+</ul>
+</li>
+</ul>
+<p>free -t (total, 有汇总行)</p>
+<ul>
+<li>total = used + free</li>
+<li>used 包含cached， buffers， shared部分</li>
+<li>-buffers/cache: used-buffers-cached (可以看出程序吃掉的内存)</li>
+<li>+buffers/cache: free+buffers+cached （可以挪用的内存）</li>
+</ul>
+<hr>
+<p>free命令后的buffer与cached的区别</p>
+<ul>
+<li>buffer缓冲,内存写硬盘时的写缓冲内存</li>
+<li>cached缓存,数据缓存，读缓存</li>
+<li>cpu--&gt;cache --&gt;mem --&gt; buffer --&gt; disk</li>
+<li>交换区swap与内存mem的区别：当mem不够用时，使用swap存放不常用的数据, 把磁盘当做虚拟内存使用
+<ul>
+<li>清理swap， swapoff -a &amp;&amp; swapon -a</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p>iostat: 显示磁盘读写速度状态
+vmstat: 显示整体的虚拟内存状态（调页paging，交换swapping）
+netstat：显示网络状态</p>
+<p>Procs 进程</p>
+<ul>
+<li>r：运行的进程数</li>
+<li>b：等待的进程数</li>
+</ul>
+<p>Memory</p>
+<ul>
+<li>swpd： 使用的虚拟内存大小</li>
+<li>free： 空闲内存</li>
+<li>buf： 缓冲内存大小</li>
+<li>cache： 缓存内存大小</li>
+</ul>
+<p>Swap</p>
+<ul>
+<li>si 每秒从交换区到内存的大小， 磁盘-》内存</li>
+<li>so 每秒从内存到交换区的大小， 内存-》磁盘</li>
+</ul>
+<p>io</p>
+<ul>
+<li>bi 每秒读的块数</li>
+<li>bo 每秒写的块数</li>
+</ul>
+<p>system</p>
+<ul>
+<li>in: 每秒中断数</li>
+<li>cs: 每秒上下文切换数</li>
+</ul>
+<p>CPU</p>
+<ul>
+<li>us 用户进程执行时间占比</li>
+<li>sy 内核进程执行时间占比</li>
+<li>wa 等待IO时间占比</li>
+<li>id 空闲时间占比</li>
+</ul>
+
+    </div>
+
+    
+        <div class="tags">
+            
+                <a href="http://brettkk.github.io/tags/linux">linux</a>
+            
+        </div>
+    
+    
+    
+
+</section>
+
+
+    </main>
+    
+    <footer id="footer">
+    
+
+    <script src="https://utteranc.es/client.js"
+repo="brettKK/brettkk.github.io"
+issue-term="title"
+theme="github-light"
+crossorigin="anonymous"
+async>
+</script>  
+
+    <div class="copyright">
+    
+       © Copyright 
+       2023 
+       <span class="split">
+        <svg fill="#bbbbbb" width="15" height="15" version="1.1" id="heart-15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 15 15">
+  <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>
+</svg>
+       </span>
+       
+    
+    </div>
+
+    
+      <div class="powerby">
+        Powered by <a href='http://www.gohugo.io/'>Hugo</a> Theme By <a href='https://github.com/nodejh/hugo-theme-cactus-plus'>nodejh</a>
+      </div>
+    
+</footer>
+
+
+
+
+  </body>
+</html>

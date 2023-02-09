@@ -81,65 +81,79 @@
         
         <section class="item">
           <div>
-            <h1 class="title"><a href='/posts/math/algeb/'>代数</a></h1>
-            <div class ="date">
-                <time datetime="2021-02-05 11:33:56 &#43;0800 CST">Feb 5, 2021</time>  
-            </div>
-          </div>
-
-          
-              <div class="summary">高等代数 🔗3Blue1Brown的系列视频 线性代数的本质 矩阵</div>
-          
-
-        </section>
-    
-        
-        
-        <section class="item">
-          <div>
-            <h1 class="title"><a href='/posts/tools/%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA/'>mac上安装和使用虚拟机</a></h1>
-            <div class ="date">
-                <time datetime="2020-09-18 11:33:56 &#43;0800 CST">Sep 18, 2020</time>  
-            </div>
-          </div>
-
-          
-              <div class="summary">必要性 🔗 因为使用的是mac笔记本，实验和开发上需要利用lin</div>
-          
-
-        </section>
-    
-        
-        
-        <section class="item">
-          <div>
-            <h1 class="title"><a href='/posts/math/%E8%AE%A1%E7%AE%97%E5%A4%8D%E6%9D%82%E5%BA%A6/'>计算复杂度--P, NP, NPC, NP hard</a></h1>
-            <div class ="date">
-                <time datetime="2020-09-18 09:13:56 &#43;0800 CST">Sep 18, 2020</time>  
-            </div>
-          </div>
-
-          
-              <div class="summary"></div>
-          
-
-        </section>
-    
-        
-        
-        <section class="item">
-          <div>
-            <h1 class="title"><a href='/posts/leetcode/other/'></a></h1>
+            <h1 class="title"><a href='/posts/leetcode/skiplist/'></a></h1>
             <div class ="date">
                 <time datetime="0001-01-01 00:00:00 &#43;0000 UTC">Jan 1, 0001</time>  
             </div>
           </div>
 
           
-              <div class="summary">约瑟夫环 🔗 1-N个人，形成一个圈，从编号为1开始报数1，数到M的人x出列，x之后的人再次从1开始喊 直到最后一个人，求这个人的编号
-数组 🔗遍历数组，数到m的位置标记为-1， 直到数组中仅剩一个非-1的元素，返回元素的位置
-环形链表 🔗不做标记，直接从环形链表中删除。
-type Node struct{ int num, next Node, } func createCircleLink(int n) Node{ head := Node{num: 1} cur = head for i := 2; i &lt; n; i&#43;&#43; { tmp := Node{num: i} cur.</div>
+              <div class="summary"> type Element struct { score float64 value interface{} forward []*Element } type SkipList struct { header *Element len int level int } </div>
+          
+
+        </section>
+    
+        
+        
+        <section class="item">
+          <div>
+            <h1 class="title"><a href='/posts/math/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/'></a></h1>
+            <div class ="date">
+                <time datetime="0001-01-01 00:00:00 &#43;0000 UTC">Jan 1, 0001</time>  
+            </div>
+          </div>
+
+          
+              <div class="summary">数学分析 🔗1 极限，连续 🔗连续的定义 🔗初等函数在定义域内都是连续的。 一般讨论高等函数，如分段函数。
+极限的定义 🔗极限的求法 🔗无穷小 $$ lim $$
+，无穷大
+洛必达法则求极限
+2 导数（微商），微分 🔗导数叫微商，是极限。
+导数的定义。 🔗导数的几何意义。 🔗斜率
+求导的方法 🔗复合函数的求导
+隐函数的求导。
+导数的应用 🔗单调性，求极值，凹凸性（二阶导数）
+3 不定积分，定积分 🔗不定积分 🔗不定积分： 求函数f的全部原函数。</div>
+          
+
+        </section>
+    
+        
+        
+        <section class="item">
+          <div>
+            <h1 class="title"><a href='/posts/os/nju-os/nju_os/'></a></h1>
+            <div class ="date">
+                <time datetime="0001-01-01 00:00:00 &#43;0000 UTC">Jan 1, 0001</time>  
+            </div>
+          </div>
+
+          
+              <div class="summary">http://jyywiki.cn/os/2022/
+02 程序与编译器 🔗在vi里编译c文件。 :!gcc %
+什么是程序？ 🔗你在南京大学上过最牛的课是什么？
+《程序设计语言的形式语义》 梁红瑾
+gdb a.out layout src (c程序视角) layout asm （汇编视角） start
+问题1: gdb Unable to find Mach task port 解决过程： mac下不能安装gdb， lldb替代。</div>
+          
+
+        </section>
+    
+        
+        
+        <section class="item">
+          <div>
+            <h1 class="title"><a href='/posts/rust/rust_chain/'></a></h1>
+            <div class ="date">
+                <time datetime="0001-01-01 00:00:00 &#43;0000 UTC">Jan 1, 0001</time>  
+            </div>
+          </div>
+
+          
+              <div class="summary">let data = ptr_map(ptr, |addr| addr | KIND_VEC); f_closure = ｜addr｜(addr|KIND_VEC) github.com/skerkour/kerkour.com
+rCore OS.
+IDA, NDK。
+计算机软件 = 存储（tidb，tikv，rocksdb）， 计算（zero knoledge）， 网络（tokio） 网络 🔗futures-rs 🔗futres-channel 🔗tokio-rs/Bytes 🔗Bytes BytesMut 存储连续字节的容器结构。 trait Buf BufMut 提供读，写行为。</div>
           
 
         </section>

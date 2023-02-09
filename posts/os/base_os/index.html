@@ -3,7 +3,7 @@
 <script src="https://cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
 <html lang="zh-cn">
   <head>
-    <title>linux-base | brettkk</title>
+    <title>linux | brettkk</title>
 
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
@@ -62,7 +62,7 @@
       
 
 <section id="single">
-    <h1 class="title">linux-base</h1>
+    <h1 class="title">linux</h1>
 
     <div class="tip">
         <time datetime="2022-05-05 11:33:56 &#43;0800 CST">May 5, 2022</time>
@@ -70,13 +70,13 @@
           ·
         </span>
         <span>
-          3944 words
+          3152 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          8 minute read
+          7 minute read
         </span>
     </div>
 
@@ -91,27 +91,15 @@
           <div>
               <nav id="TableOfContents">
   <ul>
-    <li>
+    <li><a href="#资料">资料</a>
       <ul>
-        <li><a href="#资料">资料</a>
-          <ul>
-            <li><a href="#linux-版本">Linux 版本</a></li>
-            <li><a href="#磁盘相关的命令">磁盘相关的命令</a></li>
-            <li><a href="#有显示功能的命令">有显示功能的命令</a></li>
-            <li><a href="#网络常用工具命令文件夹network">网络常用工具命令（文件夹network）</a></li>
-          </ul>
-        </li>
-        <li><a href="#两个进程监听同一个端口so_reuseportsince-linux-39">socket option： socket ,bind, listen, accpet
-man 7 socket
-两个进程监听同一个端口，so_reuseport（since linux 3.9）。</a>
-          <ul>
-            <li><a href="#进程相关的命令">进程相关的命令</a></li>
-          </ul>
-        </li>
+        <li><a href="#linux-版本">Linux 版本</a></li>
       </ul>
     </li>
+    <li><a href="#文件系统">文件系统</a></li>
     <li><a href="#linux源码">linux源码</a>
       <ul>
+        <li><a href="#linux-内核模块">linux 内核模块</a></li>
         <li><a href="#当在linux-source-code-root-directory下执行make发生了什么">当在linux source code root directory下执行make发生了什么？</a>
           <ul>
             <li><a href="#makefile">Makefile</a>
@@ -178,10 +166,10 @@ man 7 socket
 
 
     <div class="content">
-      <h2 id="资料">资料 <a href="#%e8%b5%84%e6%96%99" class="anchor">🔗</a></h2><p>操作系统：南大 jyy。 <a href="http://jyywiki.cn/OS/2022/" target="_blank" rel="noopener">http://jyywiki.cn/OS/2022/</a><br>
-<code>MIT 6.S081</code><br></p>
-<p><a href="https://elixir.bootlin.com/linux/lastest/source" target="_blank" rel="noopener">https://elixir.bootlin.com/linux/lastest/source</a></p>
-<h3 id="linux-版本">Linux 版本 <a href="#linux-%e7%89%88%e6%9c%ac" class="anchor">🔗</a></h3><p>uname -a 查看系统的版本</p>
+      <h1 id="资料">资料 <a href="#%e8%b5%84%e6%96%99" class="anchor">🔗</a></h1><p>操作系统：南大 jyy。 <a href="http://jyywiki.cn/OS/2022/" target="_blank" rel="noopener">http://jyywiki.cn/OS/2022/</a><br>
+<code>MIT 6.S081</code><br>
+<a href="https://elixir.bootlin.com/linux/lastest/source" target="_blank" rel="noopener">https://elixir.bootlin.com/linux/lastest/source</a></p>
+<h2 id="linux-版本">Linux 版本 <a href="#linux-%e7%89%88%e6%9c%ac" class="anchor">🔗</a></h2><p>uname -a 查看系统的版本</p>
 <ul>
 <li>debian/ubuntu</li>
 <li>redhat/fedora/centos</li>
@@ -193,195 +181,6 @@ man 7 socket
 </li>
 <li>
 <p>可以闭源： BSD MIT Apache（宽松）</p>
-</li>
-<li>
-<p>ls = list</p>
-<ul>
-<li>ls -a (display all files)</li>
-<li>ls -l (more infomation)</li>
-<li>ls -lh (file size k)</li>
-</ul>
-</li>
-</ul>
-<h3 id="磁盘相关的命令">磁盘相关的命令 <a href="#%e7%a3%81%e7%9b%98%e7%9b%b8%e5%85%b3%e7%9a%84%e5%91%bd%e4%bb%a4" class="anchor">🔗</a></h3><ul>
-<li>
-<p>du 显示某个目录或者文件占用的磁盘空间</p>
-<ul>
-<li>查看文件大小 与ls 的区别</li>
-</ul>
-</li>
-<li>
-<p>df 显示整个磁盘的使用情况</p>
-</li>
-<li>
-<p>find</p>
-<ul>
-<li>以文件名查找 find . -name &quot;xx.txt&quot;</li>
-<li>以文件从属关系查找 find . -user brett</li>
-<li>以文件类型查找 find . -type f(普通文件，d目录文件，p管道文件)</li>
-<li>以文件大小查找 find . -size -1M(小于1M的文件，+1M大于1M的文件)</li>
-<li>以时间查找
-<ul>
-<li>-atime 文件访问时间，天为单位</li>
-<li>-mtime 文件数据修改时间</li>
-<li>-ctime 文件元数据修改时间</li>
-</ul>
-</li>
-<li>指定查找深度	-maxdepth, -mindepth</li>
-<li>find与xargs结合
-<ul>
-<li>find . -name &quot;a.txt&quot; | grep 'key'</li>
-<li>find . -name &quot;a.txt&quot; | xargs grep 'key'</li>
-<li>find . -name &quot;a.txt&quot; | xargs rm</li>
-</ul>
-</li>
-<li>find -exec 与其他命令结合使用
-<ul>
-<li>find . -name &quot;a.txt&quot; -exec rm {} ;</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>管道与xargs</p>
-<ul>
-<li>
-<p>管道：将前面的标准输出作为后面的标准输入 echo &quot;--help&quot; | cat</p>
-</li>
-<li>
-<p>xargs：将前面的标准输入作为后面命令的参数 echo &quot;--help&quot; | xargs cat</p>
-</li>
-<li>
-<p>文件特殊权限</p>
-<ul>
-<li>suid</li>
-<li>sgid</li>
-<li>sticky</li>
-</ul>
-</li>
-<li>
-<p>用户权限-文件</p>
-<ul>
-<li>chown = change owner</li>
-<li>chgrp = change group</li>
-<li>chmod = change mode</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h3 id="有显示功能的命令">有显示功能的命令 <a href="#%e6%9c%89%e6%98%be%e7%a4%ba%e5%8a%9f%e8%83%bd%e7%9a%84%e5%91%bd%e4%bb%a4" class="anchor">🔗</a></h3><ul>
-<li>cat</li>
-<li>cut 按列分文件</li>
-<li>head -n 5 a.txt</li>
-<li>tail
-<ul>
-<li>tail -n 10 a.txt</li>
-<li>tail -f xx.log | grep hello</li>
-</ul>
-</li>
-<li>利用head和tail查看文件中3000-5000的行
-<ul>
-<li>cat a.txt | head -n 5000 | tail -n 2000</li>
-<li>cat a.txt | tail -n + 3000 | head -n 2000</li>
-</ul>
-</li>
-<li>sed也可以查看文件中特定的行
-<ul>
-<li>sed -n &quot;3000,5000p&quot; a.txt</li>
-</ul>
-</li>
-<li>more , less(更新一点)，功能上没看到区别</li>
-<li>grep -i 匹配时忽略大小写, --color</li>
-<li>sort
-<ul>
-<li>-k  (按某一个列排序)</li>
-<li>-n （按数值降序排序， 不加-n可以出现10小于2的情况）</li>
-<li>-nr （按数字逆序排序）</li>
-<li>文件A， B 差集（A - B） sort a.csv b.csv|uniq -u &gt; c.csv</li>
-</ul>
-</li>
-<li>uniq = unique
-<ul>
-<li>uniq -c  (相同行爱在一起 所以前面是sort命令)</li>
-</ul>
-</li>
-<li>wc = word count
-<ul>
-<li>wc -c</li>
-<li>wc -l</li>
-</ul>
-</li>
-<li>awk， sed功能有些复杂，可以google search...
-<ul>
-<li>sed 删除文件总的行。  sed -i '1,72000d' a.csv</li>
-<li>分割文件为小文件。 split -l 5000 -d a.csv index_</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h3 id="网络常用工具命令文件夹network">网络常用工具命令（文件夹network） <a href="#%e7%bd%91%e7%bb%9c%e5%b8%b8%e7%94%a8%e5%b7%a5%e5%85%b7%e5%91%bd%e4%bb%a4%e6%96%87%e4%bb%b6%e5%a4%b9network" class="anchor">🔗</a></h3><ul>
-<li>ss = socket statistics
-<ul>
-<li>用来显示处于活动状态的套接字信息</li>
-<li>快，利用到了TCP协议栈中tcp_diag</li>
-<li>ss -t 显示tcp连接</li>
-</ul>
-</li>
-<li>nc 网络发包工具</li>
-<li>netstat
-<ul>
-<li>netstat -an</li>
-</ul>
-</li>
-<li>tcpdump</li>
-</ul>
-<pre tabindex="0"><code>常见命令：
-#netstat -antp [n是ip显示，不用域名，t是tcp， ]
-recv-q, send-q。
-#cat /proc/net/netstat 计数器 netstat -st
-  TCPListenOverflows 全连接队列，没处理accept。
-#netstat -nr 看路由表 route -n
-#ss -antp -m -i
-listen状态下 send-q表示backlog的长度。
-#ifconfig, txqueuelen 发送队列的包数量
-#sar -n DEV 1
-#查看有些路由表 vim /etc/iproute2/rt_tables
-# ip rule show table all 查看所有路由
-# telnet
-# nmap
-# tcpdump
-</code></pre><p>traffic control 流量控制 入门：</p>
-<pre tabindex="0"><code>#tc qdisc show 显示网卡的排队规则
-# tc qd add dev ens33 root netem delay 200ms
-</code></pre><h2 id="两个进程监听同一个端口so_reuseportsince-linux-39">socket option： socket ,bind, listen, accpet
-man 7 socket
-两个进程监听同一个端口，so_reuseport（since linux 3.9）。 <a href="#%e4%b8%a4%e4%b8%aa%e8%bf%9b%e7%a8%8b%e7%9b%91%e5%90%ac%e5%90%8c%e4%b8%80%e4%b8%aa%e7%ab%af%e5%8f%a3so_reuseportsince-linux-39" class="anchor">🔗</a></h2><h3 id="进程相关的命令">进程相关的命令 <a href="#%e8%bf%9b%e7%a8%8b%e7%9b%b8%e5%85%b3%e7%9a%84%e5%91%bd%e4%bb%a4" class="anchor">🔗</a></h3><ul>
-<li>
-<p>ps</p>
-<ul>
-<li>-e 显示所有进程</li>
-<li>-f 全格式</li>
-<li>-l 长格式</li>
-<li>-L ps -L pid , 查特定进程pid的线程</li>
-<li>-C ps -C java, 通过进程名查找进程</li>
-<li>-a 显示终端上的所有进程</li>
-<li>-r 显示正在运行的进程</li>
-<li>-u 以用户为主的格式显示</li>
-<li>-x 显示所有程序，不区分终端</li>
-<li>ps -ef
-<ul>
-<li>UID PID PPID C(cpu) STIME TTY TIME(占用cpu的时间) CMD</li>
-</ul>
-</li>
-<li>ps -lf pid  （显示线程）</li>
-</ul>
-</li>
-<li>
-<p>free 查看内存使用情况</p>
-<ul>
-<li>free -m (以mb为单位显示)</li>
-<li>free -h ()</li>
-</ul>
 </li>
 <li>
 <p>lsof</p>
@@ -549,7 +348,32 @@ man 7 socket
 </ul>
 <p>进程上下文。proc（proc.h） 和 user(user.h)来保存进程上下文。</p>
 <hr>
-<h1 id="linux源码">linux源码 <a href="#linux%e6%ba%90%e7%a0%81" class="anchor">🔗</a></h1><h2 id="当在linux-source-code-root-directory下执行make发生了什么">当在linux source code root directory下执行make发生了什么？ <a href="#%e5%bd%93%e5%9c%a8linux-source-code-root-directory%e4%b8%8b%e6%89%a7%e8%a1%8cmake%e5%8f%91%e7%94%9f%e4%ba%86%e4%bb%80%e4%b9%88" class="anchor">🔗</a></h2><p>kernel是怎样被编译的？<br>
+<h1 id="文件系统">文件系统 <a href="#%e6%96%87%e4%bb%b6%e7%b3%bb%e7%bb%9f" class="anchor">🔗</a></h1><ul>
+<li>存储的两种方式
+<ul>
+<li>用电子存储数据 U盘，固态硬盘SSD</li>
+<li>用磁性记录数据 机械硬盘HDD  垂直式 叠瓦式</li>
+</ul>
+</li>
+</ul>
+<p>同步IO 异步IO： 指的是I/O 的执行者，是同步处理后返回，还是先返回给应用程序后异步通知。<br>
+阻塞IO 非阻塞IO： 指的是IO的调用者，是阻塞等待结果，还是异步等通知。<br></p>
+<pre tabindex="0"><code>// 终端A
+$tty
+/dev/ttys001
+
+// 终端B上
+$echo &#34;gracais~~&#34; &gt; /dev/ttys001
+// 看到终端A上显示了B传过去的
+
+$mount
+查看/dev下的设备文件mount到哪种文件系统的
+    哪个目录下。
+</code></pre><h1 id="linux源码">linux源码 <a href="#linux%e6%ba%90%e7%a0%81" class="anchor">🔗</a></h1><h2 id="linux-内核模块">linux 内核模块 <a href="#linux-%e5%86%85%e6%a0%b8%e6%a8%a1%e5%9d%97" class="anchor">🔗</a></h2><p>GPL协议，有版权，必须开源。<br>
+很庞大，80%的代码是驱动代码。 还有一些是platform的代码。<br></p>
+<p>the kernel entry point:  arch/x86/kernel/head_64.S<br>   <br>
+init/main.c#start_kernel() 开启架构不关的代码。 1 完成内核初始化过程，2启动init进程。</p>
+<h2 id="当在linux-source-code-root-directory下执行make发生了什么">当在linux source code root directory下执行make发生了什么？ <a href="#%e5%bd%93%e5%9c%a8linux-source-code-root-directory%e4%b8%8b%e6%89%a7%e8%a1%8cmake%e5%8f%91%e7%94%9f%e4%ba%86%e4%bb%80%e4%b9%88" class="anchor">🔗</a></h2><p>kernel是怎样被编译的？<br>
 当要读源码时，最先要看的文件是根目录下的Makefile文件（例如linux-5.19中1975行，太长了...）。<br>
 另外所有包含源码的子文件夹都有自己的Makefile文件。<br></p>
 <h3 id="makefile">Makefile <a href="#makefile" class="anchor">🔗</a></h3><p>在根目录下在标准的configuration下，执行make， 最终的产物是<font color=blue>bzImage</font> <br></p>

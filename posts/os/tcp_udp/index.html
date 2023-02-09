@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<html lang="zh-cn">
+  <head>
+    <title>linux-tcp，http, curl, dns | brettkk</title>
+
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
+<meta name="viewport" content="width=device-width,minimum-scale=1">
+<meta name="description" content="udp 🔗光速：30万千米/s 中美具体大约：1.5万千米 光纤网络耗">
+<meta name="generator" content="Hugo 0.103.1" />
+
+
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+<link href="https://cdn.bootcss.com/highlight.js/9.15.10/styles/zenburn.min.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<link rel="stylesheet" href="http://brettkk.github.io/css/syntax.css" />
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js" integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+
+
+
+
+  </head>
+
+  <body>
+    <nav class="navigation">
+	
+		<a href="/"> <span class="arrow">←</span>Home</a>
+	
+	<a href="/posts">Archive</a>
+	<a href="/tags">Tags</a>
+	<a href="/about">About</a>
+
+	
+
+	
+</nav>
+
+
+    <main class="main">
+      
+
+<section id="single">
+    <h1 class="title">linux-tcp，http, curl, dns</h1>
+
+    <div class="tip">
+        <time datetime="2022-11-05 11:33:56 &#43;0800 CST">Nov 5, 2022</time>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          3513 words
+        </span>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          8 minute read
+        </span>
+    </div>
+
+    
+    
+        
+  
+    <aside class="toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
+          <div>
+              <nav id="TableOfContents">
+  <ul>
+    <li><a href="#udp">udp</a>
+      <ul>
+        <li><a href="#quic">quic</a></li>
+      </ul>
+    </li>
+    <li><a href="#tcp">tcp</a></li>
+    <li><a href="#http">http</a></li>
+    <li><a href="#curl命令">curl命令</a></li>
+    <li><a href="#dns">dns</a>
+      <ul>
+        <li><a href="#访问githubcom时与dns解析有关的一个问题">访问github.com时与DNS解析有关的一个问题</a>
+          <ul>
+            <li><a href="#网络常用工具命令文件夹network">网络常用工具命令（文件夹network）</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+          </div>
+      </details>
+    </aside>
+  
+
+
+    
+
+
+    <div class="content">
+      <h1 id="udp">udp <a href="#udp" class="anchor">🔗</a></h1><pre tabindex="0"><code>光速：30万千米/s
+中美具体大约：1.5万千米
+光纤网络耗时的理论极值约是：0.05s=50ms
+实际耗时在140ms以上。
+第一宇宙速度7.9km/s 环绕速度
+第二宇宙速度11.2km/s脱离速度
+第三宇宙速度16.7km/s逃逸速度
+</code></pre><h2 id="quic">quic <a href="#quic" class="anchor">🔗</a></h2><p><img src="/os/quic.png" width = "600" /><br></p>
+<p>http2 优点：多路复用，头部压缩，服务器推送。缺点：基于tcp时连接握手，多路复用时存在队头阻塞，丢包后导致后续其他包不可用，优化tcp和tls遥遥无期。</p>
+<h1 id="tcp">tcp <a href="#tcp" class="anchor">🔗</a></h1><p><code>用寄明信片的方式传送一本书</code><br></p>
+<p>明文， 乱序，丢包<br></p>
+<ul>
+<li>可靠： 带重传的累积正向应答
+<ul>
+<li>编号</li>
+<li>累计的正向应答（ack number1， number1之前均收到）</li>
+<li>超时没收到ack则重传。<br></li>
+</ul>
+</li>
+<li>flow control 滑动窗口</li>
+<li>congestion control 拥塞控制</li>
+</ul>
+<p>tcp中最主要消耗cpu的状态是established<br></p>
+<p>学的时候教handshake， byebye status。学车是教倒车入库，但是路上开车是主要点<br></p>
+<p>tcp报文结构图
+<img src="/os/tcp-header.png" width = "400" /><br></p>
+<ul>
+<li>URG: 表示紧急指针（urgent pointer）是否有效</li>
+<li>PSH: 提示接收端应该立即从TCP接收缓冲区中读走数据，为接收后续数据腾出空间</li>
+<li>RST：复位报文段，用来关闭异常的TCP连接 （重要） （4种情况会出现： 端口未打开，请求超时，提前关闭，已经的socket上收到数据）
+<ul>
+<li>A想B发起tcp连接，但是B上未监听相应的端口，此时B的os的网络模块会发送RST包给A端</li>
+<li>syn攻击时防火墙设置，向服务器发送RST包，清除未连接队列的数据包，保证避免server出现拒绝服务的情况</li>
+<li>RST攻击场景，攻击则伪装为客户端向server发送RST包，导致连接被强制关闭</li>
+</ul>
+</li>
+<li>window：是TCP流量控制的一个手段， 告诉对方本端的TCP接收缓冲区还能容纳多少字节的数据，这样对方就可以控制发送数据的速度(sender在未收到ack时最大发送的字节数)</li>
+<li>checkSum: 校验数据包是否损坏</li>
+</ul>
+<p>两个线程如何同时监听一个端口,SO_REUSEPORT 参数</p>
+<ul>
+<li>4次挥手： A 和 B 打电话，通话即将结束后，A 说“我没啥要说的了”，B回答“我知道了”，但是 B 可能还会有要说的话，A 不能要求 B 跟着自己的节奏结束通话，于是 B 可能又巴拉巴拉说了一通，最后 B 说“我说完了”，A 回答“知道了”，这样通话才算结束</li>
+</ul>
+<p>tcp握手与挥手过程图（基本图，实际中可以不是这样，例如关闭时双方同时发起关闭，双方都会到达time_wait状态）</p>
+<p><img src="/os/tcp-connect.png" width = "600" /><br>
+<img src="/os/tcp-close.png" width = "600" /><br></p>
+<p>⚠️
+wireshake上的seq和ack number是relative number，0和1是为了方便查看，实际情况是其他数值</p>
+<p>TIME-WAIT状态的理解：</p>
+<ul>
+<li>持续时间未2MSL，一个数据包在网络中的最长生存时间为MSL(30S)</li>
+<li>客户端回复的ACK丢失，服务器端会在超时时间到来时，重传最后一个FIN包</li>
+<li>ACK和FIN在网络中的最长生存时间就为2MSL，这样就可以可靠的断开TCP的双向连接</li>
+</ul>
+<p>服务器解决TIME——WAIT（占用端口过多，导致无可用的端口）的方式3种：</p>
+<ul>
+<li>保证客户端主动关闭</li>
+<li>关闭时使用RST方式</li>
+<li>对于处于TIME-WAIT状态的tcp允许重用，修改内核参数(java服务器访问mysql集群，主动关闭，time-wait状态在服务器，他是发起方，可以复用tcp连接)</li>
+<li>当利用http发送请求时，keep-alive减少tcp连接数，进而减少time-wait状态的出现</li>
+</ul>
+<hr>
+<p>TCP如何实现可靠传输（数据应答机制+数据超时重传）</p>
+<ul>
+<li>数据包都序列号，保证接收方能恢复数据包的顺序，去重等</li>
+<li>超时重传（确认和重传）， 也有快速重传，不用等待超时时间
+<ul>
+<li>超时时间大于RTT（一次往返时间）</li>
+<li>每个被发送的数据包均有计时器，只有超过计时器的重传时间后，才会重发数据包</li>
+<li>1988 最早的超时重传RTO = min(ubound, max(lbound, beta * SRTT)); SRTT= (alph * SRTT) + (1- alpha) * RTT ; alpha=0.8, 0.9 beta=1.2, 1.3</li>
+<li>RTO 比 RTT 大很多时，若出现网络丢包，重传速度很慢； RTO假设比RTT小时，会出现大量的重传； 所以RTO的时间比较考量</li>
+</ul>
+</li>
+</ul>
+<p>TCP如何实现流量控制</p>
+<ul>
+<li>当接受方处理不过来时，接受方缩小窗口，告知发送方</li>
+<li>以字节为单位的滑动窗口技术
+<ul>
+<li>recv的窗口大小决定sender的窗口大小（窗口以字节为单位）</li>
+<li>sender缓存中的数据包必须收到recv的确认数据包后才能删除</li>
+</ul>
+</li>
+<li>当接收方来不及处理发送方的数据，能提示发送方降低发送的速率，防止包丢失</li>
+</ul>
+<p>TCP如何实现拥塞控制</p>
+<ul>
+<li>当网络拥塞时，动态改变发送窗口大小，减少数据的发送</li>
+</ul>
+<hr>
+<p>基于TCP的攻击</p>
+<ul>
+<li>SYN泛洪攻击
+<ul>
+<li>发送大量的SYN包，导致server上未连接队列满，导致拒绝正常的连接服务</li>
+<li>解决方法：
+<ul>
+<li>SYN网关， 防火墙收到SYN包转给server，防火墙收到server的ack/syn后，转给client；同时防火墙以client的名义直接给server发送ack，完成3次握手。 server上连接数远大于未连接数。</li>
+<li>被动式SYN网关，防火墙设置小的超时时间，超时时向server发送RST包，导致关闭半连接</li>
+<li>SYN中继， 完全有防火墙做代理，防火墙与client握手完成表明正常后，在于server完成3次握手</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>RST攻击 （ip头+tcp头 40字节）
+<ul>
+<li>场景： A--》B， C（伪装A）--》B， 发送RST包，或者正在连接时发送SYN包，B会清空A请求过来的数据包，强制关闭连接</li>
+<li>C如何伪装A （tcp四要素：源ip（容易知道），源port，目的ip（容易知道），目的port（容易知道））
+<ul>
+<li>关键是知道源port（发现os分配时的规律）和序列号（需要在B的滑动窗口内，不然会被丢弃）</li>
+<li>大量发送数据包（带宽不是问题，RST包很小）保证一个落在B的滑动窗口内 ，sequence number为32位，滑动窗口为65535，相除为65537个数据包就有一个落在区间内</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="http">http <a href="#http" class="anchor">🔗</a></h1><p>http header 常用字段：</p>
+<ul>
+<li>content-type (如何解析body)
+<ul>
+<li>application/x-www-form-urlencoded</li>
+<li>multipart/from-data, 上传文件</li>
+<li>application/json, text/plain</li>
+<li>text/xml, XML格式 （post请求的4种格式）</li>
+</ul>
+</li>
+<li>connection: keep-alive, 持久连接（相对于用完就关闭的短连接而言）</li>
+<li>keep-alive-time: 300, 指连接维持的时间</li>
+<li>content-length: 120, 指明响应的内容有120字节 (出现等于-1，但是body有数据的情况？)</li>
+<li>transfer-encoding: chunked， 响应内容采用分块传输，最后一个分块为0表示传输结束</li>
+</ul>
+<p>http keep-alive 与 tcp keep alive 区别与联系：http 用于连接复用， tcp 用于保证连接存活，发送探测包确认连接是否存活。</p>
+<p>有时ping url结果为unkown host，但是curl url可以通, 有可能对方防火墙屏蔽ping的ICMP协议。</p>
+<h1 id="curl命令">curl命令 <a href="#curl%e5%91%bd%e4%bb%a4" class="anchor">🔗</a></h1><p>发get请求： 不带参数 curl  xx.com。发post请求： curl -X POST xx.com。</p>
+<ul>
+<li>
+<p>-I only response header</p>
+<ul>
+<li>curl -I <a href="https://www.google.com" target="_blank" rel="noopener">www.google.com</a></li>
+<li>(curl -I 获取http响应的头部)</li>
+</ul>
+</li>
+<li>
+<p>-v 显示http通信过程 --trace</p>
+<ul>
+<li>curl -v <a href="http://www.example.com/index.html" target="_blank" rel="noopener">http://www.example.com/index.html</a></li>
+<li>
+<blockquote>
+<p>发送的请求， &lt;接收的响应</p>
+</blockquote>
+</li>
+<li>RFC2616</li>
+</ul>
+</li>
+<li>
+<p>curl -u username :password URL</p>
+</li>
+<li>
+<p>curl 查询单词</p>
+<ul>
+<li>curl dict://dict.org/d:xxx 查询xxx的含义</li>
+<li>curl dict://dict.org/show:db 列出可用的词典</li>
+<li>curl dict://dict.org/d:xx:foldoc 利用foldoc查询xx的含义</li>
+</ul>
+</li>
+<li>
+<p>给curl 设置代理</p>
+<ul>
+<li>curl -x proxyserver.test.com:9090 google.com</li>
+</ul>
+</li>
+<li>
+<p>将cookie保存到本地</p>
+<ul>
+<li>curl -D localCookie google.com</li>
+<li>curl -b localCookie google.com 使用上次的cookie</li>
+<li>curl -c cookie url 保存cookie到文件</li>
+</ul>
+</li>
+<li>
+<p>默认curl使用get方式 发送表单</p>
+<ul>
+<li>curl -u username github.com</li>
+</ul>
+</li>
+<li>
+<p>可以通过--data/-d方式使用post</p>
+<ul>
+<li>curl -u username --data &quot;param1=value1&amp;param2=value2&quot; github.com</li>
+<li>curl --data @filename github.com 将文件中的数据传给服务器</li>
+</ul>
+</li>
+<li>
+<p>User Agent (-A , -H)</p>
+<ul>
+<li>curl --user-agent &quot;user-agent&quot; url</li>
+</ul>
+</li>
+<li>
+<p>cookie (-b)</p>
+<ul>
+<li>curl --cookie &quot;name=xx&quot; url</li>
+<li>cookie值可以从response header的·Set-Cookie·字段得到</li>
+</ul>
+</li>
+<li>
+<p>自行加request header信息</p>
+<ul>
+<li>curl --header &quot;&quot; url</li>
+</ul>
+</li>
+<li>
+<p>curl -d '{&quot;key1&quot;:&quot;value1&quot;, &quot;data&quot;:{&quot;data1&quot;:&quot;value1&quot;, &quot;data2&quot;:&quot;value2&quot;}}' 'https://xxx.com/a/b'</p>
+</li>
+<li>
+<p>curl -F 'business_type=one' -F 'data=@/Users/kk/a.csv'  x.x.x.x:xx/a/b curl发送文件</p>
+</li>
+<li>
+<p>curl -G -d 'q=xx' xx.com -d ''//xx.com?q=xx</p>
+</li>
+<li>
+<p>ping icmp协议 封装在IP包里</p>
+<ul>
+<li>类型0 8 请求与响应</li>
+<li>3是不可达 后面有代码号
++ 5种情况
+<ul>
+<li>ip中的网络号-网络不可达</li>
+<li>ip中的主机号-主机不可达</li>
+<li>防火墙不允许tcp连接-协议不可达</li>
+<li>端口没有进程监听-端口不可达</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="dns">dns <a href="#dns" class="anchor">🔗</a></h1><p>dig查询DNS相关信息的工具，显示internet上13个根域服务器，dig @dnsserver name querytype，用google的dns查询baidu的A记录， dig @8.8.8.8 <a href="https://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a> A。</p>
+<ul>
+<li>DNS记录的类型
+<ul>
+<li>A记录       指定域名对应的IP地址</li>
+<li>AAAA记录    指定域名对应的IPV6地址</li>
+<li>CNAME记录   别名解析 域名1（CDN加速域名） -》域名2 -》IP</li>
+<li>NS记录      域名服务器记录  将域名解析交给其他DNS服务器</li>
+</ul>
+</li>
+</ul>
+<h2 id="访问githubcom时与dns解析有关的一个问题">访问github.com时与DNS解析有关的一个问题 <a href="#%e8%ae%bf%e9%97%aegithubcom%e6%97%b6%e4%b8%8edns%e8%a7%a3%e6%9e%90%e6%9c%89%e5%85%b3%e7%9a%84%e4%b8%80%e4%b8%aa%e9%97%ae%e9%a2%98" class="anchor">🔗</a></h2><p>问题：fatal: unable to access 'https://github.com/brettKK/shell.git/': Failed to connect to github.com port 443: Operation timed out <br>
+方法：vim /etc/hosts ==&gt; find github.com to delete</p>
+<h3 id="网络常用工具命令文件夹network">网络常用工具命令（文件夹network） <a href="#%e7%bd%91%e7%bb%9c%e5%b8%b8%e7%94%a8%e5%b7%a5%e5%85%b7%e5%91%bd%e4%bb%a4%e6%96%87%e4%bb%b6%e5%a4%b9network" class="anchor">🔗</a></h3><ul>
+<li>ss = socket statistics
+<ul>
+<li>用来显示处于活动状态的套接字信息</li>
+<li>快，利用到了TCP协议栈中tcp_diag</li>
+<li>ss -t 显示tcp连接</li>
+</ul>
+</li>
+<li>nc 网络发包工具</li>
+<li>netstat
+<ul>
+<li>netstat -an</li>
+</ul>
+</li>
+<li>tcpdump</li>
+</ul>
+<pre tabindex="0"><code>常见命令：
+#netstat -antp [n是ip显示，不用域名，t是tcp， ]
+recv-q, send-q。
+#cat /proc/net/netstat 计数器 netstat -st
+  TCPListenOverflows 全连接队列，没处理accept。
+#netstat -nr 看路由表 route -n
+#ss -antp -m -i
+listen状态下 send-q表示backlog的长度。
+#ifconfig, txqueuelen 发送队列的包数量
+#sar -n DEV 1
+#查看有些路由表 vim /etc/iproute2/rt_tables
+# ip rule show table all 查看所有路由
+# telnet
+# nmap
+# tcpdump
+</code></pre><p>traffic control 流量控制 入门：</p>
+<pre tabindex="0"><code>#tc qdisc show 显示网卡的排队规则
+# tc qd add dev ens33 root netem delay 200ms
+</code></pre><p>socket option： socket ,bind, listen, accpet
+man 7 socket
+两个进程监听同一个端口，so_reuseport（since linux 3.9）。</p>
+
+    </div>
+
+    
+        <div class="tags">
+            
+                <a href="http://brettkk.github.io/tags/linux">linux</a>
+            
+        </div>
+    
+    
+    
+
+</section>
+
+
+    </main>
+    
+    <footer id="footer">
+    
+
+    <script src="https://utteranc.es/client.js"
+repo="brettKK/brettkk.github.io"
+issue-term="title"
+theme="github-light"
+crossorigin="anonymous"
+async>
+</script>  
+
+    <div class="copyright">
+    
+       © Copyright 
+       2023 
+       <span class="split">
+        <svg fill="#bbbbbb" width="15" height="15" version="1.1" id="heart-15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 15 15">
+  <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>
+</svg>
+       </span>
+       
+    
+    </div>
+
+    
+      <div class="powerby">
+        Powered by <a href='http://www.gohugo.io/'>Hugo</a> Theme By <a href='https://github.com/nodejh/hugo-theme-cactus-plus'>nodejh</a>
+      </div>
+    
+</footer>
+
+
+
+
+  </body>
+</html>

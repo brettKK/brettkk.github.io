@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          3454 words
+          3480 words
         </span>
         <span class="split">
           ·
@@ -129,6 +129,7 @@
     <li><a href="#包模块可见性">包，模块，可见性</a></li>
     <li><a href="#stdcmd包">std::cmd包</a></li>
     <li><a href="#泛型编程">泛型编程</a></li>
+    <li><a href="#语法问题">语法问题</a></li>
     <li><a href="#类型的嵌套">类型的嵌套</a></li>
   </ul>
 </nav>
@@ -592,7 +593,11 @@ impl !sync for Cell <br></p>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><h1 id="泛型编程">泛型编程 <a href="#%e6%b3%9b%e5%9e%8b%e7%bc%96%e7%a8%8b" class="anchor">🔗</a></h1><p>是否有必要在此刻就把类型定死? <br>
 通过泛型静态绑定推迟到编译期确定类型，trait obj推迟到运行期确定类型。<br></p>
-<h1 id="类型的嵌套">类型的嵌套 <a href="#%e7%b1%bb%e5%9e%8b%e7%9a%84%e5%b5%8c%e5%a5%97" class="anchor">🔗</a></h1><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span>String<span style="color:#960050;background-color:#1e0010">，</span> Vec<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>, Box<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>, Unique<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>, <span style="color:#f92672">*</span><span style="color:#66d9ef">const</span> T
+<h1 id="语法问题">语法问题 <a href="#%e8%af%ad%e6%b3%95%e9%97%ae%e9%a2%98" class="anchor">🔗</a></h1><p>ref pattern</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> a <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;A&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#66d9ef">ref</span> ref_a1 <span style="color:#f92672">=</span> a;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> ref_a2 <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>a; <span style="color:#75715e">// the same effect
+</span></span></span></code></pre></div><h1 id="类型的嵌套">类型的嵌套 <a href="#%e7%b1%bb%e5%9e%8b%e7%9a%84%e5%b5%8c%e5%a5%97" class="anchor">🔗</a></h1><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span>String<span style="color:#960050;background-color:#1e0010">，</span> Vec<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>, Box<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>, Unique<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>, <span style="color:#f92672">*</span><span style="color:#66d9ef">const</span> T
 </span></span></code></pre></div>
     </div>
 
