@@ -70,13 +70,13 @@
           ·
         </span>
         <span>
-          3480 words
+          4606 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          7 minute read
+          10 minute read
         </span>
     </div>
 
@@ -131,6 +131,16 @@
     <li><a href="#泛型编程">泛型编程</a></li>
     <li><a href="#语法问题">语法问题</a></li>
     <li><a href="#类型的嵌套">类型的嵌套</a></li>
+    <li><a href="#对象安全-trait-object">对象安全， trait object</a></li>
+    <li><a href="#any-trait"><code>Any</code> trait</a></li>
+    <li><a href="#fn-fnmut-fnonce-区别">Fn FnMut FnOnce 区别</a></li>
+    <li><a href="#所有权move语义借用生命周期的推进关系">所有权，move语义，借用，生命周期的推进关系</a></li>
+    <li><a href="#traits的内存表示">traits的内存表示</a></li>
+    <li><a href="#attribute-属性">attribute 属性</a></li>
+    <li><a href="#rust-生命宏-过程宏-rust中的插桩">rust 生命宏， 过程宏， rust中的插桩</a></li>
+    <li><a href="#子类型-类型产生器-协变逆变不变">子类型， 类型产生器， 协变，逆变，不变</a></li>
+    <li><a href="#t-mut-t">&amp;T &amp;mut T</a></li>
+    <li><a href="#rust-内存模型">rust 内存模型</a></li>
   </ul>
 </nav>
           </div>
@@ -143,10 +153,12 @@
 
 
     <div class="content">
-      <h1 id="在vscode下配置rust项目的阅读和debug">在vscode下配置rust项目的阅读和debug <a href="#%e5%9c%a8vscode%e4%b8%8b%e9%85%8d%e7%bd%aerust%e9%a1%b9%e7%9b%ae%e7%9a%84%e9%98%85%e8%af%bb%e5%92%8cdebug" class="anchor">🔗</a></h1><p>rust-analyzer failed to load workspace: Failed to read Cargo metadata from Cargo.toml file /Users/gonglei/rust-workspace/rust/Cargo.toml, cargo 1.53.0 (4369396ce 2021-04-27): Failed to run <code>&quot;cargo&quot; &quot;metadata&quot; &quot;--format-version&quot; &quot;1&quot; &quot;--manifest-path&quot; &quot;/Users/gonglei/rust-workspace/rust/Cargo.toml&quot; &quot;--filter-platform&quot; &quot;aarch64-apple-darwin&quot;</code>: <code>cargo metadata</code> exited with an error: error: failed to load manifest for workspace member <code>/Users/gonglei/rust-workspace/rust/src/bootstrap</code> Caused by: failed to parse manifest at <code>/Users/gonglei/rust-workspace/rust/src/bootstrap/Cargo.toml</code> Caused by: feature <code>edition2021</code> is required this Cargo does not support nightly features, but if you switch to nightly channel you can add <code>cargo-features = [&quot;edition2021&quot;]</code> to enable this feature</p>
-<p>Update the Rust to satisfy the new edition 2021.</p>
-<p>rustup default nightly &amp;&amp; rustup update</p>
-<hr>
+      <h1 id="在vscode下配置rust项目的阅读和debug">在vscode下配置rust项目的阅读和debug <a href="#%e5%9c%a8vscode%e4%b8%8b%e9%85%8d%e7%bd%aerust%e9%a1%b9%e7%9b%ae%e7%9a%84%e9%98%85%e8%af%bb%e5%92%8cdebug" class="anchor">🔗</a></h1><pre tabindex="0"><code>rust-analyzer failed to load workspace: Failed to read Cargo metadata from Cargo.toml file /Users/gonglei/rust-workspace/rust/Cargo.toml, cargo 1.53.0 (4369396ce 2021-04-27): Failed to run `&#34;cargo&#34; &#34;metadata&#34; &#34;--format-version&#34; &#34;1&#34; &#34;--manifest-path&#34; &#34;/Users/gonglei/rust-workspace/rust/Cargo.toml&#34; &#34;--filter-platform&#34; &#34;aarch64-apple-darwin&#34;`: `cargo metadata` exited with an error: error: failed to load manifest for workspace member `/Users/gonglei/rust-workspace/rust/src/bootstrap` Caused by: failed to parse manifest at `/Users/gonglei/rust-workspace/rust/src/bootstrap/Cargo.toml` Caused by: feature `edition2021` is required this Cargo does not support nightly features, but if you switch to nightly channel you can add `cargo-features = [&#34;edition2021&#34;]` to enable this feature
+
+
+solved：Update the Rust to satisfy the new edition 2021.
+rustup default nightly &amp;&amp; rustup update
+</code></pre><hr>
 <p>阅读rust-lang时遇到的问题， 原因是git大仓下有些submodule, 这些submodule在clone时并不会随大仓一起下载到本地。<br></p>
 <p>rustc -g main.rs<br>
 lldb main<br>
@@ -598,7 +610,65 @@ impl !sync for Cell <br></p>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#66d9ef">ref</span> ref_a1 <span style="color:#f92672">=</span> a;
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> ref_a2 <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>a; <span style="color:#75715e">// the same effect
 </span></span></span></code></pre></div><h1 id="类型的嵌套">类型的嵌套 <a href="#%e7%b1%bb%e5%9e%8b%e7%9a%84%e5%b5%8c%e5%a5%97" class="anchor">🔗</a></h1><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span>String<span style="color:#960050;background-color:#1e0010">，</span> Vec<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>, Box<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>, Unique<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>, <span style="color:#f92672">*</span><span style="color:#66d9ef">const</span> T
-</span></span></code></pre></div>
+</span></span></code></pre></div><p><code>dyn (Fn() + Send + 'static)</code>是什么意思？<br></p>
+<p>Fn() 不带参数和返回值的闭包，可以被Send到其他线程中，具有捕获变量的所有权。
+’static是指没有对上下文中的非静态变量进行引用。</p>
+<h1 id="对象安全-trait-object">对象安全， trait object <a href="#%e5%af%b9%e8%b1%a1%e5%ae%89%e5%85%a8-trait-object" class="anchor">🔗</a></h1><p>trait object类型擦除， (data, vatable(funcname -&gt; func pointer)) <br></p>
+<p>trait中的方法仅仅依赖于trait中的定义。</p>
+<p>（size, shape of argument, ）。
+return value： 不能是Self，trait object类型擦除，无法返回与trait无关的具体类型。
+shape of argument 不能带泛型。</p>
+<h1 id="any-trait"><code>Any</code> trait <a href="#any-trait" class="anchor">🔗</a></h1><p>Deref, Drop, Copy, Any trait</p>
+<p>Send &amp; Sync</p>
+<p>?Size</p>
+<h1 id="fn-fnmut-fnonce-区别">Fn FnMut FnOnce 区别 <a href="#fn-fnmut-fnonce-%e5%8c%ba%e5%88%ab" class="anchor">🔗</a></h1><p><strong>闭包去实现哪种<code>Fn, FnMut, FnOnce</code>trait与move无关，与如何捕获变量无关。</strong><br>
+<strong>Fn FnMut FnOnce与闭包如何使用捕获到的值有关。</strong><br></p>
+<p>闭包就是捕获外部变量的结构体，加一段代码<br></p>
+<p>closure 是结构体（捕获的变量）的语法糖，闭包逻辑部分在代码段中。<br>
+闭包的调用： Fn::call(第一个参数就是闭包结构体...) Fn：call_</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">// 移走匿名结构体中变量的closure实现 FnOnce
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>FnOnce::call_once(self, args: <span style="color:#a6e22e">Args</span>) -&gt; <span style="color:#a6e22e">Self</span>::Output;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 不会移走匿名结构体中变量但修改的closure实现 FnMut
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>FnMut::call_mut(<span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> self, args: <span style="color:#a6e22e">Args</span>) -&gt; <span style="color:#a6e22e">Self</span>::Output;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//不会修改匿名结构体中变量的closure实现 Fn
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>Fn: <span style="color:#a6e22e">call</span>(<span style="color:#f92672">&amp;</span>self, args: <span style="color:#a6e22e">Args</span> -&gt; <span style="color:#a6e22e">Self</span>::Output);
+</span></span></code></pre></div><h1 id="所有权move语义借用生命周期的推进关系">所有权，move语义，借用，生命周期的推进关系 <a href="#%e6%89%80%e6%9c%89%e6%9d%83move%e8%af%ad%e4%b9%89%e5%80%9f%e7%94%a8%e7%94%9f%e5%91%bd%e5%91%a8%e6%9c%9f%e7%9a%84%e6%8e%a8%e8%bf%9b%e5%85%b3%e7%b3%bb" class="anchor">🔗</a></h1><p>为了适应内存的ownership&amp;move语义，引入borrow &amp; reference。<br>
+带来新问题是所有权和使用权分隔了，让引用和原始值的内存空间独立了。<br>
+但是两者具有逻辑关系上的约束： 引用只能在原始值存在的前提下才有意义。<br>
+引入生命周期lifetime到语法中。<br></p>
+<p>例如： 一个fn返回了引用，如果是引用fn的local变量则❌，如果是引用fn的参数，那么compiler需要知道传入的参数的存活时间是否支撑这个引用的有效性(新引用的生命周期只能是被引用值的生命周期的区间子集)。</p>
+<p>Copy：复制语义非move语义。Clone用从&amp;T中创建副本T。</p>
+<h1 id="traits的内存表示">traits的内存表示 <a href="#traits%e7%9a%84%e5%86%85%e5%ad%98%e8%a1%a8%e7%a4%ba" class="anchor">🔗</a></h1><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> buf: Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">u8</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> vec![];
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> writer: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">mut</span> std::io::Write <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> buf;
+</span></span></code></pre></div><pre tabindex="0"><code>      trait object( data    vptr) 
+                    .          . 
+                   .            .
+                  .              .
+                .                 . 
+buf(buffer, capacity, lenght)      vtable impl Write for Vec&lt;u8&gt;
+                                            析构函数，size, align
+                                            write() -&gt;
+                                            flush() -&gt;
+</code></pre><p>c++是将vptr和对象保存在一起。给基础类型int，string扩展方法就做不到了。</p>
+<h1 id="attribute-属性">attribute 属性 <a href="#attribute-%e5%b1%9e%e6%80%a7" class="anchor">🔗</a></h1><p><code>#[allow(non_camlel_case_types)]</code>
+<code>#[cfg(windows)]</code>
+<code>#[derive(Debug)]</code></p>
+<h1 id="rust-生命宏-过程宏-rust中的插桩">rust 生命宏， 过程宏， rust中的插桩 <a href="#rust-%e7%94%9f%e5%91%bd%e5%ae%8f-%e8%bf%87%e7%a8%8b%e5%ae%8f-rust%e4%b8%ad%e7%9a%84%e6%8f%92%e6%a1%a9" class="anchor">🔗</a></h1><p>why 为什么需要宏？</p>
+<p>宏是扩展语言的一种方式，元编程。</p>
+<p>声明宏： 对代码模版做简单替换。 <code>macro_rules!</code>
+过程宏： 可以深度定制和生产代码。
+函数宏：
+属性宏： <code>#[tokio::main]</code>
+派生宏： <code>#[derive(Debug)]</code></p>
+<p>利用过程宏修改ast来实现fn进入和出来时打印日志。</p>
+<h1 id="子类型-类型产生器-协变逆变不变">子类型， 类型产生器， 协变，逆变，不变 <a href="#%e5%ad%90%e7%b1%bb%e5%9e%8b-%e7%b1%bb%e5%9e%8b%e4%ba%a7%e7%94%9f%e5%99%a8-%e5%8d%8f%e5%8f%98%e9%80%86%e5%8f%98%e4%b8%8d%e5%8f%98" class="anchor">🔗</a></h1><pre tabindex="0"><code>T: U , a: U, b: T.
+</code></pre><h1 id="t-mut-t">&amp;T &amp;mut T <a href="#t-mut-t" class="anchor">🔗</a></h1><p>&amp;T: 共享引用， &amp;mut T 独占引用<br></p>
+<h1 id="rust-内存模型">rust 内存模型 <a href="#rust-%e5%86%85%e5%ad%98%e6%a8%a1%e5%9e%8b" class="anchor">🔗</a></h1><ul>
+<li>acquire 用于load， 读</li>
+<li>release 用于store，写</li>
+<li>seq     相当于memory barrier</li>
+</ul>
+
     </div>
 
     
