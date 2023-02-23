@@ -8,7 +8,7 @@
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
 <meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta name="description" content="忽略 time, process, signal">
+<meta name="description" content="tokio 🔗核心是为了提高系统的吞吐量，而非延迟。基于os的epol">
 <meta name="generator" content="Hugo 0.103.1" />
 
 
@@ -70,13 +70,13 @@
           ·
         </span>
         <span>
-          5 words
+          1076 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          1 minute read
+          3 minute read
         </span>
     </div>
 
@@ -84,14 +84,180 @@
     
         
   
+    <aside class="toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
+          <div>
+              <nav id="TableOfContents">
+  <ul>
+    <li><a href="#tokio">tokio</a></li>
+    <li><a href="#tokio-runtime">tokio runtime</a>
+      <ul>
+        <li><a href="#block-task的处理">block task的处理</a></li>
+        <li><a href="#启动">启动</a></li>
+        <li><a href="#slab-mio-token-readiness">slab， mio token， readiness</a></li>
+        <li><a href="#non-block-task-scheduler">non block task scheduler</a></li>
+      </ul>
+    </li>
+    <li><a href="#io">io</a>
+      <ul>
+        <li><a href="#mio">mio</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+          </div>
+      </details>
+    </aside>
+  
 
 
     
 
 
     <div class="content">
-      <p>忽略 time, process, signal</p>
-
+      <h1 id="tokio">tokio <a href="#tokio" class="anchor">🔗</a></h1><p>核心是为了提高系统的吞吐量，而非延迟。基于os的epoll/kqueue， io-uring的多路复用io，实现了线程池处理大量io task。<br>
+Task是基于Future的绿色协程，适合io密集型的场景。<br></p>
+<p><code>event-driven</code>  <code>non-blocking I/O</code></p>
+<p><code>task scheduler</code> <code>reactor: epoll, kqueue</code></p>
+<p>忽略 time, process, signal<br></p>
+<h1 id="tokio-runtime">tokio runtime <a href="#tokio-runtime" class="anchor">🔗</a></h1><p>相对独立。thread pool 怎么组织的？ task如何提交的到队列的？ worker如何工作的？  <br></p>
+<h2 id="block-task的处理">block task的处理 <a href="#block-task%e7%9a%84%e5%a4%84%e7%90%86" class="anchor">🔗</a></h2><p><code>/tokio/src/runtime/blocking</code> scheduler.rs无逻辑， block task 不会调度。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">// tokio/src/runtime/blocking/pool.rs
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 入参数不是Impl Future， 是closure
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">pub</span>(<span style="color:#66d9ef">crate</span>) <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">spawn_blocking</span><span style="color:#f92672">&lt;</span>F, R<span style="color:#f92672">&gt;</span>(func: <span style="color:#a6e22e">F</span>) -&gt; <span style="color:#a6e22e">JoinHandle</span><span style="color:#f92672">&lt;</span>R<span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">where</span>
+</span></span><span style="display:flex;"><span>    F: FnOnce() -&gt; <span style="color:#a6e22e">R</span> <span style="color:#f92672">+</span> Send <span style="color:#f92672">+</span> <span style="color:#f92672">&#39;</span>static,
+</span></span><span style="display:flex;"><span>    R: Send <span style="color:#f92672">+</span> <span style="color:#f92672">&#39;</span>static,
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> rt <span style="color:#f92672">=</span> Handle::current();
+</span></span><span style="display:flex;"><span>    rt.spawn_blocking(func)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">pub</span>(<span style="color:#66d9ef">crate</span>) <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">BlockingPool</span> {
+</span></span><span style="display:flex;"><span>    spawner: <span style="color:#a6e22e">Spawner</span>,
+</span></span><span style="display:flex;"><span>    shutdown_rx: <span style="color:#a6e22e">shutdown</span>::Receiver,
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">pub</span>(<span style="color:#66d9ef">crate</span>) <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Spawner</span> {
+</span></span><span style="display:flex;"><span>    inner: <span style="color:#a6e22e">Arc</span><span style="color:#f92672">&lt;</span>Inner<span style="color:#f92672">&gt;</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Inner</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">/// State shared between worker threads.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>    shared: <span style="color:#a6e22e">Mutex</span><span style="color:#f92672">&lt;</span>Shared<span style="color:#f92672">&gt;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">/// Pool threads wait on this.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>    condvar: <span style="color:#a6e22e">Condvar</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">/// Spawned threads use this name.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>    thread_name: <span style="color:#a6e22e">ThreadNameFn</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">/// Spawned thread stack size.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>    stack_size: Option<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">usize</span><span style="color:#f92672">&gt;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">/// Call after a thread starts.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>    after_start: Option<span style="color:#f92672">&lt;</span>Callback<span style="color:#f92672">&gt;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">/// Call before a thread stops.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>    before_stop: Option<span style="color:#f92672">&lt;</span>Callback<span style="color:#f92672">&gt;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Maximum number of threads.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    thread_cap: <span style="color:#66d9ef">usize</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Shared</span> {
+</span></span><span style="display:flex;"><span>    queue: <span style="color:#a6e22e">VecDeque</span><span style="color:#f92672">&lt;</span>Task<span style="color:#f92672">&gt;</span>,
+</span></span><span style="display:flex;"><span>    num_notify: <span style="color:#66d9ef">u32</span>,
+</span></span><span style="display:flex;"><span>    shutdown: <span style="color:#66d9ef">bool</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="启动">启动 <a href="#%e5%90%af%e5%8a%a8" class="anchor">🔗</a></h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">#[tokio::main]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">async</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() -&gt; Result<span style="color:#f92672">&lt;</span>(), Box<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">dyn</span> Error<span style="color:#f92672">&gt;&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> listener <span style="color:#f92672">=</span> TcpListener::bind(<span style="color:#e6db74">&#34;127.0.0.1:8888&#34;</span>).<span style="color:#66d9ef">await</span><span style="color:#f92672">?</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">loop</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> (<span style="color:#66d9ef">mut</span> socket, _) <span style="color:#f92672">=</span> listener.accept().<span style="color:#66d9ef">await</span><span style="color:#f92672">?</span>;
+</span></span><span style="display:flex;"><span>        tokio::spawn(<span style="color:#66d9ef">async</span> <span style="color:#66d9ef">move</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> buf <span style="color:#f92672">=</span> vec![<span style="color:#ae81ff">0</span>;<span style="color:#ae81ff">1024</span>];
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">loop</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">let</span> n <span style="color:#f92672">=</span> socket.read(<span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> but).<span style="color:#66d9ef">await</span><span style="color:#f92672">?</span>;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> n <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {<span style="color:#66d9ef">return</span>;}
+</span></span><span style="display:flex;"><span>                socket.write_all(<span style="color:#f92672">&amp;</span>buf[<span style="color:#ae81ff">0</span><span style="color:#f92672">..</span>n]).<span style="color:#66d9ef">await</span><span style="color:#f92672">?</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        });
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 主线程 block on 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    tokio::runtime::Builder::new_multi_thread()
+</span></span><span style="display:flex;"><span>            .enable_all()
+</span></span><span style="display:flex;"><span>            .build()
+</span></span><span style="display:flex;"><span>            .unwrap()
+</span></span><span style="display:flex;"><span>            .block_on(<span style="color:#66d9ef">async</span>{
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">..</span>.
+</span></span><span style="display:flex;"><span>            });
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">pub</span>(<span style="color:#66d9ef">crate</span>) <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">block_on</span><span style="color:#f92672">&lt;</span>F: <span style="color:#a6e22e">Future</span><span style="color:#f92672">&gt;</span>(<span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> self, f: <span style="color:#a6e22e">F</span>) -&gt; Result<span style="color:#f92672">&lt;</span>F::Output, AccessError<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">use</span> std::task::Context;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">use</span> std::task::Poll::Ready;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// `get_unpark()` should not return a Result
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">let</span> waker <span style="color:#f92672">=</span> self.waker()<span style="color:#f92672">?</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> cx <span style="color:#f92672">=</span> Context::from_waker(<span style="color:#f92672">&amp;</span>waker);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        pin<span style="color:#f92672">!</span>(f);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">loop</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> <span style="color:#66d9ef">let</span> Ready(v) <span style="color:#f92672">=</span> <span style="color:#66d9ef">crate</span>::runtime::coop::budget(<span style="color:#f92672">||</span> f.as_mut().poll(<span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> cx)) {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span> Ok(v);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// async main 不ready就park
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            self.park();
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div><p>runtime 提供了 I/O driver, task scheduler， blocking pool 来支撑异步任务的执行<br></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Runtime</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">/// Task scheduler
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>    scheduler: <span style="color:#a6e22e">Scheduler</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">/// Handle to runtime, also contains driver handles
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>    handle: <span style="color:#a6e22e">Handle</span>,
+</span></span><span style="display:flex;"><span>    blocking_pool: <span style="color:#a6e22e">BlockingPool</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>runtime的初始化过程</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">build_threaded_runtime</span>(<span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> self) -&gt;  <span style="color:#a6e22e">io</span>::Result<span style="color:#f92672">&lt;</span>Runtime<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// io driver
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> (driver, driver_handle) <span style="color:#f92672">=</span> driver::Driver::new(self.get_cfg())<span style="color:#f92672">?</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//  创建线程池
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> blocking_pool <span style="color:#f92672">=</span> blocking::create_blocking_pool(self, self.max_blocking_threads <span style="color:#f92672">+</span> core_threads);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><code>Core</code>    一个worker的数据， run queue, park <br>
+<code>Remote</code>  steal其他core中run queue的handler <br>
+<code>Shared</code>  所有worker的共享数据， 保存Remote, global run queue 作为scheduler的一部分<br>
+<code>Worker</code>  包含Core, Shared放到launch里<br>
+<code>Inject</code>: global task queue<br></p>
+<p>steal时 run queue的steal head和real-head（多writer）, tail（one writer）<br></p>
+<h2 id="slab-mio-token-readiness">slab， mio token， readiness <a href="#slab-mio-token-readiness" class="anchor">🔗</a></h2><p><code>slab</code> page array，分级预先分配内存。</p>
+<p><code>mio token</code>：  1bit token_wakeup, 7bit generation, 24bit address</p>
+<h2 id="non-block-task-scheduler">non block task scheduler <a href="#non-block-task-scheduler" class="anchor">🔗</a></h2><p>Lifo slot, local queue, global queue, steal remote queue<br></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">// core
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">next_task</span>(<span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> self, worker: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">Worker</span>) -&gt; Option<span style="color:#f92672">&lt;</span>Notified<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> self.tick <span style="color:#f92672">%</span> GLOBAL_POLL_INTERVAL <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> { <span style="color:#75715e">// 每间隔61次 偷一次全局任务队列
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        worker.inject().pop().or_else(<span style="color:#f92672">||</span>self.next_local_task())
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>        self.next_local_task().or_else(<span style="color:#f92672">||</span>worker.inject().pop())
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>} 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">next_local_task</span>(<span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> self) -&gt; Option<span style="color:#f92672">&lt;</span>Notified<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>    self.lifo_slot.take().or_else(<span style="color:#f92672">||</span>self.run_queue.pop())
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// core
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">steal_task</span>()
+</span></span></code></pre></div><p><code>Event poll</code>: 没有专门的event poll线程，都是worker线程。 worker线程优先执行task。<br>
+当没有任务可执行时， 才会在park中poll events。那event poll线程可能会有饿死的问题。poll
+event 也是每个61次会在执行一次。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">maintenance</span>(<span style="color:#f92672">&amp;</span>self, <span style="color:#66d9ef">mut</span> core: Box<span style="color:#f92672">&lt;</span>Core<span style="color:#f92672">&gt;</span>) -&gt; Box<span style="color:#f92672">&lt;</span>Core<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> core.tick <span style="color:#f92672">%</span> GLOBAL_POLL_INTERVAL <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+</span></span><span style="display:flex;"><span>        core <span style="color:#f92672">=</span> self.park_timeout(core, Some(Duration::from_millis(<span style="color:#ae81ff">0</span>)));
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 继续执行task
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        core.maintenance(<span style="color:#f92672">&amp;</span>self.worker);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    core
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h1 id="io">io <a href="#io" class="anchor">🔗</a></h1><p>async_fd.rs ，</p>
+<h2 id="mio">mio <a href="#mio" class="anchor">🔗</a></h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">//通过宏的条件编译，来控制使用epoll or kqueue
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">#[cfg(target_os = </span><span style="color:#e6db74">&#34;linux&#34;</span><span style="color:#75715e">)]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">use</span> linux::{Event, Registrator, Selector, TcpStream};
+</span></span></code></pre></div>
     </div>
 
     

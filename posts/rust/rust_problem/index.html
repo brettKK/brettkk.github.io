@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          4606 words
+          4802 words
         </span>
         <span class="split">
           ·
@@ -349,7 +349,8 @@ RefCell<T> 内部可变， 一个borrow_mut修改后，其他引用可以看到�
 <p>Rc --downgrade() --&gt; Weak <br>
 Weak -- Upgrade() --&gt; Option<Rc> <br></p>
 <p>Box<T> -&gt; Unqiue<T> -&gt; NonNull<T> --&gt; *const T, *mut T <br></p>
-<h1 id="pint">Pin<T> <a href="#pint" class="anchor">🔗</a></h1><h1 id="send-sync">Send, Sync <a href="#send-sync" class="anchor">🔗</a></h1><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">impl</span><span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> Send <span style="color:#66d9ef">for</span> Arc<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>
+<h1 id="pint">Pin<T> <a href="#pint" class="anchor">🔗</a></h1><p>如果结构体包含了自引用， 当对象发生移动时引用的指针会失效，所以需要Pin住<br></p>
+<h1 id="send-sync">Send, Sync <a href="#send-sync" class="anchor">🔗</a></h1><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">impl</span><span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> Send <span style="color:#66d9ef">for</span> Arc<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">where</span>
 </span></span><span style="display:flex;"><span>    T: Sync <span style="color:#f92672">+</span> Send <span style="color:#f92672">+</span> <span style="color:#f92672">?</span>Sized,
 </span></span><span style="display:flex;"><span>
@@ -380,8 +381,45 @@ Weak -- Upgrade() --&gt; Option<Rc> <br></p>
 </ul>
 <h1 id="类型占用了多少内存">类型占用了多少内存 <a href="#%e7%b1%bb%e5%9e%8b%e5%8d%a0%e7%94%a8%e4%ba%86%e5%a4%9a%e5%b0%91%e5%86%85%e5%ad%98" class="anchor">🔗</a></h1><p><a href="https://play.rust-lang.org/?gist=41ac3acde9ea070db48add40d5d12831&amp;version=nightly" target="_blank" rel="noopener">NonNull</a></p>
 <p>rustc raii.rs &amp;&amp; valgrind ./raii</p>
-<h2 id="dst">DST <a href="#dst" class="anchor">🔗</a></h2><p>&amp;dyn Trait -&gt; (*mut data, *mut vtable) <br>
-&amp;[u8] -&gt; (*mut data, usize length)     <br>
+<h2 id="dst">DST <a href="#dst" class="anchor">🔗</a></h2><p>&amp;dyn Trait -&gt; (*mut data, *mut vtable) <br></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">trait</span> Oper {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">add</span>(<span style="color:#f92672">&amp;</span>self) -&gt; <span style="color:#66d9ef">i32</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">sub</span>(<span style="color:#f92672">&amp;</span>self) -&gt; <span style="color:#66d9ef">i32</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#[repr(C)]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">FatPointer</span><span style="color:#f92672">&lt;&#39;</span><span style="color:#a6e22e">a</span><span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>  data: <span style="color:#66d9ef">&amp;</span><span style="color:#f92672">&#39;</span><span style="color:#a6e22e">a</span> <span style="color:#a6e22e">mut</span> Data,
+</span></span><span style="display:flex;"><span>  vtable: <span style="color:#f92672">*</span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">usize</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Data</span> {
+</span></span><span style="display:flex;"><span>  a: <span style="color:#66d9ef">i32</span>,
+</span></span><span style="display:flex;"><span>  b: <span style="color:#66d9ef">i32</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">add</span>(s: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">Data</span>) -&gt; <span style="color:#66d9ef">i32</span> {
+</span></span><span style="display:flex;"><span>  s.a <span style="color:#f92672">+</span> s.b
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">sub</span>(s: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">Data</span>) -&gt; <span style="color:#66d9ef">i32</span> {
+</span></span><span style="display:flex;"><span>  s.a <span style="color:#f92672">-</span> s.b
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> data <span style="color:#f92672">=</span> Data{a: <span style="color:#ae81ff">3</span>, b: <span style="color:#ae81ff">2</span>};
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> vtable <span style="color:#f92672">=</span> vec![
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">0</span>, <span style="color:#75715e">// 指向drop
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#ae81ff">5</span>, <span style="color:#75715e">// vtable的长度
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#ae81ff">8</span>, <span style="color:#75715e">// 内存对齐的size
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    add <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">usize</span>,
+</span></span><span style="display:flex;"><span>    sub <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">usize</span>,
+</span></span><span style="display:flex;"><span>  ];
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> fat_pointer <span style="color:#f92672">=</span> FataPointer{data: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">mut</span> data, vtable: <span style="color:#a6e22e">vtable</span>.as_ptr()};
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> dyn_ref <span style="color:#f92672">=</span> <span style="color:#66d9ef">unsafe</span> { std::mem::transmute::<span style="color:#f92672">&lt;</span>FatPointer, <span style="color:#f92672">&amp;</span><span style="color:#66d9ef">dyn</span> Oper<span style="color:#f92672">&gt;</span>(fat_pointer)};
+</span></span><span style="display:flex;"><span>  println!(<span style="color:#e6db74">&#34;add: {}&#34;</span>, dyn_ref.add());
+</span></span><span style="display:flex;"><span>  println!(<span style="color:#e6db74">&#34;sub: {}&#34;</span>, dyn_ref.sub());
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>&amp;[u8] -&gt; (*mut data, usize length)     <br>
 &amp;str -&gt; (*mut data, usize length)      <br></p>
 <h1 id="错误处理">错误处理 <a href="#%e9%94%99%e8%af%af%e5%a4%84%e7%90%86" class="anchor">🔗</a></h1><ul>
 <li>新增类型来携带错误信息。</li>
@@ -637,7 +675,8 @@ shape of argument 不能带泛型。</p>
 但是两者具有逻辑关系上的约束： 引用只能在原始值存在的前提下才有意义。<br>
 引入生命周期lifetime到语法中。<br></p>
 <p>例如： 一个fn返回了引用，如果是引用fn的local变量则❌，如果是引用fn的参数，那么compiler需要知道传入的参数的存活时间是否支撑这个引用的有效性(新引用的生命周期只能是被引用值的生命周期的区间子集)。</p>
-<p>Copy：复制语义非move语义。Clone用从&amp;T中创建副本T。</p>
+<p>Copy：复制语义非move语义。Clone用从&amp;T中创建副本T。<br>
+copy是浅拷贝，是编译器自动调用。 clone是深拷贝，程序员手动调用。<br></p>
 <h1 id="traits的内存表示">traits的内存表示 <a href="#traits%e7%9a%84%e5%86%85%e5%ad%98%e8%a1%a8%e7%a4%ba" class="anchor">🔗</a></h1><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> buf: Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">u8</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> vec![];
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> writer: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">mut</span> std::io::Write <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> buf;
 </span></span></code></pre></div><pre tabindex="0"><code>      trait object( data    vptr) 
