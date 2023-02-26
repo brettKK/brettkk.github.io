@@ -70,13 +70,13 @@
           ·
         </span>
         <span>
-          4802 words
+          5027 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          10 minute read
+          11 minute read
         </span>
     </div>
 
@@ -108,7 +108,7 @@
     <li><a href="#as-_">as _</a></li>
     <li><a href="#intoiterator">IntoIterator</a></li>
     <li><a href="#智能指针">智能指针</a></li>
-    <li><a href="#pint">Pin<T></a></li>
+    <li><a href="#pint-unpin">Pin<T>, Unpin</a></li>
     <li><a href="#send-sync">Send, Sync</a></li>
     <li><a href="#类型占用了多少内存">类型占用了多少内存</a>
       <ul>
@@ -349,8 +349,23 @@ RefCell<T> 内部可变， 一个borrow_mut修改后，其他引用可以看到�
 <p>Rc --downgrade() --&gt; Weak <br>
 Weak -- Upgrade() --&gt; Option<Rc> <br></p>
 <p>Box<T> -&gt; Unqiue<T> -&gt; NonNull<T> --&gt; *const T, *mut T <br></p>
-<h1 id="pint">Pin<T> <a href="#pint" class="anchor">🔗</a></h1><p>如果结构体包含了自引用， 当对象发生移动时引用的指针会失效，所以需要Pin住<br></p>
-<h1 id="send-sync">Send, Sync <a href="#send-sync" class="anchor">🔗</a></h1><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">impl</span><span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> Send <span style="color:#66d9ef">for</span> Arc<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>
+<h1 id="pint-unpin">Pin<T>, Unpin <a href="#pint-unpin" class="anchor">🔗</a></h1><p>很多情况下，其实Pin是用不到的。因为大多数情形下，都实现Unpin Traits。<br>
+在引入的async/await编程中, Futrue的移动, 如果结构体包含了自引用， 当对象发生移动时引用的指针会失效，所以需要Pin住<br>
+Pin对象的手段： 禁止获取<code>&amp;mut T</code>.</p>
+<p><code>Pin&lt;P&gt;</code>, 包裹的p（必须是实现<code>Deref trait</code>的对象）是指针指向原始类型T， 理解为 <code>Pin&lt;P&lt;T&gt;&gt;</code> <br>
+给定 <code>Pin&lt;P&lt;T&gt;&gt;</code>类型的数据，只要 <code>T</code> 不满足 <code>Unpin trait</code>，则 <code>Safe Rust</code> 下无法获得 <code>&amp;mut T</code>和 <code>T</code>，从而让 <code>T</code> 不能被 <code>move</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Example</span> {
+</span></span><span style="display:flex;"><span>    data: String,
+</span></span><span style="display:flex;"><span>    ptr: <span style="color:#a6e22e">NonNull</span><span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">impl</span><span style="color:#f92672">&lt;</span>P: <span style="color:#a6e22e">Deref</span><span style="color:#f92672">&lt;</span>Target: Unpin<span style="color:#f92672">&gt;&gt;</span> Pin<span style="color:#f92672">&lt;</span>P<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">new</span>(pointer: <span style="color:#a6e22e">P</span>) -&gt; <span style="color:#a6e22e">Pin</span><span style="color:#f92672">&lt;</span>P<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><h1 id="send-sync">Send, Sync <a href="#send-sync" class="anchor">🔗</a></h1><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">impl</span><span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> Send <span style="color:#66d9ef">for</span> Arc<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">where</span>
 </span></span><span style="display:flex;"><span>    T: Sync <span style="color:#f92672">+</span> Send <span style="color:#f92672">+</span> <span style="color:#f92672">?</span>Sized,
 </span></span><span style="display:flex;"><span>

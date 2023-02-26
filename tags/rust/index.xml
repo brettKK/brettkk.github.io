@@ -40,7 +40,7 @@
       <pubDate>Tue, 15 Nov 2022 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/rust/tokio/</guid>
-      <description>tokio 🔗核心是为了提高系统的吞吐量，而非延迟。基于os的epol</description>
+      <description>tokio 🔗核心是为了提高系统的吞吐量，而非延迟。 基于os的epol</description>
     </item>
     
     <item>
