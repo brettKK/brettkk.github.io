@@ -3,22 +3,12 @@
 <script src="https://cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
 <html lang="zh-cn">
   <head>
-    <title>brettkk</title>
+    <title>纠错码 | brettkk</title>
 
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
 <meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta name="description" content="工作内容相关方面： 规则引擎grule[11.1]，
-工作流引擎（提一下就行）
-向量存储Faiss。
-密码方面： 零知识信任的代码库，spartan rust。
-云原生方面：k8s, docker.
-数据库方面： TiDB， TiKV， rocksdb。
-编译器： llvm。 编译器基本知识。
-高并发方面： C&#43;&#43;， redis， rocksdb， linux， xv6 。
-ai框架： Pytorch, TensorFlow, TensorRT
-tokio
-crossbeam segqueue, lock free">
+<meta name="description" content="读心术的小游戏 🔗 信息论 🔗 达到不失真的信源压缩编码的极限（最低">
 <meta name="generator" content="Hugo 0.103.1" />
 
 
@@ -72,15 +62,15 @@ crossbeam segqueue, lock free">
       
 
 <section id="single">
-    <h1 class="title"></h1>
+    <h1 class="title">纠错码</h1>
 
     <div class="tip">
-        <time datetime="0001-01-01 00:00:00 &#43;0000 UTC">Jan 1, 0001</time>
+        <time datetime="2021-05-20 11:33:56 &#43;0800 CST">May 20, 2021</time>
         <span class="split">
           ·
         </span>
         <span>
-          40 words
+          500 words
         </span>
         <span class="split">
           ·
@@ -94,28 +84,66 @@ crossbeam segqueue, lock free">
     
         
   
+    <aside class="toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
+          <div>
+              <nav id="TableOfContents">
+  <ul>
+    <li><a href="#读心术的小游戏">读心术的小游戏</a></li>
+    <li><a href="#信息论">信息论</a></li>
+    <li><a href="#纠删码的原理">纠删码的原理</a></li>
+  </ul>
+</nav>
+          </div>
+      </details>
+    </aside>
+  
 
 
     
 
 
     <div class="content">
-      <p>工作内容相关方面：
-规则引擎grule[11.1]，</p>
-<p>工作流引擎（提一下就行）</p>
-<p>向量存储Faiss。</p>
-<p>密码方面： 零知识信任的代码库，spartan rust。</p>
-<p>云原生方面：k8s, docker.</p>
-<p>数据库方面： TiDB， TiKV， rocksdb。</p>
-<p>编译器： llvm。 编译器基本知识。</p>
-<p>高并发方面： C++， redis， rocksdb， linux， xv6 。</p>
-<p>ai框架： Pytorch, TensorFlow, TensorRT</p>
-<p>tokio</p>
-<p>crossbeam segqueue, lock free</p>
-<p>B tree, B+ tree, RB tree, Skiplist, BTreeMap</p>
+      <h1 id="读心术的小游戏">读心术的小游戏 <a href="#%e8%af%bb%e5%bf%83%e6%9c%af%e7%9a%84%e5%b0%8f%e6%b8%b8%e6%88%8f" class="anchor">🔗</a></h1><p><p class="markdown-image">
+  <img src="/math/%e8%af%bb%e5%bf%83%e6%9c%af.png" alt="image"  />
+</p></p>
+<h1 id="信息论">信息论 <a href="#%e4%bf%a1%e6%81%af%e8%ae%ba" class="anchor">🔗</a></h1><ol>
+<li>
+<p>达到不失真的信源压缩编码的极限（最低）编码速率是多少？<br>
+关于信源编码。
+极限速率是信源的熵。
+每个随机过程都有一个固有的复杂性，等于该随机过程的熵。</p>
+</li>
+<li>
+<p>无差错传输信息的临界传输速率是多少？<br>
+关于信道编码。
+在此之前，人们认为增加信道的传输速率总要引起错误概率的增加，
+所以要使错误概率为0，则传输熟虑只能为0.</p>
+<p>香农： 只要信息传输速率小于信道容量，传输的错误概率可以任意小。
+反过来，如果超过信道容量，则传输错误是不可避免的。</p>
+</li>
+</ol>
+<h1 id="纠删码的原理">纠删码的原理 <a href="#%e7%ba%a0%e5%88%a0%e7%a0%81%e7%9a%84%e5%8e%9f%e7%90%86" class="anchor">🔗</a></h1><ol>
+<li><strong>矩阵乘法编码冗余，矩阵求逆恢复丢失</strong><br></li>
+<li><strong>解决了可靠性，再谈一致性，性能等才有意义。</strong><br></li>
+<li>通信系统的问题： 可靠性和有效性。纠错码，纠删码都可以改善通信系统的可靠性。<br></li>
+</ol>
+<p>Erasure Code （EC纠删码），一种前向错误纠正技术。</p>
+<p>应用： 网络传输中避免包的丢失，存储系统中利用来提高可靠性。优势：与多副本而言，以较小的数据冗余提高可靠性。劣势：编码方式需要大量计算。可以处理数据丢失，无法容忍数据</p>
+<p>定义：原始数据分 n 份，增加 m 份，通过n + m份任意n份可还原原始数据。丢失&lt;=m份的数据仍然可以恢复。<br></p>
+<p>信道编码（线性分组码， 汉明码，循环码，BCH码）</p>
+<p>纠错码： 汉明码，turbo码, polar , LDPC 等todo</p>
 
     </div>
 
+    
+        <div class="tags">
+            
+                <a href="http://brettkk.github.io/tags/math">math</a>
+            
+        </div>
     
     
     

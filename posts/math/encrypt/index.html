@@ -70,13 +70,13 @@
           ·
         </span>
         <span>
-          2065 words
+          1975 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          5 minute read
+          4 minute read
         </span>
     </div>
 
@@ -125,7 +125,6 @@
       </ul>
     </li>
     <li><a href="#同态加密homomorphic-encryption">同态加密（Homomorphic Encryption）</a></li>
-    <li><a href="#abe">ABE</a></li>
     <li><a href="#参考">参考</a></li>
   </ul>
 </nav>
@@ -272,26 +271,18 @@ ECC椭圆曲线加密算法, 为了方便计算， 在有限域（gf）上进行
 给定椭圆曲线上的一个点P，一个整数k(私钥)，求解<code>Q=kP</code>很容易；给定一个点P、Q，知道Q=kP，求整数k确是一个难题。ECDH即建立在此数学难题之上。<br></p>
 <p>密钥的管理kms系统： 信封加密， 密钥轮替,加解密运算 与 存储分离, 访问认证, 数据监控, root key</p>
 <hr>
-<h1 id="同态加密homomorphic-encryption">同态加密（Homomorphic Encryption） <a href="#%e5%90%8c%e6%80%81%e5%8a%a0%e5%af%86homomorphic-encryption" class="anchor">🔗</a></h1><p>全同态 支持密文上任意次，任意类型的计算</p>
+<h1 id="同态加密homomorphic-encryption">同态加密（Homomorphic Encryption） <a href="#%e5%90%8c%e6%80%81%e5%8a%a0%e5%af%86homomorphic-encryption" class="anchor">🔗</a></h1><p>同态加密 HElib, SEAL 全同态加密开源库。半同态实践：python的phe库</p>
+<p>全同态 支持密文上任意次，任意类型的计算</p>
 <p>层次同态 支持有限次数的加法和乘法</p>
 <p>部分同态 只支持加法或者乘法</p>
-<p>可算不可见</p>
+<p>可算不可见: 对加密状态的数据直接进行操作。</p>
 <p>在密文空间进行运算后与明文空间上仍然一对一，能解密。</p>
 <p>只有不对原文进行填充的原始RSA才满足乘法同态性质。
 rsa encrypt $$ c= Enc(m) = m^e mod n $$
 rsa decryp $$ Dec(c) = c^d mod n $$
 $$Enc(m_1) * Enc(m_2) = (m_1 * m_2)^e = Enc(m_1 * m_2)$$</p>
-<h1 id="abe">ABE <a href="#abe" class="anchor">🔗</a></h1><p>下一代公钥密钥的先进机制</p>
-<ul>
-<li>一对多的加解密方式</li>
-<li>访问和数据加密融为一体</li>
-</ul>
-<p>Key-Policy ABE： 策略嵌入用户密钥中，属性集合嵌入于密文中。</p>
-<p>CP-ABE： 策略嵌入密文，通过设定策略去决定拥有哪些属性的人能够访问这份密文</p>
-<p>公有云上的数据加密存储与细粒度共享。</p>
-<p>联邦学习：为解决AI技术落地的数据安全隐私问题。</p>
-<p>《introduction to modern cryptography》 现代密码学导论</p>
-<h1 id="参考">参考 <a href="#%e5%8f%82%e8%80%83" class="anchor">🔗</a></h1><p>[1]<a href="https://blog.cloudflare.com/a-relatively-easy-to-understand-primer-on-elliptic-curve-cryptography/" target="_blank" rel="noopener"> ECC椭圆曲线加密</a><br></p>
+<h1 id="参考">参考 <a href="#%e5%8f%82%e8%80%83" class="anchor">🔗</a></h1><p>[1]<a href="https://blog.cloudflare.com/a-relatively-easy-to-understand-primer-on-elliptic-curve-cryptography/" target="_blank" rel="noopener"> ECC椭圆曲线加密</a><br>
+[2]<a href="">《introduction to modern cryptography》 现代密码学导论</a><br></p>
 
     </div>
 
