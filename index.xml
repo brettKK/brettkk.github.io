@@ -121,7 +121,7 @@
       <pubDate>Fri, 05 Aug 2022 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/rust/closure_at_go_c_py_rust/</guid>
-      <description>why PL need closure? 🔗想一下在函数式编程语言中，宣传函数是一等公民，把函</description>
+      <description>what&#39;s closure in PL? 🔗 在函数式编程语言中，宣传函数是一等公民，把函数作为</description>
     </item>
     
     <item>
@@ -504,7 +504,8 @@ IDA, NDK。
       <description>今天要做什么？
 整理之前的笔记。
 ～～～～ 清晰的网页 ～～ 清晰的网页 ～～～～
-工作内容相关方面： 规则引擎grule[11.1]， 工作流引擎， 向量存储Faiss。
+工作内容相关方面： 规则引擎grule[11.1]，
+工作流引擎（提一下就行） 向量存储Faiss。
 golang方面： cloudwego, Istio, envoy, hystrix-go[10.31,11.1]
 密码方面： 零知识信任的代码库，spartan rust。
 云原生方面：k8s, docker.

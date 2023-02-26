@@ -219,8 +219,8 @@ worker如何工作的？ 执行本地的run queue， 61次后执行一次全局�
 </span></span></code></pre></div><h2 id="mio">mio <a href="#mio" class="anchor">🔗</a></h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">//通过宏的条件编译，来控制使用epoll or kqueue
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">#[cfg(target_os = </span><span style="color:#e6db74">&#34;linux&#34;</span><span style="color:#75715e">)]</span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">use</span> linux::{Event, Registrator, Selector, TcpStream};
-</span></span></code></pre></div><h2 id="io-uring">io-uring <a href="#io-uring" class="anchor">🔗</a></h2><p><code>io-uring</code>与<code>epoll</code>不同， 不需要拿到event后再去手动syscall读写数据。</p>
-<p>由两个ring组成， submit queue, complete queue<br></p>
+</span></span></code></pre></div><h2 id="io-uring">io-uring <a href="#io-uring" class="anchor">🔗</a></h2><p><code>io-uring</code>与<code>epoll</code>不同， 不需要拿到event后再去手动syscall读写数据。
+由两个ring组成， submit queue, complete queue<br></p>
 <h1 id="简易版的future运行时">简易版的future运行时 <a href="#%e7%ae%80%e6%98%93%e7%89%88%e7%9a%84future%e8%bf%90%e8%a1%8c%e6%97%b6" class="anchor">🔗</a></h1>
     </div>
 

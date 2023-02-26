@@ -70,13 +70,13 @@
           ·
         </span>
         <span>
-          2306 words
+          1868 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          5 minute read
+          4 minute read
         </span>
     </div>
 
@@ -102,16 +102,10 @@
         <li><a href="#请求访问pod的流程">请求访问pod的流程</a></li>
         <li><a href="#实操">实操</a></li>
         <li><a href="#访问者模式">访问者模式</a></li>
-        <li><a href="#111">111</a></li>
-        <li><a href="#2-tsdb">2. tsdb</a>
-          <ul>
-            <li><a href="#service-mesh">service mesh</a></li>
-            <li><a href="#serviceless">serviceless</a></li>
-          </ul>
-        </li>
-        <li><a href="#laas">laas</a></li>
       </ul>
     </li>
+    <li><a href="#微服务与service-mesh">微服务与service mesh</a></li>
+    <li><a href="#laas">laas</a></li>
   </ul>
 </nav>
           </div>
@@ -330,36 +324,7 @@ $ export PATH=$PWD/bin:$PATH
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e">in visitorlist after fn
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e">in visitor1 after fn
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
-</span></span></code></pre></div><h2 id="111">111 <a href="#111" class="anchor">🔗</a></h2><p>在解决内存与磁盘的读写模式、性能的不匹配问题。有以下两点：</p>
-<p>在内存中的head block进行写，使用wal保证内存数据的持久性。</p>
-<p>后台协程定期compact到磁盘的block文件夹，使用index文件来提高查询效率。</p>
-<p><img src="/cloud_native/prom_rungroup.svg" width = "600" /><br></p>
-<p>场景：管理多个子协程，通过main goroutine的errors channel返回子协程的execute error， 中断所有的子协程。</p>
-<h2 id="2-tsdb">2. tsdb <a href="#2-tsdb" class="anchor">🔗</a></h2><ul>
-<li>chunks
-<ul>
-<li>sample, raw label set, timestamp &amp; value tuple</li>
-<li>sequential series of encoded samples</li>
-</ul>
-</li>
-<li>chunk head 内存存储</li>
-<li>wal</li>
-<li>block
-<ul>
-<li>mini database: index, meta, tombstone, chunks</li>
-<li>two key processes: compaction, truncation</li>
-</ul>
-</li>
-<li>index
-<ul>
-<li>TOC段， 存放symbol段，series段，posting倒排索引段在index文件的offset</li>
-<li>倒排索引，label1, value1 -&gt; serie id list</li>
-<li>series段,  label sets -&gt; chunks</li>
-<li>查询过程； 根据多个label， value查询posting倒排索引，取serie id的交集，再根据serie id查找series段查找到chunk信息。</li>
-</ul>
-</li>
-</ul>
-<h3 id="service-mesh">service mesh <a href="#service-mesh" class="anchor">🔗</a></h3><p>微服务内部有分布式环境下的通用功能：熔断策略、负载均衡、服务发现、认证和授权、quota限制、trace和监控等等</p>
+</span></span></code></pre></div><h1 id="微服务与service-mesh">微服务与service mesh <a href="#%e5%be%ae%e6%9c%8d%e5%8a%a1%e4%b8%8eservice-mesh" class="anchor">🔗</a></h1><p>微服务内部有分布式环境下的通用功能：熔断策略、负载均衡、服务发现、认证和授权、quota限制、trace和监控等等</p>
 <p>这种微服务存在的问题：</p>
 <ul>
 <li>虽然有现成的框架做了这些事情，但在也需要业务去配置和管理框架</li>
@@ -367,11 +332,9 @@ $ export PATH=$PWD/bin:$PATH
 <li>框架升级，对业务不透明，需要业务自行升级</li>
 </ul>
 <p>sidecar 单边模式代理模式。 同一个微服务的代理进程service mesh互通，与其他微服务的service mesh也通信，所以单看代理进程像网一样，所以叫service mesh。</p>
-<h3 id="serviceless">serviceless <a href="#serviceless" class="anchor">🔗</a></h3><p>主要包含两个领域的技术，BaaS（Backend as a Service）和FaaS（Function as a Service）</p>
-<h2 id="laas">laas <a href="#laas" class="anchor">🔗</a></h2><p>虚拟化架构：vmware ESXi
+<h1 id="laas">laas <a href="#laas" class="anchor">🔗</a></h1><p>虚拟化架构：vmware ESXi
 Xen架构（Xen内核管理CPU和MEM，Deamon虚拟机管理net，disk）
 KVM架构（KVM内核管理CPU和MEM， QEMU管理net，disk，虚拟机进程调度）</p>
-<p>虚拟任务：cpu，内存，网络，disk。</p>
 
     </div>
 
