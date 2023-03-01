@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<html lang="zh-cn">
+  <head>
+    <title>linux | brettkk</title>
+
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
+<meta name="viewport" content="width=device-width,minimum-scale=1">
+<meta name="description" content="资料 🔗 操作系统：南大 jyy。 http://jyywiki.cn/OS/2022/ Morris MIT 6.S081 上交： 陈海波 https://elixir.bootlin.com/linux/lastest/source 文件系统 🔗">
+<meta name="generator" content="Hugo 0.103.1" />
+
+
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+<link href="https://cdn.bootcss.com/highlight.js/9.15.10/styles/zenburn.min.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<link rel="stylesheet" href="http://brettkk.github.io/css/syntax.css" />
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js" integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+
+
+
+
+  </head>
+
+  <body>
+    <nav class="navigation">
+	
+		<a href="/"> <span class="arrow">←</span>Home</a>
+	
+	<a href="/posts">Archive</a>
+	<a href="/tags">Tags</a>
+	<a href="/about">About</a>
+
+	
+
+	
+</nav>
+
+
+    <main class="main">
+      
+
+<section id="single">
+    <h1 class="title">linux</h1>
+
+    <div class="tip">
+        <time datetime="2022-05-05 11:33:56 &#43;0800 CST">May 5, 2022</time>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          4414 words
+        </span>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          9 minute read
+        </span>
+    </div>
+
+    
+    
+        
+  
+    <aside class="toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
+          <div>
+              <nav id="TableOfContents">
+  <ul>
+    <li><a href="#资料">资料</a></li>
+    <li><a href="#文件系统">文件系统</a></li>
+    <li><a href="#网络">网络</a></li>
+    <li><a href="#进程">进程</a>
+      <ul>
+        <li><a href="#什么是程序">什么是程序？</a></li>
+        <li><a href="#程序与编译器">程序与编译器</a></li>
+        <li><a href="#c标准库的实现">C标准库的实现</a></li>
+        <li><a href="#互斥和原子性">互斥和原子性</a></li>
+        <li><a href="#进程的系统调用">进程的系统调用</a></li>
+        <li><a href="#进程的地址空间">进程的地址空间</a></li>
+        <li><a href="#进程控制块pcb在内核中的结构">进程控制块pcb在内核中的结构</a></li>
+        <li><a href="#处理器的调度">处理器的调度。</a></li>
+        <li><a href="#信号">信号</a></li>
+        <li><a href="#进程间的通信ipc">进程间的通信IPC</a></li>
+      </ul>
+    </li>
+    <li><a href="#内存">内存</a>
+      <ul>
+        <li><a href="#虚拟地址空间与物理空间">虚拟地址空间与物理空间</a>
+          <ul>
+            <li><a href="#cpu-寻址方式">cpu 寻址方式</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#os是不是太重了">os是不是太重了？</a></li>
+    <li><a href="#linux源码">linux源码</a>
+      <ul>
+        <li><a href="#各种源码协议">各种源码协议</a></li>
+        <li><a href="#linux-内核模块">linux 内核模块</a></li>
+        <li><a href="#在linux-source-code-root-directory">在linux source code root directory</a></li>
+        <li><a href="#makefile">Makefile</a></li>
+        <li><a href="#linux-内核中的数据结构">linux 内核中的数据结构</a>
+          <ul>
+            <li><a href="#双向循环链表list_head">双向循环链表list_head</a></li>
+          </ul>
+        </li>
+        <li><a href="#linux-内核中的各种锁">linux 内核中的各种锁</a></li>
+        <li><a href="#linux-驱动">linux 驱动</a></li>
+        <li><a href="#reference">reference</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+          </div>
+      </details>
+    </aside>
+  
+
+
+    
+
+
+    <div class="content">
+      <h1 id="资料">资料 <a href="#%e8%b5%84%e6%96%99" class="anchor">🔗</a></h1><ul>
+<li>操作系统：南大 jyy。 <a href="http://jyywiki.cn/OS/2022/" target="_blank" rel="noopener">http://jyywiki.cn/OS/2022/</a><br></li>
+<li>Morris <code>MIT 6.S081</code><br></li>
+<li>上交： 陈海波<br></li>
+<li><a href="https://elixir.bootlin.com/linux/lastest/source" target="_blank" rel="noopener">https://elixir.bootlin.com/linux/lastest/source</a></li>
+</ul>
+<h1 id="文件系统">文件系统 <a href="#%e6%96%87%e4%bb%b6%e7%b3%bb%e7%bb%9f" class="anchor">🔗</a></h1><ul>
+<li>物理上的两种存储方式
+<ul>
+<li>用电子存储数据 U盘，固态硬盘SSD</li>
+<li>用磁性记录数据 磁带，机械硬盘HDD  垂直式 叠瓦式</li>
+</ul>
+</li>
+<li>文件系统（如何组织文件的块集合）
+<ul>
+<li>FAT （FAT表, 块的地址集中链式存储）</li>
+<li>Ext3 （inode表 (<font color=blue>直接block地址， 间接block地址，间间block地址， 间间间)</font>）</li>
+</ul>
+</li>
+</ul>
+<p>软连接，与硬连接有什么区别?<br></p>
+<ul>
+<li>ln -s source dist # 软连接 文件用户数据块中存放的内容是另一文件的路径名的指向，则该文件就是软连接</li>
+<li>ln source dist # 硬连接 硬链接是有着相同 inode 号仅文件名不同的文件</li>
+<li>文件删除的条件
+<ul>
+<li>文件有2个计数器，i_count（占有的进程数）, i_nlink（硬链接数），同时为0时删除文件</li>
+</ul>
+</li>
+</ul>
+<p>查看/dev下的设备文件mount到哪种文件系统的哪个目录下。</p>
+<p>elf格式的文件？什么是可执行文件？<br>可执行文件是描述了状态机的初始状态 + 迁移的数据结构。</p>
+<p>同步IO 异步IO： 指的是I/O 的执行者，是同步处理后返回，还是先返回给应用程序后异步通知。<br>
+阻塞IO 非阻塞IO： 指的是IO的调用者，是阻塞等待结果，还是异步等通知。<br></p>
+<h1 id="网络">网络 <a href="#%e7%bd%91%e7%bb%9c" class="anchor">🔗</a></h1><p>利用socket收、发数据的缓存是利用<code>sk_buff</code>组织的双向链表<br>
+<strong>app---&gt;Socket---&gt;Sock---&gt;sk_buff</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> socket {
+</span></span><span style="display:flex;"><span>  socket_state state;
+</span></span><span style="display:flex;"><span>  ...
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">struct</span> sock <span style="color:#f92672">*</span>sk;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> sock {
+</span></span><span style="display:flex;"><span>  ...
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">struct</span> sk_buff_head sk_receive_queue; <span style="color:#75715e">//收队列
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">struct</span> sk_buff_head sk_write_queue;   <span style="color:#75715e">//发队列
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> sk_buff_head {<span style="color:#75715e">//sk_buff 的队列
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  ...
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">struct</span> sk_buff <span style="color:#f92672">*</span>next;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">struct</span> sk_buff <span style="color:#f92672">*</span>prev;
+</span></span><span style="display:flex;"><span>  spinlock_t      lock;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> sk_buff {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">struct</span> sk_buff <span style="color:#f92672">*</span>next;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">struct</span> sk_buff <span style="color:#f92672">*</span>prev;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">struct</span> sock    <span style="color:#f92672">*</span>sk;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">struct</span> net_device <span style="color:#f92672">*</span>dev;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span> head, <span style="color:#f92672">*</span>end;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span> data, <span style="color:#f92672">*</span>tail;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h1 id="进程">进程 <a href="#%e8%bf%9b%e7%a8%8b" class="anchor">🔗</a></h1><p>loader把os加载进来，执行kernel _start()代码，执行第一个程序/bin/init init进程, 中断/异常处理程序。<br>
+后续其他进程都是init进程的子进程。<br>
+pstree, 在一般的程序的视角下操作系统就是syscall。strace命令。</p>
+<h2 id="什么是程序">什么是程序？ <a href="#%e4%bb%80%e4%b9%88%e6%98%af%e7%a8%8b%e5%ba%8f" class="anchor">🔗</a></h2><p>《程序设计语言的形式语义》
+程序是一个状态机，程序的指令驱动状态机的执行。<br></p>
+<ul>
+<li>
+<p>程序是状态机。</p>
+<ul>
+<li>状态等于内存+寄存器。转移函数的等于程序的一条条指令。</li>
+<li>gdb单步调试状态机的跳转。</li>
+<li>是状态机的话一定可以有工具（gdb，lldb）观察状态和转移之后的状态。</li>
+</ul>
+</li>
+<li>
+<p>状态</p>
+<ul>
+<li>寄存器， ABI规定</li>
+<li>内存（逻辑地址空间）， 二进制文件 + ABI决定</li>
+<li>其他信息， 调试，core dump信息。 DWARF Debug Format。</li>
+</ul>
+</li>
+</ul>
+<p>状态机（程序）如何停下来？ 调用syscall时，任由os修改。</p>
+<h2 id="程序与编译器">程序与编译器 <a href="#%e7%a8%8b%e5%ba%8f%e4%b8%8e%e7%bc%96%e8%af%91%e5%99%a8" class="anchor">🔗</a></h2><p>在vi里编译c文件。 <code>:!gcc %</code>
+gcc -c a.c &amp;&amp; objdump -d a.o &amp;&amp; ld a.o &amp;&amp; ./a.out<br>
+gdb a.out, layout src (c程序视角),layout asm （汇编视角）, start。</p>
+<p>什么是正确的编译？
+正确性： 源代码的状态机 与 二进制的状态机的可观测行为严格一致。</p>
+<p>compiler 保证观测一致性的前提下 改写代码。</p>
+<p>问题1: gdb Unable to find Mach task port<br>
+解决过程： mac下不能安装gdb， lldb替代。</p>
+<h2 id="c标准库的实现">C标准库的实现 <a href="#c%e6%a0%87%e5%87%86%e5%ba%93%e7%9a%84%e5%ae%9e%e7%8e%b0" class="anchor">🔗</a></h2><p>在系统调用之上构建方便程序使用的C标准库。<br>
+C语言是什么？ 包含什么？ <br>
+C标准库的设计与实现。基于libc的应用程序。</p>
+<center><strong>封装系统调用。</strong></center>
+<pre><code>execve--封装为好用--&gt;execlp。
+
+memset 多线程访问。标准库只对“标准库内部数据”的线程安全性负责。
+</code></pre>
+<center><strong>封装纯粹的计算。</strong></center>
+<p>排序和查找。
+低配置。qsort， bsearch。
+高配置。c++ sort。</p>
+<center><strong>封装os里的对象。 文件描述符。</strong></center>
+<p>FILE * 背后是封装了一个文件描述符。</p>
+<p>extern char **environ; 在哪里定义，谁赋值的。</p>
+<center><strong>封装地址空间</strong></center>
+<p>内存空间的管理。    malloc, free。区间管理问题。</p>
+<p>线段树，区间树，红黑树？ best，worst的时间复杂度都是logn。</p>
+<ul>
+<li>
+<p>越小的对象分配越频繁</p>
+</li>
+<li>
+<p>较为频繁地分配中等大小的对象</p>
+</li>
+<li>
+<p>低频率的分配大对象</p>
+</li>
+<li>
+<p>设计两套系统（人类也是如此，直觉反馈，理想思考）</p>
+<ul>
+<li>fast path 性能好，覆盖大部分情况
+<ul>
+<li>per cpu, per thread 无锁能独立分配内存。</li>
+</ul>
+</li>
+<li>slow path
+<ul>
+<li>加锁去全局的池子里分配。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<center><strong> 无限的封装 </strong></center>
+<ul>
+<li>The GNU C Library</li>
+<li>Newlib</li>
+<li>C++ 编译器</li>
+<li>CPython</li>
+<li>Go 最开始的编译器是C写的。</li>
+</ul>
+<h2 id="互斥和原子性">互斥和原子性 <a href="#%e4%ba%92%e6%96%a5%e5%92%8c%e5%8e%9f%e5%ad%90%e6%80%a7" class="anchor">🔗</a></h2><p>并发程序 = 多个执行流， 共享内存的状态机。<br></p>
+<p>lock(&amp;lk), unlock(&amp;lk) 可以实现临界区之间的线程串行化执行。<br></p>
+<ul>
+<li>99%的并发问题可以用一个队列解决
+<ul>
+<li>worker thread去锁保护的队列里取任务</li>
+<li>PDC chap 1 (<a href="https://web.mit.edu/dimitrib/www/pdc.html" target="_blank" rel="noopener">https://web.mit.edu/dimitrib/www/pdc.html</a>)</li>
+</ul>
+</li>
+</ul>
+<p>加上volatile后保证汇编层面上的语义正确。 但是在cpu内部维护指令依赖的DAG，不依赖的指令同时发射执行。
+现在的处理器也是数据流分析器，编译器，做出应有的应对，它才可以跑得快。</p>
+<p><strong>peterson算法。</strong><br>
+A举旗子，往厕所门上贴“B”正在使用的标签。
+B举旗子，往厕所门上贴“A”正在使用的标签。<br>
+当 对方的旗子举起来了，且门上的名字不是自己，则等待。其他情况，可以进。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#66d9ef">volatile</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, y <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, turn <span style="color:#f92672">=</span> A;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Ta</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span>(<span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>        turn <span style="color:#f92672">=</span> B;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span>( y <span style="color:#f92672">&amp;&amp;</span> turn <span style="color:#f92672">==</span> B) ;
+</span></span><span style="display:flex;"><span>        critical_section();
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Tb</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span>(<span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>        y <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>        turn <span style="color:#f92672">=</span> A;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span>( x <span style="color:#f92672">&amp;&amp;</span> turn <span style="color:#f92672">=</span> A) ;
+</span></span><span style="display:flex;"><span>        critical_section();
+</span></span><span style="display:flex;"><span>        y <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>如何证明程序的正确性? <br>
+画状态机（pc1, pc2, x, y, turn）。用工具画。
+model checker。状态机可以抽象为图。可达性。</p>
+<p>xchg指令： 先看一下，然后中途没人改动时改掉。其他的 C11 stdatomic.h <br></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> job {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span> (<span style="color:#f92672">*</span>run)(<span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span>args);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span>args;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">while</span>(<span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">struct</span> job <span style="color:#f92672">*</span>job;
+</span></span><span style="display:flex;"><span>    mutex_lock(<span style="color:#f92672">&amp;</span>mutex);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> ( <span style="color:#f92672">!</span>(job<span style="color:#f92672">=</span>get_job()) ){
+</span></span><span style="display:flex;"><span>        wait(<span style="color:#f92672">&amp;</span>cv, <span style="color:#f92672">&amp;</span>mutex);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    mutex_unlock(<span style="color:#f92672">&amp;</span>mutex);
+</span></span><span style="display:flex;"><span>    job<span style="color:#f92672">-&gt;</span>run(job<span style="color:#f92672">-&gt;</span>arg);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>DAG，拓扑排序，按层容易并行化计算。</p>
+<p>条件变量： 实现线程间的交替打印。</p>
+<p>共享内存是万恶之源。<br>
+do not communicate by sharing memmory, instead share memory by communicating。 -- effective go <br>
+既然生产者消费者能解决大部分问题的时候，提供API就行了。例如golang的channel， rust的channel。</p>
+<p>举例：平衡二叉树的旋转。怎么保证一定写对。
+写代码时assert。
+[8]很重要的想法。写出状态机。 把每个节点&lt;x, y, a, b, c&gt;的assert &lt;left, right, parent&gt;写出来，写出规约，就完全知道代码该怎么写了。
+在写代码时写出assert，不仅写完了代码，而且解释代码为什么是对的，会加分。</p>
+<p>阅读xv6的spinlock-xv6.c 中各种防御性编程。</p>
+<p>动态程序分析 sanitizer。</p>
+<h2 id="进程的系统调用">进程的系统调用 <a href="#%e8%bf%9b%e7%a8%8b%e7%9a%84%e7%b3%bb%e7%bb%9f%e8%b0%83%e7%94%a8" class="anchor">🔗</a></h2><ul>
+<li>三大类系统调用
+<ul>
+<li>进程的syscall，fork，execve,exit。</li>
+<li>内存的syscall， mmap虚拟地址空间管理。</li>
+<li>文件的syscall, open， close, read, write, mkdir, link, unlink</li>
+<li>其他，网络等等。</li>
+</ul>
+</li>
+</ul>
+<p>创建进程的system call api。 fork, execve, exit 状态机的创建和退出。<br>
+fork() 叉子。状态机的复制。
+fork的应用 （文件描述符的复制，写时复制）</p>
+<p>int open(const char *pathname, int flags)
+多进程（线程）write时os管理了文件的偏移量。flags = O_CLOEXEC时子进程不复制文件描述符。</p>
+<p>dup() 的两个文件描述是共享offset，还是独立offset？读RTFM manual。共享offset。</p>
+<p>写时复制copy on write, 页面是os管理的,被修改的页面才会复制</p>
+<p>execve 重置一个进程的状态机，另外一个程序的初始化状态机。</p>
+<h2 id="进程的地址空间">进程的地址空间 <a href="#%e8%bf%9b%e7%a8%8b%e7%9a%84%e5%9c%b0%e5%9d%80%e7%a9%ba%e9%97%b4" class="anchor">🔗</a></h2><pre><code>SIGSEG。 address boundary errror.
+
+strace pmap pid &amp; | vim -
+
+os提供查看进程地址空间的机制。man 5 proc
+/proc/pid/maps     
+
+VSDO。 只读系统调用不陷入内核态。time的实现。vvar， vdso。
+系统调用只是一组api接口的约定， 不一定一定执行int指令。
+
+mmap。
+
+地址空间的隔离。
+</code></pre>
+<h2 id="进程控制块pcb在内核中的结构">进程控制块pcb在内核中的结构 <a href="#%e8%bf%9b%e7%a8%8b%e6%8e%a7%e5%88%b6%e5%9d%97pcb%e5%9c%a8%e5%86%85%e6%a0%b8%e4%b8%ad%e7%9a%84%e7%bb%93%e6%9e%84" class="anchor">🔗</a></h2><p>task_struct结构体对应与进程相关的信息<br></p>
+<ul>
+<li>
+<p>创建进程 fork 子进程从父进程上继承了哪些内容？子进程与父进程的区别与联系</p>
+</li>
+<li>
+<p>fork() pthread_create() 最后在linux中都是调用do_fork， copy_process方法</p>
+<ul>
+<li>linux中创建线程与进程均需要走到copy——process方法</li>
+<li>进程与线程，对于系统来说都是task， 与task_struct对应</li>
+<li>do_fork
+<ul>
+<li>copy_process</li>
+<li>复制的内容与参数flag相关</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>lsof</p>
+<ul>
+<li>lsof -p pid 进程打开的文件</li>
+<li>lsof -i:8080 打开某端口的进程</li>
+</ul>
+</li>
+<li>
+<p>查某个进程打开的端口号</p>
+<ul>
+<li>lsof -p pid|grep LISTEN</li>
+<li>netstat -nltp |grep pid</li>
+</ul>
+</li>
+</ul>
+<h2 id="处理器的调度">处理器的调度。 <a href="#%e5%a4%84%e7%90%86%e5%99%a8%e7%9a%84%e8%b0%83%e5%ba%a6" class="anchor">🔗</a></h2><p>vruntime, nice值。 有序集合，rb-tree。</p>
+<h2 id="信号">信号 <a href="#%e4%bf%a1%e5%8f%b7" class="anchor">🔗</a></h2><ul>
+<li>kill -l 显示可用的信号
+<ul>
+<li>kill -9 pid 	发送编号为9的信号，强制杀死进程 SIGKILL</li>
+<li>kill -2  SIGINT  ctrl+c</li>
+<li>kill -15 (kill的默认选项) SIGTREM</li>
+</ul>
+</li>
+<li>SIGHUP：  终端挂起或者控制进程终止，通知session内的进程不再与终端关联</li>
+<li>SIGCHLD: 当子进程退出时，发送给父进程的信号。父进程可以waitpid处理，或者注册信号处理函数处理。父进程不处理，子进程变为僵尸进程。</li>
+</ul>
+<h2 id="进程间的通信ipc">进程间的通信IPC <a href="#%e8%bf%9b%e7%a8%8b%e9%97%b4%e7%9a%84%e9%80%9a%e4%bf%a1ipc" class="anchor">🔗</a></h2><pre tabindex="0"><code></code></pre><h1 id="内存">内存 <a href="#%e5%86%85%e5%ad%98" class="anchor">🔗</a></h1><h2 id="虚拟地址空间与物理空间">虚拟地址空间与物理空间 <a href="#%e8%99%9a%e6%8b%9f%e5%9c%b0%e5%9d%80%e7%a9%ba%e9%97%b4%e4%b8%8e%e7%89%a9%e7%90%86%e7%a9%ba%e9%97%b4" class="anchor">🔗</a></h2><p>页表</p>
+<ul>
+<li>proc目录下 查看进程的虚拟地址空间布局  cat /proc/pid/maps vm_area_struct</li>
+<li>numa 架构（cpu 内存 非均匀访问） 多 CPU 系统下共享 BUS 带来的性能问题</li>
+</ul>
+<p>size 命令 输出可执行文件中的代码段，数据段，bss段的大小， 不包含堆和栈</p>
+<p>.bss段不存在程序文件中，仅存在与内存中</p>
+<h3 id="cpu-寻址方式">cpu 寻址方式 <a href="#cpu-%e5%af%bb%e5%9d%80%e6%96%b9%e5%bc%8f" class="anchor">🔗</a></h3><p>寻址： 指令中操作数所在的真实位置，cpu怎么去找指令中的数据<br>
+x86的七种</p>
+<ul>
+<li>立即数寻址（不用寻址）</li>
+<li>寄存器寻址 （操作数存在了寄存器里，不用到内存寻址）</li>
+<li>直接寻址 （直接给出操作数的内存地址）</li>
+<li>寄存器间接寻址 （操作数的地址在寄存器，操作数在内存中）</li>
+<li>寄存器相对寻址 （寄存器的内容+给定的位移量之和等于操作数的内存地址）</li>
+<li>基址加变址寻址 （基址寄存器+变址寄存器内存之和等于操作数的内存地址）</li>
+<li>相对基址变址寻址 （基址寄存器+变址寄存器+给定的位移量等于操作数的内存地址）</li>
+</ul>
+<h1 id="os是不是太重了">os是不是太重了？ <a href="#os%e6%98%af%e4%b8%8d%e6%98%af%e5%a4%aa%e9%87%8d%e4%ba%86" class="anchor">🔗</a></h1><p>宏内核 vs 微内核<br>
+网络，文件系统可以搬出os吗？<br>
+OS 提供了多用户多进程的良好稳定环境，但有一些技术想pass os...</p>
+<ul>
+<li>kernel bypass 绕过内核  intel 开发的DPDK SPDK
+<ul>
+<li>解决内核态上的网络栈上性能问题的一种思路</li>
+<li>避免内核：包拷贝，系统调用，线程调度等性能损耗</li>
+<li>dpdk ring buffer
+<ul>
+<li>array (内存连续存储，对cpu cache line友好)</li>
+<li>size power of 2 for convinient calculate</li>
+<li>padding struct obj for cache line 对齐</li>
+<li>CAS (ABA 问题 额外增加stamp，类似version判断是否出现ABA)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="linux源码">linux源码 <a href="#linux%e6%ba%90%e7%a0%81" class="anchor">🔗</a></h1><p>很庞大，80%的代码是驱动代码。 还有一些是platform的代码。<br>
+gdb的跟踪与观测: 在编译时要加上-g选项，生成的可执行文件才能用gdb进行源码级调试</p>
+<h2 id="各种源码协议">各种源码协议 <a href="#%e5%90%84%e7%a7%8d%e6%ba%90%e7%a0%81%e5%8d%8f%e8%ae%ae" class="anchor">🔗</a></h2><ul>
+<li>必须开源： LGPL, Mozilla  GPL（有版权，必须开源）linux✅</li>
+<li>可以闭源： BSD， MIT Apache（宽松）</li>
+</ul>
+<h2 id="linux-内核模块">linux 内核模块 <a href="#linux-%e5%86%85%e6%a0%b8%e6%a8%a1%e5%9d%97" class="anchor">🔗</a></h2><p>the kernel entry point:  arch/x86/kernel/head_64.S<br>   <br>
+init/main.c#start_kernel() 开启架构不关的代码。 1 完成内核初始化过程，2启动init进程。</p>
+<h2 id="在linux-source-code-root-directory">在linux source code root directory <a href="#%e5%9c%a8linux-source-code-root-directory" class="anchor">🔗</a></h2><p>下执行make发生了什么？ kernel是怎样被编译的？<br>
+当要读源码时，最先要看的文件是根目录下的Makefile文件（例如linux-5.19中1975行，太长了...）。<br>
+另外所有包含源码的子文件夹都有自己的Makefile文件。<br></p>
+<h2 id="makefile">Makefile <a href="#makefile" class="anchor">🔗</a></h2><p>在根目录下在标准的configuration下，执行make， 最终的产物是<font color=blue>bzImage</font> <br>
+vmlinux。</p>
+<p>linux的makefile提供了make help，可以打印 可以传给make的命令行参数和结果文件。</font><br>
+例如： make V=1 相当于verbose build。<br></p>
+<p>完成所有的准备工作后，编译 vmlinux。vmlinux编译完成之后，可以执行make</p>
+<hr>
+<h2 id="linux-内核中的数据结构">linux 内核中的数据结构 <a href="#linux-%e5%86%85%e6%a0%b8%e4%b8%ad%e7%9a%84%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84" class="anchor">🔗</a></h2><h3 id="双向循环链表list_head">双向循环链表list_head <a href="#%e5%8f%8c%e5%90%91%e5%be%aa%e7%8e%af%e9%93%be%e8%a1%a8list_head" class="anchor">🔗</a></h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">//list.h
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">struct</span> list_head {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">struct</span> list_head <span style="color:#f92672">*</span>next, <span style="color:#f92672">*</span>prev;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>将list_head类型的变量嵌入到宿主数据结构中。<br>
+配合一些宏。</p>
+<h2 id="linux-内核中的各种锁">linux 内核中的各种锁 <a href="#linux-%e5%86%85%e6%a0%b8%e4%b8%ad%e7%9a%84%e5%90%84%e7%a7%8d%e9%94%81" class="anchor">🔗</a></h2><p>spinlock，Mutex，semaphore，Seqlock，RCU，lock free</p>
+<pre tabindex="0"><code>                    系统调用write         （网络/文件）
+横行支撑 ------------------------------------------------
+data structure -------｜｜｜-------------｜｜｜-----------
+lock           -------｜｜｜-------------｜｜｜———————————
+</code></pre><h2 id="linux-驱动">linux 驱动 <a href="#linux-%e9%a9%b1%e5%8a%a8" class="anchor">🔗</a></h2><p>内核对象<code>struct file_operations</code>。</p>
+<hr>
+<h2 id="reference">reference <a href="#reference" class="anchor">🔗</a></h2><p>[1]<a href=""> 返璞归真：UNIX技术内幕</a> <br>
+[2]<a href="https://www.google.com.hk/search?q=building&#43;linux&#43;kernel&#43;from&#43;source&#43;code" target="_blank" rel="noopener"> query= building linux kernel from source code</a> <br>
+[3]<a href="https://0xax.gitbooks.io/linux-insides/content/" target="_blank" rel="noopener"> linux-insides</a><br>
+[4]<a href="https://research.swtch.com/hwmm" target="_blank" rel="noopener"> Hardware Memory Models by Russ Cox</a><br>
+[5]<a href="https://pdos.csail.mit.edu/6.828/2018/xv6.html" target="_blank" rel="noopener"> xv6</a><br></p>
+
+    </div>
+
+    
+        <div class="tags">
+            
+                <a href="http://brettkk.github.io/tags/linux">linux</a>
+            
+        </div>
+    
+    
+    
+
+</section>
+
+
+    </main>
+    
+    <footer id="footer">
+    
+
+    <script src="https://utteranc.es/client.js"
+repo="brettKK/brettkk.github.io"
+issue-term="title"
+theme="github-light"
+crossorigin="anonymous"
+async>
+</script>  
+
+    <div class="copyright">
+    
+       © Copyright 
+       2023 
+       <span class="split">
+        <svg fill="#bbbbbb" width="15" height="15" version="1.1" id="heart-15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 15 15">
+  <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>
+</svg>
+       </span>
+       
+    
+    </div>
+
+    
+      <div class="powerby">
+        Powered by <a href='http://www.gohugo.io/'>Hugo</a> Theme By <a href='https://github.com/nodejh/hugo-theme-cactus-plus'>nodejh</a>
+      </div>
+    
+</footer>
+
+
+
+
+  </body>
+</html>

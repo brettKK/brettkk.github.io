@@ -135,11 +135,11 @@
     
     <item>
       <title>linux</title>
-      <link>http://brettkk.github.io/posts/os/base_os/</link>
+      <link>http://brettkk.github.io/posts/os/os/</link>
       <pubDate>Thu, 05 May 2022 11:33:56 +0800</pubDate>
       
-      <guid>http://brettkk.github.io/posts/os/base_os/</guid>
-      <description>资料 🔗操作系统：南大 jyy。 http://jyywiki.cn/OS/2022/ MIT 6.S081 https://elixir.bootlin.com/linux/lastest/source Linux 版本 🔗uname -a 查看</description>
+      <guid>http://brettkk.github.io/posts/os/os/</guid>
+      <description>资料 🔗 操作系统：南大 jyy。 http://jyywiki.cn/OS/2022/ Morris MIT 6.S081 上交： 陈海波 https://elixir.bootlin.com/linux/lastest/source 文件系统 🔗</description>
     </item>
     
     <item>
@@ -247,7 +247,7 @@
       <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/os/shell/</guid>
-      <description>ls = list ls -a (display all files) ls -l (more infomation) ls -lh (file size k) 磁盘相关的命令 🔗 du 显示某个</description>
+      <description>配置shell文件 🔗 /etc/profile 为系统中每个用户设置环境信息，只在用户</description>
     </item>
     
     <item>
@@ -310,7 +310,7 @@
       <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/francais/common_sense/</guid>
-      <description>《scent of a woman》 西班牙歌曲 Por una Cabeza Slade this is such a crock of shit</description>
+      <description>how i meet your mother 🔗ok, yes, it’s a mistake. I know it’s a mistake. But there are certain things in</description>
     </item>
     
     <item>
@@ -444,15 +444,6 @@ type Node struct{ int num, next Node, } func createCircleLink(int n) Node{ head 
     
     <item>
       <title></title>
-      <link>http://brettkk.github.io/posts/leetcode/queue/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/leetcode/queue/</guid>
-      <description>type Queue struct { items []int } func New() *Queue { return &amp;amp;Queue{ items: []int{} } } func (q *Queue) Enqueue(item int) { q.items = append(q.items, item) } func (q *Queue) Dequeue() int { if len(q.</description>
-    </item>
-    
-    <item>
-      <title></title>
       <link>http://brettkk.github.io/posts/leetcode/skiplist/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
@@ -480,20 +471,6 @@ type Node struct{ int num, next Node, } func createCircleLink(int n) Node{ head 
     
     <item>
       <title></title>
-      <link>http://brettkk.github.io/posts/os/nju-os/nju_os/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/os/nju-os/nju_os/</guid>
-      <description>http://jyywiki.cn/os/2022/
-02 程序与编译器 🔗在vi里编译c文件。 :!gcc %
-什么是程序？ 🔗你在南京大学上过最牛的课是什么？
-《程序设计语言的形式语义》 梁红瑾
-gdb a.out layout src (c程序视角) layout asm （汇编视角） start
-问题1: gdb Unable to find Mach task port 解决过程： mac下不能安装gdb， lldb替代。</description>
-    </item>
-    
-    <item>
-      <title></title>
       <link>http://brettkk.github.io/posts/rust/rust_chain/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
@@ -510,7 +487,8 @@ IDA, NDK。
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>http://brettkk.github.io/posts/todo_list/</guid>
-      <description>工作内容相关方面： 规则引擎grule[11.1]，
+      <description>要了几天饱饭就不记得西北风啥味了
+工作内容相关方面： 规则引擎grule[11.1]，
 工作流引擎（提一下就行）
 向量存储Faiss。
 密码方面： 零知识信任的代码库，spartan rust。
@@ -529,11 +507,16 @@ crossbeam segqueue, lock free</description>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>http://brettkk.github.io/posts/tools/git/</guid>
-      <description>git clone 🔗clone时的shadow clone 和 deep clone
-git submodules
-https://git-scm.com/book/en/v2/Git-Tools-Submodules
-git clone --recursive https://github.com/rust-lang/rust.git
-LibreSSL SSL_read: error:02FFF03C:system library:func(4095):Operation timed out, errno 60 fatal: unable to access error:02FFF036:system library:func(4095):Connection reset by peer 如果开了vpn：export https_proxy=http://127.</description>
+      <description>Arm64 入门 developer.arm.com/documentation/102374/0100
+软件中的大局观 🔗软件是取、舍的平衡艺术。
+空间和时间的取舍 🔗性能优化：空间和时间的互换。
+索引： 空间换时间
+hash表， 二叉搜索树，avl树，红黑树，降低树的深度，变成多叉树（B树， B+树，LSM树，Trie树），跳表skiplist， 倒排索引
+压缩： 时间换空间
+缓存
+开发RISC-V上的操作系统 🔗来源 b站和mooc上。
+risc-v ISA 🔗命名格式： RV[32|64|128][abc.....xyz] [abc...xyz]:标识该处理器支持的指令集模块集合, 1 个基本整数指令集 + 多个可选的扩展指令集。
+git clone 🔗clone时的shadow clone 和 deep clone</description>
     </item>
     
     <item>

@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          5027 words
+          5253 words
         </span>
         <span class="split">
           ·
@@ -685,7 +685,12 @@ shape of argument 不能带泛型。</p>
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>FnMut::call_mut(<span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> self, args: <span style="color:#a6e22e">Args</span>) -&gt; <span style="color:#a6e22e">Self</span>::Output;
 </span></span><span style="display:flex;"><span><span style="color:#75715e">//不会修改匿名结构体中变量的closure实现 Fn
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>Fn: <span style="color:#a6e22e">call</span>(<span style="color:#f92672">&amp;</span>self, args: <span style="color:#a6e22e">Args</span> -&gt; <span style="color:#a6e22e">Self</span>::Output);
-</span></span></code></pre></div><h1 id="所有权move语义借用生命周期的推进关系">所有权，move语义，借用，生命周期的推进关系 <a href="#%e6%89%80%e6%9c%89%e6%9d%83move%e8%af%ad%e4%b9%89%e5%80%9f%e7%94%a8%e7%94%9f%e5%91%bd%e5%91%a8%e6%9c%9f%e7%9a%84%e6%8e%a8%e8%bf%9b%e5%85%b3%e7%b3%bb" class="anchor">🔗</a></h1><p>为了适应内存的ownership&amp;move语义，引入borrow &amp; reference。<br>
+</span></span></code></pre></div><p>在rust中，函数和闭包都是实现了Fn、FnMut或FnOnce特质（trait）的类型。
+任何实现了这三种特质其中一种的类型的对象，都是 可调用对象 ，都能像函数和闭包一样通过这样name()的形式调用，
+()在rust中是一个操作符，操作符在rust中是可以重载的。
+rust的操作符重载是通过实现相应的trait来实现，而()操作符的相应trait就是Fn、FnMut和FnOnce，
+所以，任何实现了这三个trait中的一种的类型，其实就是重载了()操作符</p>
+<h1 id="所有权move语义借用生命周期的推进关系">所有权，move语义，借用，生命周期的推进关系 <a href="#%e6%89%80%e6%9c%89%e6%9d%83move%e8%af%ad%e4%b9%89%e5%80%9f%e7%94%a8%e7%94%9f%e5%91%bd%e5%91%a8%e6%9c%9f%e7%9a%84%e6%8e%a8%e8%bf%9b%e5%85%b3%e7%b3%bb" class="anchor">🔗</a></h1><p>为了适应内存的ownership&amp;move语义，引入borrow &amp; reference。<br>
 带来新问题是所有权和使用权分隔了，让引用和原始值的内存空间独立了。<br>
 但是两者具有逻辑关系上的约束： 引用只能在原始值存在的前提下才有意义。<br>
 引入生命周期lifetime到语法中。<br></p>

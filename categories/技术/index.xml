@@ -126,11 +126,11 @@
     
     <item>
       <title>linux</title>
-      <link>http://brettkk.github.io/posts/os/base_os/</link>
+      <link>http://brettkk.github.io/posts/os/os/</link>
       <pubDate>Thu, 05 May 2022 11:33:56 +0800</pubDate>
       
-      <guid>http://brettkk.github.io/posts/os/base_os/</guid>
-      <description>资料 🔗操作系统：南大 jyy。 http://jyywiki.cn/OS/2022/ MIT 6.S081 https://elixir.bootlin.com/linux/lastest/source Linux 版本 🔗uname -a 查看</description>
+      <guid>http://brettkk.github.io/posts/os/os/</guid>
+      <description>资料 🔗 操作系统：南大 jyy。 http://jyywiki.cn/OS/2022/ Morris MIT 6.S081 上交： 陈海波 https://elixir.bootlin.com/linux/lastest/source 文件系统 🔗</description>
     </item>
     
     <item>
@@ -220,7 +220,7 @@
       <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/os/shell/</guid>
-      <description>ls = list ls -a (display all files) ls -l (more infomation) ls -lh (file size k) 磁盘相关的命令 🔗 du 显示某个</description>
+      <description>配置shell文件 🔗 /etc/profile 为系统中每个用户设置环境信息，只在用户</description>
     </item>
     
     <item>

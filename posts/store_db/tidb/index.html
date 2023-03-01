@@ -70,13 +70,13 @@
           ·
         </span>
         <span>
-          1962 words
+          2058 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          4 minute read
+          5 minute read
         </span>
     </div>
 
@@ -109,10 +109,9 @@
     </li>
     <li><a href="#tikv">tikv</a>
       <ul>
-        <li><a href="#分布式事务">分布式事务</a></li>
+        <li><a href="#并发控制mvcc">并发控制，mvcc。</a></li>
       </ul>
     </li>
-    <li><a href="#rocksdb">rocksdb</a></li>
   </ul>
 </nav>
           </div>
@@ -292,8 +291,9 @@ row和index的key具有相同的prefix，一个table内的数据在tikv的key空
 </span></span></code></pre></div><h2 id="tikv-client">tikv-client <a href="#tikv-client" class="anchor">🔗</a></h2><p>todo</p>
 <p><a href="https://github.com/pingcap/tidb/tree/master/store/mockstore" target="_blank" rel="noopener">tidb-server里模拟tikv中的计算逻辑mock-tikv</a><br></p>
 <hr>
-<h1 id="tikv">tikv <a href="#tikv" class="anchor">🔗</a></h1><p><code>分布式</code> <code>事务</code> <code>k-v pair</code> <br>
-单机存储靠rocksdb来存储到磁盘上。分布式数据复制靠raft。</p>
+<h1 id="tikv">tikv <a href="#tikv" class="anchor">🔗</a></h1><p><code>分布式</code> <code>事务</code> <code>k-v pair</code> <br></p>
+<p>单机存储靠rocksdb来存储到磁盘上。分布式数据复制靠raft。</p>
+<p><code>row -&gt; region -&gt; store -&gt; database</code></p>
 <table>
 <thead>
 <tr>
@@ -303,12 +303,12 @@ row和index的key具有相同的prefix，一个table内的数据在tikv的key空
 </thead>
 <tbody>
 <tr>
-<td>kv api / coprocessor api</td>
+<td>kvservice / coprocessor api</td>
 <td>kv 请求， sql计算</td>
 </tr>
 <tr>
-<td>transaction</td>
-<td>mvcc</td>
+<td>storage</td>
+<td>mvcc, 2pc</td>
 </tr>
 <tr>
 <td>consensus（raft）</td>
@@ -324,9 +324,9 @@ row和index的key具有相同的prefix，一个table内的数据在tikv的key空
 </tr>
 </tbody>
 </table>
-<p>忽略raft。</p>
-<h2 id="分布式事务">分布式事务 <a href="#%e5%88%86%e5%b8%83%e5%bc%8f%e4%ba%8b%e5%8a%a1" class="anchor">🔗</a></h2><p>tidb --&gt; tikv_1 and tikv node_2 <br></p>
-<h1 id="rocksdb">rocksdb <a href="#rocksdb" class="anchor">🔗</a></h1>
+<h2 id="并发控制mvcc">并发控制，mvcc。 <a href="#%e5%b9%b6%e5%8f%91%e6%8e%a7%e5%88%b6mvcc" class="anchor">🔗</a></h2><p>Timestamp Oracle(TSO) 递增时间戳作为版本号。<br></p>
+<p>prewrite时，1、检查column family <code>lock</code>上key是否被lock了， 2、在cf write上key的版本号是否小于当前事物持有的TSO， 否则rollback <br></p>
+
     </div>
 
     
