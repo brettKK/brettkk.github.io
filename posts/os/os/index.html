@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          4414 words
+          4339 words
         </span>
         <span class="split">
           ·
@@ -92,7 +92,12 @@
               <nav id="TableOfContents">
   <ul>
     <li><a href="#资料">资料</a></li>
-    <li><a href="#文件系统">文件系统</a></li>
+    <li><a href="#文件系统">文件系统</a>
+      <ul>
+        <li><a href="#zero-copy">zero copy</a></li>
+        <li><a href="#page-cache">page cache</a></li>
+      </ul>
+    </li>
     <li><a href="#网络">网络</a></li>
     <li><a href="#进程">进程</a>
       <ul>
@@ -178,8 +183,12 @@
 </ul>
 <p>查看/dev下的设备文件mount到哪种文件系统的哪个目录下。</p>
 <p>elf格式的文件？什么是可执行文件？<br>可执行文件是描述了状态机的初始状态 + 迁移的数据结构。</p>
-<p>同步IO 异步IO： 指的是I/O 的执行者，是同步处理后返回，还是先返回给应用程序后异步通知。<br>
-阻塞IO 非阻塞IO： 指的是IO的调用者，是阻塞等待结果，还是异步等通知。<br></p>
+<h2 id="zero-copy">zero copy <a href="#zero-copy" class="anchor">🔗</a></h2><p><p class="markdown-image">
+  <img src="/os/zero_copy.png" alt="image"  />
+</p></p>
+<h2 id="page-cache">page cache <a href="#page-cache" class="anchor">🔗</a></h2><p><p class="markdown-image">
+  <img src="/os/page_cache.png" alt="image"  />
+</p></p>
 <h1 id="网络">网络 <a href="#%e7%bd%91%e7%bb%9c" class="anchor">🔗</a></h1><p>利用socket收、发数据的缓存是利用<code>sk_buff</code>组织的双向链表<br>
 <strong>app---&gt;Socket---&gt;Sock---&gt;sk_buff</strong></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> socket {
