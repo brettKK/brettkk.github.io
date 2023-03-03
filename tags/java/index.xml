@@ -6,23 +6,14 @@
     <description>Recent content in java on brettkk</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 05 May 2021 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/tags/java/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>soot, wala</title>
-      <link>http://brettkk.github.io/posts/tools/soot_wala/</link>
-      <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/tools/soot_wala/</guid>
-      <description>4中IR Baf 在bytecode上进行的抽象，忽略字节码对于常量</description>
-    </item>
-    
+    <lastBuildDate>Fri, 05 Mar 2021 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/tags/java/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>java 小结</title>
       <link>http://brettkk.github.io/posts/tools/java/</link>
       <pubDate>Fri, 05 Mar 2021 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/tools/java/</guid>
-      <description>Class文件格式图 1 class文件由十个部分组成 javap</description>
+      <description>java字节码格式 🔗Class文件格式图 javap查看字节码</description>
     </item>
     
   </channel>

@@ -16,5 +16,23 @@
       <description>1 vscode 快捷键 🔗1.1 工作区快捷键 🔗 Cmd + Shift + P -》显示命令面板 Cmd+P</description>
     </item>
     
+    <item>
+      <title>软件工具集</title>
+      <link>http://brettkk.github.io/posts/tools/pkg_tools/</link>
+      <pubDate>Thu, 05 May 2022 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/tools/pkg_tools/</guid>
+      <description>画图工具 🔗 draw.io （加载速度慢） xournal （操作不方便） excalidraw （本地local</description>
+    </item>
+    
+    <item>
+      <title>mac安装开发环境</title>
+      <link>http://brettkk.github.io/posts/tools/mac_start_dev/</link>
+      <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/tools/mac_start_dev/</guid>
+      <description>新电脑构建开发环境 🔗 iterm2 brew zsh, ohmyzsh golang, rust vscode hugo github direnv multipass 虚拟机 字体 fira cod</description>
+    </item>
+    
   </channel>
 </rss>

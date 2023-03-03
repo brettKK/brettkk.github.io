@@ -35,6 +35,15 @@
     </item>
     
     <item>
+      <title>linux</title>
+      <link>http://brettkk.github.io/posts/os/os/</link>
+      <pubDate>Mon, 05 Dec 2022 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/os/os/</guid>
+      <description>资料 🔗 操作系统：南大 jyy。 http://jyywiki.cn/OS/2022/ Morris MIT 6.S081 上交： 陈海波 https://elixir.bootlin.com/linux/lastest/source 文件系统 🔗</description>
+    </item>
+    
+    <item>
       <title>环境问题 &#43; 类型系统疑问</title>
       <link>http://brettkk.github.io/posts/rust/rust_problem/</link>
       <pubDate>Mon, 21 Nov 2022 11:33:56 +0800</pubDate>
@@ -107,6 +116,15 @@
     </item>
     
     <item>
+      <title>区块链技术与应用 -- 学习</title>
+      <link>http://brettkk.github.io/posts/tools/block_chain/</link>
+      <pubDate>Mon, 05 Sep 2022 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/tools/block_chain/</guid>
+      <description>区块链技术与应用 🔗北大肖臻 BTC 🔗proof of work: 做hash函数的</description>
+    </item>
+    
+    <item>
       <title>module name and module import path in Go</title>
       <link>http://brettkk.github.io/posts/golang/golang_mod/</link>
       <pubDate>Sat, 06 Aug 2022 00:00:00 +0000</pubDate>
@@ -134,15 +152,6 @@
     </item>
     
     <item>
-      <title>linux</title>
-      <link>http://brettkk.github.io/posts/os/os/</link>
-      <pubDate>Thu, 05 May 2022 11:33:56 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/os/os/</guid>
-      <description>资料 🔗 操作系统：南大 jyy。 http://jyywiki.cn/OS/2022/ Morris MIT 6.S081 上交： 陈海波 https://elixir.bootlin.com/linux/lastest/source 文件系统 🔗</description>
-    </item>
-    
-    <item>
       <title>vs code 小结</title>
       <link>http://brettkk.github.io/posts/tools/vs_code/</link>
       <pubDate>Thu, 05 May 2022 11:33:56 +0800</pubDate>
@@ -157,7 +166,7 @@
       <pubDate>Thu, 05 May 2022 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/tools/pkg_tools/</guid>
-      <description>tldr (too long didn&#39;t read) . brew install tldr nano 画图 draw.io （加载速度慢） xournal （操作不方便） excalidraw （</description>
+      <description>画图工具 🔗 draw.io （加载速度慢） xournal （操作不方便） excalidraw （本地local</description>
     </item>
     
     <item>
@@ -256,7 +265,7 @@
       <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/tools/mac_start_dev/</guid>
-      <description>macbook的指令集 uname -a or uname -m 新m1芯片下是arm64 老i</description>
+      <description>新电脑构建开发环境 🔗 iterm2 brew zsh, ohmyzsh golang, rust vscode hugo github direnv multipass 虚拟机 字体 fira cod</description>
     </item>
     
     <item>
@@ -293,15 +302,6 @@
       
       <guid>http://brettkk.github.io/posts/rust/rust_unsafe/</guid>
       <description>fn main() { let mut d = String::from(&amp;#34;aaaa&amp;#34;); let d_len = d.len(); { // 去掉 or 不去掉 let mut e = String::wtih_capacity(d_len); unsafe { // 两个</description>
-    </item>
-    
-    <item>
-      <title>soot, wala</title>
-      <link>http://brettkk.github.io/posts/tools/soot_wala/</link>
-      <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/tools/soot_wala/</guid>
-      <description>4中IR Baf 在bytecode上进行的抽象，忽略字节码对于常量</description>
     </item>
     
     <item>
@@ -391,7 +391,7 @@
       <pubDate>Fri, 05 Mar 2021 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/tools/java/</guid>
-      <description>Class文件格式图 1 class文件由十个部分组成 javap</description>
+      <description>java字节码格式 🔗Class文件格式图 javap查看字节码</description>
     </item>
     
     <item>
@@ -410,15 +410,6 @@
       
       <guid>http://brettkk.github.io/posts/math/algeb/</guid>
       <description>高等代数 🔗3Blue1Brown的系列视频 线性代数的本质 矩阵</description>
-    </item>
-    
-    <item>
-      <title>mac上安装和使用虚拟机</title>
-      <link>http://brettkk.github.io/posts/tools/%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA/</link>
-      <pubDate>Fri, 18 Sep 2020 11:33:56 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/tools/%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA/</guid>
-      <description>必要性 🔗 因为使用的是mac笔记本，实验和开发上需要利用lin</description>
     </item>
     
     <item>
@@ -499,61 +490,6 @@ IDA, NDK。
 ai框架： Pytorch, TensorFlow, TensorRT
 tokio
 crossbeam segqueue, lock free</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>http://brettkk.github.io/posts/tools/git/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/tools/git/</guid>
-      <description>Arm64 入门 developer.arm.com/documentation/102374/0100
-软件中的大局观 🔗软件是取、舍的平衡艺术。
-空间和时间的取舍 🔗性能优化：空间和时间的互换。
-索引： 空间换时间
-hash表， 二叉搜索树，avl树，红黑树，降低树的深度，变成多叉树（B树， B+树，LSM树，Trie树），跳表skiplist， 倒排索引
-压缩： 时间换空间
-缓存
-开发RISC-V上的操作系统 🔗来源 b站和mooc上。
-risc-v ISA 🔗命名格式： RV[32|64|128][abc.....xyz] [abc...xyz]:标识该处理器支持的指令集模块集合, 1 个基本整数指令集 + 多个可选的扩展指令集。
-git clone 🔗clone时的shadow clone 和 deep clone</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>http://brettkk.github.io/posts/tools/latex/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/tools/latex/</guid>
-      <description>字符编码 🔗ascii码，占一个字节，实际使用了7 bit,128个字符，表示英语够了。 在ascii码的第8位置为0，这个特点深深影响了其他国家和后来的字符编码方式。
-欧洲法语é等字符，采用Latin1, 利用acsii码的最高位， 可以表示了。
-亚洲国家的文字符号更多，汉字10万加，必须多个字节表示一个符号。 GB2312
-unicode 万国码。只是定义了符号的二进制代码，如何区分不同的编码？没有规定二进制如何存放。
-utf-8历史， 开发plan 9操作系统的产物，发明了后来广泛使用的字符编码。 utf-8 是一种针对unicode的变长字符编码的实现方式。 使用1-4个字节表示一个字符。 二进制代码第一位是0， 则这个字符只占一个字节。 如果第一位是1，连续有多少个1，表示当前字符占用多少个字节, 后面字节的前两位均以10开头。
-例如 严。 unicode = 100111000100101 = 4E25, utf-8=11100100 10111000 10100101 = E4B8A5.</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>http://brettkk.github.io/posts/tools/pku_%E8%BD%AF%E4%BB%B6%E5%88%86%E6%9E%90%E6%8A%80%E6%9C%AF/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/tools/pku_%E8%BD%AF%E4%BB%B6%E5%88%86%E6%9E%90%E6%8A%80%E6%9C%AF/</guid>
-      <description>软件分析技术（Software Analysis）
-哥德尔不完备定理
-莱斯定理
-数据流分析
-过程间分析，指针分析，控制流分析，抽象解释
-约束求解，符号执行
-数据流分析 🔗活跃变量分析
-可达性分析
-可用表达式分析
-https://xiongyingfei.github.io/SA/2020/main.htm
-《编译原理》Aho
-《Lecture notes on static analysis》Moller and Schwartzbach
-https://cs.au.dk/~amoeller/spa/
-南京大学《软件分析》课（B站视频）
-《Decision Procedures -- An Algorithmic Point of View》 Daniel Kroening and Ofer Strichman</description>
     </item>
     
   </channel>

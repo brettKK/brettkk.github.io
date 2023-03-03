@@ -65,12 +65,12 @@
     <h1 class="title">linux</h1>
 
     <div class="tip">
-        <time datetime="2022-05-05 11:33:56 &#43;0800 CST">May 5, 2022</time>
+        <time datetime="2022-12-05 11:33:56 &#43;0800 CST">Dec 5, 2022</time>
         <span class="split">
           ·
         </span>
         <span>
-          4339 words
+          4471 words
         </span>
         <span class="split">
           ·
@@ -442,7 +442,14 @@ mmap。
 <li>SIGHUP：  终端挂起或者控制进程终止，通知session内的进程不再与终端关联</li>
 <li>SIGCHLD: 当子进程退出时，发送给父进程的信号。父进程可以waitpid处理，或者注册信号处理函数处理。父进程不处理，子进程变为僵尸进程。</li>
 </ul>
-<h2 id="进程间的通信ipc">进程间的通信IPC <a href="#%e8%bf%9b%e7%a8%8b%e9%97%b4%e7%9a%84%e9%80%9a%e4%bf%a1ipc" class="anchor">🔗</a></h2><pre tabindex="0"><code></code></pre><h1 id="内存">内存 <a href="#%e5%86%85%e5%ad%98" class="anchor">🔗</a></h1><h2 id="虚拟地址空间与物理空间">虚拟地址空间与物理空间 <a href="#%e8%99%9a%e6%8b%9f%e5%9c%b0%e5%9d%80%e7%a9%ba%e9%97%b4%e4%b8%8e%e7%89%a9%e7%90%86%e7%a9%ba%e9%97%b4" class="anchor">🔗</a></h2><p>页表</p>
+<h2 id="进程间的通信ipc">进程间的通信IPC <a href="#%e8%bf%9b%e7%a8%8b%e9%97%b4%e7%9a%84%e9%80%9a%e4%bf%a1ipc" class="anchor">🔗</a></h2><ul>
+<li>socket是全双工。<code>socket(..)-&gt;fd, bind(fd, ), listen(fd, ), accept(fd, )-&gt;connfd</code></li>
+<li>匿名管道pipe在父子进程间通过内核缓冲区（伪文件）半双工单向通信。有名管道fifo通过文件通信，<code>mkfifo(const char * pathname, mode_t mode)</code></li>
+<li>信号 signal</li>
+<li>共享内存mmap拿到内存指针，内存指针的读写。</li>
+<li>消息队列 msgget</li>
+</ul>
+<h1 id="内存">内存 <a href="#%e5%86%85%e5%ad%98" class="anchor">🔗</a></h1><h2 id="虚拟地址空间与物理空间">虚拟地址空间与物理空间 <a href="#%e8%99%9a%e6%8b%9f%e5%9c%b0%e5%9d%80%e7%a9%ba%e9%97%b4%e4%b8%8e%e7%89%a9%e7%90%86%e7%a9%ba%e9%97%b4" class="anchor">🔗</a></h2><p>页表</p>
 <ul>
 <li>proc目录下 查看进程的虚拟地址空间布局  cat /proc/pid/maps vm_area_struct</li>
 <li>numa 架构（cpu 内存 非均匀访问） 多 CPU 系统下共享 BUS 带来的性能问题</li>

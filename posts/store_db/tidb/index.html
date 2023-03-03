@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          2079 words
+          2089 words
         </span>
         <span class="split">
           ·
@@ -110,7 +110,8 @@
     <li><a href="#tikv">tikv</a>
       <ul>
         <li><a href="#并发控制mvcc">并发控制，mvcc。</a></li>
-        <li><a href="#rocksdb">rocksdb</a></li>
+        <li><a href="#rocksdb-读写路径">rocksdb 读写路径</a></li>
+        <li><a href="#rocksdb-存储格式">rocksdb 存储格式</a></li>
       </ul>
     </li>
   </ul>
@@ -327,9 +328,9 @@ row和index的key具有相同的prefix，一个table内的数据在tikv的key空
 </table>
 <h2 id="并发控制mvcc">并发控制，mvcc。 <a href="#%e5%b9%b6%e5%8f%91%e6%8e%a7%e5%88%b6mvcc" class="anchor">🔗</a></h2><p>Timestamp Oracle(TSO) 递增时间戳作为版本号。<br></p>
 <p>prewrite时，1、检查column family <code>lock</code>上key是否被lock了， 2、在cf write上key的版本号是否小于当前事物持有的TSO， 否则rollback <br></p>
-<h2 id="rocksdb">rocksdb <a href="#rocksdb" class="anchor">🔗</a></h2><p>write: memtable(skiplistt) --&gt; immutable table --&gt; String store table (SST) <br>
+<h2 id="rocksdb-读写路径">rocksdb 读写路径 <a href="#rocksdb-%e8%af%bb%e5%86%99%e8%b7%af%e5%be%84" class="anchor">🔗</a></h2><p>write: memtable(skiplistt) --&gt; immutable table --&gt; String store table (SST) <br>
 read:  the same path<br></p>
-
+<h2 id="rocksdb-存储格式">rocksdb 存储格式 <a href="#rocksdb-%e5%ad%98%e5%82%a8%e6%a0%bc%e5%bc%8f" class="anchor">🔗</a></h2>
     </div>
 
     

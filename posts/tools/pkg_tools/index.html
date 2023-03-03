@@ -8,7 +8,7 @@
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
 <meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta name="description" content="tldr (too long didn&#39;t read) . brew install tldr nano 画图 draw.io （加载速度慢） xournal （操作不方便） excalidraw （">
+<meta name="description" content="画图工具 🔗 draw.io （加载速度慢） xournal （操作不方便） excalidraw （本地local">
 <meta name="generator" content="Hugo 0.103.1" />
 
 
@@ -70,13 +70,13 @@
           ·
         </span>
         <span>
-          165 words
+          512 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          1 minute read
+          2 minute read
         </span>
     </div>
 
@@ -91,7 +91,25 @@
           <div>
               <nav id="TableOfContents">
   <ul>
+    <li><a href="#画图工具">画图工具</a></li>
+    <li><a href="#latex">latex</a>
+      <ul>
+        <li><a href="#使用中文字体">使用中文字体</a></li>
+        <li><a href="#gif-image-in-latex-beamer">gif image in laTex Beamer</a></li>
+      </ul>
+    </li>
+    <li><a href="#git">git</a>
+      <ul>
+        <li><a href="#git操作">git操作</a></li>
+        <li><a href="#遇到的问题">遇到的问题</a></li>
+        <li><a href="#git-clone-with-submodules">git clone with submodules</a></li>
+        <li><a href="#git-clone-error">git clone error</a></li>
+      </ul>
+    </li>
     <li><a href="#数学相关的工具">数学相关的工具</a></li>
+    <li><a href="#数据结构与算法可视化网站">数据结构与算法可视化网站</a></li>
+    <li><a href="#cpu缓存一致性-mesi协议状态转换">CPU缓存一致性。 MESI协议状态转换。</a></li>
+    <li><a href="#tcp-的可视化">TCP 的可视化</a></li>
   </ul>
 </nav>
           </div>
@@ -104,16 +122,7 @@
 
 
     <div class="content">
-      <ul>
-<li>
-<p>tldr (too long didn't read) . brew install tldr</p>
-</li>
-<li>
-<p>nano</p>
-</li>
-<li>
-<p>画图</p>
-<ul>
+      <h1 id="画图工具">画图工具 <a href="#%e7%94%bb%e5%9b%be%e5%b7%a5%e5%85%b7" class="anchor">🔗</a></h1><ul>
 <li>draw.io （加载速度慢）</li>
 <li>xournal （操作不方便）</li>
 <li>excalidraw （本地localhost web）
@@ -122,25 +131,10 @@
 <li>docker-compose up --build -d</li>
 </ul>
 </li>
-</ul>
-</li>
-<li>
-<p>online白板 app.ziteboard.com</p>
-</li>
-<li>
-<p>NDK, IDA</p>
-</li>
-<li>
-<p>玄铁 RISC-V 开源</p>
-</li>
-<li>
-<p>move 交易语言</p>
-</li>
-<li>
-<p>一般的ppt素材网站 <a href="https://www.islide.cc" target="_blank" rel="noopener">www.islide.cc</a></p>
-</li>
-<li>
-<p>slidev</p>
+<li>online白板 app.ziteboard.com</li>
+<li>NDK, IDA</li>
+<li>玄铁 RISC-V 开源</li>
+<li>slidev
 <ul>
 <li>markdown, ppt</li>
 <li><a href="https://sli.dev/" target="_blank" rel="noopener">https://sli.dev/</a></li>
@@ -148,26 +142,47 @@
 </ul>
 </li>
 </ul>
+<h1 id="latex">latex <a href="#latex" class="anchor">🔗</a></h1><h2 id="使用中文字体">使用中文字体 <a href="#%e4%bd%bf%e7%94%a8%e4%b8%ad%e6%96%87%e5%ad%97%e4%bd%93" class="anchor">🔗</a></h2><p>使用xeCJK包，同时需要使用xeLaTex进行编译</p>
+<h2 id="gif-image-in-latex-beamer">gif image in laTex Beamer <a href="#gif-image-in-latex-beamer" class="anchor">🔗</a></h2><p>brew install imagemagick<br>
+convert kiss.gif -coalesce foo.png<br>
+mac原生的mac previewer无法浏览gif, 下载Adobe Reader, then All is well.</p>
+<h1 id="git">git <a href="#git" class="anchor">🔗</a></h1><h2 id="git操作">git操作 <a href="#git%e6%93%8d%e4%bd%9c" class="anchor">🔗</a></h2><ul>
+<li>搭建git环境</li>
+<li>文件添加</li>
+<li>与git库的交互</li>
+<li>解决合并冲突</li>
+<li>创建分支列表</li>
+<li>创建标签</li>
+</ul>
+<h2 id="遇到的问题">遇到的问题 <a href="#%e9%81%87%e5%88%b0%e7%9a%84%e9%97%ae%e9%a2%98" class="anchor">🔗</a></h2><h2 id="git-clone-with-submodules">git clone with submodules <a href="#git-clone-with-submodules" class="anchor">🔗</a></h2><p>clone时的shadow clone 和 deep clone<br></p>
+<p><a href="https://stackoverflow.com/questions/3796927/how-do-i-git-clone-a-repo-including-its-submodules" target="_blank" rel="noopener">git submodules</a></p>
+<p><a href="https://git-scm.com/book/en/v2/Git-Tools-Submodules" target="_blank" rel="noopener">https://git-scm.com/book/en/v2/Git-Tools-Submodules</a></p>
+<p>git clone --recursive <a href="https://github.com/rust-lang/rust.git" target="_blank" rel="noopener">https://github.com/rust-lang/rust.git</a></p>
+<h2 id="git-clone-error">git clone error <a href="#git-clone-error" class="anchor">🔗</a></h2><pre tabindex="0"><code>LibreSSL SSL_read: error:02FFF03C:system library:func(4095):Operation timed out, errno 60
+fatal: unable to access  error:02FFF036:system library:func(4095):Connection reset by peer
+
+如果开了vpn：export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7890
+</code></pre><p>Failed to connect to github.com port 443 after 130469 ms: Connection timed out</p>
 <h1 id="数学相关的工具">数学相关的工具 <a href="#%e6%95%b0%e5%ad%a6%e7%9b%b8%e5%85%b3%e7%9a%84%e5%b7%a5%e5%85%b7" class="anchor">🔗</a></h1><p>RStudio 数据可视化 <br>
 SageMath, Lean <br></p>
-<p>数据结构与算法可视化网站</p>
-<p>big-o: <a href="https://www.bigocheatsheet.com/" target="_blank" rel="noopener">https://www.bigocheatsheet.com/</a></p>
+<h1 id="数据结构与算法可视化网站">数据结构与算法可视化网站 <a href="#%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84%e4%b8%8e%e7%ae%97%e6%b3%95%e5%8f%af%e8%a7%86%e5%8c%96%e7%bd%91%e7%ab%99" class="anchor">🔗</a></h1><p>big-o: <a href="https://www.bigocheatsheet.com/" target="_blank" rel="noopener">https://www.bigocheatsheet.com/</a></p>
 <p>Algorithm Visualizer: 	https://algorithm-visualizer.org/
 VisuAlgo: 		https://visualgo.net/</p>
 <p>Data Structure Visualization: 	https://www.cs.usfca.edu/~galles/visualization/</p>
-<p>CPU缓存一致性。 MESI协议状态转换。</p>
-<p><a href="https://www.scss.tcd.ie/Jeremy.Jones/VivioJS/caches/MESIHelp.htm" target="_blank" rel="noopener">https://www.scss.tcd.ie/Jeremy.Jones/VivioJS/caches/MESIHelp.htm</a></p>
+<h1 id="cpu缓存一致性-mesi协议状态转换">CPU缓存一致性。 MESI协议状态转换。 <a href="#cpu%e7%bc%93%e5%ad%98%e4%b8%80%e8%87%b4%e6%80%a7-mesi%e5%8d%8f%e8%ae%ae%e7%8a%b6%e6%80%81%e8%bd%ac%e6%8d%a2" class="anchor">🔗</a></h1><p><a href="https://www.scss.tcd.ie/Jeremy.Jones/VivioJS/caches/MESIHelp.htm" target="_blank" rel="noopener">https://www.scss.tcd.ie/Jeremy.Jones/VivioJS/caches/MESIHelp.htm</a></p>
+<h1 id="tcp-的可视化">TCP 的可视化 <a href="#tcp-%e7%9a%84%e5%8f%af%e8%a7%86%e5%8c%96" class="anchor">🔗</a></h1><p><a href="https://www2.tkn.tu-berlin.de/teaching/rn/animations/gbn_sr/" target="_blank" rel="noopener">https://www2.tkn.tu-berlin.de/teaching/rn/animations/gbn_sr/</a></p>
 <p>Computer Networks - An Animated Approach:
 <a href="https://www2.tkn.tu-berlin.de/teaching/rn/animations/" target="_blank" rel="noopener">https://www2.tkn.tu-berlin.de/teaching/rn/animations/</a></p>
-<p>TCP
-<a href="https://www2.tkn.tu-berlin.de/teaching/rn/animations/gbn_sr/" target="_blank" rel="noopener">https://www2.tkn.tu-berlin.de/teaching/rn/animations/gbn_sr/</a></p>
+<ul>
+<li>tldr (too long didn't read) . brew install tldr</li>
+</ul>
 
     </div>
 
     
         <div class="tags">
             
-                <a href="http://brettkk.github.io/tags/soft_tools">soft_tools</a>
+                <a href="http://brettkk.github.io/tags/%E5%B7%A5%E5%85%B7">工具</a>
             
         </div>
     

@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          2022 words
+          2064 words
         </span>
         <span class="split">
           ·
@@ -226,27 +226,34 @@
 </li>
 <li>repeatable read (default mode)
 <ul>
-<li>事务在运行时看到相同的数据，可重复读</li>
+<li>在RR上事务启动时拿到数据库的一个静止快照</li>
+<li>备份时需要一致性的读</li>
 <li>insert，delete存在幻读（innodb的间隙锁解决）</li>
 </ul>
 </li>
 <li>seriablizable</li>
 <li>mvcc （ read-view  回滚段）
 <ul>
-<li>Read View生成时机的不同，从而造成RC,RR级别下快照读的结果的不同</li>
+<li>Read View生成时机的不同，从而造成RC, RR级别下快照读的结果的不同</li>
 <li>在RR级别下对第一次快照读会快照Read View，之后的快照读获取的都是同一个Read View。</li>
 <li>在RC级别下的事务中可以看到别的事务提交的更新，每次快照读都会新生成一个快照和Read View。</li>
 </ul>
 </li>
 </ul>
 </li>
-<li>重要的日志: <strong>undo logs</strong>, <strong>redo logs</strong>
+<li>重要的日志: <strong>undo log</strong>, <strong>redo log</strong>
 <ul>
-<li>undo logs: 记录某数据被修改前的值，可以用来在事务失败时进行rollback，帮助事务回滚以及MVCC功能,保证原子性，一致性</li>
-<li>redo logs: 为保证事务的持久性，事务提交前先写redo log持久化（WAL）
+<li>undo log:
 <ul>
-<li>物理日志，顺序写，512字节，记录的是页的物理修改操作</li>
-<li>确保redo log写入磁盘，事务提交前需要fsync操作，磁盘的性能也决定了事务提交的性能。</li>
+<li>记录某数据被修改前的值，可以用来在事务失败时进行rollback，帮助事务回滚</li>
+<li>undo log（undo data）中记录了历史版本，帮助实现MVCC功能, 保证原子性，一致性</li>
+</ul>
+</li>
+<li>redo log:
+<ul>
+<li>InnoDB将数据缓存到内存的buffer pool中，为保证事务的持久性，事务提交前先写redo log（WAL）持久化</li>
+<li>记录的是页的物理修改操作（pageid, offset, field, value）</li>
+<li>log writer 线程确保redo log fsync操作写入磁盘</li>
 </ul>
 </li>
 </ul>

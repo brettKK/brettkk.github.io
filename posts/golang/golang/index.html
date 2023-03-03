@@ -70,13 +70,13 @@
           ·
         </span>
         <span>
-          8460 words
+          8929 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          17 minute read
+          18 minute read
         </span>
     </div>
 
@@ -108,6 +108,8 @@
         </li>
         <li><a href="#模糊点">模糊点</a>
           <ul>
+            <li><a href="#字符编码">字符编码</a></li>
+            <li><a href="#浮点数的存储与处理">浮点数的存储与处理</a></li>
             <li><a href="#rune类型">rune类型</a></li>
             <li><a href="#数组与切片">数组与切片</a></li>
             <li><a href="#函数的接受者">函数的接受者</a></li>
@@ -370,13 +372,30 @@ source .bash_profile</p>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">store</span>(<span style="color:#a6e22e">readWriter</span> <span style="color:#a6e22e">ReadWriter</span>) <span style="color:#66d9ef">error</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 入参依赖了不必要功能的接口，让限制了函数的使用范围为更小
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
-</span></span></code></pre></div><h2 id="模糊点">模糊点 <a href="#%e6%a8%a1%e7%b3%8a%e7%82%b9" class="anchor">🔗</a></h2><h3 id="rune类型">rune类型 <a href="#rune%e7%b1%bb%e5%9e%8b" class="anchor">🔗</a></h3><p>字符串有字符组成， 字符分2种， 一种是占1byte的字符，如英文字符；一种是占1-4 byte的字符用rune表示，如中文。</p>
+</span></span></code></pre></div><h2 id="模糊点">模糊点 <a href="#%e6%a8%a1%e7%b3%8a%e7%82%b9" class="anchor">🔗</a></h2><h3 id="字符编码">字符编码 <a href="#%e5%ad%97%e7%ac%a6%e7%bc%96%e7%a0%81" class="anchor">🔗</a></h3><p>ascii码，占一个字节，实际使用了7 bit,128个字符，表示英语够了。<br>
+在ascii码的第8位置为0，这个特点深深影响了其他国家和后来的字符编码方式。<br>
+欧洲法语é等字符，采用Latin1, 利用acsii码的最高位， 可以表示了。<br>
+亚洲国家的文字符号更多，汉字10万加，必须多个字节表示一个符号。 例如GB2312<br>
+unicode 万国码。只是定义了符号的二进制代码，如何区分不同的编码？没有规定二进制如何存放。 <br>
+<strong>utf-8历史</strong>， 开发plan 9操作系统的产物，发明了后来广泛使用的字符编码。<br>
+utf-8 是一种针对unicode的变长字符编码的实现方式。使用1-4个字节表示一个字符。<br>
+二进制代码第一位是0， 则这个字符只占一个字节。
+如果第一位是1，连续有多少个1，表示当前字符占用多少个字节, 后面字节的前两位均以10开头。</p>
+<pre tabindex="0"><code>例如 严。 unicode = 100111000100101 = 4E25,
+utf-8=11100100 10111000 10100101 = E4B8A5.
+</code></pre><h3 id="浮点数的存储与处理">浮点数的存储与处理 <a href="#%e6%b5%ae%e7%82%b9%e6%95%b0%e7%9a%84%e5%ad%98%e5%82%a8%e4%b8%8e%e5%a4%84%e7%90%86" class="anchor">🔗</a></h3><p>复杂 todo</p>
+<h3 id="rune类型">rune类型 <a href="#rune%e7%b1%bb%e5%9e%8b" class="anchor">🔗</a></h3><p>golang为应对utf-8字符处理设计出来的一种类型<code>type rune = int32</code><br>
+字符串有字符组成， 字符分2种， 一种是占1byte的字符，如英文字符；一种是占1-4 byte的字符用rune表示，如中文。<br></p>
+<p>ascii码： <code>48-0, 65-A, 97-a</code>...<br></p>
 <p>在builtin/builtin.go中定义</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#66d9ef">rune</span> = <span style="color:#66d9ef">int32</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#66d9ef">rune</span> = <span style="color:#66d9ef">int32</span>
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(len(<span style="color:#e6db74">&#34;hallo中文&#34;</span>))<span style="color:#75715e">// 5 + 3 + 3
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(len([]rune(<span style="color:#e6db74">&#34;hallo中文&#34;</span>))) <span style="color:#75715e">//5 + 1 + 1
-</span></span></span></code></pre></div><h3 id="数组与切片">数组与切片 <a href="#%e6%95%b0%e7%bb%84%e4%b8%8e%e5%88%87%e7%89%87" class="anchor">🔗</a></h3><p>数组的初始化 （元素类型， 数组大小）</p>
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#a6e22e">index</span>, <span style="color:#a6e22e">item</span>) <span style="color:#66d9ef">range</span> <span style="color:#e6db74">&#34;ABC你好&#34;</span> {}
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">等价于</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#a6e22e">index</span>, <span style="color:#a6e22e">item</span>) <span style="color:#66d9ef">range</span> []rune(<span style="color:#e6db74">&#34;ABC你好&#34;</span>){}
+</span></span></code></pre></div><h3 id="数组与切片">数组与切片 <a href="#%e6%95%b0%e7%bb%84%e4%b8%8e%e5%88%87%e7%89%87" class="anchor">🔗</a></h3><p>数组的初始化 （元素类型， 数组大小）</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// cmd/compile/internal/types.NewArray
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">NewArray</span>(<span style="color:#a6e22e">elem</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Type</span>, <span style="color:#a6e22e">bound</span> <span style="color:#66d9ef">int64</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">Type</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">...</span>

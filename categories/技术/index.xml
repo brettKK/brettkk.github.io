@@ -35,6 +35,15 @@
     </item>
     
     <item>
+      <title>linux</title>
+      <link>http://brettkk.github.io/posts/os/os/</link>
+      <pubDate>Mon, 05 Dec 2022 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/os/os/</guid>
+      <description>资料 🔗 操作系统：南大 jyy。 http://jyywiki.cn/OS/2022/ Morris MIT 6.S081 上交： 陈海波 https://elixir.bootlin.com/linux/lastest/source 文件系统 🔗</description>
+    </item>
+    
+    <item>
       <title>环境问题 &#43; 类型系统疑问</title>
       <link>http://brettkk.github.io/posts/rust/rust_problem/</link>
       <pubDate>Mon, 21 Nov 2022 11:33:56 +0800</pubDate>
@@ -98,6 +107,15 @@
     </item>
     
     <item>
+      <title>区块链技术与应用 -- 学习</title>
+      <link>http://brettkk.github.io/posts/tools/block_chain/</link>
+      <pubDate>Mon, 05 Sep 2022 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/tools/block_chain/</guid>
+      <description>区块链技术与应用 🔗北大肖臻 BTC 🔗proof of work: 做hash函数的</description>
+    </item>
+    
+    <item>
       <title>module name and module import path in Go</title>
       <link>http://brettkk.github.io/posts/golang/golang_mod/</link>
       <pubDate>Sat, 06 Aug 2022 00:00:00 +0000</pubDate>
@@ -125,15 +143,6 @@
     </item>
     
     <item>
-      <title>linux</title>
-      <link>http://brettkk.github.io/posts/os/os/</link>
-      <pubDate>Thu, 05 May 2022 11:33:56 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/os/os/</guid>
-      <description>资料 🔗 操作系统：南大 jyy。 http://jyywiki.cn/OS/2022/ Morris MIT 6.S081 上交： 陈海波 https://elixir.bootlin.com/linux/lastest/source 文件系统 🔗</description>
-    </item>
-    
-    <item>
       <title>vs code 小结</title>
       <link>http://brettkk.github.io/posts/tools/vs_code/</link>
       <pubDate>Thu, 05 May 2022 11:33:56 +0800</pubDate>
@@ -148,7 +157,7 @@
       <pubDate>Thu, 05 May 2022 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/tools/pkg_tools/</guid>
-      <description>tldr (too long didn&#39;t read) . brew install tldr nano 画图 draw.io （加载速度慢） xournal （操作不方便） excalidraw （</description>
+      <description>画图工具 🔗 draw.io （加载速度慢） xournal （操作不方便） excalidraw （本地local</description>
     </item>
     
     <item>
@@ -229,7 +238,7 @@
       <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/tools/mac_start_dev/</guid>
-      <description>macbook的指令集 uname -a or uname -m 新m1芯片下是arm64 老i</description>
+      <description>新电脑构建开发环境 🔗 iterm2 brew zsh, ohmyzsh golang, rust vscode hugo github direnv multipass 虚拟机 字体 fira cod</description>
     </item>
     
     <item>
@@ -266,15 +275,6 @@
       
       <guid>http://brettkk.github.io/posts/rust/rust_unsafe/</guid>
       <description>fn main() { let mut d = String::from(&amp;#34;aaaa&amp;#34;); let d_len = d.len(); { // 去掉 or 不去掉 let mut e = String::wtih_capacity(d_len); unsafe { // 两个</description>
-    </item>
-    
-    <item>
-      <title>soot, wala</title>
-      <link>http://brettkk.github.io/posts/tools/soot_wala/</link>
-      <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/tools/soot_wala/</guid>
-      <description>4中IR Baf 在bytecode上进行的抽象，忽略字节码对于常量</description>
     </item>
     
     <item>
@@ -319,7 +319,7 @@
       <pubDate>Fri, 05 Mar 2021 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/tools/java/</guid>
-      <description>Class文件格式图 1 class文件由十个部分组成 javap</description>
+      <description>java字节码格式 🔗Class文件格式图 javap查看字节码</description>
     </item>
     
     <item>

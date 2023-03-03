@@ -8,7 +8,7 @@
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
 <meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta name="description" content="Class文件格式图 1 class文件由十个部分组成 javap">
+<meta name="description" content="java字节码格式 🔗Class文件格式图 javap查看字节码">
 <meta name="generator" content="Hugo 0.103.1" />
 
 
@@ -70,13 +70,13 @@
           ·
         </span>
         <span>
-          2513 words
+          3151 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          6 minute read
+          7 minute read
         </span>
     </div>
 
@@ -84,56 +84,87 @@
     
         
   
+    <aside class="toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
+          <div>
+              <nav id="TableOfContents">
+  <ul>
+    <li><a href="#java字节码格式">java字节码格式</a>
+      <ul>
+        <li><a href="#javap查看字节码文件">javap查看字节码文件</a></li>
+        <li><a href="#字节码指令">字节码指令</a></li>
+      </ul>
+    </li>
+    <li><a href="#类加载">类加载</a></li>
+    <li><a href="#生成字节码的框架">生成字节码的框架</a></li>
+    <li><a href="#java程序的静态分析框架-soot-wala">java程序的静态分析框架 soot, wala</a></li>
+    <li><a href="#软件分析技术software-analysis">软件分析技术（Software Analysis）</a>
+      <ul>
+        <li><a href="#数据流分析">数据流分析</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+          </div>
+      </details>
+    </aside>
+  
 
 
     
 
 
     <div class="content">
-      <p>Class文件格式图
+      <h1 id="java字节码格式">java字节码格式 <a href="#java%e5%ad%97%e8%8a%82%e7%a0%81%e6%a0%bc%e5%bc%8f" class="anchor">🔗</a></h1><p>Class文件格式图
 <p class="markdown-image">
   <img src="/os/java-class-file-internal-structure.png" alt="image"  />
 </p></p>
-<p>1  class文件由十个部分组成 javap查看字节码文件
-+ my very cute animal turns savage in full moon areas
-+  magic,  0xCAFEBABE ，pdf png文件内都有魔数
-+  version, 生成class文件时的java版本
-+  constant pool,  javap -v Helloworld
-+  access flag, 2字节 标识一个类为final, abstract, public 之类的
-+  this class,  确定类的继承关系 指向常量池的索引
-+  super class, 确定类的继承关系
-+  interface,   确定类的继承关系
-+  field, 字段表
-+  变长
-+  field_info结构
-+  access_flags 字段访问标识
-+  name_index 字段名索引 指向常量池的字符串常量
-+  descriptor_index  字段类型描述符的索引  引用类型“L;” -&gt; “Ljava/lang/String;” 指向常量池的字符串常量
-+  attributes_count 属性个数
-+  attribute_info  属性集合
-+  ConstantValue
-+  Synthetic
-+  Signature
-+  Deprecated
-+  Runtime-Visible Annotationns
-+  Runtime-Invisible Annotations
-+  method, 类中定义的方法存储在这里
-+  变长
-+  method_info
-+  access_flags
-+  name_index
-+  decriptor_index 方法描述符 指向常量池类型为constant_uft8_innfo的字符串常量项，表述(参1的类型，参2的类型...) 返回值类型
-+  attributes_count
-+  attribute_info
-+  attribute 属性表
-+  attribute_info
-+  attribute_name_index 属性名索引 指向常量池的字符串常量
-+  attribute_length info 数组长度
-+  info
-+  ConstantValue属性
-+  Code属性 重要的部分 包含了方法的字节码</p>
-<p>2 字节码指令</p>
+<h2 id="javap查看字节码文件">javap查看字节码文件 <a href="#javap%e6%9f%a5%e7%9c%8b%e5%ad%97%e8%8a%82%e7%a0%81%e6%96%87%e4%bb%b6" class="anchor">🔗</a></h2><ul>
+<li>magic,  0xCAFEBABE ，pdf png文件内都有魔数</li>
+<li>version, 生成class文件时的java版本</li>
+<li>constant pool,  javap -v Helloworld</li>
+<li>access flag, 2字节 标识一个类为final, abstract, public 之类的</li>
+<li>this class,  确定类的继承关系 指向常量池的索引</li>
+<li>super class, 确定类的继承关系</li>
+<li>interface,   确定类的继承关系</li>
+<li>field, 字段表
 <ul>
+<li>变长</li>
+<li>field_info结构
+<ul>
+<li>access_flags 字段访问标识</li>
+<li>name_index 字段名索引 指向常量池的字符串常量</li>
+<li>descriptor_index  字段类型描述符的索引  引用类型“L;” -&gt; “Ljava/lang/String;” 指向常量池的字符串常量</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>method 类中定义的方法存储在这里
+<ul>
+<li>变长</li>
+<li>method_info
+<ul>
+<li>access_flags</li>
+<li>name_index</li>
+<li>decriptor_index 方法描述符 指向常量池类型为constant_uft8_innfo的字符串常量项，表述(参1的类型，参2的类型...) 返回值类型</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>attribute 属性表
+<ul>
+<li>attribute_info</li>
+<li>attribute_name_index 属性名索引 指向常量池的字符串常量</li>
+<li>attribute_length info 数组长度</li>
+<li>info</li>
+<li>ConstantValue属性</li>
+<li>Code属性 重要的部分 包含了方法的字节码</li>
+</ul>
+</li>
+</ul>
+<h2 id="字节码指令">字节码指令 <a href="#%e5%ad%97%e8%8a%82%e7%a0%81%e6%8c%87%e4%bb%a4" class="anchor">🔗</a></h2><ul>
 <li>switch-case的两种字节码指令的实现
 <ul>
 <li>tableswitch , case间隔紧密时使用 o(1)</li>
@@ -168,7 +199,7 @@
 </ul>
 </li>
 </ul>
-<p>3 字节码进阶 （方法调用 反射 invokedynamic 线程同步）</p>
+<p>方法调用</p>
 <ul>
 <li>
 <p>5条方法调用指令的联系和区别 （以invoke开头的指令）</p>
@@ -238,7 +269,7 @@
 </ul>
 </li>
 </ul>
-<p>类加载主要做三件事：</p>
+<h1 id="类加载">类加载 <a href="#%e7%b1%bb%e5%8a%a0%e8%bd%bd" class="anchor">🔗</a></h1><p>主要做三件事</p>
 <ul>
 <li>
 <p>通过类名从class文件中获取字节流</p>
@@ -256,25 +287,16 @@
 <li>ClassLoader的loadClass方法，不会执行泪的初始化</li>
 </ul>
 </li>
-<li>
-<p>生成字节码的框架</p>
-<ul>
-<li>javassit，cglib，asm</li>
 </ul>
-</li>
-<li>
-<p>读和写字节码</p>
+<h1 id="生成字节码的框架">生成字节码的框架 <a href="#%e7%94%9f%e6%88%90%e5%ad%97%e8%8a%82%e7%a0%81%e7%9a%84%e6%a1%86%e6%9e%b6" class="anchor">🔗</a></h1><ul>
+<li>javassit，cglib，asm</li>
+<li>读和写字节码
 <ul>
 <li>一个CtClass对象 - 对应Class对象</li>
-<li>ClassPool是由CtClass对象组成的hashtable
-<ul>
-<li>obtain from ClassPool</li>
+<li>ClassPool是由CtClass对象组成的hashtable</li>
 </ul>
 </li>
 </ul>
-</li>
-</ul>
-<hr>
 <p>一个对象在内存中的结构</p>
 <p><p class="markdown-image">
   <img src="/os/object-memory-structure.png" alt="image"  />
@@ -328,18 +350,87 @@
 <p>扩容过程</p>
 <ul>
 <li>经过rehash之后，元素的位置要么是在原位置，要么是在原位置再移动2次幂的位置</li>
+<li>HashMap 扩容时，size增大一倍， newsize=oldsize*2</li>
+<li>ArrayList（动态数组）扩容时，扩大0.5倍，newsize=oldsize*1.5</li>
+<li>ArrayQueue， 当size小于64时，+2；size大于64时，newsize=oldsize*1.5</li>
 </ul>
 </li>
-<li>
-<p>HashMap 扩容时，size增大一倍， newsize=oldsize*2</p>
-</li>
-<li>
-<p>ArrayList（动态数组）扩容时，扩大0.5倍，newsize=oldsize*1.5</p>
-</li>
-<li>
-<p>ArrayQueue， 当size小于64时，+2；size大于64时，newsize=oldsize*1.5</p>
-</li>
 </ul>
+<h1 id="java程序的静态分析框架-soot-wala">java程序的静态分析框架 soot, wala <a href="#java%e7%a8%8b%e5%ba%8f%e7%9a%84%e9%9d%99%e6%80%81%e5%88%86%e6%9e%90%e6%a1%86%e6%9e%b6-soot-wala" class="anchor">🔗</a></h1><p>4中IR</p>
+<ul>
+<li>Baf
+<ul>
+<li>在bytecode上进行的抽象，忽略字节码对于常量池和type的依赖</li>
+</ul>
+</li>
+<li>Jimple
+<ul>
+<li>重要的IR，三地址表达式res = num1 op num2，一个表达式最多有三个引用地址</li>
+<li>15条指令</li>
+<li>SSA,Static Single-Assignment。 每个变量仅被赋值一次，保证每个被使用的变量都有唯一的定义</li>
+</ul>
+</li>
+<li>Grimple</li>
+<li>Shimple</li>
+</ul>
+<p>Soot中的数据结构</p>
+<ul>
+<li>Scene类, 环境上下文</li>
+<li>SootClass， 代表类</li>
+<li>SootMethod，类的方法</li>
+<li>SootField，类的属性</li>
+<li>Body，方法体</li>
+</ul>
+<p>Soot支持的分析：</p>
+<ul>
+<li>Call-graph构建</li>
+<li>Points-to分析</li>
+<li>Def/use链</li>
+<li>模板驱动的过程间数据流分析</li>
+<li>模板驱动的跨过程数据流分析（与heros组合使用）</li>
+<li>污点分析（与FlowDroid组合使用）</li>
+</ul>
+<p>Body类 （用来存放方法的代码）</p>
+<ul>
+<li>BafBody, JimpleBody, ShimpleBody, GrimpBody 四种不同IR所对应的Body类</li>
+<li>3中主要的chain， Unints chain, Locals chain, Traps chain</li>
+</ul>
+<p>Jimple 代码</p>
+<p>locals
+方法内的局部变量在方法的顶部
+$开头的变量为原java代码中没有的变量</p>
+<p>traps: 异常处理被表示为一个tuple(元组，异常，开始，结束，处理器)</p>
+<p>units: body中包含的实际代码, 语句</p>
+<ul>
+<li>interface Unit, Jimple使用Stmt， Grimp使用Inst</li>
+</ul>
+<p>Value接口（代表数据）： Locals, Constants, Expressions, ParameterRefs</p>
+<p>Boxes(代表指针)： ValueBox, UnitBox</p>
+<p>AnalysisScope</p>
+<ul>
+<li>用于指定用户静态代码分析的程序或库</li>
+<li>format: Classloader, Language,  Type, Location</li>
+</ul>
+<p>CallGraphBuilder</p>
+<ul>
+<li>makeCallGraph() -&gt; CallGraph</li>
+<li>getPointerAnalysis() -&gt; PointerAnalysis</li>
+</ul>
+<h1 id="软件分析技术software-analysis">软件分析技术（Software Analysis） <a href="#%e8%bd%af%e4%bb%b6%e5%88%86%e6%9e%90%e6%8a%80%e6%9c%afsoftware-analysis" class="anchor">🔗</a></h1><p>哥德尔不完备定理<br>
+莱斯定理<br>
+数据流分析<br>
+过程间分析，指针分析，控制流分析，抽象解释<br>
+约束求解，符号执行<br></p>
+<h2 id="数据流分析">数据流分析 <a href="#%e6%95%b0%e6%8d%ae%e6%b5%81%e5%88%86%e6%9e%90" class="anchor">🔗</a></h2><p>活跃变量分析, 可达性分析, 可用表达式分析</p>
+<p><a href="https://xiongyingfei.github.io/SA/2020/main.htm" target="_blank" rel="noopener">https://xiongyingfei.github.io/SA/2020/main.htm</a></p>
+<p>《编译原理》Aho</p>
+<p>《Lecture notes on static analysis》Moller and
+Schwartzbach</p>
+<p><a href="https://cs.au.dk/~amoeller/spa/" target="_blank" rel="noopener">https://cs.au.dk/~amoeller/spa/</a></p>
+<p>南京大学《软件分析》课（B站视频）</p>
+<p>《Decision Procedures -- An Algorithmic Point of View》
+Daniel Kroening and Ofer Strichman</p>
+<p>github: CMinor-Verifier.</p>
 
     </div>
 

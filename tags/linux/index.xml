@@ -6,7 +6,16 @@
     <description>Recent content in linux on brettkk</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 05 Nov 2022 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 05 Dec 2022 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>linux</title>
+      <link>http://brettkk.github.io/posts/os/os/</link>
+      <pubDate>Mon, 05 Dec 2022 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/os/os/</guid>
+      <description>资料 🔗 操作系统：南大 jyy。 http://jyywiki.cn/OS/2022/ Morris MIT 6.S081 上交： 陈海波 https://elixir.bootlin.com/linux/lastest/source 文件系统 🔗</description>
+    </item>
+    
     <item>
       <title>linux-tcp，http, curl, dns</title>
       <link>http://brettkk.github.io/posts/os/tcp_udp/</link>
@@ -14,15 +23,6 @@
       
       <guid>http://brettkk.github.io/posts/os/tcp_udp/</guid>
       <description>udp 🔗光速：30万千米/s 中美具体大约：1.5万千米 光纤网络耗</description>
-    </item>
-    
-    <item>
-      <title>linux</title>
-      <link>http://brettkk.github.io/posts/os/os/</link>
-      <pubDate>Thu, 05 May 2022 11:33:56 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/os/os/</guid>
-      <description>资料 🔗 操作系统：南大 jyy。 http://jyywiki.cn/OS/2022/ Morris MIT 6.S081 上交： 陈海波 https://elixir.bootlin.com/linux/lastest/source 文件系统 🔗</description>
     </item>
     
     <item>

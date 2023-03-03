@@ -8,7 +8,7 @@
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
 <meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta name="description" content="macbook的指令集 uname -a or uname -m 新m1芯片下是arm64 老i">
+<meta name="description" content="新电脑构建开发环境 🔗 iterm2 brew zsh, ohmyzsh golang, rust vscode hugo github direnv multipass 虚拟机 字体 fira cod">
 <meta name="generator" content="Hugo 0.103.1" />
 
 
@@ -70,13 +70,13 @@
           ·
         </span>
         <span>
-          309 words
+          1638 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          1 minute read
+          4 minute read
         </span>
     </div>
 
@@ -84,13 +84,87 @@
     
         
   
+    <aside class="toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
+          <div>
+              <nav id="TableOfContents">
+  <ul>
+    <li><a href="#新电脑构建开发环境">新电脑构建开发环境</a>
+      <ul>
+        <li><a href="#安装终端窗口工具">安装终端窗口工具</a></li>
+        <li><a href="#安装-brew">安装 brew</a></li>
+        <li><a href="#安装-golang">安装 golang</a></li>
+        <li><a href="#安装-vscode">安装 vscode</a></li>
+        <li><a href="#安装-blog系统">安装 blog系统</a></li>
+        <li><a href="#本地配置github访问权限">本地配置GitHub访问权限</a></li>
+        <li><a href="#direnv">direnv</a></li>
+      </ul>
+    </li>
+    <li><a href="#mac上安装和使用虚拟机">mac上安装和使用虚拟机</a>
+      <ul>
+        <li><a href="#why-need-it">why need it?</a></li>
+        <li><a href="#其他平台的方案">其他平台的方案</a></li>
+        <li><a href="#macos-m1下安装虚拟机">macos m1下安装虚拟机</a></li>
+        <li><a href="#macos-m1-arch">macos m1 arch</a></li>
+        <li><a href="#遇到的问题">遇到的问题</a></li>
+        <li><a href="#其他">其他</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+          </div>
+      </details>
+    </aside>
+  
 
 
     
 
 
     <div class="content">
-      <ul>
+      <h1 id="新电脑构建开发环境">新电脑构建开发环境 <a href="#%e6%96%b0%e7%94%b5%e8%84%91%e6%9e%84%e5%bb%ba%e5%bc%80%e5%8f%91%e7%8e%af%e5%a2%83" class="anchor">🔗</a></h1><ul>
+<li>iterm2</li>
+<li>brew</li>
+<li>zsh, ohmyzsh</li>
+<li>golang, rust</li>
+<li>vscode</li>
+<li>hugo</li>
+<li>github</li>
+<li>direnv</li>
+<li>multipass 虚拟机</li>
+<li>字体 fira code， cascadia code, jetbrains mono.</li>
+</ul>
+<h2 id="安装终端窗口工具">安装终端窗口工具 <a href="#%e5%ae%89%e8%a3%85%e7%bb%88%e7%ab%af%e7%aa%97%e5%8f%a3%e5%b7%a5%e5%85%b7" class="anchor">🔗</a></h2><p>下载地址：https://iterm2.com/</p>
+<h2 id="安装-brew">安装 brew <a href="#%e5%ae%89%e8%a3%85-brew" class="anchor">🔗</a></h2><p>/bin/bash -c &quot;$(curl -fsSL <a href="https://cdn.jsdelivr.net/gh/ineo6/homebrew-install/install.sh%29%22" target="_blank" rel="noopener">https://cdn.jsdelivr.net/gh/ineo6/homebrew-install/install.sh)"</a><br>
+安装，切换为zsh，并安装oh my zsh -- shell辅助工具<br>
+可能遇到的问题</p>
+<pre tabindex="0"><code>sh -c &#34;$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)&#34;
+curl: (7) Failed to connect to raw.githubusercontent.com port 443: Connection refused
+解决方式： https://github.com/ohmyzsh/ohmyzsh/issues/9465
+</code></pre><h2 id="安装-golang">安装 golang <a href="#%e5%ae%89%e8%a3%85-golang" class="anchor">🔗</a></h2><p><a href="https://golang.org/doc/install" target="_blank" rel="noopener">https://golang.org/doc/install</a></p>
+<p><a href="https://sourabhbajaj.com/mac-setup/Go/README.html" target="_blank" rel="noopener">https://sourabhbajaj.com/mac-setup/Go/README.html</a></p>
+<p>vim .bashrc</p>
+<p>export GOPATH=$HOME/go-workspace # don't forget to change your path correctly!
+export GOROOT=/usr/local/opt/go/libexec
+export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:$GOROOT/bin</p>
+<h2 id="安装-vscode">安装 vscode <a href="#%e5%ae%89%e8%a3%85-vscode" class="anchor">🔗</a></h2><p><a href="https://code.visualstudio.com/docs/setup/mac" target="_blank" rel="noopener">https://code.visualstudio.com/docs/setup/mac</a></p>
+<p>插件</p>
+<h2 id="安装-blog系统">安装 blog系统 <a href="#%e5%ae%89%e8%a3%85-blog%e7%b3%bb%e7%bb%9f" class="anchor">🔗</a></h2><p>Brew install Hugo</p>
+<p>git pull origin master --allow-unrelated-histories</p>
+<p>git submodule update --init --recursive</p>
+<h2 id="本地配置github访问权限">本地配置GitHub访问权限 <a href="#%e6%9c%ac%e5%9c%b0%e9%85%8d%e7%bd%aegithub%e8%ae%bf%e9%97%ae%e6%9d%83%e9%99%90" class="anchor">🔗</a></h2><p>在～下创建.ssh文件夹 ssh-keygen -t rsa -C “xxx@xx.com&quot;
+将公钥添加到github</p>
+<p>go env -w GOPROXY=https://goproxy.cn</p>
+<h2 id="direnv">direnv <a href="#direnv" class="anchor">🔗</a></h2><p>根据文件夹下的.envrc 临时改env变量。</p>
+<h1 id="mac上安装和使用虚拟机">mac上安装和使用虚拟机 <a href="#mac%e4%b8%8a%e5%ae%89%e8%a3%85%e5%92%8c%e4%bd%bf%e7%94%a8%e8%99%9a%e6%8b%9f%e6%9c%ba" class="anchor">🔗</a></h1><h2 id="why-need-it">why need it? <a href="#why-need-it" class="anchor">🔗</a></h2><p><font color=blue> 因为使用的是mac笔记本，实验和开发上需要利用linux环境下的工具（如gcc，gdb之类），所以在mac的宿主机上虚拟化出linux很有必要。 </font><br></p>
+<h2 id="其他平台的方案">其他平台的方案 <a href="#%e5%85%b6%e4%bb%96%e5%b9%b3%e5%8f%b0%e7%9a%84%e6%96%b9%e6%a1%88" class="anchor">🔗</a></h2><p>windows下 vscode 安装Windows Subsystem for Linux (WSL)插件，即可</p>
+<p>VirtualBox supports only x86 hardware.</p>
+<p>Ubuntu is available not only on x86 architectures, but also has ARM-based versions.</p>
+<p>VMWare 虚拟机产品（付费）。</p>
+<h2 id="macos-m1下安装虚拟机">macos m1下安装虚拟机 <a href="#macos-m1%e4%b8%8b%e5%ae%89%e8%a3%85%e8%99%9a%e6%8b%9f%e6%9c%ba" class="anchor">🔗</a></h2><ul>
 <li>macbook的指令集 uname -a or uname -m
 <ul>
 <li>新m1芯片下是arm64</li>
@@ -98,73 +172,87 @@
 </ul>
 </li>
 </ul>
-<p>新电脑构建开发环境，安装指南</p>
-<ul>
-<li>iterm2</li>
-<li>brew</li>
-<li>zsh, ohmyzsh</li>
-<li>golang</li>
-<li>vscode</li>
-<li>hugo</li>
-<li>github</li>
-<li>direnv</li>
-<li>字体 fira code， cascadia code, jetbrains mono.</li>
-</ul>
-<hr>
-<ul>
-<li>安装终端窗口工具</li>
-</ul>
-<p>下载地址：https://iterm2.com/</p>
-<ul>
-<li>安装 brew</li>
-</ul>
-<p>/bin/bash -c &quot;$(curl -fsSL <a href="https://cdn.jsdelivr.net/gh/ineo6/homebrew-install/install.sh%29%22" target="_blank" rel="noopener">https://cdn.jsdelivr.net/gh/ineo6/homebrew-install/install.sh)"</a></p>
-<ul>
-<li>安装，切换为zsh，并安装oh my zsh -- shell辅助工具</li>
-</ul>
-<p>可能遇到的问题</p>
-<pre tabindex="0"><code>sh -c &#34;$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)&#34;
+<p>在m1 arch下 virtual box和VMWare虚拟机产品不支持。</p>
+<h2 id="macos-m1-arch">macos m1 arch <a href="#macos-m1-arch" class="anchor">🔗</a></h2><p>multipass 可以支持在macos下虚拟化出ubuntu操作系统，基本上满足了开发需求。</p>
+<p>multipass find</p>
+<p>multipass launch 22.04 -n primary -c 2 -m 4G -d 50G</p>
+<p>multipass list 查看虚拟机IP</p>
+<p>multipass shell</p>
+<p>sudo apt install ubuntu-desktop xrdp -y</p>
+<p>vsocde ssh到本地虚拟化出来的ubuntu系统。</p>
+<h2 id="遇到的问题">遇到的问题 <a href="#%e9%81%87%e5%88%b0%e7%9a%84%e9%97%ae%e9%a2%98" class="anchor">🔗</a></h2><p><strong>mac的host机器登陆到multipass虚拟机时公钥设置的问题。</strong></p>
+<pre tabindex="0"><code>#ssh ubuntu@192.168.64.2
+ubuntu@192.168.64.2: Permission denied (publickey).
 
-curl: (7) Failed to connect to raw.githubusercontent.com port 443: Connection refused
-</code></pre><p>解决方式： <a href="https://github.com/ohmyzsh/ohmyzsh/issues/9465" target="_blank" rel="noopener">https://github.com/ohmyzsh/ohmyzsh/issues/9465</a></p>
-<ul>
-<li>安装 golang</li>
-</ul>
-<p><a href="https://golang.org/doc/install" target="_blank" rel="noopener">https://golang.org/doc/install</a></p>
-<p><a href="https://sourabhbajaj.com/mac-setup/Go/README.html" target="_blank" rel="noopener">https://sourabhbajaj.com/mac-setup/Go/README.html</a></p>
-<p>vim .bashrc</p>
-<p>export GOPATH=$HOME/go-workspace # don't forget to change your path correctly!
-export GOROOT=/usr/local/opt/go/libexec
-export PATH=$PATH:$GOPATH/bin
-export PATH=$PATH:$GOROOT/bin</p>
-<ul>
-<li>安装 vscode</li>
-</ul>
-<p><a href="https://code.visualstudio.com/docs/setup/mac" target="_blank" rel="noopener">https://code.visualstudio.com/docs/setup/mac</a></p>
-<p>插件</p>
-<ul>
-<li>安装blog</li>
-</ul>
-<p>Brew install Hugo</p>
-<p>git pull origin master --allow-unrelated-histories</p>
-<p>git submodule update --init --recursive</p>
-<ul>
-<li>本地配置GitHub访问权限</li>
-</ul>
-<p>在～下创建.ssh文件夹 ssh-keygen -t rsa -C “xxx@xx.com&quot;
-将公钥添加到github</p>
-<p>go env -w GOPROXY=https://goproxy.cn</p>
-<ul>
-<li>direnv</li>
-</ul>
-<p>根据文件夹下的.envrc 临时改env变量。</p>
+# ssh ubuntu@192.168.64.3
+Load key &#34;.ssh/id_rsa.pub&#34; invalid format 
+ubuntu@192.168.64.3: Permission denied (publickey).
+</code></pre><p>原因： 在宿主机~/.ssh/config中 IdentityFile ~/.ssh/id_rsa.pub。 配置错误。
+公钥配置在vm的~/.ssh/authorized_keys中。 在宿主机上ssh时利用私钥进行登陆认证。
+所以在宿主机IdentityFile ~/.ssh/id_rsa.pub -&gt; IdentityFile ~/.ssh/id_rsa（私钥）。</p>
+<pre tabindex="0"><code>通过mulipass client里open shell打开primary 实例，可能出现
+Can&#39;t open instance, stuck in Starting phase。
+</code></pre><p>原因： 上一部修改ubuntu中~/.ssh/authorized_keys时不是采用的append新public key，采用覆盖。
+所以在修改authorized_keys时原有public key最好backup一份。
+打开远程的文件夹包含大量文件时（例如打开linux kernel文件夹代码），出现Connection to server got closed. Server will not be restarted。</p>
+<p><strong> vs打开虚拟机里的大文件时出现的问题 </strong></p>
+<pre tabindex="0"><code>Visual Studio Code is unable to watch for file changes in this large workspace&#34; (error ENOSPC).
+
+解决办法参考：https://code.visualstudio.com/docs/setup/linux#_visual-studio-code-is-unable-to-watch-for-file-changes-in-this-large-workspace-error-enospc
+</code></pre><hr>
+<p><strong>在multipass中阅读linux代码出现的空间不足问题</strong></p>
+<pre tabindex="0"><code>在linux-5.19下
+ubuntu$ ctags -R
+no left space on disk.
+
+尝试调整虚拟机的disk资源限制。 
+sudo vim /var/root/Library/Application\ Support/multipassd/qemu/multipassd-vm-instances.json
+更改primary的disk限制，重启启动vm后不起作用。
+
+接着尝试：
+ sudo  /Library/Application\ Support/com.canonical.multipass/bin/qemu-img info /var/root/Library/Application\ Support/multipassd/qemu/vault/instances/primary/ubuntu-22.04-server-cloudimg-arm64.img
+
+ sudo  /Library/Application\ Support/com.canonical.multipass/bin/qemu-img snapshot -d suspend  /var/root/Library/Application\ Support/multipassd/qemu/vault/instances/primary/ubuntu-22.04-server-cloudimg-arm64.img
+
+ sudo  /Library/Application\ Support/com.canonical.multipass/bin/qemu-img resize /var/root/Library/Application\ Support/multipassd/qemu/vault/instances/primary/ubuntu-22.04-server-cloudimg-arm64.img +10G
+
+ Image resized.
+</code></pre><p><a href="https://multipass.run/docs/modify-an-instance#heading--set-the-cpu-ram-or-disk-of-an-instance" target="_blank" rel="noopener">https://multipass.run/docs/modify-an-instance#heading--set-the-cpu-ram-or-disk-of-an-instance</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/435237515" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/435237515</a>
+launch failed: cannot connect to the multipass socket
+解决办法：sudo launchctl load /Library/LaunchDaemons/com.canonical.multipassd.plist</p>
+<p>image resized成功，但是disk size仍然是5G。</p>
+<pre tabindex="0"><code class="language-English" data-lang="English">// make menuconfig
+problem：Unable to find the ncurses libraries
+solved： sudo apt-get install ncurses-dev
+</code></pre><pre tabindex="0"><code>ubuntu@brett:~/linux-master$ make
+  SYNC    include/config/auto.conf.cmd
+  CALL    scripts/checksyscalls.sh
+  HOSTCC  certs/extract-cert
+certs/extract-cert.c:21:10: fatal error: openssl/bio.h: No such file or directory
+   21 | #include &lt;openssl/bio.h&gt;
+      |          ^~~~~~~~~~~~~~~
+compilation terminated.
+make[2]: *** [scripts/Makefile.host:111: certs/extract-cert] Error 1
+make[1]: *** [scripts/Makefile.build:500: certs] Error 2
+make: *** [Makefile:1990: .] Error 2
+
+solved: https://github.com/TinkerBoard/debian_kernel/issues/26
+</code></pre><p>make进行kernel的编译，之后会等一会...</p>
+<pre tabindex="0"><code>  LD [M]  sound/soc/tegra/snd-soc-tegra210-sfc.ko
+  OBJCOPY arch/arm64/boot/Image
+  GZIP    arch/arm64/boot/Image.gz
+  ubuntu@brett:~/linux-master$ file arch/arm64/boot/Image
+arch/arm64/boot/Image: Linux kernel ARM64 boot executable Image, little-endian, 4K pages
+</code></pre><h2 id="其他">其他 <a href="#%e5%85%b6%e4%bb%96" class="anchor">🔗</a></h2><p>本地安装付费的虚拟机。<br>
+购买云主机， 例如腾讯云的轻量应用服务器。</p>
 
     </div>
 
     
         <div class="tags">
             
-                <a href="http://brettkk.github.io/tags/soft_tools">soft_tools</a>
+                <a href="http://brettkk.github.io/tags/%E5%B7%A5%E5%85%B7">工具</a>
             
         </div>
     

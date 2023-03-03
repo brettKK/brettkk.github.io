@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          1119 words
+          1249 words
         </span>
         <span class="split">
           ·
@@ -92,6 +92,11 @@
               <nav id="TableOfContents">
   <ul>
     <li><a href="#计算机的本质">计算机的本质</a></li>
+    <li><a href="#软件中的大局观">软件中的大局观</a>
+      <ul>
+        <li><a href="#空间和时间的取舍">空间和时间的取舍</a></li>
+      </ul>
+    </li>
     <li><a href="#简单8位二进制cpu的设计与实现">简单8位二进制CPU的设计与实现</a>
       <ul>
         <li><a href="#一位二进制的加法器">一位二进制的加法器</a></li>
@@ -122,6 +127,11 @@
 可以列出状态机，证明程序是work。<br>
 以快速排序为例，将程序描述为表格状态机，以状态机的视角解析程序执行的过程。
 表格的每一行可以认为是程序对应的等价状态机当前处于的一个状态描述。<br></p>
+<h1 id="软件中的大局观">软件中的大局观 <a href="#%e8%bd%af%e4%bb%b6%e4%b8%ad%e7%9a%84%e5%a4%a7%e5%b1%80%e8%a7%82" class="anchor">🔗</a></h1><p>软件是取、舍的平衡艺术。<br></p>
+<h2 id="空间和时间的取舍">空间和时间的取舍 <a href="#%e7%a9%ba%e9%97%b4%e5%92%8c%e6%97%b6%e9%97%b4%e7%9a%84%e5%8f%96%e8%88%8d" class="anchor">🔗</a></h2><p>性能优化：空间和时间的互换。<br>
+索引，缓存： 空间换时间<br>
+hash表， 二叉搜索树，avl树，红黑树，降低树的深度，变成多叉树（B树， B+树，LSM树，Trie树），跳表skiplist， 倒排索引<br>
+压缩： 时间换空间<br></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">quick_sort</span>(<span style="color:#a6e22e">arr</span> []<span style="color:#66d9ef">int</span>) {
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">arr</span>) &lt; <span style="color:#ae81ff">2</span> {                                 <span style="color:#75715e">//1
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">return</span>                                        <span style="color:#75715e">//2
