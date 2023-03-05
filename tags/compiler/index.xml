@@ -9,11 +9,11 @@
     <lastBuildDate>Tue, 15 Nov 2022 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/tags/compiler/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>rustc</title>
-      <link>http://brettkk.github.io/posts/rust/rustc/</link>
+      <link>http://brettkk.github.io/posts/rust/rust%E7%BC%96%E8%AF%91%E5%99%A8/</link>
       <pubDate>Tue, 15 Nov 2022 11:33:56 +0800</pubDate>
       
-      <guid>http://brettkk.github.io/posts/rust/rustc/</guid>
-      <description>快速看下rust语言，very fast rust primer 🔗 low-level, no language runtime (like c/c++) focus on memory safety and</description>
+      <guid>http://brettkk.github.io/posts/rust/rust%E7%BC%96%E8%AF%91%E5%99%A8/</guid>
+      <description>text -&amp;gt; tokens -&amp;gt; ast -&amp;gt; hir -&amp;gt;mir -&amp;gt; llvm ir -&amp;gt; llvm -&amp;gt; 1110 ThinLTO, PGO 快速看下rust语言，ve</description>
     </item>
     
     <item>

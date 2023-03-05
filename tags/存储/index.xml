@@ -13,7 +13,7 @@
       <pubDate>Thu, 05 Jan 2023 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/store_db/tidb/</guid>
-      <description>整体架构 🔗二层（1 sql层无状态，处理用户请求和sql运算逻</description>
+      <description>整体架构 🔗 二层（1 sql层无状态，处理用户请求和sql运算逻</description>
     </item>
     
     <item>
@@ -26,21 +26,21 @@
     </item>
     
     <item>
+      <title>redis 小结</title>
+      <link>http://brettkk.github.io/posts/store_db/redis/</link>
+      <pubDate>Thu, 05 May 2022 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/store_db/redis/</guid>
+      <description>redis 安装使用 🔗redis 安装 wget https://download.redis.io/releases/redis-6.2.4.tar.gz tar -zvxf redis-6.2.4 mv ~/redis-6.2.4 /usr/local/redis cd /usr/local/redis make 编译 make PREFIX=/usr/local/redis install 安</description>
+    </item>
+    
+    <item>
       <title>mysql 小结</title>
       <link>http://brettkk.github.io/posts/store_db/mysql/</link>
       <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/store_db/mysql/</guid>
       <description>mysql 起源&amp;amp;基础 🔗 创建表时的存储引擎 🔗 存储引擎-是创建表</description>
-    </item>
-    
-    <item>
-      <title>redis 小结</title>
-      <link>http://brettkk.github.io/posts/store_db/redis/</link>
-      <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/store_db/redis/</guid>
-      <description>redis 安装、使用 🔗redis 安装 wget https://download.redis.io/releases/redis-6.2.4.tar.gz tar -zvxf redis-6.2.4 mv ~/redis-6.2.4 /usr/local/redis cd /usr/local/redis make 编译 make PREFIX=/usr/local/redis install</description>
     </item>
     
     <item>

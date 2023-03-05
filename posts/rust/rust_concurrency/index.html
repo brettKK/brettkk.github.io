@@ -8,7 +8,7 @@
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
 <meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta name="description" content="lock free structure 🔗不用上锁,利用原子操作实现的并发安全的数据结构。 single producer,">
+<meta name="description" content="异步编程 🔗future， async: 定义一个可并发执行的任务； await 触发这">
 <meta name="generator" content="Hugo 0.103.1" />
 
 
@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          2377 words
+          2417 words
         </span>
         <span class="split">
           ·
@@ -91,6 +91,11 @@
           <div>
               <nav id="TableOfContents">
   <ul>
+    <li>
+      <ul>
+        <li><a href="#异步编程">异步编程</a></li>
+      </ul>
+    </li>
     <li><a href="#lock-free-structure">lock free structure</a>
       <ul>
         <li><a href="#single-producer-multi-consumer-broadcast-spmc">single producer, multi-consumer (broadcast, spmc)</a></li>
@@ -147,7 +152,10 @@
 
 
     <div class="content">
-      <h1 id="lock-free-structure">lock free structure <a href="#lock-free-structure" class="anchor">🔗</a></h1><p>不用上锁,利用原子操作实现的并发安全的数据结构。</p>
+      <h2 id="异步编程">异步编程 <a href="#%e5%bc%82%e6%ad%a5%e7%bc%96%e7%a8%8b" class="anchor">🔗</a></h2><p>future，
+async: 定义一个可并发执行的任务； await 触发这个任务并发执行。</p>
+<p>Future, Tokio</p>
+<h1 id="lock-free-structure">lock free structure <a href="#lock-free-structure" class="anchor">🔗</a></h1><p>不用上锁,利用原子操作实现的并发安全的数据结构。</p>
 <h2 id="single-producer-multi-consumer-broadcast-spmc">single producer, multi-consumer (broadcast, spmc) <a href="#single-producer-multi-consumer-broadcast-spmc" class="anchor">🔗</a></h2><p><a href="https://github.com/jonhoo/bus" target="_blank" rel="noopener">仓库地址：bus, broadcast channel</a><br>
 依赖了<code>crossbeam-channel</code><br></p>
 <pre tabindex="0"><code>                            --&gt; consumer

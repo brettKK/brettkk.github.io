@@ -13,7 +13,7 @@
       <pubDate>Thu, 05 Jan 2023 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/rust/rust_concurrency/</guid>
-      <description>lock free structure 🔗不用上锁,利用原子操作实现的并发安全的数据结构。 single producer,</description>
+      <description>异步编程 🔗future， async: 定义一个可并发执行的任务； await 触发这</description>
     </item>
     
     <item>
@@ -22,7 +22,7 @@
       <pubDate>Thu, 05 Jan 2023 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/store_db/tidb/</guid>
-      <description>整体架构 🔗二层（1 sql层无状态，处理用户请求和sql运算逻</description>
+      <description>整体架构 🔗 二层（1 sql层无状态，处理用户请求和sql运算逻</description>
     </item>
     
     <item>
@@ -44,39 +44,30 @@
     </item>
     
     <item>
-      <title>环境问题 &#43; 类型系统疑问</title>
+      <title>rust相关的环境问题 &#43; 类型系统疑问</title>
       <link>http://brettkk.github.io/posts/rust/rust_problem/</link>
       <pubDate>Mon, 21 Nov 2022 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/rust/rust_problem/</guid>
-      <description>在vscode下配置rust项目的阅读和debug 🔗rust</description>
+      <description>属于名词解释性的文章，知道就是知道，知道是设计者是这么做得而</description>
     </item>
     
     <item>
       <title>rustc</title>
-      <link>http://brettkk.github.io/posts/rust/rustc/</link>
+      <link>http://brettkk.github.io/posts/rust/rust%E7%BC%96%E8%AF%91%E5%99%A8/</link>
       <pubDate>Tue, 15 Nov 2022 11:33:56 +0800</pubDate>
       
-      <guid>http://brettkk.github.io/posts/rust/rustc/</guid>
-      <description>快速看下rust语言，very fast rust primer 🔗 low-level, no language runtime (like c/c++) focus on memory safety and</description>
+      <guid>http://brettkk.github.io/posts/rust/rust%E7%BC%96%E8%AF%91%E5%99%A8/</guid>
+      <description>text -&amp;gt; tokens -&amp;gt; ast -&amp;gt; hir -&amp;gt;mir -&amp;gt; llvm ir -&amp;gt; llvm -&amp;gt; 1110 ThinLTO, PGO 快速看下rust语言，ve</description>
     </item>
     
     <item>
-      <title>tokio</title>
-      <link>http://brettkk.github.io/posts/rust/tokio/</link>
+      <title>异步运行时tokio</title>
+      <link>http://brettkk.github.io/posts/rust/rust%E5%BC%82%E6%AD%A5%E8%BF%90%E8%A1%8C%E6%97%B6tokio/</link>
       <pubDate>Tue, 15 Nov 2022 11:33:56 +0800</pubDate>
       
-      <guid>http://brettkk.github.io/posts/rust/tokio/</guid>
+      <guid>http://brettkk.github.io/posts/rust/rust%E5%BC%82%E6%AD%A5%E8%BF%90%E8%A1%8C%E6%97%B6tokio/</guid>
       <description>tokio 🔗核心是为了提高系统的吞吐量，而非延迟。 基于os的epol</description>
-    </item>
-    
-    <item>
-      <title>《The Rust Programming Language》book</title>
-      <link>http://brettkk.github.io/posts/rust/rust-lang/</link>
-      <pubDate>Sat, 05 Nov 2022 11:33:56 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/rust/rust-lang/</guid>
-      <description>Tour of Rust 以简单的例子串讲，很好入手 《The Rust Programming Language</description>
     </item>
     
     <item>
@@ -104,6 +95,15 @@
       
       <guid>http://brettkk.github.io/posts/rust/rust_library_std/</guid>
       <description>HashMap 🔗#[derive(Clone)] pub struct RandomState { k0: u64, k1: u64, } // hashmap 的</description>
+    </item>
+    
+    <item>
+      <title>rust语言</title>
+      <link>http://brettkk.github.io/posts/rust/rust%E8%AF%AD%E8%A8%80/</link>
+      <pubDate>Sat, 05 Nov 2022 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/rust/rust%E8%AF%AD%E8%A8%80/</guid>
+      <description>google comprehensive-rust 4days 🔗较短时间4 days入门。 摘要: standard library Option, Result, error handling String Vec HashMap, config hash</description>
     </item>
     
     <item>
@@ -140,6 +140,15 @@
       
       <guid>http://brettkk.github.io/posts/golang/golang/</guid>
       <description>资料 🔗 目前golang的主要maintainer之一: Russ Cox 个</description>
+    </item>
+    
+    <item>
+      <title>redis 小结</title>
+      <link>http://brettkk.github.io/posts/store_db/redis/</link>
+      <pubDate>Thu, 05 May 2022 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/store_db/redis/</guid>
+      <description>redis 安装使用 🔗redis 安装 wget https://download.redis.io/releases/redis-6.2.4.tar.gz tar -zvxf redis-6.2.4 mv ~/redis-6.2.4 /usr/local/redis cd /usr/local/redis make 编译 make PREFIX=/usr/local/redis install 安</description>
     </item>
     
     <item>
@@ -260,15 +269,6 @@
     </item>
     
     <item>
-      <title>redis 小结</title>
-      <link>http://brettkk.github.io/posts/store_db/redis/</link>
-      <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/store_db/redis/</guid>
-      <description>redis 安装、使用 🔗redis 安装 wget https://download.redis.io/releases/redis-6.2.4.tar.gz tar -zvxf redis-6.2.4 mv ~/redis-6.2.4 /usr/local/redis cd /usr/local/redis make 编译 make PREFIX=/usr/local/redis install</description>
-    </item>
-    
-    <item>
       <title>rust unsafe</title>
       <link>http://brettkk.github.io/posts/rust/rust_unsafe/</link>
       <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
@@ -292,7 +292,7 @@
       <pubDate>Mon, 03 May 2021 18:34:48 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/golang/go_lock/</guid>
-      <description>locks 锁 源码包的结构 🔗 sync包 sync.Mutex sync.RWMutex sync.Cond sync.WaitGroup sync.Once sync.Pool 涉及的内容很多 cache line padding</description>
+      <description>golang源码包的结构 🔗 sync包：sync.Mutex，</description>
     </item>
     
     <item>

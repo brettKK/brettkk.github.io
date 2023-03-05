@@ -8,7 +8,7 @@
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
 <meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta name="description" content="redis 安装、使用 🔗redis 安装 wget https://download.redis.io/releases/redis-6.2.4.tar.gz tar -zvxf redis-6.2.4 mv ~/redis-6.2.4 /usr/local/redis cd /usr/local/redis make 编译 make PREFIX=/usr/local/redis install">
+<meta name="description" content="redis 安装使用 🔗redis 安装 wget https://download.redis.io/releases/redis-6.2.4.tar.gz tar -zvxf redis-6.2.4 mv ~/redis-6.2.4 /usr/local/redis cd /usr/local/redis make 编译 make PREFIX=/usr/local/redis install 安">
 <meta name="generator" content="Hugo 0.103.1" />
 
 
@@ -65,18 +65,18 @@
     <h1 class="title">redis 小结</h1>
 
     <div class="tip">
-        <time datetime="2021-05-05 11:33:56 &#43;0800 CST">May 5, 2021</time>
+        <time datetime="2022-05-05 11:33:56 &#43;0800 CST">May 5, 2022</time>
         <span class="split">
           ·
         </span>
         <span>
-          1071 words
+          1583 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          3 minute read
+          4 minute read
         </span>
     </div>
 
@@ -91,13 +91,25 @@
           <div>
               <nav id="TableOfContents">
   <ul>
-    <li><a href="#redis-安装使用">redis 安装、使用</a></li>
+    <li><a href="#redis-安装使用">redis 安装使用</a></li>
     <li><a href="#redis-高可用">redis 高可用</a></li>
-    <li><a href="#支持的数据结构">支持的数据结构</a></li>
-    <li><a href="#事件">事件</a></li>
+    <li><a href="#支持的数据结构">支持的数据结构</a>
+      <ul>
+        <li><a href="#hash表的实现方式">hash表的实现方式</a></li>
+        <li><a href="#有序集合的实现方式">有序集合的实现方式</a></li>
+      </ul>
+    </li>
+    <li><a href="#事件io事件--时间事件">事件（IO事件 + 时间事件）</a>
+      <ul>
+        <li><a href="#事件驱动框架">事件驱动框架</a></li>
+        <li><a href="#时间事件-定时事件-周期性事件">时间事件 (定时事件， 周期性事件)</a></li>
+        <li><a href="#io多路复用">io多路复用</a></li>
+      </ul>
+    </li>
     <li><a href="#过期键删除">过期键删除</a></li>
     <li><a href="#持久化">持久化</a></li>
     <li><a href="#事务与lua">事务与lua</a></li>
+    <li><a href="#redis实现令牌桶限流">redis实现令牌桶限流</a></li>
   </ul>
 </nav>
           </div>
@@ -110,29 +122,25 @@
 
 
     <div class="content">
-      <h1 id="redis-安装使用">redis 安装、使用 <a href="#redis-%e5%ae%89%e8%a3%85%e4%bd%bf%e7%94%a8" class="anchor">🔗</a></h1><pre tabindex="0"><code>redis 安装
+      <h1 id="redis-安装使用">redis 安装使用 <a href="#redis-%e5%ae%89%e8%a3%85%e4%bd%bf%e7%94%a8" class="anchor">🔗</a></h1><pre tabindex="0"><code>redis 安装
     wget https://download.redis.io/releases/redis-6.2.4.tar.gz
     tar -zvxf redis-6.2.4
     mv ~/redis-6.2.4    /usr/local/redis
     cd /usr/local/redis
     make 编译
-    
     make PREFIX=/usr/local/redis  install 安装
         加prefix指定可执行文件的目录。
         不加的话可执行文件会放到/usr/local/bin目录中，
         库文件在/usr/local/lib中。
-    
 redis 使用
     在/usr/local/redis目录下，
         /bin/redis-server&amp;amp; ./redis.conf
-        or /bin/redis-server ./redis.conf
-        
+        or /bin/redis-server ./redis.conf     
         redis-cli      -p 6379
 </code></pre><h1 id="redis-高可用">redis 高可用 <a href="#redis-%e9%ab%98%e5%8f%af%e7%94%a8" class="anchor">🔗</a></h1><p><img src="/store_db/redis_arch.png" width = "600" /><br></p>
-<h1 id="支持的数据结构">支持的数据结构 <a href="#%e6%94%af%e6%8c%81%e7%9a%84%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84" class="anchor">🔗</a></h1><p>支持的value类型： 字符串，hash，列表，集合，有序集合 <br></p>
+<h1 id="支持的数据结构">支持的数据结构 <a href="#%e6%94%af%e6%8c%81%e7%9a%84%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84" class="anchor">🔗</a></h1><p>  支持的value类型： 字符串，hash，列表，集合，有序集合 <br></p>
 <ul>
-<li>
-<p>redis未直接使用上述数据结构， 而是redisObject结构进行封装。</p>
+<li>redis未直接使用上述数据结构， 而是redisObject结构进行封装。
 <ul>
 <li>redisObject结构体： type, encoding, prt, refcount, lru...</li>
 <li>键对象， 均为字符串对象</li>
@@ -147,42 +155,59 @@ redis 使用
 </li>
 </ul>
 </li>
-<li>
-<p>简单动态数组</p>
-<ul>
-<li>sds.h sds.c</li>
-<li>数组本身长度， 空余长度，防止strcat 这种缓冲区溢出</li>
-<li>兼容c字符串库函数的原因: SDS返回char*指针与C 操作字符串时是一致</li>
 </ul>
-</li>
-</ul>
-<hr>
-<h1 id="事件">事件 <a href="#%e4%ba%8b%e4%bb%b6" class="anchor">🔗</a></h1><p>文件事件 ae_select.c , ae_epoll.c, ae_kqueue.c reactor模式</p>
-<p>时间事件 (定时事件， 周期性事件)</p>
-<ul>
+<h2 id="hash表的实现方式">hash表的实现方式 <a href="#hash%e8%a1%a8%e7%9a%84%e5%ae%9e%e7%8e%b0%e6%96%b9%e5%bc%8f" class="anchor">🔗</a></h2><p>  hash表的存储结构： <code>array[ListNode; n]</code> <br>
+  扩容方式：设计到内存迁移，但不能阻塞线程太长时间。采用了 <code>渐进式 rehash</code> + <code>定时 rehash</code>。<br>
+  <code>渐进式rehash</code>：在每次crud时判断hash表如果处于rehash的状态， 则rehash当前的一个节点。<br>
+  <code>定时rehash</code>：添加时间事件进行迁移。</p>
+<h2 id="有序集合的实现方式">有序集合的实现方式 <a href="#%e6%9c%89%e5%ba%8f%e9%9b%86%e5%90%88%e7%9a%84%e5%ae%9e%e7%8e%b0%e6%96%b9%e5%bc%8f" class="anchor">🔗</a></h2><p>  待排集合的大小影响数据结构的选择。<br>
+当集合的大小超过可配阈值时，选择<code>skiplist</code>:  一种多层级的链表, 节点有多个指向后序节点的指针。</p>
+<h1 id="事件io事件--时间事件">事件（IO事件 + 时间事件） <a href="#%e4%ba%8b%e4%bb%b6io%e4%ba%8b%e4%bb%b6--%e6%97%b6%e9%97%b4%e4%ba%8b%e4%bb%b6" class="anchor">🔗</a></h1><p>  <strong>io事件是redis正常的业务请求处理。 时间事件是redis内部为了维持正常状态的需要。</strong><br></p>
+<h2 id="事件驱动框架">事件驱动框架 <a href="#%e4%ba%8b%e4%bb%b6%e9%a9%b1%e5%8a%a8%e6%a1%86%e6%9e%b6" class="anchor">🔗</a></h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">aeMain</span>(aeEventLoop <span style="color:#f92672">*</span>eventLoop) {
+</span></span><span style="display:flex;"><span>    eventLoop<span style="color:#f92672">-&gt;</span>stop <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (<span style="color:#f92672">!</span>eventLoop<span style="color:#f92672">-&gt;</span>stop) {
+</span></span><span style="display:flex;"><span>        aeProcessEvents(eventLoop, AE_ALL_EVENTS<span style="color:#f92672">|</span>AE_CALL_AFTER_SLEEP);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">aeProcessEvents</span>(aeEventLoop <span style="color:#f92672">*</span>eventLoop, <span style="color:#66d9ef">int</span> flags)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (eventLoop<span style="color:#f92672">-&gt;</span>beforesleep <span style="color:#f92672">!=</span> NULL <span style="color:#f92672">&amp;&amp;</span> flags <span style="color:#f92672">&amp;</span> AE_CALL_BEFORE_SLEEP)
+</span></span><span style="display:flex;"><span>            eventLoop<span style="color:#f92672">-&gt;</span>beforesleep(eventLoop);   
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    numevents <span style="color:#f92672">=</span> aeApiPoll(eventLoop, tvp);
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">/* After sleep callback. */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (eventLoop<span style="color:#f92672">-&gt;</span>aftersleep <span style="color:#f92672">!=</span> NULL <span style="color:#f92672">&amp;&amp;</span> flags <span style="color:#f92672">&amp;</span> AE_CALL_AFTER_SLEEP)
+</span></span><span style="display:flex;"><span>            eventLoop<span style="color:#f92672">-&gt;</span>aftersleep(eventLoop);
+</span></span><span style="display:flex;"><span>     <span style="color:#75715e">/* 处理io事件 */</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">for</span> (j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; j <span style="color:#f92672">&lt;</span> numevents; j<span style="color:#f92672">++</span>) {...}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     <span style="color:#75715e">/* 处理时间事件（del key， rehash..） */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (flags <span style="color:#f92672">&amp;</span> AE_TIME_EVENTS)
+</span></span><span style="display:flex;"><span>        processed <span style="color:#f92672">+=</span> processTimeEvents(eventLoop);
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> processed; <span style="color:#75715e">/* return the number of processed file/time events */</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="时间事件-定时事件-周期性事件">时间事件 (定时事件， 周期性事件) <a href="#%e6%97%b6%e9%97%b4%e4%ba%8b%e4%bb%b6-%e5%ae%9a%e6%97%b6%e4%ba%8b%e4%bb%b6-%e5%91%a8%e6%9c%9f%e6%80%a7%e4%ba%8b%e4%bb%b6" class="anchor">🔗</a></h2><ul>
 <li>更新db的统计信息</li>
-<li>清理过期key</li>
+<li>清理过期key， rehash</li>
 <li>关闭和清理无效的客户端</li>
 <li>尝试AOF RDB</li>
 <li>主从同步</li>
 </ul>
-<hr>
-<h1 id="过期键删除">过期键删除 <a href="#%e8%bf%87%e6%9c%9f%e9%94%ae%e5%88%a0%e9%99%a4" class="anchor">🔗</a></h1><ul>
-<li>定时删除
-<ul>
-<li>创建定时器添加到时间事件的链表中</li>
-</ul>
-</li>
+<h2 id="io多路复用">io多路复用 <a href="#io%e5%a4%9a%e8%b7%af%e5%a4%8d%e7%94%a8" class="anchor">🔗</a></h2><p>  epoll 实例内部维护了两个结构。<br>分别是记录要监听的文件描述符(rb_tree)和已经就绪的文件描述符(ready_queue)。不用<code>select, poll</code>去遍历文件描述符集合查看是否ready。<br>
+  <code>Reactor模式</code></p>
+<h1 id="过期键删除">过期键删除 <a href="#%e8%bf%87%e6%9c%9f%e9%94%ae%e5%88%a0%e9%99%a4" class="anchor">🔗</a></h1><ol>
+<li>定时删除, 创建定时器添加到时间事件的链表中</li>
 <li>懒性删除策略(db.c/expireIfNeeded) get key -&gt; expireIfNeeded -&gt; 删除key 并返回nil</li>
-<li>定期删除策略 (redis.c/activeExpireCycle)</li>
+<li>定期删除策略, 创建时间事件 (redis.c/activeExpireCycle)</li>
 <li>save 生成rdb文件， 不会保存过期键</li>
-</ul>
-<h1 id="持久化">持久化 <a href="#%e6%8c%81%e4%b9%85%e5%8c%96" class="anchor">🔗</a></h1><p>RDB：</p>
+</ol>
+<h1 id="持久化">持久化 <a href="#%e6%8c%81%e4%b9%85%e5%8c%96" class="anchor">🔗</a></h1><p>  RDB：</p>
 <ul>
 <li>save (阻塞redis服务进程，直到RDB文件生成完毕)</li>
 <li>bgsave 创建子进程来创建全局快照RDB文件</li>
 </ul>
-<p>AOF持久化：</p>
+<p>  AOF持久化：</p>
 <ul>
 <li>配置appendfsync
 <ul>
@@ -192,21 +217,23 @@ redis 使用
 </ul>
 </li>
 </ul>
-<p><strong>AOF 重写（减少AOF文件的大小）， bgrewriteaof创建子进程去执行。</strong>
-redis中SIGUSR1信号关闭子进程的aof,rdb子进程。<br></p>
-<p>AOF rewrite重写的过程：</p>
+<p>  <strong>AOF 重写（减少AOF文件的大小）， bgrewriteaof创建子进程去执行。</strong>
+redis中SIGUSR1信号关闭子进程的aof,rdb子进程。</p>
+<p>  AOF rewrite重写的过程：</p>
 <ul>
-<li>创建新AOF文件，通过读当前db的键的value， 用最新的kv记录信息。</li>
+<li>创建新AOF文件，通过读当前db的键的value用最新的kv记录到新AOF文件中。</li>
 <li>子进程在AOF重写过程中， 发生的write操作，主服务进程会写到AOF重写缓冲区，等子进程结束后，父进程收到信号，将AOF重写缓冲区的内容append到AOF文件中，完成AOF文件的后台重写。</li>
 </ul>
-<hr>
-<h1 id="事务与lua">事务与lua <a href="#%e4%ba%8b%e5%8a%a1%e4%b8%8elua" class="anchor">🔗</a></h1><p>redis单线程处理事件，所以事务执行是串行的，所以满足隔离性。</p>
-<p>multi, exec, watch。 multi之后 的命令入队列， exec执行队列命令。</p>
+<h1 id="事务与lua">事务与lua <a href="#%e4%ba%8b%e5%8a%a1%e4%b8%8elua" class="anchor">🔗</a></h1><p>  redis单线程处理事件，所以事务执行是串行的，所以满足隔离性。<br>
+  multi, exec, watch。 multi之后 的命令入队列， exec执行队列命令。<br></p>
 <ul>
 <li>multi之后 redisclient的flags事务标示打开， 请求的命令入队列（入队失败，不会执行事务）</li>
 <li>exec执行队列命令（执行失败，事务继续执行）。</li>
 <li>watch的key被修改后，redisClient的REDIS_DIRTY_CAS会打开， exec时会取消执行</li>
 </ul>
+<h1 id="redis实现令牌桶限流">redis实现令牌桶限流 <a href="#redis%e5%ae%9e%e7%8e%b0%e4%bb%a4%e7%89%8c%e6%a1%b6%e9%99%90%e6%b5%81" class="anchor">🔗</a></h1><p>  在redis中维护List对戏那个，作为令牌桶。<br>
+  生产者每隔interval秒放令牌桶中放r个令牌， lpush。
+  消费者brpop从list中获取令牌。</p>
 
     </div>
 

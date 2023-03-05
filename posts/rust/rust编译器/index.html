@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<html lang="zh-cn">
+  <head>
+    <title>rustc | brettkk</title>
+
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
+<meta name="viewport" content="width=device-width,minimum-scale=1">
+<meta name="description" content="text -&gt; tokens -&gt; ast -&gt; hir -&gt;mir -&gt; llvm ir -&gt; llvm -&gt; 1110 ThinLTO, PGO 快速看下rust语言，ve">
+<meta name="generator" content="Hugo 0.103.1" />
+
+
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+<link href="https://cdn.bootcss.com/highlight.js/9.15.10/styles/zenburn.min.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<link rel="stylesheet" href="http://brettkk.github.io/css/syntax.css" />
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js" integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+
+
+
+
+  </head>
+
+  <body>
+    <nav class="navigation">
+	
+		<a href="/"> <span class="arrow">←</span>Home</a>
+	
+	<a href="/posts">Archive</a>
+	<a href="/tags">Tags</a>
+	<a href="/about">About</a>
+
+	
+
+	
+</nav>
+
+
+    <main class="main">
+      
+
+<section id="single">
+    <h1 class="title">rustc</h1>
+
+    <div class="tip">
+        <time datetime="2022-11-15 11:33:56 &#43;0800 CST">Nov 15, 2022</time>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          1052 words
+        </span>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          3 minute read
+        </span>
+    </div>
+
+    
+    
+        
+  
+    <aside class="toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
+          <div>
+              <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#快速看下rust语言very-fast-rust-primer">快速看下rust语言，very fast rust primer</a></li>
+        <li><a href="#rustc-architecture">rustc architecture</a></li>
+        <li><a href="#边用边看">边用边看</a></li>
+        <li><a href="#compiler内部的crate">compiler内部的crate</a></li>
+        <li><a href="#rustc-task-listrustc的任务列表">rustc task list（rustc的任务列表）</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+          </div>
+      </details>
+    </aside>
+  
+
+
+    
+
+
+    <div class="content">
+      <p>text -&gt; tokens -&gt; ast -&gt; hir -&gt;mir -&gt; llvm ir -&gt; llvm -&gt; 1110
+ThinLTO, PGO</p>
+<h2 id="快速看下rust语言very-fast-rust-primer">快速看下rust语言，very fast rust primer <a href="#%e5%bf%ab%e9%80%9f%e7%9c%8b%e4%b8%8brust%e8%af%ad%e8%a8%80very-fast-rust-primer" class="anchor">🔗</a></h2><ul>
+<li>low-level, no language runtime (like c/c++)</li>
+<li>focus on memory safety and practicality</li>
+<li>ownership, lefttime, borrow checking for references.</li>
+</ul>
+<p><a href="https://doc.rust-lang.org/book/" target="_blank" rel="noopener">rust book</a><br>
+<a href="https://user.rust-lang.org" target="_blank" rel="noopener">help forum</a><br></p>
+<hr>
+<h2 id="rustc-architecture">rustc architecture <a href="#rustc-architecture" class="anchor">🔗</a></h2><ul>
+<li><a href="https://rustc-dev-guide.rust-lang.org" target="_blank" rel="noopener">https://rustc-dev-guide.rust-lang.org</a></li>
+<li><a href="https://internals.rust-lang.org" target="_blank" rel="noopener">https://internals.rust-lang.org</a></li>
+<li>compiler term: <a href="https://rust-lang.zulipchat.com" target="_blank" rel="noopener">https://rust-lang.zulipchat.com</a></li>
+</ul>
+<p><p class="markdown-image">
+  <img src="/rust/rust_compiler_struct.svg" alt="image"  />
+</p></p>
+<ul>
+<li>rust-specific (rustc) frontend, llvm backend</li>
+<li>DAG of queries instead of passes</li>
+<li>many static analysis passes</li>
+<li>5 code representations: AST, HIR, THIR, MIR, LLVM IR</li>
+</ul>
+<p>queries instead of stages.</p>
+<p>type_check_crate() -&gt; list_of_all_hir_items()
+-&gt; type_check_item(foo) -&gt; type_of(foo) -&gt; hir(foo)</p>
+<p>increamental compilation, parallelization.</p>
+<h2 id="边用边看">边用边看 <a href="#%e8%be%b9%e7%94%a8%e8%be%b9%e7%9c%8b" class="anchor">🔗</a></h2><p>rustc -Z help<br> 可以查看</p>
+<p>rustc -Z unpretty=ast-tree hello.rs
+rustc -Z unpretty=mir hello.rs</p>
+<h2 id="compiler内部的crate">compiler内部的crate <a href="#compiler%e5%86%85%e9%83%a8%e7%9a%84crate" class="anchor">🔗</a></h2><p>rustc_main:编译器rustc主入口<br>
+rustc_interface:用来描述编译基础接口及实现；<br>
+rustc_middle: 定义type的语义，type的context。<br>
+rustc_data_structures:用描述rustc使用到的基础数据结构；<br>
+rustc_session:用来描述一个编译会话以及支持并行多会话编译；<br>
+rustc_traits：用来实现trait相关逻辑实现；<br>
+rustc_ast_lowering:用来将AST转换成HIR；<br>
+rustc_typeck:用来类型检查及转换等逻辑；<br>
+rustc_expand:用来进行宏扩展相关的实现，包括对过程宏及内嵌宏的实现等；<br>
+rustc_attr:用来对属性相关实现；<br>
+rustc_mir:用来描述MIR数据结构及相关实现；<br></p>
+<h2 id="rustc-task-listrustc的任务列表">rustc task list（rustc的任务列表） <a href="#rustc-task-listrustc%e7%9a%84%e4%bb%bb%e5%8a%a1%e5%88%97%e8%a1%a8" class="anchor">🔗</a></h2><p>第一阶段<br>
+<font color=blue><strong>1,2,3 基于AST， 能够对程序进行语法操作。</strong></font></p>
+<ul>
+<li>1 command line args, user environment, toolchain, load compilation cache</li>
+<li>2 lexing, parsing</li>
+<li>3 macro expansion, feature gate, various compiler magic
+<ul>
+<li>compiler/rustc_ast/src/mut_visitor.rs#MutVisitor</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">// rustc_ast/src/ast.rs#
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Crate</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">pub</span> attrs: Vec<span style="color:#f92672">&lt;</span>Attribute<span style="color:#f92672">&gt;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">pub</span> items: Vec<span style="color:#f92672">&lt;</span>P<span style="color:#f92672">&lt;</span>Item<span style="color:#f92672">&gt;&gt;</span>, <span style="color:#75715e">//本crate下所有ast的root节点数组。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">pub</span> spans: <span style="color:#a6e22e">ModSpans</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">pub</span> id: <span style="color:#a6e22e">NodeId</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">pub</span> is_placeholder: <span style="color:#66d9ef">bool</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Item</span><span style="color:#f92672">&lt;</span>K <span style="color:#f92672">=</span> ItemKind<span style="color:#f92672">&gt;</span> { <span style="color:#75715e">// ast上的节点Item， 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">pub</span> attrs: Vec<span style="color:#f92672">&lt;</span>Attribute<span style="color:#f92672">&gt;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">pub</span> id: <span style="color:#a6e22e">NodeId</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">pub</span> span: <span style="color:#a6e22e">Span</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">pub</span> vis: <span style="color:#a6e22e">Visibility</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">pub</span> ident: <span style="color:#a6e22e">Ident</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">pub</span> kind: <span style="color:#a6e22e">K</span>,     <span style="color:#75715e">// 在ItemKind上定义节点Item之间的连接关系
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">pub</span> tokens: Option<span style="color:#f92672">&lt;</span>LazyTokenStream<span style="color:#f92672">&gt;</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 根据BNF中的语法规则定义每种语法的结构
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">ItemKind</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">/// An `extern crate` item, with the optional *original* crate name if the crate was renamed.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>    <span style="color:#e6db74">///
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>    <span style="color:#e6db74">/// E.g., `extern crate foo` or `extern crate foo_bar as foo`.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>    ExternCrate(Option<span style="color:#f92672">&lt;</span>Symbol<span style="color:#f92672">&gt;</span>),
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">/// A use declaration item (`use`).
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>    <span style="color:#e6db74">///
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>    <span style="color:#e6db74">/// E.g., `use foo;`, `use foo::bar;` or `use foo::bar as FooBar;`.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>    Use(UseTree),
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">/// A static item (`static`).
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>    <span style="color:#e6db74">///
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>    <span style="color:#e6db74">/// E.g., `static FOO: i32 = 42;` or `static FOO: &amp;&#39;static str = &#34;bar&#34;;`.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>    Static(P<span style="color:#f92672">&lt;</span>Ty<span style="color:#f92672">&gt;</span>, Mutability, Option<span style="color:#f92672">&lt;</span>P<span style="color:#f92672">&lt;</span>Expr<span style="color:#f92672">&gt;&gt;</span>),
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">/// A constant item (`const`).
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>    <span style="color:#e6db74">///
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>    <span style="color:#e6db74">/// E.g., `const FOO: i32 = 42;`.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>    Const(Defaultness, P<span style="color:#f92672">&lt;</span>Ty<span style="color:#f92672">&gt;</span>, Option<span style="color:#f92672">&lt;</span>P<span style="color:#f92672">&lt;</span>Expr<span style="color:#f92672">&gt;&gt;</span>),
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">/// A function declaration (`fn`).
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>    <span style="color:#e6db74">///
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>    <span style="color:#e6db74">/// E.g., `fn foo(bar: usize) -&gt; usize { .. }`.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>    Fn(Box<span style="color:#f92672">&lt;</span>Fn<span style="color:#f92672">&gt;</span>),
+</span></span><span style="display:flex;"><span>    Mod(Unsafe, ModKind),
+</span></span><span style="display:flex;"><span>    ForeignMod(ForeignMod),
+</span></span><span style="display:flex;"><span>    Enum(EnumDef, Generics),
+</span></span><span style="display:flex;"><span>    Struct(VariantData, Generics),
+</span></span><span style="display:flex;"><span>    Union(VariantData, Generics),
+</span></span><span style="display:flex;"><span>    Trait(Box<span style="color:#f92672">&lt;</span>Trait<span style="color:#f92672">&gt;</span>),
+</span></span><span style="display:flex;"><span>    Impl(Box<span style="color:#f92672">&lt;</span>Impl<span style="color:#f92672">&gt;</span>),
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><hr>
+<p>第二阶段<br>
+<font color=blue><strong>4,5,6 基于HIR， 容易从AST转化得到HIR(仍然是AST)， 适合的分析任务</strong></font></p>
+<ul>
+<li>4 type inference (类型推导)</li>
+<li>5 type checking （类型检查）</li>
+<li>6 trait solving/checking</li>
+</ul>
+<p>desugar: loop, async/await.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">trait</span> Foo {<span style="color:#f92672">..</span>.}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">baz</span><span style="color:#f92672">&lt;</span>T: <span style="color:#a6e22e">Foo</span><span style="color:#f92672">&gt;</span>(t: <span style="color:#a6e22e">T</span>) {<span style="color:#f92672">..</span>.}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 1. type checking, t should implz Foo trait
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 2. trait solving, which implementation of Foo to use 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>baz(<span style="color:#ae81ff">3</span>); 
+</span></span><span style="display:flex;"><span>baz(<span style="color:#e6db74">&#34;hello&#34;</span>);
+</span></span></code></pre></div><p><font color=blue><strong>7 基于THIR，方便从HIR过来，方便转化到MIR</strong></font></p>
+<ul>
+<li>7 pattern exhaustiveness checking</li>
+</ul>
+<hr>
+<p>第三阶段<br></p>
+<p><font color=blue><strong>基于 MIR，是control flow graph。 <br>
+方便borrow checking, dataflow for correctness checks and opts， monomorphize, optimize, generate code。</strong></font></p>
+<ul>
+<li>Borrow checking （限制到local，scope是一个方法内部）</li>
+<li>Constant evaluation （after monomorphization）</li>
+<li>Rust-level Optimizations</li>
+<li>Monomorphization (泛型单态化)</li>
+<li>Saving compilation cache</li>
+<li>LLVM IR generation</li>
+</ul>
+<p>Niko Matsakis <a href="https://blog.rust-lang.org/2016/04/19/MIR.html" target="_blank" rel="noopener">MIR blog: Introducing MIR</a><br></p>
+<hr>
+<p>第四阶段<br></p>
+<ul>
+<li>LLVM (more optimization, binary generation, linking, linking-time optimization...)</li>
+</ul>
+
+    </div>
+
+    
+        <div class="tags">
+            
+                <a href="http://brettkk.github.io/tags/rust">rust</a>
+            
+                <a href="http://brettkk.github.io/tags/compiler">compiler</a>
+            
+        </div>
+    
+    
+    
+
+</section>
+
+
+    </main>
+    
+    <footer id="footer">
+    
+
+    <script src="https://utteranc.es/client.js"
+repo="brettKK/brettkk.github.io"
+issue-term="title"
+theme="github-light"
+crossorigin="anonymous"
+async>
+</script>  
+
+    <div class="copyright">
+    
+       © Copyright 
+       2023 
+       <span class="split">
+        <svg fill="#bbbbbb" width="15" height="15" version="1.1" id="heart-15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 15 15">
+  <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>
+</svg>
+       </span>
+       
+    
+    </div>
+
+    
+      <div class="powerby">
+        Powered by <a href='http://www.gohugo.io/'>Hugo</a> Theme By <a href='https://github.com/nodejh/hugo-theme-cactus-plus'>nodejh</a>
+      </div>
+    
+</footer>
+
+
+
+
+  </body>
+</html>

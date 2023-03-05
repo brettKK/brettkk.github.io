@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<html lang="zh-cn">
+  <head>
+    <title>brettkk</title>
+
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
+<meta name="viewport" content="width=device-width,minimum-scale=1">
+<meta name="description" content="go compiler 🔗 go compiler的实现入口在src/cmd/compile
+cmd/compile/internal/gc.Main 初始化ssa配置，cmd/compile/internal/gc.initssaconfig cmd/compile/internal/gc.funccompile 优化中间代码的过程在cmd/compile/internal/ssa.Compile cmd/internal/obj
+golang compiler
+go gccgo closed project tulgo open source llgo GopherJS TARDIS Go ssa --&gt; llgo --&gt; llvm module --&gt; llgo-build --&gt; executable github.">
+<meta name="generator" content="Hugo 0.103.1" />
+
+
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+<link href="https://cdn.bootcss.com/highlight.js/9.15.10/styles/zenburn.min.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<link rel="stylesheet" href="http://brettkk.github.io/css/syntax.css" />
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js" integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+
+
+
+
+  </head>
+
+  <body>
+    <nav class="navigation">
+	
+		<a href="/"> <span class="arrow">←</span>Home</a>
+	
+	<a href="/posts">Archive</a>
+	<a href="/tags">Tags</a>
+	<a href="/about">About</a>
+
+	
+
+	
+</nav>
+
+
+    <main class="main">
+      
+
+<section id="single">
+    <h1 class="title"></h1>
+
+    <div class="tip">
+        <time datetime="0001-01-01 00:00:00 &#43;0000 UTC">Jan 1, 0001</time>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          348 words
+        </span>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          2 minute read
+        </span>
+    </div>
+
+    
+    
+        
+  
+    <aside class="toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
+          <div>
+              <nav id="TableOfContents">
+  <ul>
+    <li><a href="#go-compiler">go compiler</a></li>
+  </ul>
+</nav>
+          </div>
+      </details>
+    </aside>
+  
+
+
+    
+
+
+    <div class="content">
+      <h1 id="go-compiler">go compiler <a href="#go-compiler" class="anchor">🔗</a></h1><ul>
+<li>
+<p>go compiler的实现入口在src/cmd/compile</p>
+<ul>
+<li>cmd/compile/internal/gc.Main</li>
+<li>初始化ssa配置，cmd/compile/internal/gc.initssaconfig</li>
+<li>cmd/compile/internal/gc.funccompile</li>
+<li>优化中间代码的过程在cmd/compile/internal/ssa.Compile</li>
+</ul>
+</li>
+<li>
+<p>cmd/internal/obj</p>
+</li>
+<li>
+<p>golang compiler</p>
+<ul>
+<li>go gccgo</li>
+<li>closed project tulgo</li>
+<li>open source llgo GopherJS TARDIS Go
+<ul>
+<li>ssa --&gt; llgo --&gt; llvm module --&gt; llgo-build --&gt; executable</li>
+<li>github.com/axw/llgo</li>
+</ul>
+</li>
+<li>Go SSA viewer  <a href="http://golang-ssaview.herokuapp.com/" target="_blank" rel="noopener">http://golang-ssaview.herokuapp.com/</a></li>
+</ul>
+</li>
+<li>
+<p>file.cpp --clang--&gt; clang AST -&gt; LLVM IR -&gt; Selection DAG --llc--&gt; LLVM MIR --llc--&gt; Machine Code</p>
+</li>
+<li>
+<p>golang code -&gt; AST -&gt; LLVM IR -&gt; LLVM bytecode -&gt; ASM -&gt; Native</p>
+</li>
+<li>
+<p>source code -&gt; AST</p>
+<ul>
+<li>parser.Parse* (ParseExpr, ParseExprFrom, ParseFile, ParseDir)</li>
+</ul>
+</li>
+<li>
+<p>llvm api(godoc), binding go (module, type, values, Basic Blocks, )</p>
+<ul>
+<li>module := llvm.NewModule(&quot;main&quot;)</li>
+<li>import &quot;llvm.org/llvm/bindings/go/llvm&quot;</li>
+</ul>
+</li>
+<li>
+<p>Passes in llvm (levels of granularity)</p>
+<ul>
+<li>Module Pass, Call Graph Pass, Function Pass, Basic Block Pass</li>
+</ul>
+</li>
+<li>
+<p>Identifier</p>
+<ul>
+<li>@ global, % local</li>
+</ul>
+</li>
+<li>
+<p>有用package</p>
+<ul>
+<li>ast</li>
+</ul>
+</li>
+<li>
+<p>go 工具链， go build, go test, go fmt, go get, go vet, go tool cover, go tool pprof, go -race</p>
+<ul>
+<li>GOSSAFUNC=HelloWorld go build</li>
+<li>cmd/compile/README, cmd/compile/internal/ssa/README</li>
+<li>go tool compile &lt;=&gt; go tool objdump</li>
+<li>obj files ==&gt; go tool link ==&gt; binary file</li>
+</ul>
+</li>
+<li>
+<p>go ssa (how to read go SSA intermediate representation)
++</p>
+</li>
+<li>
+<p>go/ <a href="https://golang.org/s/types-tutorial" target="_blank" rel="noopener">https://golang.org/s/types-tutorial</a></p>
+<ul>
+<li>go/doc go/printer go/scanner</li>
+<li>token,  FileSets</li>
+<li>ast
+<ul>
+<li>Package File Scope Object</li>
+<li>interface: Node, Decl, Spec, Stmt, Expr</li>
+<li><a href="https://golang.org/ref/spec" target="_blank" rel="noopener">https://golang.org/ref/spec</a></li>
+</ul>
+</li>
+<li>parser
+<ul>
+<li>ParseExpr(x string)</li>
+<li>ParseFile</li>
+<li>ParseDir</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>golang.org/x/tools/go</p>
+<ul>
+<li>
+<p>packages (recommend~)</p>
+</li>
+<li>
+<p>ssa</p>
+<ul>
+<li>Member, Value, Instruction, Node</li>
+</ul>
+</li>
+<li>
+<p>callgraph</p>
+<ul>
+<li>go get golang.org/x/tools/cmd/callgraph</li>
+<li>Graph Node Edge</li>
+</ul>
+</li>
+<li>
+<p>analysis</p>
+<ul>
+<li>/singlechecker</li>
+</ul>
+</li>
+<li>
+<p>golang.org/x/tools/go/ssa (2015年 用到这个package的项目)</p>
+<ul>
+<li>stackcheck</li>
+<li>go-llvm/llgo 如何挖掘出有用的东西</li>
+<li>go-type-switch-gen</li>
+<li>stripe/safesql, 检查sql injection</li>
+<li>tardisgo</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>如何静态分析golang代码</p>
+<ul>
+<li>go/scanner包 词法分析 变为token</li>
+<li>ast和parser的实现，源码在<go sdk>/src/go/parser包下</li>
+</ul>
+</li>
+<li>
+<p>开源项目例子 llgo</p>
+</li>
+<li>
+<p>create own static analysis tools, pay more attention to algorithm, design and performance</p>
+</li>
+<li>
+<p>static analysis tools for go</p>
+<ul>
+<li>gofmt/goimports</li>
+<li>go vet/golint github.com/golang/go/tree/master/src/cmd/vet</li>
+<li>guru</li>
+<li>gocode</li>
+<li>errcheck</li>
+<li>gorename/gomvpkg</li>
+</ul>
+</li>
+<li>
+<p>static analysis background</p>
+<ul>
+<li><a href="https://github.com/mre/awesome-static-analysis#go" target="_blank" rel="noopener">https://github.com/mre/awesome-static-analysis#go</a></li>
+<li><a href="https://github.com/golang/lint" target="_blank" rel="noopener">https://github.com/golang/lint</a></li>
+<li><a href="https://github.com/golangci/golangci-lint" target="_blank" rel="noopener">https://github.com/golangci/golangci-lint</a></li>
+<li><a href="https://github.com/360EntSecGroup-Skylar/goreporter" target="_blank" rel="noopener">https://github.com/360EntSecGroup-Skylar/goreporter</a></li>
+<li><a href="https://github.com/alecthomas/gometalinter" target="_blank" rel="noopener">https://github.com/alecthomas/gometalinter</a></li>
+<li><a href="http://golang.org/lib/godoc/analysis/help.html" target="_blank" rel="noopener">http://golang.org/lib/godoc/analysis/help.html</a></li>
+<li>Oracle (not open source)</li>
+<li>github.com/golang/example/tree/master/gotypes</li>
+<li>github.com/retailnext/stan</li>
+<li>godoc.org/golang.org/x/tools/go/loader</li>
+<li>godoc.org/golang.org/x/tools/go/analysis</li>
+<li>godoc.org/golang.org/x/tools/go/ssa</li>
+<li>godoc.org/golang.org/x/tools/go/pointer</li>
+<li>golang.org/x/tools/go/analysis
+<ul>
+<li>defines the interface between a modular static analysis and an analysis driver program</li>
+</ul>
+</li>
+<li>golang.org/x/tools/go/callgraph</li>
+<li>golang.org/x/tools/go/callgraph/cha</li>
+<li>golang.org/x/tools/go/callgraph/rta</li>
+<li>golang.org/x/tools/go/callgraph/static</li>
+</ul>
+</li>
+<li>
+<p>dynamic analysis</p>
+<ul>
+<li>dmitry vyukov</li>
+</ul>
+</li>
+<li>
+<p>反编译二进制文件</p>
+<ul>
+<li>linux objdump</li>
+<li>mac otool</li>
+</ul>
+</li>
+<li>
+<p>内置 Parser 打造轻量级规则引擎</p>
+<ul>
+<li>业务系统就是对PM的需求堆if else，基础服务就是对OS资源和网络问题堆if else</li>
+<li>造成了代码的膨胀，如何来管理这坨if else，就衍生出了设计模式：通过各种手段来把if else划分到更小的粒度</li>
+<li>不论用什么方法，if else不会凭空消失，只会从一个地方转移到另一个地方 可维护性以及扩展性是可以得到提升的</li>
+</ul>
+</li>
+<li>
+<p>符号执行</p>
+<ul>
+<li>约束规划的求解问题 constraint programming, SMT(satisfiability modulo theory) ,  SAT</li>
+</ul>
+</li>
+<li>
+<p>软件静态漏洞检测</p>
+<ul>
+<li>二进制漏洞检测</li>
+<li>源码漏洞检测
+<ul>
+<li>基于代码相似性...</li>
+<li>基于符号执行</li>
+<li>基于规则</li>
+<li>基于机器学习</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>wangcong15</p>
+</li>
+<li>
+<p>llvm 中文资料  白马负金羁 梦在哪里 csdn</p>
+</li>
+<li>
+<p><a href="http://llvm.org/docs/WritingAnLLVMPass.html" target="_blank" rel="noopener">http://llvm.org/docs/WritingAnLLVMPass.html</a></p>
+</li>
+<li>
+<p><a href="http://llvm.org/docs/tutorial/index.html" target="_blank" rel="noopener">http://llvm.org/docs/tutorial/index.html</a></p>
+</li>
+<li>
+<p><a href="http://www.aosabook.org/en/index.html" target="_blank" rel="noopener">http://www.aosabook.org/en/index.html</a>, <a href="http://www.aosabook.org/en/llvm.html" target="_blank" rel="noopener">http://www.aosabook.org/en/llvm.html</a></p>
+</li>
+<li>
+<p>MIT Computer Systems Security
+<a href="https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-858-computer-systems-security-fall-2014/index.htm" target="_blank" rel="noopener">https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-858-computer-systems-security-fall-2014/index.htm</a></p>
+</li>
+<li>
+<p><a href="https://sitano.github.io/2018/03/18/howto-read-gossa/" target="_blank" rel="noopener">https://sitano.github.io/2018/03/18/howto-read-gossa/</a></p>
+</li>
+<li>
+<p><a href="https://github.com/golang/tools/blob/master/go/ssa/doc.go" target="_blank" rel="noopener">https://github.com/golang/tools/blob/master/go/ssa/doc.go</a></p>
+</li>
+<li>
+<p><a href="https://github.com/golang/go/blob/master/src/cmd/compile/internal/gc/ssa_test.go" target="_blank" rel="noopener">https://github.com/golang/go/blob/master/src/cmd/compile/internal/gc/ssa_test.go</a></p>
+</li>
+<li>
+<p><a href="https://github.com/golang/go/tree/master/src/cmd/compile/internal/ssa" target="_blank" rel="noopener">https://github.com/golang/go/tree/master/src/cmd/compile/internal/ssa</a></p>
+</li>
+<li>
+<p><a href="https://github.com/golang/go/blob/master/src/cmd/compile/internal/ssa/gen/genericOps.go" target="_blank" rel="noopener">https://github.com/golang/go/blob/master/src/cmd/compile/internal/ssa/gen/genericOps.go</a></p>
+</li>
+<li>
+<p><a href="https://golang.org/pkg/cmd/compile/internal/ssa/" target="_blank" rel="noopener">https://golang.org/pkg/cmd/compile/internal/ssa/</a></p>
+</li>
+<li>
+<p><a href="https://github.com/golang/tools" target="_blank" rel="noopener">https://github.com/golang/tools</a></p>
+</li>
+</ul>
+<p>源伞科技</p>
+
+    </div>
+
+    
+    
+    
+
+</section>
+
+
+    </main>
+    
+    <footer id="footer">
+    
+
+    <script src="https://utteranc.es/client.js"
+repo="brettKK/brettkk.github.io"
+issue-term="title"
+theme="github-light"
+crossorigin="anonymous"
+async>
+</script>  
+
+    <div class="copyright">
+    
+       © Copyright 
+       2023 
+       <span class="split">
+        <svg fill="#bbbbbb" width="15" height="15" version="1.1" id="heart-15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 15 15">
+  <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>
+</svg>
+       </span>
+       
+    
+    </div>
+
+    
+      <div class="powerby">
+        Powered by <a href='http://www.gohugo.io/'>Hugo</a> Theme By <a href='https://github.com/nodejh/hugo-theme-cactus-plus'>nodejh</a>
+      </div>
+    
+</footer>
+
+
+
+
+  </body>
+</html>

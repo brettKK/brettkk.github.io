@@ -8,7 +8,7 @@
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
 <meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta name="description" content="整体架构 🔗二层（1 sql层无状态，处理用户请求和sql运算逻">
+<meta name="description" content="整体架构 🔗 二层（1 sql层无状态，处理用户请求和sql运算逻">
 <meta name="generator" content="Hugo 0.103.1" />
 
 
@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          2089 words
+          2341 words
         </span>
         <span class="split">
           ·
@@ -91,19 +91,23 @@
           <div>
               <nav id="TableOfContents">
   <ul>
-    <li><a href="#整体架构">整体架构</a></li>
+    <li><a href="#整体架构">整体架构</a>
+      <ul>
+        <li><a href="#存储格式">存储格式</a></li>
+      </ul>
+    </li>
     <li><a href="#窥探一二">窥探一二</a>
       <ul>
-        <li><a href="#为什么只是窥探一二">为什么只是窥探一二</a></li>
         <li><a href="#模块">模块</a></li>
       </ul>
     </li>
-    <li><a href="#table表如何映射为kv存储">table表如何映射为kv存储</a></li>
     <li><a href="#tidb-sql执行过程">tidb sql执行过程</a>
       <ul>
+        <li><a href="#创建计划">创建计划</a></li>
         <li><a href="#逻辑优化">逻辑优化</a></li>
         <li><a href="#物理优化">物理优化</a></li>
         <li><a href="#tidb-plan--executor">tidb plan &amp; executor</a></li>
+        <li><a href="#executor-物理计划执行过程">executor 物理计划执行过程</a></li>
         <li><a href="#tikv-client">tikv-client</a></li>
       </ul>
     </li>
@@ -111,7 +115,6 @@
       <ul>
         <li><a href="#并发控制mvcc">并发控制，mvcc。</a></li>
         <li><a href="#rocksdb-读写路径">rocksdb 读写路径</a></li>
-        <li><a href="#rocksdb-存储格式">rocksdb 存储格式</a></li>
       </ul>
     </li>
   </ul>
@@ -126,15 +129,27 @@
 
 
     <div class="content">
-      <h1 id="整体架构">整体架构 <a href="#%e6%95%b4%e4%bd%93%e6%9e%b6%e6%9e%84" class="anchor">🔗</a></h1><p>二层（1 sql层无状态，处理用户请求和sql运算逻辑，2 kv层存储kv）。<br>
-三个组件（tidb-server, tikv-server, pd-server）<br></p>
+      <h1 id="整体架构">整体架构 <a href="#%e6%95%b4%e4%bd%93%e6%9e%b6%e6%9e%84" class="anchor">🔗</a></h1><p>  二层（1 sql层无状态，处理用户请求和sql运算逻辑，2 kv层存储kv）。<br>
+  三个组件（tidb-server, tikv-server, pd-server）<br></p>
 <p><img src="/store_db/tidb_arch.png" width = "800" /><br></p>
 <p><a href="https://github.com/pingcap/tidb" target="_blank" rel="noopener">tidb</a>: 支持mysql协议，以支持事务的分布式kv存储引擎为底层存储的数据库。</p>
-<h1 id="窥探一二">窥探一二 <a href="#%e7%aa%a5%e6%8e%a2%e4%b8%80%e4%ba%8c" class="anchor">🔗</a></h1><h2 id="为什么只是窥探一二">为什么只是窥探一二 <a href="#%e4%b8%ba%e4%bb%80%e4%b9%88%e5%8f%aa%e6%98%af%e7%aa%a5%e6%8e%a2%e4%b8%80%e4%ba%8c" class="anchor">🔗</a></h2><p>为什么只是窥探一二，为什么要忽略。<br>
-软件并非一朝一夕构建出来的，是一群人在很长时间上累加出来的产物。例如<code>linux</code>，<code>gcc</code>,<code>llvm</code>等大型软件，一个人是不可能完全看完的。<br>
-一个人时间、精力、能力有限，会选择忽略掉一些内容，能够构建出自己的脉络和完全理解其中一两个点就可以了。<br>
-整体与局部： 先有整体，知道整体大致是怎么work的，然后对于有意思的部分进行理解，不然容易迷失在茫茫代码中。 <br></p>
-<p>有一些模块是make it work， 有一些模块是make it fast。</p>
+<h2 id="存储格式">存储格式 <a href="#%e5%ad%98%e5%82%a8%e6%a0%bc%e5%bc%8f" class="anchor">🔗</a></h2><p>  存储的数据持久化到磁盘上。table表如何映射为kv存储？<br>
+  主键的kv结构：key=tableID_primaryID, value=[col1, col2...]<br>
+  二级索引： key=tableID_索引ID_primaryID, value=null<br></p>
+<pre tabindex="0"><code>行数据的kv格式
+key: t{tableID}_r{rowID}
+val:[col1, col2, col3]
+
+unique index的kv格式
+key: t{tableID}_i{indexID}_columnsValue
+value: rowID
+
+non-unique index
+key: t{tableID}_i{indexID}_columnsValue_rowID
+value: null
+
+row和index的key具有相同的prefix，一个table内的数据在tikv的key空间内是排列在一起的。
+</code></pre><h1 id="窥探一二">窥探一二 <a href="#%e7%aa%a5%e6%8e%a2%e4%b8%80%e4%ba%8c" class="anchor">🔗</a></h1><p>有一些模块是make it work， 有一些模块是make it fast。</p>
 <h2 id="模块">模块 <a href="#%e6%a8%a1%e5%9d%97" class="anchor">🔗</a></h2><p>tidb-server的入口tidb-server/main.go,
 tidb-server中分三层：<br>
 mysql协议解析和转换为ast，protocol layer: server包负责， <br>
@@ -162,17 +177,17 @@ kv api layer: Mock-Tikv <br></p>
 <tr>
 <td>plan</td>
 <td>查询优化相关的逻辑</td>
-<td>❌</td>
+<td>✅</td>
 </tr>
 <tr>
 <td>expression</td>
 <td>表达式相关的逻辑</td>
-<td>❌</td>
+<td>✅</td>
 </tr>
 <tr>
 <td>executor</td>
 <td>sql语句的执行器</td>
-<td>❌</td>
+<td>✅</td>
 </tr>
 <tr>
 <td>distsql</td>
@@ -182,7 +197,7 @@ kv api layer: Mock-Tikv <br></p>
 <tr>
 <td>store/tikv</td>
 <td>sql层与存储引擎的交互</td>
-<td>✅</td>
+<td>❌</td>
 </tr>
 <tr>
 <td>ddl</td>
@@ -192,21 +207,11 @@ kv api layer: Mock-Tikv <br></p>
 <tr>
 <td>tablecodec</td>
 <td>sql到kv的编解码</td>
-<td>✅</td>
-</tr>
-<tr>
-<td>types</td>
-<td></td>
-<td></td>
+<td>❌</td>
 </tr>
 <tr>
 <td>kv</td>
 <td>规定了kv引擎的接口，tikv实现定义的接口 kv api layer</td>
-<td>✅</td>
-</tr>
-<tr>
-<td>tidb</td>
-<td></td>
 <td>✅</td>
 </tr>
 </tbody>
@@ -223,37 +228,27 @@ server/conn.go#Dispatch函数处理sql文本<br>
 <p><a href="">server/conn.go#writeResultset写回client</a><br></p>
 <p>client &lt;--&gt;sql处理 &lt;--&gt; 生成执行计划 &lt;---&gt; 生成执行器<br>
 执行器的执行是：在需要给客户端返回数据的地方调Next()方法获取结果数据。<br></p>
-<h1 id="table表如何映射为kv存储">table表如何映射为kv存储 <a href="#table%e8%a1%a8%e5%a6%82%e4%bd%95%e6%98%a0%e5%b0%84%e4%b8%bakv%e5%ad%98%e5%82%a8" class="anchor">🔗</a></h1><p> 主键的kv结构：key=tableID_primaryID, value=[col1, col2...]<br>
- 二级索引： key=tableID_索引ID_primaryID, value=null<br></p>
-<pre tabindex="0"><code>行数据的kv格式
-key: t{tableID}_r{rowID}
-val:[col1, col2, col3]
-
-unique index的kv格式
-key: t{tableID}_i{indexID}_columnsValue
-value: rowID
-
-non-unique index
-key: t{tableID}_i{indexID}_columnsValue_rowID
-value: null
-
-row和index的key具有相同的prefix，一个table内的数据在tikv的key空间内是排列在一起的。
-</code></pre><h1 id="tidb-sql执行过程">tidb sql执行过程 <a href="#tidb-sql%e6%89%a7%e8%a1%8c%e8%bf%87%e7%a8%8b" class="anchor">🔗</a></h1><p><img src="/store_db/tidb_sql_lifetime.png" width = "800" /><br></p>
+<h1 id="tidb-sql执行过程">tidb sql执行过程 <a href="#tidb-sql%e6%89%a7%e8%a1%8c%e8%bf%87%e7%a8%8b" class="anchor">🔗</a></h1><p><img src="/store_db/tidb_sql_lifetime.png" width = "800" /><br></p>
 <p>主要的包：parser, planner, executor<br></p>
-<h2 id="逻辑优化">逻辑优化 <a href="#%e9%80%bb%e8%be%91%e4%bc%98%e5%8c%96" class="anchor">🔗</a></h2><p>逻辑优化是基于预先定义的规则列表<code>logicalOptRule</code> pass定义处理<br></p>
+<p>虽然架构上分计算层和存储层，为了避免大量的rpc，需要将计算尽量靠近存储节点。<br></p>
+<h2 id="创建计划">创建计划 <a href="#%e5%88%9b%e5%bb%ba%e8%ae%a1%e5%88%92" class="anchor">🔗</a></h2><p><code>planbuilder.go#Build</code> 根据<code>ast.Node</code>节点的类型来创建计划， 例如<code>Insert</code>, <code>LogicalJoin</code>, <code>DataSource</code></p>
+<h2 id="逻辑优化">逻辑优化 <a href="#%e9%80%bb%e8%be%91%e4%bc%98%e5%8c%96" class="anchor">🔗</a></h2><p>利用关系代数的变换规则进行查询语句表达式的等价变换<br>
+逻辑优化是基于预先定义的规则列表<code>logicalOptRule</code> pass定义处理<br></p>
 <p>逻辑算子：</p>
 <ul>
-<li>DataSource 负责数据源。 select * from t 中的t</li>
-<li>Selection 选择。 select * from t where id = 5 中的where过滤条件</li>
-<li>Projection 投影。 select c from t 中取c列的操作是投影</li>
-<li>Join 连接。 from t1, t2 where t1.c = t2.d 把t1 和 t2连接</li>
+<li>DataSource 负责数据源(可能包含下推的条件谓词)</li>
+<li>Selection 选择。 where id = 5 中的where过滤条件</li>
+<li>Projection 投影。 select c， a+b 中取c列的操作是投影, 也有表达式计算</li>
+<li>Join 连接。 from t1, t2 where t1.c = t2.d 把t1 和 t2内连接，还有很多其他join方式</li>
 <li>Sort。 select * from t order by c 中的order by</li>
 <li>Aggregation 聚合操作。 (select sum(d) from t group by e)中的group by， sum。</li>
 <li>Apply。  子查询</li>
 </ul>
 <p>columnPruner 列裁剪（从上往下一路加column） plan/column_pruning.go <br></p>
-<p>最大最小消除, 投影消除<br></p>
-<p>谓词下推: 把过滤条件推到leaf node，减少数据访问。</p>
+<p><code>最大最小消除</code>将max/min转为<code>order by id + limit 1</code>。 投影消除<br></p>
+<p><code>PredicatePushDown</code>谓词下推: 把过滤条件推到<code>DataSource</code>算子上，在leaf node中执行减少数据访问。<br></p>
+<p><code>cop[tikv]</code> <code>root[tidb]</code>
+所有的 Join 操作都只能作为 root task 在 TiDB 上执行。<br></p>
 <h2 id="物理优化">物理优化 <a href="#%e7%89%a9%e7%90%86%e4%bc%98%e5%8c%96" class="anchor">🔗</a></h2><p>物理优化是基于代价的方式。 <br></p>
 <p><code>dagPhysicalOptimize</code></p>
 <h2 id="tidb-plan--executor">tidb plan &amp; executor <a href="#tidb-plan--executor" class="anchor">🔗</a></h2><p><code>select name from person where age = 18</code> <br></p>
@@ -274,7 +269,20 @@ row和index的key具有相同的prefix，一个table内的数据在tikv的key空
 </ul>
 <p>执行计划的逻辑优化（基于规则的优化RBO），例如列裁剪，投影消除， 谓词下推（先筛选，再做数据连接）<br>
 执行计划的物理优化 (基于代价的优化CBO)， 等价转换，</p>
-<p><code>volcano</code>火山模型。 迭代器模型。<br>
+<h2 id="executor-物理计划执行过程">executor 物理计划执行过程 <a href="#executor-%e7%89%a9%e7%90%86%e8%ae%a1%e5%88%92%e6%89%a7%e8%a1%8c%e8%bf%87%e7%a8%8b" class="anchor">🔗</a></h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span><span style="color:#75715e">//session/session.go
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">session</span>) <span style="color:#a6e22e">ExecuteStmt</span>(<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">stmtNode</span> <span style="color:#a6e22e">ast</span>.<span style="color:#a6e22e">StmtNode</span>) (<span style="color:#a6e22e">sqlexec</span>.<span style="color:#a6e22e">RecordSet</span>, <span style="color:#66d9ef">error</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">compiler</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">executor</span>.<span style="color:#a6e22e">Compiler</span>{<span style="color:#a6e22e">Ctx</span>: <span style="color:#a6e22e">s</span>}
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 生成查询计划以及优化
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">stmt</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">compiler</span>.<span style="color:#a6e22e">Compile</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">stmtNode</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">logStmt</span>(<span style="color:#a6e22e">stmt</span>, <span style="color:#a6e22e">s</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 去tikv上获取数据
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">recordSet</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">runStmt</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">s</span>, <span style="color:#a6e22e">stmt</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">recordSet</span>, <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><code>volcano</code>火山模型。 迭代器模型。<br>
 每个物理算子均实现Open, Next, Close方法<br></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#a6e22e">Projection</span>) <span style="color:#a6e22e">Next</span>() {
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">row</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">children</span>.<span style="color:#a6e22e">Next</span>()
@@ -290,8 +298,8 @@ row和index的key具有相同的prefix，一个table内的数据在tikv的key空
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">s</span> <span style="color:#a6e22e">Scan</span>) <span style="color:#a6e22e">Next</span>() {
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">person</span>.<span style="color:#a6e22e">read</span>()
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h2 id="tikv-client">tikv-client <a href="#tikv-client" class="anchor">🔗</a></h2><p>todo</p>
-<p><a href="https://github.com/pingcap/tidb/tree/master/store/mockstore" target="_blank" rel="noopener">tidb-server里模拟tikv中的计算逻辑mock-tikv</a><br></p>
+</span></span></code></pre></div><h2 id="tikv-client">tikv-client <a href="#tikv-client" class="anchor">🔗</a></h2><p>todo
+<a href="https://github.com/pingcap/tidb/tree/master/store/mockstore" target="_blank" rel="noopener">tidb-server里模拟tikv中的计算逻辑mock-tikv</a><br></p>
 <hr>
 <h1 id="tikv">tikv <a href="#tikv" class="anchor">🔗</a></h1><p><code>分布式</code> <code>事务</code> <code>k-v pair</code> <br></p>
 <p>单机存储靠rocksdb来存储到磁盘上。分布式数据复制靠raft。</p>
@@ -309,11 +317,11 @@ row和index的key具有相同的prefix，一个table内的数据在tikv的key空
 <td>kv 请求， sql计算</td>
 </tr>
 <tr>
-<td>storage</td>
+<td>txn</td>
 <td>mvcc, 2pc</td>
 </tr>
 <tr>
-<td>consensus（raft）</td>
+<td>shading + replica（multi raft）</td>
 <td>日志复制，分布式一致性</td>
 </tr>
 <tr>
@@ -326,11 +334,13 @@ row和index的key具有相同的prefix，一个table内的数据在tikv的key空
 </tr>
 </tbody>
 </table>
-<h2 id="并发控制mvcc">并发控制，mvcc。 <a href="#%e5%b9%b6%e5%8f%91%e6%8e%a7%e5%88%b6mvcc" class="anchor">🔗</a></h2><p>Timestamp Oracle(TSO) 递增时间戳作为版本号。<br></p>
-<p>prewrite时，1、检查column family <code>lock</code>上key是否被lock了， 2、在cf write上key的版本号是否小于当前事物持有的TSO， 否则rollback <br></p>
+<h2 id="并发控制mvcc">并发控制，mvcc。 <a href="#%e5%b9%b6%e5%8f%91%e6%8e%a7%e5%88%b6mvcc" class="anchor">🔗</a></h2><p>Timestamp Oracle(TSO) 递增时间戳作为版本号。<br>
+prewrite时的冲突检查： 1、检查column family <code>lock</code>上key是否被lock了， 2、在cf write上key的版本号是否小于当前事物持有的TSO， 否则rollback <br>
+prewrite时选择多个key中的一个作为primary key， Lock列加锁；其他的作为secondry key，Lock列加锁，外加存储primary key(异步提交失败后，下次查询会查询primary key若提交后会补充提交)。<br></p>
 <h2 id="rocksdb-读写路径">rocksdb 读写路径 <a href="#rocksdb-%e8%af%bb%e5%86%99%e8%b7%af%e5%be%84" class="anchor">🔗</a></h2><p>write: memtable(skiplistt) --&gt; immutable table --&gt; String store table (SST) <br>
 read:  the same path<br></p>
-<h2 id="rocksdb-存储格式">rocksdb 存储格式 <a href="#rocksdb-%e5%ad%98%e5%82%a8%e6%a0%bc%e5%bc%8f" class="anchor">🔗</a></h2>
+<p>对 DB 感兴趣可以看看 <a href="https://github.com/joaoh82/rust_sqlite" target="_blank" rel="noopener">https://github.com/joaoh82/rust_sqlite</a></p>
+
     </div>
 
     

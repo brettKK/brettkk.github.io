@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
 <html lang="zh-cn">
   <head>
     <title>brettkk</title>
@@ -6,11 +8,10 @@
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
 <meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta name="description" content="qq@d--- title: &quot;etcd&quot; date: 2021-04-05T11:33:56&#43;08:00 draft: false isCJKLanguage: true
-tags: [&quot;cloud native&quot;]
-  etcd架构分为4部分  http server store raft wal      etcd使用场景
- API：Etcd提供HTTP&#43;JSON, gRPC接口，跨平台跨语言; 支持https 共享配置 服务发现 选主 分布式队列 分布式锁    play.">
-<meta name="generator" content="Hugo 0.84.0" />
+<meta name="description" content="标准库 🔗字符在计算机内部时如何表示的？ Unicode兼容了ASCII包含全世界的所有字符，常用UTF-8编码，变长1到4个字节。
+字符类型char占4个字节。 rust中字符是unicode编码占4个字节。
+std::mem::size_of_val(&amp;&#39;中&#39;） // 4 std::mem::size_of_val(&#34;中&#34;.to_string().as_str()) // 3 。 let a_len = std::mem::size_of_val(&#34;中&#34;); println!(&#34;a_len={:?}&#34;, a_len); // 3 字符串不能想数组那样的索引访问？ 第i个字符 vs 第i个字节 for c in &quot;1234&quot;.chars() {...} vs for c in &quot;1234&quot;.">
+<meta name="generator" content="Hugo 0.103.1" />
 
 
   <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
@@ -25,11 +26,19 @@ tags: [&quot;cloud native&quot;]
 
 
 <link rel="stylesheet" href="/css/style.css">
+
+
+
 <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
 
 
 
 
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js" integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
 
 
 
@@ -58,70 +67,146 @@ tags: [&quot;cloud native&quot;]
     <h1 class="title"></h1>
 
     <div class="tip">
+        <time datetime="0001-01-01 00:00:00 &#43;0000 UTC">Jan 1, 0001</time>
+        <span class="split">
+          ·
+        </span>
         <span>
-          Jan 1, 0001 00:00
+          226 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          
-            80 words
-          
-        </span>
-        <span class="split">
-          ·
-        </span>
-        <span>
-          1 minute read
+          2 minute read
         </span>
     </div>
 
+    
+    
+        
+  
+    <aside class="toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
+          <div>
+              <nav id="TableOfContents">
+  <ul>
+    <li><a href="#标准库">标准库</a></li>
+    <li><a href="#enum-optiont-枚举类型"><code>enum Option&lt;T&gt;</code> 枚举类型</a></li>
+    <li><a href="#错误处理">错误处理</a></li>
+    <li><a href="#标准库---容器">标准库-- 容器</a></li>
+    <li><a href="#迭代器">迭代器</a></li>
+    <li><a href="#泛型特型生命周期">泛型，特型，生命周期</a></li>
+    <li><a href="#项目管理常用库">项目管理，常用库</a>
+      <ul>
+        <li><a href="#工程包crate模块mod">工程，包crate，模块mod</a></li>
+        <li><a href="#引入依赖">引入依赖</a></li>
+      </ul>
+    </li>
+    <li><a href="#并发编程">并发编程</a></li>
+    <li><a href="#io异步编程">io，异步编程</a></li>
+    <li><a href="#高级特性">高级特性</a>
+      <ul>
+        <li><a href="#智能指针">智能指针</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+          </div>
+      </details>
+    </aside>
+  
+
+
+    
+
+
     <div class="content">
-      <h3 id="rust-安装">rust 安装 <a href="#rust-%e5%ae%89%e8%a3%85" class="anchor">🔗</a></h3><p><a href="https://rustup.rs">https://rustup.rs</a></p>
-<p>rustup update
-rustc --version
-rustup doc</p>
-<p>docs.rs/std 可以定向到doc.rust-lang.org/stable/std/</p>
-<h3 id="rust-开发环境">rust 开发环境 <a href="#rust-%e5%bc%80%e5%8f%91%e7%8e%af%e5%a2%83" class="anchor">🔗</a></h3><p>IDE： vscode
-插件： rust-analyzer（用）, Rust(别用, 与rust-analyzer有冲突)。
-crates。
-TOML Language Support .
-REST Client
-Cargo.</p>
-<hr>
-<p>Rust程序设计</p>
+      <h1 id="标准库">标准库 <a href="#%e6%a0%87%e5%87%86%e5%ba%93" class="anchor">🔗</a></h1><p>字符在计算机内部时如何表示的？ <code>Unicode</code>兼容了<code>ASCII</code>包含全世界的所有字符，常用<code>UTF-8</code>编码，变长1到4个字节。<br>
+字符类型char占4个字节。 rust中字符是unicode编码占4个字节。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span>    std::mem::size_of_val(<span style="color:#f92672">&amp;</span><span style="color:#e6db74">&#39;中&#39;</span><span style="color:#960050;background-color:#1e0010">）</span> <span style="color:#75715e">// 4 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    std::mem::size_of_val(<span style="color:#e6db74">&#34;中&#34;</span>.to_string().as_str()) <span style="color:#75715e">// 3 。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> a_len <span style="color:#f92672">=</span> std::mem::size_of_val(<span style="color:#e6db74">&#34;中&#34;</span>);
+</span></span><span style="display:flex;"><span>    println!(<span style="color:#e6db74">&#34;a_len={:?}&#34;</span>, a_len); <span style="color:#75715e">// 3
+</span></span></span></code></pre></div><p>字符串不能想数组那样的索引访问？
+<strong>第i个字符 vs 第i个字节</strong> <br>
+<code>for c in &quot;1234&quot;.chars() {...}</code>  vs <code>for c in &quot;1234&quot;.bytes()</code><br>
+因为uft-8的字符编码。<code>some_str[1]</code>不能方括号来索引❌，字符可能占多个字节<br>
+字符串的操作: <code>s.nth(i)</code>访问某个字符。<br>
+字符串的连接： <code>String + &amp;str</code>。 <code>fn add(mut self, other: &amp;str) -&gt; String {self.push_str(other); self}</code><br>
+<code>String</code> (由Vec<u8>组成) 和<code>&amp;str</code> (由<code>pointer + len</code>组成)在内存中不同的存储方式。</p>
+<h1 id="enum-optiont-枚举类型"><code>enum Option&lt;T&gt;</code> 枚举类型 <a href="#enum-optiont-%e6%9e%9a%e4%b8%be%e7%b1%bb%e5%9e%8b" class="anchor">🔗</a></h1><p>处理方式：
+1 <code>match</code>， <code>if let</code>。
+2 <code>unwrap</code>（Option::None will panic）, <code>unwrap_or(self, default: T) -&gt; T</code>
+3 <code>expect(self, msg: String) -&gt; T</code> 遇到None时以指定的msg执行panic
+4 <code>map</code>对Option进行转换为另一个Option，消耗<code>Self</code>.    <code>and_then</code></p>
+<h1 id="错误处理">错误处理 <a href="#%e9%94%99%e8%af%af%e5%a4%84%e7%90%86" class="anchor">🔗</a></h1><p>不可恢复的错误<code>panic!</code>， 可恢复的错误<code>enum Result&lt;T, E&gt;</code><br></p>
+<ol>
+<li>
+<p>unwrap(), 成功则返回值，失败则panic。 expect() 类似。</p>
+</li>
+<li>
+<p>错误传播<code>?</code> 提前传播错误。<code>Result</code>通过<code>?</code>遇到Err直接返回<code>return Err</code>, 成功则将Ok中的值取出来。 Option通过？遇到<code>None，return Option::None</code>, 有值则将Some中的值取出来。</p>
+</li>
+</ol>
+<h1 id="标准库---容器">标准库-- 容器 <a href="#%e6%a0%87%e5%87%86%e5%ba%93---%e5%ae%b9%e5%99%a8" class="anchor">🔗</a></h1><p>标准库的集合在std::collections模块中。
+sequence: Vec, VecDeque, LinkedList</p>
+<p>Map: <code>HashMap&lt;K, V&gt; where K: Hash + Eq</code>。 有序B树<code>BTreeMap&lt;K, V&gt; where K: Ord</code><br></p>
+<p><code>let count = map.entry(key).or_insert(50); *count += 1</code>;</p>
+<p>Set: <code>HashSet&lt;T&gt;, BTreeSet&lt;T&gt;</code> -&gt; <code>HashMap&lt;T, ()&gt;, BTreeMap&lt;T, ()&gt;</code></p>
+<p><code>BinaryHeap&lt;T&gt;</code></p>
+<p>std::vec::Vec 不在collections模块中。
+标准库--Prelude模块。 会被自动引入到项目中。具体有哪些？</p>
+<h1 id="迭代器">迭代器 <a href="#%e8%bf%ad%e4%bb%a3%e5%99%a8" class="anchor">🔗</a></h1><p><code>fold</code> 把迭代器折叠成为单一的值。</p>
+<h1 id="泛型特型生命周期">泛型，特型，生命周期 <a href="#%e6%b3%9b%e5%9e%8b%e7%89%b9%e5%9e%8b%e7%94%9f%e5%91%bd%e5%91%a8%e6%9c%9f" class="anchor">🔗</a></h1><p><code>impl Trait for Type</code> 。用trait bound 约束泛型。</p>
+<h1 id="项目管理常用库">项目管理，常用库 <a href="#%e9%a1%b9%e7%9b%ae%e7%ae%a1%e7%90%86%e5%b8%b8%e7%94%a8%e5%ba%93" class="anchor">🔗</a></h1><h2 id="工程包crate模块mod">工程，包crate，模块mod <a href="#%e5%b7%a5%e7%a8%8b%e5%8c%85crate%e6%a8%a1%e5%9d%97mod" class="anchor">🔗</a></h2><pre tabindex="0"><code>project
+│   README.md
+│   file001.txt
+└───src
+│   │   lib.rs
+│   └───package1
+│       │   mod.rs
+│       │   a.rs
+│       │   b.rs
+│   
+└───folder2
+    │   file021.txt
+    │   file022.txt
+</code></pre><p>工程目录结构参考 pingcap/tikv</p>
+<h2 id="引入依赖">引入依赖 <a href="#%e5%bc%95%e5%85%a5%e4%be%9d%e8%b5%96" class="anchor">🔗</a></h2><p>工程的toml文件引入第三方库</p>
 <ul>
-<li>安装</li>
-</ul>
-<p><a href="https://rustup.rs/">https://rustup.rs/</a></p>
+<li>引入rust官方仓库
 <ul>
-<li>第一个程式</li>
+<li>中央仓库crates.io，docs.rs</li>
 </ul>
-<p>cargo -h
-cargo new --bin hello
-cargo run</p>
-<p>rustup doc
-cargo doc --open</p>
-<p>std::collections
-Vec, VecDeque, HashMap, String</p>
-<h2 id="编写测试">编写测试 <a href="#%e7%bc%96%e5%86%99%e6%b5%8b%e8%af%95" class="anchor">🔗</a></h2><p>rust中的测试是带有标注test属性的函数。 #[test]</p>
-<p>cargo test.</p>
-<h2 id="变量的生命周期所有权借用moveref">变量的生命周期，所有权，借用，move，ref <a href="#%e5%8f%98%e9%87%8f%e7%9a%84%e7%94%9f%e5%91%bd%e5%91%a8%e6%9c%9f%e6%89%80%e6%9c%89%e6%9d%83%e5%80%9f%e7%94%a8moveref" class="anchor">🔗</a></h2><p>哪些操作会导ownership move</p>
-<ul>
-<li>let binding</li>
-<li>传参数到function</li>
-<li>match 表达式</li>
-<li>methods。 impl block里任何method第一个参数是self</li>
-<li>closure中</li>
+</li>
+<li>引入git依赖</li>
+<li>引入本地依赖</li>
 </ul>
-<h3 id="借用引用-同意">借用（引用 同意） <a href="#%e5%80%9f%e7%94%a8%e5%bc%95%e7%94%a8-%e5%90%8c%e6%84%8f" class="anchor">🔗</a></h3><p>rust中所用的参数传递都是传值。
-引用实现了copy trait。 按照copy语义，引用会复制一份交给调用的函数。</p>
-<h2 id="智能指针">智能指针 <a href="#%e6%99%ba%e8%83%bd%e6%8c%87%e9%92%88" class="anchor">🔗</a></h2><p>Box<T></p>
-<p>Rc<T></p>
-<p>RefCell<T></p>
+<h1 id="并发编程">并发编程 <a href="#%e5%b9%b6%e5%8f%91%e7%bc%96%e7%a8%8b" class="anchor">🔗</a></h1><h1 id="io异步编程">io，异步编程 <a href="#io%e5%bc%82%e6%ad%a5%e7%bc%96%e7%a8%8b" class="anchor">🔗</a></h1><h1 id="高级特性">高级特性 <a href="#%e9%ab%98%e7%ba%a7%e7%89%b9%e6%80%a7" class="anchor">🔗</a></h1><h2 id="智能指针">智能指针 <a href="#%e6%99%ba%e8%83%bd%e6%8c%87%e9%92%88" class="anchor">🔗</a></h2><p>智能指针
+Box分配堆上的对象。
+Box::leak 生成运行时'static 对象。
+Deref特征。
+Drop特征。</p>
+<p>共享所有权时：
+std::rc::Rc::new() ， Rc::clone() 没有深度拷贝数据，
+不可变引用，仅增加引用计数，不能修改指向的数据。
+std::sync::Arc</p>
+<pre><code>拥有不可变引用时修改数据，
+    Cell，RefCell 内部可变性，利用unsafe。
+    Cell&lt;T&gt; 适用于T实现了Copy的情况。
+    RefCell 
+</code></pre>
 <p>Deref, Drop trait</p>
-<p>Weak<T></p>
+<p>Box<T></p>
+<p>Rc<T> ,Arc<T> Weak<T></p>
+<p>Cell<T>, RefCell<T> 扩展所有权机制的灵活性。</p>
+<p>Cell， RefCell则不受编译静态规则的限制。
+Cell<T> 只能用于T实现了Copy trait的情况。
+RefCell<T></p>
 
     </div>
 
@@ -137,10 +222,18 @@ Vec, VecDeque, HashMap, String</p>
     <footer id="footer">
     
 
-    <p class="copyright">
+    <script src="https://utteranc.es/client.js"
+repo="brettKK/brettkk.github.io"
+issue-term="title"
+theme="github-light"
+crossorigin="anonymous"
+async>
+</script>  
+
+    <div class="copyright">
     
        © Copyright 
-       2022 
+       2023 
        <span class="split">
         <svg fill="#bbbbbb" width="15" height="15" version="1.1" id="heart-15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 15 15">
   <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>
@@ -148,11 +241,17 @@ Vec, VecDeque, HashMap, String</p>
        </span>
        
     
-    </p>
-    <p class="powerby">
-        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
-    </p>
+    </div>
+
+    
+      <div class="powerby">
+        Powered by <a href='http://www.gohugo.io/'>Hugo</a> Theme By <a href='https://github.com/nodejh/hugo-theme-cactus-plus'>nodejh</a>
+      </div>
+    
 </footer>
+
+
+
 
   </body>
 </html>

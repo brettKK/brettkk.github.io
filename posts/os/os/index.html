@@ -70,13 +70,13 @@
           ·
         </span>
         <span>
-          4471 words
+          4524 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          9 minute read
+          10 minute read
         </span>
     </div>
 
@@ -443,7 +443,14 @@ mmap。
 <li>SIGCHLD: 当子进程退出时，发送给父进程的信号。父进程可以waitpid处理，或者注册信号处理函数处理。父进程不处理，子进程变为僵尸进程。</li>
 </ul>
 <h2 id="进程间的通信ipc">进程间的通信IPC <a href="#%e8%bf%9b%e7%a8%8b%e9%97%b4%e7%9a%84%e9%80%9a%e4%bf%a1ipc" class="anchor">🔗</a></h2><ul>
-<li>socket是全双工。<code>socket(..)-&gt;fd, bind(fd, ), listen(fd, ), accept(fd, )-&gt;connfd</code></li>
+<li>socket是全双工。
+<ul>
+<li>创建套接字`socket(..)-&gt;fd,</li>
+<li>将套接字与监听端口进行绑定 <code>bind(fd, )</code></li>
+<li>将主动套接字转为监听套接字 <code>listen(fd, )</code></li>
+<li>接收客户端连接请求，阻塞<code>accept(fd, )-&gt;connfd</code></li>
+</ul>
+</li>
 <li>匿名管道pipe在父子进程间通过内核缓冲区（伪文件）半双工单向通信。有名管道fifo通过文件通信，<code>mkfifo(const char * pathname, mode_t mode)</code></li>
 <li>信号 signal</li>
 <li>共享内存mmap拿到内存指针，内存指针的读写。</li>
