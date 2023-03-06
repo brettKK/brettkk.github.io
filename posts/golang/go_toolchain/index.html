@@ -70,13 +70,13 @@
           ·
         </span>
         <span>
-          388 words
+          5627 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          1 minute read
+          12 minute read
         </span>
     </div>
 
@@ -91,13 +91,40 @@
           <div>
               <nav id="TableOfContents">
   <ul>
-    <li>
+    <li><a href="#an-overview-of-gos-tooling">an overview of go's tooling</a></li>
+    <li><a href="#实际编译器">实际编译器</a>
       <ul>
-        <li>
+        <li><a href="#词法分析-和-语法分析">词法分析 和 语法分析</a></li>
+        <li><a href="#go-抽象语法树ast">go 抽象语法树AST</a>
           <ul>
-            <li><a href="#an-overview-of-gos-tooling">an overview of go's tooling</a></li>
+            <li><a href="#go的词法分析-fileset结构">Go的词法分析， FileSet结构</a></li>
+            <li><a href="#基础字面值的语法树结构">基础字面值的语法树结构</a></li>
+            <li><a href="#基础表达式的递归结构">基础表达式的递归结构</a></li>
+            <li><a href="#go项目的代码结构">go项目的代码结构</a>
+              <ul>
+                <li><a href="#项目结构">项目结构</a></li>
+                <li><a href="#文件语法结构">文件语法结构</a></li>
+              </ul>
+            </li>
+            <li><a href="#go中的import-type-const--var-的声明结构">go中的import, type, const , var 的声明结构</a></li>
+            <li><a href="#go函数的语法树结构">go函数的语法树结构</a></li>
+            <li><a href="#数据和结构体等复合类型">数据和结构体等复合类型</a></li>
+            <li><a href="#复杂的字面值">复杂的字面值</a></li>
+            <li><a href="#复合表达式">复合表达式</a></li>
+            <li><a href="#对ast进行类型检查">对AST进行类型检查</a></li>
+            <li><a href="#对ast的语义信息">对AST的语义信息</a></li>
+            <li><a href="#ast转换成ssa">AST转换成SSA</a>
+              <ul>
+                <li><a href="#初始化ssa配置initssaconfig">初始化SSA配置initssaconfig</a></li>
+                <li><a href="#遍历和替换">遍历和替换</a></li>
+                <li><a href="#ssa的生成">SSA的生成</a></li>
+              </ul>
+            </li>
+            <li><a href="#机器代码的生成">机器代码的生成</a></li>
           </ul>
         </li>
+        <li><a href="#llvm的基础知识">LLVM的基础知识</a></li>
+        <li><a href="#go-汇编-劝退">go 汇编 (劝退)</a></li>
       </ul>
     </li>
   </ul>
@@ -112,7 +139,7 @@
 
 
     <div class="content">
-      <h3 id="an-overview-of-gos-tooling">an overview of go's tooling <a href="#an-overview-of-gos-tooling" class="anchor">🔗</a></h3><ul>
+      <h1 id="an-overview-of-gos-tooling">an overview of go's tooling <a href="#an-overview-of-gos-tooling" class="anchor">🔗</a></h1><ul>
 <li>table of content</li>
 <li>installing tooling
 <ul>
@@ -192,6 +219,437 @@
 </ul>
 </li>
 <li>//go: linkname localname importpath.name</li>
+</ul>
+<h1 id="实际编译器">实际编译器 <a href="#%e5%ae%9e%e9%99%85%e7%bc%96%e8%af%91%e5%99%a8" class="anchor">🔗</a></h1><p>编译器入口： src/cmd/compile/internal/gc/main.go#Main。<br>
+cmd/compile/internal/syntax 词法和语法分析
+<a href="https://golang.org/ref/spec" target="_blank" rel="noopener">词法分析</a></p>
+<p>cmd/compile/internal/gc 类型检查， 处理语法糖，改写关键字。</p>
+<p>后端转为为SSA。 生成中间代码cmd/compile/internal/gc.compileFunctions</p>
+<p>cmd/compile/internal/gc, cmd/compile/internal/ssa 将函数放入队列，协程并发生成中间代码。</p>
+<p>生成机器代码。 cmd/compile/internal/ssa , cmd/internal/obj
+scr/cmd/compile/internal 链接不同的指令集生成平台的机器码。</p>
+<h2 id="词法分析-和-语法分析">词法分析 和 语法分析 <a href="#%e8%af%8d%e6%b3%95%e5%88%86%e6%9e%90-%e5%92%8c-%e8%af%ad%e6%b3%95%e5%88%86%e6%9e%90" class="anchor">🔗</a></h2><p>词法分析器的主要结构src/cmd/compile/internal/syntax/scanner.go#scanner struct。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">scanner</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">source</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">mode</span> <span style="color:#66d9ef">uint</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">nlsemi</span> <span style="color:#66d9ef">bool</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">line</span>, <span style="color:#a6e22e">col</span> <span style="color:#66d9ef">uint</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">blank</span> <span style="color:#66d9ef">bool</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">tok</span> <span style="color:#a6e22e">token</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">lit</span> <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">bad</span> <span style="color:#66d9ef">bool</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">kind</span> <span style="color:#a6e22e">LitKind</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">op</span> <span style="color:#a6e22e">Operator</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">prec</span> <span style="color:#66d9ef">int</span> 
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>词法分析器的主要方法src/cmd/compile/internal/syntax/scanner.go#next function。</p>
+<p>《Lexical Scanning in Go》 Rob Pike</p>
+<p>todo read friendly code。</p>
+<p>语法分析 src/cmd/compile/internal/syntax/parser.go。
+<a href="https://go.dev/ref/spec" target="_blank" rel="noopener">golang语法规则language specification</a></p>
+<p>回到编译原理的课程上... 语法分析有两种分析方法。</p>
+<ul>
+<li>Lookahead。自然的想法，预读后续的token确定有什么文法进行向下推导，或者进行向上归约。</li>
+<li>自顶向下 选择一条文法规则，匹配规则产生式的左边时 用右边的字符串替换左边的非终结符
+<ul>
+<li>从抽象到具体</li>
+<li>LL文法</li>
+</ul>
+</li>
+<li>自底向上 从终结符开始推导，规约到某一条文法规则上
+<ul>
+<li>从具体到抽象</li>
+<li>LR(0)
+<ul>
+<li>用栈存储没有被归约的字符。 入栈shift。归约reduce，新字符进来时按照规则进行合并入栈。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>syntax.Parse() -&gt; syntax.fileOrNil()对当前文件的词法和语法进行解析。<br>
+fileOrNil返回AST的根节点， AST的子节点由parser.importDecl, parser.constDecl等方法构建。<br></p>
+<ul>
+<li>fileOrNil
+<ul>
+<li>constDecl</li>
+<li>importDecl</li>
+<li>typeDecl</li>
+<li>varDecl</li>
+<li>funcDeclOrNil</li>
+</ul>
+</li>
+</ul>
+<p>got, want。 <br>
+appendGroup 方法处理批量定义。<br></p>
+<p>FuncDecl: Name, FuncType, BlockStmt。 函数体是BlockStmt，Stmt数组组成。<br>
+Stmt是一个接口。14种声明。EmptyStmt, BlockStmt, SendStmt, LabeledStmt, ExprStmt, DeclStmt, AssignStmt, CallStmt, IfStmt, BranchStmt, ReturnStmt, ForStmt, SelectStmt。</p>
+<h2 id="go-抽象语法树ast">go 抽象语法树AST <a href="#go-%e6%8a%bd%e8%b1%a1%e8%af%ad%e6%b3%95%e6%a0%91ast" class="anchor">🔗</a></h2><p>golang程序的另一种语义等价是go的抽象语法树。<br>
+<a href="https://go.dev/ref/spec#Source_file_organization" target="_blank" rel="noopener">抽象语法树AST是基于每个文件独立进行生成的</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">SourceFile</span> = <span style="color:#a6e22e">PackageClause</span> <span style="color:#e6db74">&#34;;&#34;</span> {<span style="color:#a6e22e">ImportDecl</span> <span style="color:#e6db74">&#34;;&#34;</span>} {<span style="color:#a6e22e">TopLevelDecl</span> <span style="color:#e6db74">&#34;;&#34;</span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span><span style="color:#e6db74">&#34;main.go&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#960050;background-color:#1e0010">SourceFile</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#960050;background-color:#1e0010">PackageName:</span> <span style="color:#f92672">&#34;main&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#960050;background-color:#1e0010">ImportDecl:</span> <span style="color:#960050;background-color:#1e0010">[]Import{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;fmt&#34;</span>,
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#960050;background-color:#1e0010">TopLevelDecl:</span> <span style="color:#960050;background-color:#1e0010">...</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">}</span>
+</span></span></code></pre></div><p><a href="">golang的语法解释器使用 LALR(1)文法进行实现</a><br></p>
+<p><a href="">go tool</a>中的go fmt, go vet, go doc等命令都是基于go抽象语法树的分析工具。</p>
+<p>go/* 包是golang的库。</p>
+<p>go/token, go/scanner, go/parser, go/ast, go/ssa等源码包</p>
+<h3 id="go的词法分析-fileset结构">Go的词法分析， FileSet结构 <a href="#go%e7%9a%84%e8%af%8d%e6%b3%95%e5%88%86%e6%9e%90-fileset%e7%bb%93%e6%9e%84" class="anchor">🔗</a></h3><p>词法单元token包含了：25个关键词，用户自定义的标识符，运算符，分隔符，注释等。</p>
+<pre tabindex="0"><code>// 标识符的词法规则
+identifier := letter {letter | unicode_digit}
+letter := unicode_letter | &#34;_&#34;
+</code></pre><p>go/token包，将token分成了以下几类：  由于token是int类型的，所以tokenitoa中分类范围从xx_beg开始， xx_end结束。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// Token is the set of lexical tokens of the Go programming language.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Token</span> <span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// The list of tokens.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Special tokens               特殊token 注释 和 EOF
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// Identifiers                  用户自定义的标识符
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// Operators and delimiters     运算符，括号等界限符
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// Keywords                     语言的关键词
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">...</span>
+</span></span></code></pre></div><p><strong><font color=blue> FileSet, File</font></strong> <br></p>
+<p>go项目中最终的产物可执行程序 由多个包链接而成，一个包由多个文件组成。 单个包内的多个文件看作是go的基本编译单元。<br>
+所以在go/token包里用FileSet表示文件集， File表示文件。</p>
+<p>词法单元是后续分析的基础单位。<br></p>
+<p>但是为了后续操作使用，词法单元至少需要包含token的类型，原始文本信息，出现的位置。<br></p>
+<p>go/token包中Position.go#Position结构体中定义了位置信息，同时type pos int代表FileSet集合中的位置，通过Fileset在pos全局位置和具体Position之间转换。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> ( <span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;go/scanner&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;go/token&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">src</span> = []byte(<span style="color:#e6db74">&#34; println(&#34;</span><span style="color:#a6e22e">hello</span> <span style="color:#a6e22e">world</span><span style="color:#e6db74">&#34;) &#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">fset</span> = <span style="color:#a6e22e">token</span>.<span style="color:#a6e22e">NewFileSet</span>()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">file</span> = <span style="color:#a6e22e">fset</span>.<span style="color:#a6e22e">AddFile</span>(<span style="color:#e6db74">&#34;hello.go&#34;</span>, <span style="color:#a6e22e">fset</span>.<span style="color:#a6e22e">Base</span>(), len(<span style="color:#a6e22e">src</span>))
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">s</span> <span style="color:#a6e22e">scanner</span>.<span style="color:#a6e22e">Scanner</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">Init</span>(<span style="color:#a6e22e">file</span>, <span style="color:#a6e22e">src</span>, <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">scanner</span>.<span style="color:#a6e22e">ScanComments</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">pos</span>, <span style="color:#a6e22e">tok</span>, <span style="color:#a6e22e">lit</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">Scan</span>()
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">tok</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">token</span>.<span style="color:#a6e22e">EOF</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;pos=%s \t type=%s \t lit=%q \n&#34;</span>, <span style="color:#a6e22e">fset</span>.<span style="color:#a6e22e">Position</span>(<span style="color:#a6e22e">pos</span>), <span style="color:#a6e22e">tok</span>, <span style="color:#a6e22e">lit</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="基础字面值的语法树结构">基础字面值的语法树结构 <a href="#%e5%9f%ba%e7%a1%80%e5%ad%97%e9%9d%a2%e5%80%bc%e7%9a%84%e8%af%ad%e6%b3%95%e6%a0%91%e7%bb%93%e6%9e%84" class="anchor">🔗</a></h3><p>基本类型字面量的语法树结构</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// go/ast#BasicLit
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">BasicLit</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">ValuePos</span>    <span style="color:#a6e22e">token</span>.<span style="color:#a6e22e">Pos</span>    <span style="color:#75715e">// int类型， FileSet中的全局Pos
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">Kind</span>        <span style="color:#a6e22e">token</span>.<span style="color:#a6e22e">Token</span>  <span style="color:#75715e">// token的类型
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">Value</span>       <span style="color:#66d9ef">string</span>       <span style="color:#75715e">// 字面值
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">expr</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">parser</span>.<span style="color:#a6e22e">ParseExpr</span>(<span style="color:#e6db74">`&#34;1587&#34;`</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// print ast.BasicLit
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">ast</span>.print(<span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">expr</span>)
+</span></span></code></pre></div><p>标识符字面量的语法树结构</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// go/ast#Ident
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Ident</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">NamePost</span> <span style="color:#a6e22e">token</span>.<span style="color:#a6e22e">Pos</span>    <span style="color:#75715e">// 标识符在FileSet中的全局int Pos
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">Nanme</span>    <span style="color:#66d9ef">string</span>       <span style="color:#75715e">// 标识符的名字
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">Obj</span>      <span style="color:#f92672">*</span><span style="color:#a6e22e">Object</span>      <span style="color:#75715e">// 标识符的类型
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">ast</span>.<span style="color:#a6e22e">Print</span>(<span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">ast</span>.<span style="color:#a6e22e">NewIdent</span>(<span style="color:#e6db74">`x`</span>))
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">expr</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">parser</span>.<span style="color:#a6e22e">ParserExpr</span>(<span style="color:#e6db74">`x`</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ast</span>.<span style="color:#a6e22e">Print</span>(<span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">expr</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*ast.Ident{
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    NamePos: 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    name: &#34;x&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    Obj: *ast.Object {
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        Kind: bad
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        Name: &#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    }
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">}
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span></code></pre></div><h3 id="基础表达式的递归结构">基础表达式的递归结构 <a href="#%e5%9f%ba%e7%a1%80%e8%a1%a8%e8%be%be%e5%bc%8f%e7%9a%84%e9%80%92%e5%bd%92%e7%bb%93%e6%9e%84" class="anchor">🔗</a></h3><p>go程序中运算主要是一元运算（Unary）和二元运算， 运算的操作树是数值字面量 or 标识符。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// 表达式文法
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Expression</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">UnaryExpr</span> | <span style="color:#a6e22e">Expression</span> <span style="color:#a6e22e">binary_op</span> <span style="color:#a6e22e">Expression</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">UnaryExpr</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Operand</span> | <span style="color:#a6e22e">Unary_op</span> <span style="color:#a6e22e">UnaryExpr</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Operand</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Literal</span> | <span style="color:#a6e22e">identifier</span> | <span style="color:#e6db74">&#34;(&#34;</span> <span style="color:#a6e22e">Expression</span> <span style="color:#e6db74">&#34;)&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">binary_op</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;||&#34;</span> | <span style="color:#e6db74">&#34;&amp;&amp;&#34;</span> | <span style="color:#a6e22e">rel_op</span> | <span style="color:#a6e22e">add_op</span> | <span style="color:#a6e22e">mul_op</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">rel_op</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;==&#34;</span> | <span style="color:#e6db74">&#34;!=&#34;</span> | <span style="color:#e6db74">&#34;&lt;&#34;</span> | <span style="color:#e6db74">&#34;&lt;=&#34;</span> | <span style="color:#e6db74">&#34;&gt;&#34;</span> | <span style="color:#e6db74">&#34;&gt;=&#34;</span> 
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">add_op</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;+&#34;</span> | <span style="color:#e6db74">&#34;-&#34;</span> | <span style="color:#e6db74">&#34;|&#34;</span> | <span style="color:#e6db74">&#34;^&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">mul_op</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;*&#34;</span> | <span style="color:#e6db74">&#34;/&#34;</span> | <span style="color:#e6db74">&#34;%&#34;</span> | <span style="color:#e6db74">&#34;&lt;&lt;&#34;</span> | <span style="color:#e6db74">&#34;&gt;&gt;&#34;</span> | <span style="color:#e6db74">&#34;&amp;&#34;</span> | <span style="color:#e6db74">&#34;&amp;^&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">unary_op</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;+&#34;</span> | <span style="color:#e6db74">&#34;-&#34;</span> | <span style="color:#e6db74">&#34;!&#34;</span> | <span style="color:#e6db74">&#34;^&#34;</span> | <span style="color:#e6db74">&#34;*&#34;</span> | <span style="color:#e6db74">&#34;&amp;&#34;</span> | <span style="color:#e6db74">&#34;&lt;-&#34;</span>
+</span></span></code></pre></div><p>parser.ParseExpr用于解析单个表达式并返回ast.Expr。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Expr</span> <span style="color:#66d9ef">interface</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Node</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Node</span> <span style="color:#66d9ef">interface</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Pos</span>() <span style="color:#a6e22e">token</span>.<span style="color:#a6e22e">Pos</span>    <span style="color:#75715e">// position of first character belonging to the node
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">End</span>() <span style="color:#a6e22e">token</span>.<span style="color:#a6e22e">Pos</span>    <span style="color:#75715e">// position of first character immediately after the node
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p>由于ast.Expr是一个接口类型，所以会存在很多实现了Expr接口的具体类型存在。 <br>
+go doc go/ast | grep Expr --color<br>
+例如BinaryExpr, UnaryExpr, CallExpr, IndexExpr, KeyValueExpr等等。</p>
+<pre tabindex="0"><code>expr, _ := parser.ParseExpr(`2 + 3 * 5`)
+ast.Print(nil, expr)
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">BinaryExpr</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">X</span> <span style="color:#a6e22e">Expr</span>             <span style="color:#75715e">// 左操作数         可以实现递归
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">OpPos</span> <span style="color:#a6e22e">token</span>.<span style="color:#a6e22e">Pos</span>    <span style="color:#75715e">// 操作符op的位置
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">Op</span> <span style="color:#a6e22e">token</span>.<span style="color:#a6e22e">Token</span>     <span style="color:#75715e">// 操作符token的类型
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">Y</span> <span style="color:#a6e22e">Expr</span>             <span style="color:#75715e">// 右操作数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p>表达式的求值。后序遍历表达式的ast。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">expr</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">parser</span>.<span style="color:#a6e22e">ParseExpr</span>(<span style="color:#e6db74">`2 + 3 * 4`</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">Eval</span>(<span style="color:#a6e22e">expr</span>))
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Eval</span>(<span style="color:#a6e22e">expr</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">ast</span>.<span style="color:#a6e22e">Expr</span>) <span style="color:#66d9ef">float64</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">switch</span> <span style="color:#a6e22e">exprSpec</span> = <span style="color:#a6e22e">exp</span>.(<span style="color:#66d9ef">type</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">ast</span>.<span style="color:#a6e22e">BinaryExpr</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">BinaryExpr</span>(<span style="color:#a6e22e">exprSpec</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">ast</span>.<span style="color:#a6e22e">BasicLit</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">f</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">ParseFloat</span>(<span style="color:#a6e22e">exprSpec</span>.<span style="color:#a6e22e">Value</span>, <span style="color:#ae81ff">64</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">f</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">NaN</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">BinaryExpr</span>(<span style="color:#a6e22e">expr</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">ast</span>.<span style="color:#a6e22e">BinaryExpr</span>) <span style="color:#66d9ef">float64</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">switch</span> <span style="color:#a6e22e">expr</span>.<span style="color:#a6e22e">Op</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">token</span>.<span style="color:#a6e22e">ADD</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">Eval</span>(<span style="color:#a6e22e">expr</span>.<span style="color:#a6e22e">X</span>) <span style="color:#f92672">+</span> <span style="color:#a6e22e">Eval</span>(<span style="color:#a6e22e">expr</span>.<span style="color:#a6e22e">Y</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">cae</span> <span style="color:#a6e22e">token</span>.<span style="color:#a6e22e">MUL</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">Eval</span>(<span style="color:#a6e22e">expr</span>.<span style="color:#a6e22e">X</span>) <span style="color:#f92672">*</span> <span style="color:#a6e22e">Eval</span>(<span style="color:#a6e22e">expr</span>.<span style="color:#a6e22e">Y</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">NaN</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>给表达式引起环境变量。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">expr</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">parser</span>.<span style="color:#a6e22e">ParseExpr</span>(<span style="color:#e6db74">`1 + 2 * 3 + x`</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">Eval</span>(<span style="color:#a6e22e">expr</span>, <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">float64</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;x&#34;</span>: <span style="color:#ae81ff">11</span>,
+</span></span><span style="display:flex;"><span>}))
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Eval</span>(<span style="color:#a6e22e">expr</span> <span style="color:#a6e22e">ast</span>.<span style="color:#a6e22e">Expr</span>, <span style="color:#a6e22e">vars</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">float64</span>) <span style="color:#66d9ef">float64</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">switch</span> <span style="color:#a6e22e">exprSpec</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">exp</span>.(<span style="color:#66d9ef">type</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">ast</span>.<span style="color:#a6e22e">BinaryExpr</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">EvalBinary</span>(<span style="color:#a6e22e">exprSpec</span>, <span style="color:#a6e22e">vars</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">ast</span>.<span style="color:#a6e22e">BasicLit</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">ast</span>.<span style="color:#a6e22e">Ident</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">vars</span>[<span style="color:#a6e22e">exprSpec</span>.<span style="color:#a6e22e">Name</span>]
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="go项目的代码结构">go项目的代码结构 <a href="#go%e9%a1%b9%e7%9b%ae%e7%9a%84%e4%bb%a3%e7%a0%81%e7%bb%93%e6%9e%84" class="anchor">🔗</a></h3><h4 id="项目结构">项目结构 <a href="#%e9%a1%b9%e7%9b%ae%e7%bb%93%e6%9e%84" class="anchor">🔗</a></h4><p>项目按目录（包）进行组织，一个包下包含多个源文件。<br></p>
+<p>go/parser#ParserDir解析一个目录下的多个包，返回map[string]<em>ast.Package。<br>
+go/parser#ParserFile解析单个源文件，返回</em>ast.File。<br>
+<em>ast.Package由多个</em>ast.File组成。</p>
+<h4 id="文件语法结构">文件语法结构 <a href="#%e6%96%87%e4%bb%b6%e8%af%ad%e6%b3%95%e7%bb%93%e6%9e%84" class="anchor">🔗</a></h4><p>go源文件只包含6种语法声明元素： <strong>package, import, type, const, var, func </strong>。<br>
+并且，通过每行开头的不同关键词能够区分开来不同的声明类型。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">File</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Doc</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">CommentGroup</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Package</span> <span style="color:#a6e22e">token</span>.<span style="color:#a6e22e">Pos</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Name</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Ident</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Decls</span> []<span style="color:#a6e22e">Decl</span>                    <span style="color:#75715e">// top-level declarations;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">Scope</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Scope</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Imports</span> []<span style="color:#f92672">*</span><span style="color:#a6e22e">ImportSpec</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Unresolved</span> []<span style="color:#f92672">*</span><span style="color:#a6e22e">Ident</span>            <span style="color:#75715e">// 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">Comments</span> []<span style="color:#f92672">*</span><span style="color:#a6e22e">CommentGroup</span>       <span style="color:#75715e">//
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p>go/ast#Print函数方便输出语法树。 go doc ast.Print。 ast.Walk也可遍历树。</p>
+<h3 id="go中的import-type-const--var-的声明结构">go中的import, type, const , var 的声明结构 <a href="#go%e4%b8%ad%e7%9a%84import-type-const--var-%e7%9a%84%e5%a3%b0%e6%98%8e%e7%bb%93%e6%9e%84" class="anchor">🔗</a></h3><p>import...</p>
+<p>type MyInt int</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">TypeSpec</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Doc</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">CommentGroup</span>       <span style="color:#75715e">// 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">Name</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Ident</span>             <span style="color:#75715e">// type name, 新声明类型的名称 MyInt
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">Assign</span> <span style="color:#a6e22e">token</span>.<span style="color:#a6e22e">Pos</span>        <span style="color:#75715e">// 可有可没有
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">Type</span> <span style="color:#a6e22e">Expr</span>               <span style="color:#75715e">// any of the *XxxTypes， int
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">Comment</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">CommentGroup</span>   <span style="color:#75715e">// 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p>const Pi = 3.1415926</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">ValueSpec</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Doc</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">CommentGroup</span>       <span style="color:#75715e">// 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">Names</span> []<span style="color:#f92672">*</span><span style="color:#a6e22e">Ident</span>          <span style="color:#75715e">// value names
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">Type</span> <span style="color:#a6e22e">Expr</span>               <span style="color:#75715e">// value type or nil
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">Values</span> []<span style="color:#a6e22e">Expr</span>           <span style="color:#75715e">// initial values; or nil
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">Comment</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">CommentGroup</span>   <span style="color:#75715e">// 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p>var Pi = 3.1415926 与 常量声明的语法规则一样，共用ValueSpec。</p>
+<h3 id="go函数的语法树结构">go函数的语法树结构 <a href="#go%e5%87%bd%e6%95%b0%e7%9a%84%e8%af%ad%e6%b3%95%e6%a0%91%e7%bb%93%e6%9e%84" class="anchor">🔗</a></h3><p>go中的概念： 方法和函数。 从语法规则可以看出 区别是没有接受者参数。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">FunctionDecl</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;func&#34;</span> <span style="color:#a6e22e">MethodName</span> <span style="color:#a6e22e">Signature</span> [<span style="color:#a6e22e">FunctionBody</span>]
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">MethodDecl</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;func&#34;</span> <span style="color:#a6e22e">Recevier</span> <span style="color:#a6e22e">MethodName</span> <span style="color:#a6e22e">Signature</span> [<span style="color:#a6e22e">FunctionBody</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">FuncDecl</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Doc</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">CommentGroup</span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Recv</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">FieldList</span>    <span style="color:#75715e">// receiver or nil
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">Name</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Ident</span>        <span style="color:#75715e">// func/method name
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">Type</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">FuncType</span>     <span style="color:#75715e">// function signature
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">Body</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">BlockStmt</span>    <span style="color:#75715e">// function body
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><h3 id="数据和结构体等复合类型">数据和结构体等复合类型 <a href="#%e6%95%b0%e6%8d%ae%e5%92%8c%e7%bb%93%e6%9e%84%e4%bd%93%e7%ad%89%e5%a4%8d%e5%90%88%e7%b1%bb%e5%9e%8b" class="anchor">🔗</a></h3><p>type Int1 pkg.int
+type IntArr [2]int</p>
+<p>type InterfaceType struct {...} type StructType struct {}的语法节点相似。</p>
+<h3 id="复杂的字面值">复杂的字面值 <a href="#%e5%a4%8d%e6%9d%82%e7%9a%84%e5%ad%97%e9%9d%a2%e5%80%bc" class="anchor">🔗</a></h3><p>非基础字面值包含了 函数字面值 和 复合字面值。</p>
+<p>FunctionLit , FUncDecl区别？</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">expr</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">parser</span>.<span style="color:#a6e22e">ParseExpr</span>(<span style="color:#e6db74">`func() {}`</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ast</span>.<span style="color:#a6e22e">Print</span>(<span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">expr</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">FuncLit</span> <span style="color:#a6e22e">Struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Type</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">FuncType</span>     <span style="color:#75715e">// functino type
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">Body</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">BlockStmt</span>    <span style="color:#75715e">//function body
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><h3 id="复合表达式">复合表达式 <a href="#%e5%a4%8d%e5%90%88%e8%a1%a8%e8%be%be%e5%bc%8f" class="anchor">🔗</a></h3><p>语句块和语句。
+数据结构是程序状态的载体。
+语句的语法树最大特点是可以递归定义。类型的语法树不能递归定义自己。</p>
+<h3 id="对ast进行类型检查">对AST进行类型检查 <a href="#%e5%af%b9ast%e8%bf%9b%e8%a1%8c%e7%b1%bb%e5%9e%8b%e6%a3%80%e6%9f%a5" class="anchor">🔗</a></h3><p>go/types包。<br></p>
+<p>在go/parser包中只处理当前包的ast，没有处理导入包的类型。
+语义错误。 go语言是通过包和目录组织代码的，在生成语法树时没有关注包的依赖关系，所以可能会跨包的语义错误。</p>
+<p>类型检查的tasklist</p>
+<ul>
+<li>检查常量、类型、函数的类型</li>
+<li>变量的赋值，初始化</li>
+<li>函数和闭包，如何捕获变量，内敛函数的类型</li>
+<li>哈希键值对的类型</li>
+<li>导入函数体</li>
+<li>检查外部依赖的声明</li>
+</ul>
+<p>结构体对接口的实现。</p>
+<p>在类型检查阶段除了对节点的类型进行检查外，还会对make、chan关键词进行改写为runtime.makeslice、runtime.makechan、makemap。</p>
+<p>完成typecheck之后，通过src/cmd/compile/internal/gc.compileFunctions编译go项目中的所有函数。<br>
+所有函数会在一个编译队列上被<strong>并发编译</strong>goroutine进行消费处理。 Functions -&gt; Queue -&gt; Goroutine consume。</p>
+<p>机器代码的生成。 src/cmd/compile/internal目录下有很多amd64, arm64, x86, wasm。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">GOARCH</span>=<span style="color:#a6e22e">wasm</span> <span style="color:#a6e22e">GOOS</span>=<span style="color:#a6e22e">js</span> <span style="color:#66d9ef">go</span> <span style="color:#a6e22e">build</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">o</span> <span style="color:#a6e22e">lib</span>.<span style="color:#a6e22e">wasm</span> <span style="color:#a6e22e">main</span>.<span style="color:#66d9ef">go</span>
+</span></span></code></pre></div><p>类型检查的主要逻辑cmd/compile/internal/gc.typecheck， 主要在gc.typecheck1中。
+很大的switch。弱水三千，只取一瓢饮。 看其中的OMake, OTARRAY, OTMAP既可以了。</p>
+<h3 id="对ast的语义信息">对AST的语义信息 <a href="#%e5%af%b9ast%e7%9a%84%e8%af%ad%e4%b9%89%e4%bf%a1%e6%81%af" class="anchor">🔗</a></h3><h3 id="ast转换成ssa">AST转换成SSA <a href="#ast%e8%bd%ac%e6%8d%a2%e6%88%90ssa" class="anchor">🔗</a></h3><p>go/ssa包。</p>
+<p>ast经过go/types包完成语义分析生成types.Package对象后，进行ssa格式的转换。</p>
+<p>SSA主要用于表示函数内的指令。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Main</span>(<span style="color:#a6e22e">archInit</span> <span style="color:#66d9ef">func</span>(<span style="color:#f92672">*</span><span style="color:#a6e22e">Arch</span>)) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">initssaconfig</span>() <span style="color:#75715e">//初始化生成SSA的配置
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; len(<span style="color:#a6e22e">xtop</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">n</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">xtop</span>[<span style="color:#a6e22e">i</span>]
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">n</span>.<span style="color:#a6e22e">Op</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">ODCLFUNC</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">funccompile</span>(<span style="color:#a6e22e">n</span>) <span style="color:#75715e">//生成SSA
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">compileFunctions</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h4 id="初始化ssa配置initssaconfig">初始化SSA配置initssaconfig <a href="#%e5%88%9d%e5%a7%8b%e5%8c%96ssa%e9%85%8d%e7%bd%aeinitssaconfig" class="anchor">🔗</a></h4><p>1 ssa.NewTypes()初始化Types结构体。<br>
+2 func NewPtr(elem *Type) *Type <br>
+3 cmd/compile/internal/ssa.NewConfig根据传入的arch 设置 生成中间代码和机器代码的函数，当前编译器使用的指针
+寄存器大小，可用寄存器列表，等编译选项。</p>
+<p>处理runtime.deferproc, runtime.newproc, runtime.growslice。初始化特定的ABI</p>
+<h4 id="遍历和替换">遍历和替换 <a href="#%e9%81%8d%e5%8e%86%e5%92%8c%e6%9b%bf%e6%8d%a2" class="anchor">🔗</a></h4><p>cmd/compile/internal/gc.walk 用于遍历AST将一些关键字和内建函数 转换为 函数调用。
+例如panic, recover 转换为runtime.gopanic , runtime.gorecover。new替换为runtime.newobject函数。
+在src/cmd/compile/internal/gc/builtin/runtime.go中找到函数的签名。</p>
+<p>例如channel的转换过程。发送和接收，OSEND， ORECV。在cmd/compile/internal/gc.walkexpr根据节点类型进入不同分支，OSEND时改写OSEND子树，cmd/compile/internal/gc.mkcall1创建OCALL节点（包含了runtime.chansend1）。</p>
+<p>所以channel的底层实现，发送，接受，关闭的实现在runtime.chansend1, runtime.chanrecv1, runtime.closechan中。</p>
+<h4 id="ssa的生成">SSA的生成 <a href="#ssa%e7%9a%84%e7%94%9f%e6%88%90" class="anchor">🔗</a></h4><p>经过walk函数处理后， ast就不再改变了。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">compileSSA</span>(<span style="color:#a6e22e">fn</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>, <span style="color:#a6e22e">worker</span> <span style="color:#66d9ef">int</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// inner: cmd/compile/internal/gc.state.stmtList将ast转为ssa
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// cmd/compile/internal/ssa.Compile 经历多次更新ssa中间代码
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">f</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">buildssa</span>(<span style="color:#a6e22e">fn</span>, <span style="color:#a6e22e">worker</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">pp</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">newProgs</span>(<span style="color:#a6e22e">fn</span>, <span style="color:#a6e22e">worker</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">genssa</span>(<span style="color:#a6e22e">f</span>, <span style="color:#a6e22e">pp</span>) <span style="color:#75715e">//生成cm/compile/internal/gc.Progs结构
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">pp</span>.<span style="color:#a6e22e">Flush</span>() <span style="color:#75715e">// 调用cmd/internal/obj包中的汇编器将ssa转为汇编代码
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">state</span>) <span style="color:#a6e22e">call</span>(<span style="color:#a6e22e">n</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>, <span style="color:#a6e22e">k</span> <span style="color:#a6e22e">callKind</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">ssa</span>.<span style="color:#a6e22e">Value</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">call</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">ssa</span>.<span style="color:#a6e22e">Value</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">switch</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">k</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">callDefer</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">call</span> = <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">newValue1A</span>(<span style="color:#a6e22e">ssa</span>.<span style="color:#a6e22e">OpStaticCall</span>, <span style="color:#a6e22e">types</span>.<span style="color:#a6e22e">TypeMem</span>, <span style="color:#a6e22e">deferproc</span>, <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">mem</span>())
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">k</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">callgo</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">call</span> = <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">newValue1A</span>(<span style="color:#a6e22e">ssa</span>.<span style="color:#a6e22e">OpStaticCall</span>, <span style="color:#a6e22e">types</span>.<span style="color:#a6e22e">TypeMem</span>, <span style="color:#a6e22e">sym</span>.<span style="color:#a6e22e">Linksym</span>(), <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">mem</span>()) 
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>使用defer时插入runtime.deferproc函数。 使用go关键词时插入runtime.newproc函数。</p>
+<p>多次转换。编译器需要优化中间代码。 cmd/compile/internal/ssa.Compile函数执行。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Compile</span>(<span style="color:#a6e22e">f</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Func</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">p</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">passes</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">pass</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">p</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">fn</span>(<span style="color:#a6e22e">f</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">passes</span> = [<span style="color:#f92672">...</span>]<span style="color:#a6e22e">pass</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>    {<span style="color:#a6e22e">name</span>: <span style="color:#e6db74">&#34;loop rotate&#34;</span>, <span style="color:#a6e22e">fn</span>: <span style="color:#a6e22e">loopRotate</span>},
+</span></span><span style="display:flex;"><span>    {<span style="color:#a6e22e">name</span>: <span style="color:#e6db74">&#34;stackframe&#34;</span>, <span style="color:#a6e22e">fn</span>: <span style="color:#a6e22e">stackFrame</span>, <span style="color:#a6e22e">required</span>: <span style="color:#66d9ef">true</span>},
+</span></span><span style="display:flex;"><span>    {<span style="color:#a6e22e">name</span>: <span style="color:#e6db74">&#34;trim&#34;</span>, <span style="color:#a6e22e">fn</span>: <span style="color:#a6e22e">trim</span>},
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="机器代码的生成">机器代码的生成 <a href="#%e6%9c%ba%e5%99%a8%e4%bb%a3%e7%a0%81%e7%9a%84%e7%94%9f%e6%88%90" class="anchor">🔗</a></h3><p>ssa中间代码的最后阶段，Go函数体的代码转换成cmd/compile/internal/obj.Prog结构。</p>
+<ul>
+<li>cmd/compile/internal/ssa包
+<ul>
+<li>负责对ssa中间代码进行降级，执行特定架构的优化，生成cmd/compile/internal/obj.Prog指令。</li>
+</ul>
+</li>
+<li>cmd/internal/obj包
+<ul>
+<li>作为汇编器将Prog指令转换为机器码。</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">passes</span> = [<span style="color:#f92672">...</span>]<span style="color:#a6e22e">pass</span>{
+</span></span><span style="display:flex;"><span>    {<span style="color:#a6e22e">name</span>: <span style="color:#e6db74">&#34;lower&#34;</span>, <span style="color:#a6e22e">fn</span>: <span style="color:#a6e22e">lower</span>, <span style="color:#a6e22e">required</span>: <span style="color:#66d9ef">true</span>}
+</span></span><span style="display:flex;"><span>    {<span style="color:#a6e22e">name</span>: <span style="color:#e6db74">&#34;lowered deadcode for cse&#34;</span>, <span style="color:#a6e22e">fn</span>: <span style="color:#a6e22e">deadcode</span>},
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>    {<span style="color:#a6e22e">name</span>: <span style="color:#e6db74">&#34;trim&#34;</span>, <span style="color:#a6e22e">fn</span>: <span style="color:#a6e22e">trim</span>} 
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>如果是x86架构，调用cmd/compile/internal/ssa.rewriteBlock386()。</p>
+<p>汇编代码由 cmd/internal/obj.Flushplist函数生成。Preprocess, Assemble。</p>
+<h2 id="llvm的基础知识">LLVM的基础知识 <a href="#llvm%e7%9a%84%e5%9f%ba%e7%a1%80%e7%9f%a5%e8%af%86" class="anchor">🔗</a></h2><h2 id="go-汇编-劝退">go 汇编 (劝退) <a href="#go-%e6%b1%87%e7%bc%96-%e5%8a%9d%e9%80%80" class="anchor">🔗</a></h2><p>go tool compile -S main.go &gt; main.S</p>
+<p>原文: <a href="https://jingwei.link/2018/07/01/runtime-of-goroutine-creation.html" target="_blank" rel="noopener">https://jingwei.link/2018/07/01/runtime-of-goroutine-creation.html</a></p>
+<p>ssa里的优化pass：https://github.com/golang/go/blob/acbe242f8a2cae8ef4749806291a37d23089b572/src/cmd/compile/internal/ssa/compile.go#L418</p>
+<p>Generate x86 Assembly with Go</p>
+<p><a href="https://github.com/mmcloughlin/avo" target="_blank" rel="noopener">https://github.com/mmcloughlin/avo</a></p>
+<ul>
+<li>汇编风格分为2类</li>
+</ul>
+<ol>
+<li>intel风格(move dest, source)</li>
+<li>AT&amp;T风格(左 --&gt; 右) go是plan9， 属于此类</li>
+</ol>
+<ul>
+<li>
+<p>助记符    call, add</p>
+</li>
+<li>
+<p>register  ax, sb, pc</p>
+</li>
+<li>
+<p>立即数 $1 , $0x100</p>
+</li>
+<li>
+<p>内存寻址 （R1）</p>
+</li>
+<li>
+<p>plan 9</p>
+<ul>
+<li><a href="https://lrita.github.io/2017/12/12/golang-asm/#go%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8" target="_blank" rel="noopener">https://lrita.github.io/2017/12/12/golang-asm/#go%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8</a></li>
+<li><a href="https://lrita.github.io/images/posts/go/GoFunctionsInAssembly.pdf" target="_blank" rel="noopener">https://lrita.github.io/images/posts/go/GoFunctionsInAssembly.pdf</a></li>
+<li><a href="https://github.com/buptbill220/gotls/tree/master/interesting" target="_blank" rel="noopener">https://github.com/buptbill220/gotls/tree/master/interesting</a></li>
+<li>查看当前cpu架构的指令集合 cat /proc/cpuinfo | grep flags | head -1</li>
+<li>指令查询： <a href="http://68k.hax.com/" target="_blank" rel="noopener">http://68k.hax.com/</a></li>
+<li>命令查询：https://9p.io/magic/man2html/1/8a</li>
+<li>plan9 文档： <a href="https://9p.io/sys/doc/" target="_blank" rel="noopener">https://9p.io/sys/doc/</a></li>
+</ul>
+</li>
+<li>
+<p><a href="https://defuse.ca/online-x86-assembler.htm#disassembly2" target="_blank" rel="noopener">https://defuse.ca/online-x86-assembler.htm#disassembly2</a></p>
+<ul>
+<li>x86 or x64 assembly instructions encoding&lt;==&gt; decoding binary code</li>
+<li>It uses GCC and objdump behind the scenes</li>
+</ul>
+</li>
+<li>
+<p>goroot/src/syscall --》 建议使用 golang.org/x/sys</p>
+</li>
 </ul>
 
     </div>

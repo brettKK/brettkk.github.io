@@ -8,7 +8,7 @@
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
 <meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta name="description" content="一些bug init() 函数滥用 函数功能是查询类的，能不用指针传参数就不">
+<meta name="description" content="可以解决的问题 🔗遇到过的bug init() 函数滥用 函数功能是查询类的，">
 <meta name="generator" content="Hugo 0.103.1" />
 
 
@@ -70,13 +70,13 @@
           ·
         </span>
         <span>
-          704 words
+          1367 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          2 minute read
+          3 minute read
         </span>
     </div>
 
@@ -84,13 +84,38 @@
     
         
   
+    <aside class="toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
+          <div>
+              <nav id="TableOfContents">
+  <ul>
+    <li><a href="#可以解决的问题">可以解决的问题</a></li>
+    <li><a href="#未解决的问题">未解决的问题</a></li>
+    <li><a href="#单测">单测</a>
+      <ul>
+        <li><a href="#官方测试工具gomock">官方测试工具gomock</a></li>
+        <li><a href="#工具">工具</a></li>
+        <li><a href="#go-monkey">go monkey</a></li>
+        <li><a href="#调试">调试</a></li>
+        <li><a href="#性能分析">性能分析</a></li>
+        <li><a href="#go-fuzzing">go fuzzing</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+          </div>
+      </details>
+    </aside>
+  
 
 
     
 
 
     <div class="content">
-      <p>一些bug</p>
+      <h1 id="可以解决的问题">可以解决的问题 <a href="#%e5%8f%af%e4%bb%a5%e8%a7%a3%e5%86%b3%e7%9a%84%e9%97%ae%e9%a2%98" class="anchor">🔗</a></h1><p><strong>遇到过的bug </strong></p>
 <ul>
 <li>init() 函数滥用</li>
 <li>函数功能是查询类的，能不用指针传参数就不用，避免函数内部对对象做修改</li>
@@ -127,26 +152,105 @@
 <li>ss -l看到主机上的端口在使用， lsof -i:port 没有发现使用这个端口的进程</li>
 <li>Unix domain socket 同一台操作系统上的两个或多个进程进行数据通信 跨进程通信</li>
 <li>使用 循环迭代器变量的引用， 大概率全部遍历的都是迭代的最后一个元素</li>
-<li>go-zero, bloom filter. core/bloom/bloom.go</li>
 </ul>
-<hr>
-<p>unsolved: 阅读go源码时，执行单测出现： use of internal package internal/byteal not allowed</p>
-<p>cannot solve!!!!!!!!</p>
-<hr>
-<p>Failed to run &quot;go env env,-json,GOMOD&quot;: Command failed: /usr/local/go/bin/go env -json GOMOD $GOPATH/go.mod exists but should not</p>
-<p>$GOPATH/go.mod exists but should not !!!!!!!!!!!!!!
-fck u。 2022-09-12 晚。</p>
-<hr>
-<p>在golang源码里点击跳转到定义，却是跳转到golang安装目录下的源代码，而不是本项目原有的文件夹下<br>
+<h1 id="未解决的问题">未解决的问题 <a href="#%e6%9c%aa%e8%a7%a3%e5%86%b3%e7%9a%84%e9%97%ae%e9%a2%98" class="anchor">🔗</a></h1><pre tabindex="0"><code>unsolved: 阅读go源码时，执行单测出现： use of internal package internal/byteal not allowed
+cannot solve
+</code></pre><pre tabindex="0"><code>Failed to run &#34;go env env,-json,GOMOD&#34;: Command failed: /usr/local/go/bin/go env -json GOMOD $GOPATH/go.mod exists but should not
+2022-09-12 晚。
+</code></pre><p>在golang源码里点击跳转到定义，却是跳转到golang安装目录下的源代码，而不是本项目原有的文件夹下<br>
 怎样在vs code下阅读golang的源代码? <br>
 <a href="https://stackoverflow.com/questions/58018729/go-linter-in-vs-code-not-working-for-packages-across-multiple-files" target="_blank" rel="noopener">https://stackoverflow.com/questions/58018729/go-linter-in-vs-code-not-working-for-packages-across-multiple-files</a></p>
-<p>could not import fmt (cannot find package &quot;fmt&quot; in any of
-/usr/local/go/src/fmt (from $GOROOT)
-/Users/brett/go/src/fmt (from $GOPATH))compilerBrokenImport</p>
-<hr>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>$ code $GOROOT
+<pre tabindex="0"><code>could not import fmt (cannot find package &#34;fmt&#34; in any of 
+	/usr/local/go/src/fmt (from $GOROOT)
+	/Users/brett/go/src/fmt (from $GOPATH))compilerBrokenImport
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>$ code $GOROOT
 </span></span><span style="display:flex;"><span>No package found for open file, go/src/cmd/compile/main.go
-</span></span></code></pre></div>
+</span></span></code></pre></div><h1 id="单测">单测 <a href="#%e5%8d%95%e6%b5%8b" class="anchor">🔗</a></h1><p>单测mock框架，测试框架 stub/mock</p>
+<ul>
+<li>GoConvey  <a href="https://github.com/smartystreets/goconvey" target="_blank" rel="noopener">https://github.com/smartystreets/goconvey</a>
+<ul>
+<li>Convey, so, 不是很习惯</li>
+</ul>
+</li>
+<li>testify  <a href="https://github.com/stretchr/testify" target="_blank" rel="noopener">https://github.com/stretchr/testify</a>
+<ul>
+<li>GoStub</li>
+<li>GoMock</li>
+</ul>
+</li>
+<li><a href="https://bou.ke/" target="_blank" rel="noopener">https://bou.ke/</a>
+<ul>
+<li>copy 覆盖函数的前12个字节的汇编代码，植入mock函数的地址， 在运行时实现函数的mock和unmock</li>
+<li>github.com/bouk/monkey</li>
+</ul>
+</li>
+</ul>
+<h2 id="官方测试工具gomock">官方测试工具gomock <a href="#%e5%ae%98%e6%96%b9%e6%b5%8b%e8%af%95%e5%b7%a5%e5%85%b7gomock" class="anchor">🔗</a></h2><p>install: go get github.com/golang/mock/gomock, github.com/golang/mock/mockgen.</p>
+<h2 id="工具">工具 <a href="#%e5%b7%a5%e5%85%b7" class="anchor">🔗</a></h2><ul>
+<li>Guru 导航go 代码的编辑器集成工具
+<ul>
+<li>变量，函数的声明地点</li>
+<li>变量，函数的所有引用地点</li>
+<li>实现此接口的所有具体类型</li>
+</ul>
+</li>
+<li>golang.org/x/tools/cmd/guru
+<ul>
+<li><a href="http://golang.org/s/using-guru" target="_blank" rel="noopener">http://golang.org/s/using-guru</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="go-monkey">go monkey <a href="#go-monkey" class="anchor">🔗</a></h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">from</span>() <span style="color:#66d9ef">int</span> {<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">to</span>() <span style="color:#66d9ef">int</span> (<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 在执行from之前把from函数内的机器码 替换为一条跳转指令，让cpu跳转到to函数的机器码上执行。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">patch</span>(<span style="color:#a6e22e">from</span>, <span style="color:#a6e22e">to</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">from</span>()) <span style="color:#75715e">// should print 2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p>taoshu.in/go/monkey</p>
+<ul>
+<li>找到from, to的内存地址</li>
+<li>修改from函数的机器码，构造跳转指令，跳到to的内存地址上</li>
+</ul>
+<hr>
+<h2 id="调试">调试 <a href="#%e8%b0%83%e8%af%95" class="anchor">🔗</a></h2><ul>
+<li>delve 调试工具</li>
+<li>gdb单步调试go程序的执行过程    Delve 更好</li>
+<li>执行某个单测函数go test -run TestDefine ./compiler</li>
+</ul>
+<hr>
+<h2 id="性能分析">性能分析 <a href="#%e6%80%a7%e8%83%bd%e5%88%86%e6%9e%90" class="anchor">🔗</a></h2><p>利用runtime/pprof， net/http/pprof采集运行时数据</p>
+<ul>
+<li>
+<p>pprof (CPU profiles, Heap profiles, block profile, traces)</p>
+<ul>
+<li>kite, ginex 框架开启了prof功能</li>
+<li>定时任务，消费者等worker需要 import _ net/http/pprof手动开启</li>
+<li>性能pprof
+<ul>
+<li>go tool pprof http://localhost:8080/debug/pprof/profile</li>
+<li>http://127.0.0.1:8080/debug/pprof/heap?debug=1</li>
+<li>终端连接到 go tool pprof -inuse_space http://127.0.0.1:8080/debug/pprof/heap</li>
+<li>svg go tool pprof -alloc_space -cum -svg http://127.0.0.1:8080/debug/pprof/heap &gt; heap.svg</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>wrk 压力测试 github.com/juju/ratelimit</p>
+</li>
+<li>
+<p>优化go程序 运行速度的方向 只对关键的路径进行优化 (优化运行速度，开会速度会慢 hah)</p>
+</li>
+</ul>
+<ol>
+<li>避免堆分配可以成为优化的主要方向。 若频繁使用堆，可以sync.Pool 复用对象</li>
+<li>cpu cache line(64字节)，结构体填充，避免False Sharing。</li>
+<li>为了保证cache的一致性，对内存的一个小小的写入都会让cache line被淘汰。</li>
+<li>对相邻地址的读操作就无法命中对应的cache line。</li>
+</ol>
+<h2 id="go-fuzzing">go fuzzing <a href="#go-fuzzing" class="anchor">🔗</a></h2>
     </div>
 
     

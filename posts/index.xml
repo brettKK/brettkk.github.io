@@ -126,10 +126,10 @@
     
     <item>
       <title>module name and module import path in Go</title>
-      <link>http://brettkk.github.io/posts/golang/golang_mod/</link>
+      <link>http://brettkk.github.io/posts/golang/golang%E6%A8%A1%E5%9D%97%E7%AE%A1%E7%90%86/</link>
       <pubDate>Sat, 06 Aug 2022 00:00:00 +0000</pubDate>
       
-      <guid>http://brettkk.github.io/posts/golang/golang_mod/</guid>
+      <guid>http://brettkk.github.io/posts/golang/golang%E6%A8%A1%E5%9D%97%E7%AE%A1%E7%90%86/</guid>
       <description>1. golang管理依赖 🔗 Modules are how Go manages dependencies. 1.1 module and packages 🔗 A module is a collection of packages.</description>
     </item>
     
@@ -144,11 +144,11 @@
     
     <item>
       <title>golang</title>
-      <link>http://brettkk.github.io/posts/golang/golang/</link>
+      <link>http://brettkk.github.io/posts/golang/golang%E7%89%B9%E8%89%B2/</link>
       <pubDate>Sat, 07 May 2022 18:54:41 +0800</pubDate>
       
-      <guid>http://brettkk.github.io/posts/golang/golang/</guid>
-      <description>资料 🔗 目前golang的主要maintainer之一: Russ Cox 个</description>
+      <guid>http://brettkk.github.io/posts/golang/golang%E7%89%B9%E8%89%B2/</guid>
+      <description>资料 🔗 目前golang的主要maintainer之一: Russ Co</description>
     </item>
     
     <item>
@@ -185,15 +185,6 @@
       
       <guid>http://brettkk.github.io/posts/culture/euro/</guid>
       <description>犹太教 基督教 新教 （源于马丁路德） 天主教 基督教的宗派之一，罗马</description>
-    </item>
-    
-    <item>
-      <title>go embedding</title>
-      <link>http://brettkk.github.io/posts/golang/golang_embedding/</link>
-      <pubDate>Sat, 05 Mar 2022 08:34:12 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/golang/golang_embedding/</guid>
-      <description>why 为什么需要在golang使用embedding 🔗golan</description>
     </item>
     
     <item>
@@ -239,15 +230,6 @@
       
       <guid>http://brettkk.github.io/posts/golang/golang_sync/</guid>
       <description>11 🔗 协程切换与线程切换的区别 切换需要切换2个地方：栈和寄存器</description>
-    </item>
-    
-    <item>
-      <title>go test</title>
-      <link>http://brettkk.github.io/posts/golang/go_test/</link>
-      <pubDate>Wed, 05 May 2021 18:34:48 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/golang/go_test/</guid>
-      <description>工具 🔗 Guru 导航go 代码的编辑器集成工具 变量，函数的声明地点 变量</description>
     </item>
     
     <item>
@@ -319,7 +301,7 @@
       <pubDate>Tue, 04 May 2021 19:10:43 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/golang/bug_fix/</guid>
-      <description>一些bug init() 函数滥用 函数功能是查询类的，能不用指针传参数就不</description>
+      <description>可以解决的问题 🔗遇到过的bug init() 函数滥用 函数功能是查询类的，</description>
     </item>
     
     <item>
@@ -470,21 +452,6 @@ type Node struct{ int num, next Node, } func createCircleLink(int n) Node{ head 
 隐函数的求导。
 导数的应用 🔗单调性，求极值，凹凸性（二阶导数）
 3 不定积分，定积分 🔗不定积分 🔗不定积分： 求函数f的全部原函数。</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>http://brettkk.github.io/posts/rust/rust_c&#43;&#43;/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/rust/rust_c&#43;&#43;/</guid>
-      <description>变量赋值的两种语义 move vs copy 🔗c++向左，rust向右。
-rust中的move和copy 🔗栈上的值的赋值默认是copy，堆上是move。 均可以改为clone， borrow。
-C++中的move和copy 🔗值类型 和 引用类型
-值分为 左值 和 右值：只能在等式右边出现（常量，临时变量a+2） 有地址的变量是左值。没有地址的字面值，临时值是右值。 引用分为 左值引用 和 右值引用。 左值引用和右值引用 类似指针。 什么是左值引用，右值引用?
-引用本质是别名。通过引用修改变量的值。传参时避免拷贝，原理与指针类似。
-有指针了，为啥还需要引用？ 降低指针的使用。指针+ 左右值引用，理解成本变大。
-引用是变量的别名。因为右值没有地址，没法被修改。所以左值引用无法指向右值。</description>
     </item>
     
     <item>
