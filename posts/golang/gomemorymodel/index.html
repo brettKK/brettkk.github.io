@@ -106,12 +106,10 @@
     <div class="content">
       <p>go的内存模型规定： 在哪些情况下，一个golang中读取的变量时可以观测到另一个golang对同一变量的新写的值。</p>
 <ul>
-<li>init 方法的执行顺序</li>
-</ul>
-<p><p class="markdown-image">
+<li>init 方法的执行顺序
+<p class="markdown-image">
   <img src="/golang/init_func_order.png" alt="image"  />
-</p></p>
-<ul>
+</p></li>
 <li>goroutine创建, 创建一个golang happens before 新golang的执行</li>
 </ul>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a</span> <span style="color:#66d9ef">string</span>

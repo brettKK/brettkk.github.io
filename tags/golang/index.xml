@@ -35,6 +35,15 @@
     </item>
     
     <item>
+      <title>golang算法</title>
+      <link>http://brettkk.github.io/posts/golang/golang%E7%AE%97%E6%B3%95/</link>
+      <pubDate>Sat, 07 May 2022 18:54:41 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/golang/golang%E7%AE%97%E6%B3%95/</guid>
+      <description>堆 与 优先队列 🔗正则表达式的识别 🔗lru 🔗map + list skiplist 🔗typ</description>
+    </item>
+    
+    <item>
       <title>go同步编码方式</title>
       <link>http://brettkk.github.io/posts/golang/golang%E5%90%8C%E6%AD%A5%E7%BC%96%E7%A0%81%E6%96%B9%E5%BC%8F/</link>
       <pubDate>Thu, 06 May 2021 18:34:48 +0800</pubDate>
@@ -53,11 +62,11 @@
     </item>
     
     <item>
-      <title>bug_fix</title>
-      <link>http://brettkk.github.io/posts/golang/bug_fix/</link>
+      <title>golang bug_fix</title>
+      <link>http://brettkk.github.io/posts/golang/golang_bug_fix/</link>
       <pubDate>Tue, 04 May 2021 19:10:43 +0800</pubDate>
       
-      <guid>http://brettkk.github.io/posts/golang/bug_fix/</guid>
+      <guid>http://brettkk.github.io/posts/golang/golang_bug_fix/</guid>
       <description>可以解决的问题 🔗遇到过的bug init() 函数滥用 函数功能是查询类的，</description>
     </item>
     
@@ -71,12 +80,12 @@
     </item>
     
     <item>
-      <title>go_toolchain</title>
+      <title>golang compiler</title>
       <link>http://brettkk.github.io/posts/golang/go_toolchain/</link>
       <pubDate>Sat, 01 May 2021 18:54:41 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/golang/go_toolchain/</guid>
-      <description>实际编译器 🔗编译器入口： src/cmd/compile/in</description>
+      <description>实际编译器 🔗编译器入口： src/cmd/compile/internal/gc/main.go#Main cmd/compile/internal/syntax 词法和语法分析 cmd/compile/internal/gc 类型检查， 处理语</description>
     </item>
     
   </channel>

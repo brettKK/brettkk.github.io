@@ -95,6 +95,9 @@
     <loc>http://brettkk.github.io/posts/golang/golang%E7%89%B9%E8%89%B2/</loc>
     <lastmod>2022-05-07T18:54:41+08:00</lastmod>
   </url><url>
+    <loc>http://brettkk.github.io/posts/golang/golang%E7%AE%97%E6%B3%95/</loc>
+    <lastmod>2022-05-07T18:54:41+08:00</lastmod>
+  </url><url>
     <loc>http://brettkk.github.io/posts/store_db/redis/</loc>
     <lastmod>2022-05-05T11:33:56+08:00</lastmod>
   </url><url>
@@ -158,7 +161,7 @@
     <loc>http://brettkk.github.io/posts/francais/common_sense/</loc>
     <lastmod>2021-05-05T11:33:56+08:00</lastmod>
   </url><url>
-    <loc>http://brettkk.github.io/posts/golang/bug_fix/</loc>
+    <loc>http://brettkk.github.io/posts/golang/golang_bug_fix/</loc>
     <lastmod>2021-05-04T19:10:43+08:00</lastmod>
   </url><url>
     <loc>http://brettkk.github.io/about/</loc>
@@ -202,8 +205,6 @@
   </url><url>
     <loc>http://brettkk.github.io/posts/math/%E8%AE%A1%E7%AE%97%E5%A4%8D%E6%9D%82%E5%BA%A6/</loc>
     <lastmod>2020-09-18T09:13:56+08:00</lastmod>
-  </url><url>
-    <loc>http://brettkk.github.io/posts/golang/static-analysis-golang/origin_parser/</loc>
   </url><url>
     <loc>http://brettkk.github.io/posts/leetcode/other/</loc>
   </url><url>
