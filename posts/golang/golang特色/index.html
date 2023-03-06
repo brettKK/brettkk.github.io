@@ -124,13 +124,10 @@
         <li><a href="#数组与切片">数组与切片</a></li>
         <li><a href="#函数的接受者">函数的接受者</a></li>
         <li><a href="#golang值拷贝">golang值拷贝</a></li>
-        <li><a href="#闭包">闭包</a>
-          <ul>
-            <li><a href="#unsafe包">unsafe包</a></li>
-            <li><a href="#nil">nil</a></li>
-            <li><a href="#反射">反射</a></li>
-          </ul>
-        </li>
+        <li><a href="#闭包">闭包</a></li>
+        <li><a href="#unsafe包">unsafe包</a></li>
+        <li><a href="#nil">nil</a></li>
+        <li><a href="#反射">反射</a></li>
       </ul>
     </li>
     <li><a href="#内存管理">内存管理</a></li>
@@ -458,7 +455,7 @@ ascii码： <code>48-0, 65-A, 97-a</code>...<br>
 </ol>
 <h2 id="golang值拷贝">golang值拷贝 <a href="#golang%e5%80%bc%e6%8b%b7%e8%b4%9d" class="anchor">🔗</a></h2><p>go严格上只有复制拷贝传递， 总是创建副本按值传递，只不过这个副本可以是变量的副本，也可以是指针的副本</p>
 <h2 id="闭包">闭包 <a href="#%e9%97%ad%e5%8c%85" class="anchor">🔗</a></h2><p>闭包=函数+引用环境。</p>
-<h3 id="unsafe包">unsafe包 <a href="#unsafe%e5%8c%85" class="anchor">🔗</a></h3><p><code>*T &lt;==&gt; unsafe.Pointer &lt;==&gt; uintptr</code>, uintptr与unsafe.Pointer（类似void*）</p>
+<h2 id="unsafe包">unsafe包 <a href="#unsafe%e5%8c%85" class="anchor">🔗</a></h2><p><code>*T &lt;==&gt; unsafe.Pointer &lt;==&gt; uintptr</code>, uintptr与unsafe.Pointer（类似void*）</p>
 <ol>
 <li>T1指针与 T2指针类型之间的转换</li>
 <li>修改内存数据， uintptr 常用于与 unsafe.Pointer配合，用于做指针运算</li>
@@ -486,7 +483,7 @@ ascii码： <code>48-0, 65-A, 97-a</code>...<br>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>指针是对内存区域的地址， 与指针相配合的类型
 说明区域有哪些属性，如何去解析。</p>
-<h3 id="nil">nil <a href="#nil" class="anchor">🔗</a></h3><ul>
+<h2 id="nil">nil <a href="#nil" class="anchor">🔗</a></h2><ul>
 <li>what is nil
 <ul>
 <li>nil is a kind of zero</li>
@@ -512,7 +509,7 @@ ascii码： <code>48-0, 65-A, 97-a</code>...<br>
 </ul>
 </li>
 </ul>
-<h3 id="反射">反射 <a href="#%e5%8f%8d%e5%b0%84" class="anchor">🔗</a></h3><p>反射 Reflection ，interface对象=（Type, Value）</p>
+<h2 id="反射">反射 <a href="#%e5%8f%8d%e5%b0%84" class="anchor">🔗</a></h2><p>反射 Reflection ，interface对象=（Type, Value）</p>
 <p>反射类型 reflect.Type, reflect.Value)</p>
 <p>三种反射的基本操作：</p>
 <ol>
