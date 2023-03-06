@@ -8,7 +8,7 @@
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
 <meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta name="description" content="an overview of go&#39;s tooling 🔗 table of content installing tooling $ GO111MODULE=on go get golang.org/x/tools/cmd/stresss go get -u, 强制使用网络去更新包和">
+<meta name="description" content="实际编译器 🔗编译器入口： src/cmd/compile/in">
 <meta name="generator" content="Hugo 0.103.1" />
 
 
@@ -70,13 +70,13 @@
           ·
         </span>
         <span>
-          5627 words
+          5264 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          12 minute read
+          11 minute read
         </span>
     </div>
 
@@ -91,7 +91,6 @@
           <div>
               <nav id="TableOfContents">
   <ul>
-    <li><a href="#an-overview-of-gos-tooling">an overview of go's tooling</a></li>
     <li><a href="#实际编译器">实际编译器</a>
       <ul>
         <li><a href="#词法分析-和-语法分析">词法分析 和 语法分析</a></li>
@@ -100,33 +99,36 @@
             <li><a href="#go的词法分析-fileset结构">Go的词法分析， FileSet结构</a></li>
             <li><a href="#基础字面值的语法树结构">基础字面值的语法树结构</a></li>
             <li><a href="#基础表达式的递归结构">基础表达式的递归结构</a></li>
-            <li><a href="#go项目的代码结构">go项目的代码结构</a>
-              <ul>
-                <li><a href="#项目结构">项目结构</a></li>
-                <li><a href="#文件语法结构">文件语法结构</a></li>
-              </ul>
-            </li>
-            <li><a href="#go中的import-type-const--var-的声明结构">go中的import, type, const , var 的声明结构</a></li>
-            <li><a href="#go函数的语法树结构">go函数的语法树结构</a></li>
-            <li><a href="#数据和结构体等复合类型">数据和结构体等复合类型</a></li>
-            <li><a href="#复杂的字面值">复杂的字面值</a></li>
-            <li><a href="#复合表达式">复合表达式</a></li>
-            <li><a href="#对ast进行类型检查">对AST进行类型检查</a></li>
-            <li><a href="#对ast的语义信息">对AST的语义信息</a></li>
-            <li><a href="#ast转换成ssa">AST转换成SSA</a>
-              <ul>
-                <li><a href="#初始化ssa配置initssaconfig">初始化SSA配置initssaconfig</a></li>
-                <li><a href="#遍历和替换">遍历和替换</a></li>
-                <li><a href="#ssa的生成">SSA的生成</a></li>
-              </ul>
-            </li>
-            <li><a href="#机器代码的生成">机器代码的生成</a></li>
           </ul>
         </li>
-        <li><a href="#llvm的基础知识">LLVM的基础知识</a></li>
-        <li><a href="#go-汇编-劝退">go 汇编 (劝退)</a></li>
       </ul>
     </li>
+    <li><a href="#go项目的代码结构">go项目的代码结构</a>
+      <ul>
+        <li><a href="#项目结构">项目结构</a></li>
+        <li><a href="#文件语法结构">文件语法结构</a></li>
+        <li><a href="#go中的import-type-const--var-的声明结构">go中的import, type, const , var 的声明结构</a></li>
+        <li><a href="#go函数的语法树结构">go函数的语法树结构</a></li>
+        <li><a href="#数据和结构体等复合类型">数据和结构体等复合类型</a></li>
+        <li><a href="#复杂的字面值">复杂的字面值</a></li>
+        <li><a href="#复合表达式">复合表达式</a>
+          <ul>
+            <li><a href="#对ast进行类型检查">对AST进行类型检查</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#对ast的语义信息检查">对AST的语义信息检查</a></li>
+    <li><a href="#ast转换成ssa">AST转换成SSA</a>
+      <ul>
+        <li><a href="#初始化ssa配置initssaconfig">初始化SSA配置initssaconfig</a></li>
+        <li><a href="#遍历和替换">遍历和替换</a></li>
+        <li><a href="#ssa的生成">SSA的生成</a></li>
+        <li><a href="#机器代码的生成">机器代码的生成</a></li>
+      </ul>
+    </li>
+    <li><a href="#llvm的基础知识">LLVM的基础知识</a></li>
+    <li><a href="#go-汇编-劝退">go 汇编 (劝退)</a></li>
   </ul>
 </nav>
           </div>
@@ -139,95 +141,16 @@
 
 
     <div class="content">
-      <h1 id="an-overview-of-gos-tooling">an overview of go's tooling <a href="#an-overview-of-gos-tooling" class="anchor">🔗</a></h1><ul>
-<li>table of content</li>
-<li>installing tooling
-<ul>
-<li>$ GO111MODULE=on go get golang.org/x/tools/cmd/stresss</li>
-<li>go get -u, 强制使用网络去更新包和它的依赖包, 自动完成编译和安装 (git clone + go install)</li>
-</ul>
-</li>
-<li>viewing environment information
-<ul>
-<li>go env</li>
-<li>go env GOPATH GOOS GOARCH</li>
-<li>go help environment (go help get)</li>
-</ul>
-</li>
-<li>development
-<ul>
-<li>GOOS=windows go build
-<ul>
-<li>go build -gcflags=&quot;-m -l&quot; // 看变量分配在stack or heap</li>
-</ul>
-</li>
-<li>go run ./cmd/foo</li>
-<li>go run, go test, go build 可以静默添加外面依赖</li>
-<li>go get <a href="mailto:github.com/foo/bar@v1.2.3">github.com/foo/bar@v1.2.3</a> 也可以指定特别的版本号
-<ul>
-<li>go get -v 显示操作流程的日志及信息，方便检查错误</li>
-<li>go get -u 重新下载依赖包</li>
-<li>go get -d 只下载，不安装</li>
-<li>go get -insecure  允许使用不安全的 HTTP 方式进行下载操作</li>
-</ul>
-</li>
-<li>go list -m all</li>
-<li>go mod why -m golang.org/x/sys</li>
-<li>go mod graph</li>
-<li>go clean -modcache (cache: GOPATH/pkg/mod)</li>
-<li>gofmt -d -w -r 'Add -&gt; ADD' . 手动格式化代码</li>
-<li>go doc -src strings.Replace (view go documentation) , go doc fmt Printf</li>
-</ul>
-</li>
-<li>testing
-<ul>
-<li>go test ./foo/bar</li>
-<li>go clean -testcache</li>
-<li>go test -v -run=^TestFooBar$ .</li>
-<li>go test -cover ./...</li>
-<li>go test -run=^TestFooBar$ -count=500 . (stress testing)</li>
-<li>go test -covermode=count -coverprofile=/tmp/profile.out ./...</li>
-<li>go tool cover -html=/tmp/profile.out</li>
-</ul>
-</li>
-<li>pre_commit checks
-<ul>
-<li>gofmt -w -s -d .</li>
-<li>go vet foo.go</li>
-<li>golint foo.go</li>
-<li>go mod tidy, go mod verify</li>
-</ul>
-</li>
-<li>build and deployment
-<ul>
-<li>go clean -cache</li>
-<li>go install -&gt; $GOPATH/bin/demo</li>
-<li>go list -f '{{ .Name}}'</li>
-<li>go tool dist list (os/architecture)</li>
-<li>GOOS=linux GOARCH=amd64 go build -o=/tmp/linux_amd64/foo .</li>
-<li><a href="https://github.com/golang/go/wiki/WebAssembly" target="_blank" rel="noopener">https://github.com/golang/go/wiki/WebAssembly</a></li>
-</ul>
-</li>
-<li>diagnosing problems and making optimizations
-<ul>
-<li>go tool pprof --nodefraction=0.1  -http=:9999 /tmp/cpuprofile.out</li>
-<li>go tool trace
-<ul>
-<li>goroutine的时间阶段： Execution Time， Network Wait Time， Sync Block Time， Blocking Syscall Time， Scheduler Wait Time， GC Sweeping， GC Pause。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>//go: linkname localname importpath.name</li>
-</ul>
-<h1 id="实际编译器">实际编译器 <a href="#%e5%ae%9e%e9%99%85%e7%bc%96%e8%af%91%e5%99%a8" class="anchor">🔗</a></h1><p>编译器入口： src/cmd/compile/internal/gc/main.go#Main。<br>
-cmd/compile/internal/syntax 词法和语法分析
-<a href="https://golang.org/ref/spec" target="_blank" rel="noopener">词法分析</a></p>
-<p>cmd/compile/internal/gc 类型检查， 处理语法糖，改写关键字。</p>
-<p>后端转为为SSA。 生成中间代码cmd/compile/internal/gc.compileFunctions</p>
-<p>cmd/compile/internal/gc, cmd/compile/internal/ssa 将函数放入队列，协程并发生成中间代码。</p>
-<p>生成机器代码。 cmd/compile/internal/ssa , cmd/internal/obj
-scr/cmd/compile/internal 链接不同的指令集生成平台的机器码。</p>
+      <h1 id="实际编译器">实际编译器 <a href="#%e5%ae%9e%e9%99%85%e7%bc%96%e8%af%91%e5%99%a8" class="anchor">🔗</a></h1><p>编译器入口： src/cmd/compile/internal/gc/main.go#Main。<br></p>
+<ol>
+<li>cmd/compile/internal/syntax 词法和语法分析
+<a href="https://golang.org/ref/spec" target="_blank" rel="noopener">语法分析</a></li>
+<li>cmd/compile/internal/gc 类型检查， 处理语法糖，改写关键字。</li>
+<li>后端转为为SSA。 生成中间代码cmd/compile/internal/gc.compileFunctions
+，cmd/compile/internal/gc, cmd/compile/internal/ssa 将函数放入队列，协程并发生成中间代码。</li>
+<li>生成机器代码。 cmd/compile/internal/ssa , cmd/internal/obj
+scr/cmd/compile/internal 链接不同的指令集生成平台的机器码。</li>
+</ol>
 <h2 id="词法分析-和-语法分析">词法分析 和 语法分析 <a href="#%e8%af%8d%e6%b3%95%e5%88%86%e6%9e%90-%e5%92%8c-%e8%af%ad%e6%b3%95%e5%88%86%e6%9e%90" class="anchor">🔗</a></h2><p>词法分析器的主要结构src/cmd/compile/internal/syntax/scanner.go#scanner struct。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">scanner</span> <span style="color:#66d9ef">struct</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">source</span>
@@ -285,19 +208,18 @@ appendGroup 方法处理批量定义。<br></p>
 <p>FuncDecl: Name, FuncType, BlockStmt。 函数体是BlockStmt，Stmt数组组成。<br>
 Stmt是一个接口。14种声明。EmptyStmt, BlockStmt, SendStmt, LabeledStmt, ExprStmt, DeclStmt, AssignStmt, CallStmt, IfStmt, BranchStmt, ReturnStmt, ForStmt, SelectStmt。</p>
 <h2 id="go-抽象语法树ast">go 抽象语法树AST <a href="#go-%e6%8a%bd%e8%b1%a1%e8%af%ad%e6%b3%95%e6%a0%91ast" class="anchor">🔗</a></h2><p>golang程序的另一种语义等价是go的抽象语法树。<br>
-<a href="https://go.dev/ref/spec#Source_file_organization" target="_blank" rel="noopener">抽象语法树AST是基于每个文件独立进行生成的</a></p>
+<a href="https://go.dev/ref/spec#Source_file_organization" target="_blank" rel="noopener">抽象语法树AST是基于每个文件独立进行生成</a></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">SourceFile</span> = <span style="color:#a6e22e">PackageClause</span> <span style="color:#e6db74">&#34;;&#34;</span> {<span style="color:#a6e22e">ImportDecl</span> <span style="color:#e6db74">&#34;;&#34;</span>} {<span style="color:#a6e22e">TopLevelDecl</span> <span style="color:#e6db74">&#34;;&#34;</span>}
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span><span style="color:#e6db74">&#34;main.go&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#960050;background-color:#1e0010">SourceFile</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#960050;background-color:#1e0010">PackageName:</span> <span style="color:#f92672">&#34;main&#34;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#960050;background-color:#1e0010">ImportDecl:</span> <span style="color:#960050;background-color:#1e0010">[]Import{</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;fmt&#34;</span>,
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#e6db74">&#34;main.go&#34;</span>: <span style="color:#a6e22e">SourceFile</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">PackageName</span>: <span style="color:#e6db74">&#34;main&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">ImportDecl</span>: []<span style="color:#a6e22e">Import</span>{
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;fmt&#34;</span>,
 </span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    <span style="color:#960050;background-color:#1e0010">TopLevelDecl:</span> <span style="color:#960050;background-color:#1e0010">...</span>
-</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">}</span>
-</span></span></code></pre></div><p><a href="">golang的语法解释器使用 LALR(1)文法进行实现</a><br></p>
-<p><a href="">go tool</a>中的go fmt, go vet, go doc等命令都是基于go抽象语法树的分析工具。</p>
-<p>go/* 包是golang的库。</p>
-<p>go/token, go/scanner, go/parser, go/ast, go/ssa等源码包</p>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">TopLevelDecl</span>: <span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>golang的语法解释器使用 LALR(1)文法进行实现</p>
+<p>go tool中的go fmt, go vet, go doc等命令都是基于go抽象语法树的分析工具。</p>
+<p>外部使用go/token, go/scanner, go/parser, go/ast, go/ssa等源码包</p>
 <h3 id="go的词法分析-fileset结构">Go的词法分析， FileSet结构 <a href="#go%e7%9a%84%e8%af%8d%e6%b3%95%e5%88%86%e6%9e%90-fileset%e7%bb%93%e6%9e%84" class="anchor">🔗</a></h3><p>词法单元token包含了：25个关键词，用户自定义的标识符，运算符，分隔符，注释等。</p>
 <pre tabindex="0"><code>// 标识符的词法规则
 identifier := letter {letter | unicode_digit}
@@ -439,11 +361,11 @@ ast.Print(nil, expr)
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">vars</span>[<span style="color:#a6e22e">exprSpec</span>.<span style="color:#a6e22e">Name</span>]
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h3 id="go项目的代码结构">go项目的代码结构 <a href="#go%e9%a1%b9%e7%9b%ae%e7%9a%84%e4%bb%a3%e7%a0%81%e7%bb%93%e6%9e%84" class="anchor">🔗</a></h3><h4 id="项目结构">项目结构 <a href="#%e9%a1%b9%e7%9b%ae%e7%bb%93%e6%9e%84" class="anchor">🔗</a></h4><p>项目按目录（包）进行组织，一个包下包含多个源文件。<br></p>
+</span></span></code></pre></div><h1 id="go项目的代码结构">go项目的代码结构 <a href="#go%e9%a1%b9%e7%9b%ae%e7%9a%84%e4%bb%a3%e7%a0%81%e7%bb%93%e6%9e%84" class="anchor">🔗</a></h1><h2 id="项目结构">项目结构 <a href="#%e9%a1%b9%e7%9b%ae%e7%bb%93%e6%9e%84" class="anchor">🔗</a></h2><p>项目按目录（包）进行组织，一个包下包含多个源文件。<br></p>
 <p>go/parser#ParserDir解析一个目录下的多个包，返回map[string]<em>ast.Package。<br>
 go/parser#ParserFile解析单个源文件，返回</em>ast.File。<br>
 <em>ast.Package由多个</em>ast.File组成。</p>
-<h4 id="文件语法结构">文件语法结构 <a href="#%e6%96%87%e4%bb%b6%e8%af%ad%e6%b3%95%e7%bb%93%e6%9e%84" class="anchor">🔗</a></h4><p>go源文件只包含6种语法声明元素： <strong>package, import, type, const, var, func </strong>。<br>
+<h2 id="文件语法结构">文件语法结构 <a href="#%e6%96%87%e4%bb%b6%e8%af%ad%e6%b3%95%e7%bb%93%e6%9e%84" class="anchor">🔗</a></h2><p>go源文件只包含6种语法声明元素： <strong>package, import, type, const, var, func </strong>。<br>
 并且，通过每行开头的不同关键词能够区分开来不同的声明类型。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">File</span> <span style="color:#66d9ef">struct</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Doc</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">CommentGroup</span> 
@@ -456,7 +378,7 @@ go/parser#ParserFile解析单个源文件，返回</em>ast.File。<br>
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">Comments</span> []<span style="color:#f92672">*</span><span style="color:#a6e22e">CommentGroup</span>       <span style="color:#75715e">//
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
 </span></span></code></pre></div><p>go/ast#Print函数方便输出语法树。 go doc ast.Print。 ast.Walk也可遍历树。</p>
-<h3 id="go中的import-type-const--var-的声明结构">go中的import, type, const , var 的声明结构 <a href="#go%e4%b8%ad%e7%9a%84import-type-const--var-%e7%9a%84%e5%a3%b0%e6%98%8e%e7%bb%93%e6%9e%84" class="anchor">🔗</a></h3><p>import...</p>
+<h2 id="go中的import-type-const--var-的声明结构">go中的import, type, const , var 的声明结构 <a href="#go%e4%b8%ad%e7%9a%84import-type-const--var-%e7%9a%84%e5%a3%b0%e6%98%8e%e7%bb%93%e6%9e%84" class="anchor">🔗</a></h2><p>import...</p>
 <p>type MyInt int</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">TypeSpec</span> <span style="color:#66d9ef">struct</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Doc</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">CommentGroup</span>       <span style="color:#75715e">// 
@@ -474,7 +396,7 @@ go/parser#ParserFile解析单个源文件，返回</em>ast.File。<br>
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">Comment</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">CommentGroup</span>   <span style="color:#75715e">// 
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
 </span></span></code></pre></div><p>var Pi = 3.1415926 与 常量声明的语法规则一样，共用ValueSpec。</p>
-<h3 id="go函数的语法树结构">go函数的语法树结构 <a href="#go%e5%87%bd%e6%95%b0%e7%9a%84%e8%af%ad%e6%b3%95%e6%a0%91%e7%bb%93%e6%9e%84" class="anchor">🔗</a></h3><p>go中的概念： 方法和函数。 从语法规则可以看出 区别是没有接受者参数。</p>
+<h2 id="go函数的语法树结构">go函数的语法树结构 <a href="#go%e5%87%bd%e6%95%b0%e7%9a%84%e8%af%ad%e6%b3%95%e6%a0%91%e7%bb%93%e6%9e%84" class="anchor">🔗</a></h2><p>go中的概念： 方法和函数。 从语法规则可以看出 区别是没有接受者参数。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">FunctionDecl</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;func&#34;</span> <span style="color:#a6e22e">MethodName</span> <span style="color:#a6e22e">Signature</span> [<span style="color:#a6e22e">FunctionBody</span>]
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">MethodDecl</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;func&#34;</span> <span style="color:#a6e22e">Recevier</span> <span style="color:#a6e22e">MethodName</span> <span style="color:#a6e22e">Signature</span> [<span style="color:#a6e22e">FunctionBody</span>]
 </span></span><span style="display:flex;"><span>
@@ -485,10 +407,10 @@ go/parser#ParserFile解析单个源文件，返回</em>ast.File。<br>
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">Type</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">FuncType</span>     <span style="color:#75715e">// function signature
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">Body</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">BlockStmt</span>    <span style="color:#75715e">// function body
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
-</span></span></code></pre></div><h3 id="数据和结构体等复合类型">数据和结构体等复合类型 <a href="#%e6%95%b0%e6%8d%ae%e5%92%8c%e7%bb%93%e6%9e%84%e4%bd%93%e7%ad%89%e5%a4%8d%e5%90%88%e7%b1%bb%e5%9e%8b" class="anchor">🔗</a></h3><p>type Int1 pkg.int
+</span></span></code></pre></div><h2 id="数据和结构体等复合类型">数据和结构体等复合类型 <a href="#%e6%95%b0%e6%8d%ae%e5%92%8c%e7%bb%93%e6%9e%84%e4%bd%93%e7%ad%89%e5%a4%8d%e5%90%88%e7%b1%bb%e5%9e%8b" class="anchor">🔗</a></h2><p>type Int1 pkg.int
 type IntArr [2]int</p>
 <p>type InterfaceType struct {...} type StructType struct {}的语法节点相似。</p>
-<h3 id="复杂的字面值">复杂的字面值 <a href="#%e5%a4%8d%e6%9d%82%e7%9a%84%e5%ad%97%e9%9d%a2%e5%80%bc" class="anchor">🔗</a></h3><p>非基础字面值包含了 函数字面值 和 复合字面值。</p>
+<h2 id="复杂的字面值">复杂的字面值 <a href="#%e5%a4%8d%e6%9d%82%e7%9a%84%e5%ad%97%e9%9d%a2%e5%80%bc" class="anchor">🔗</a></h2><p>非基础字面值包含了 函数字面值 和 复合字面值。</p>
 <p>FunctionLit , FUncDecl区别？</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">expr</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">parser</span>.<span style="color:#a6e22e">ParseExpr</span>(<span style="color:#e6db74">`func() {}`</span>)
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">ast</span>.<span style="color:#a6e22e">Print</span>(<span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">expr</span>)
@@ -497,7 +419,7 @@ type IntArr [2]int</p>
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Type</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">FuncType</span>     <span style="color:#75715e">// functino type
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">Body</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">BlockStmt</span>    <span style="color:#75715e">//function body
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
-</span></span></code></pre></div><h3 id="复合表达式">复合表达式 <a href="#%e5%a4%8d%e5%90%88%e8%a1%a8%e8%be%be%e5%bc%8f" class="anchor">🔗</a></h3><p>语句块和语句。
+</span></span></code></pre></div><h2 id="复合表达式">复合表达式 <a href="#%e5%a4%8d%e5%90%88%e8%a1%a8%e8%be%be%e5%bc%8f" class="anchor">🔗</a></h2><p>语句块和语句。
 数据结构是程序状态的载体。
 语句的语法树最大特点是可以递归定义。类型的语法树不能递归定义自己。</p>
 <h3 id="对ast进行类型检查">对AST进行类型检查 <a href="#%e5%af%b9ast%e8%bf%9b%e8%a1%8c%e7%b1%bb%e5%9e%8b%e6%a3%80%e6%9f%a5" class="anchor">🔗</a></h3><p>go/types包。<br></p>
@@ -520,8 +442,8 @@ type IntArr [2]int</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">GOARCH</span>=<span style="color:#a6e22e">wasm</span> <span style="color:#a6e22e">GOOS</span>=<span style="color:#a6e22e">js</span> <span style="color:#66d9ef">go</span> <span style="color:#a6e22e">build</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">o</span> <span style="color:#a6e22e">lib</span>.<span style="color:#a6e22e">wasm</span> <span style="color:#a6e22e">main</span>.<span style="color:#66d9ef">go</span>
 </span></span></code></pre></div><p>类型检查的主要逻辑cmd/compile/internal/gc.typecheck， 主要在gc.typecheck1中。
 很大的switch。弱水三千，只取一瓢饮。 看其中的OMake, OTARRAY, OTMAP既可以了。</p>
-<h3 id="对ast的语义信息">对AST的语义信息 <a href="#%e5%af%b9ast%e7%9a%84%e8%af%ad%e4%b9%89%e4%bf%a1%e6%81%af" class="anchor">🔗</a></h3><h3 id="ast转换成ssa">AST转换成SSA <a href="#ast%e8%bd%ac%e6%8d%a2%e6%88%90ssa" class="anchor">🔗</a></h3><p>go/ssa包。</p>
-<p>ast经过go/types包完成语义分析生成types.Package对象后，进行ssa格式的转换。</p>
+<h1 id="对ast的语义信息检查">对AST的语义信息检查 <a href="#%e5%af%b9ast%e7%9a%84%e8%af%ad%e4%b9%89%e4%bf%a1%e6%81%af%e6%a3%80%e6%9f%a5" class="anchor">🔗</a></h1><h1 id="ast转换成ssa">AST转换成SSA <a href="#ast%e8%bd%ac%e6%8d%a2%e6%88%90ssa" class="anchor">🔗</a></h1><p>go/ssa包。
+ast经过go/types包完成语义分析生成types.Package对象后，进行ssa格式的转换。</p>
 <p>SSA主要用于表示函数内的指令。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Main</span>(<span style="color:#a6e22e">archInit</span> <span style="color:#66d9ef">func</span>(<span style="color:#f92672">*</span><span style="color:#a6e22e">Arch</span>)) {
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">initssaconfig</span>() <span style="color:#75715e">//初始化生成SSA的配置
@@ -533,17 +455,17 @@ type IntArr [2]int</p>
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">compileFunctions</span>()
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h4 id="初始化ssa配置initssaconfig">初始化SSA配置initssaconfig <a href="#%e5%88%9d%e5%a7%8b%e5%8c%96ssa%e9%85%8d%e7%bd%aeinitssaconfig" class="anchor">🔗</a></h4><p>1 ssa.NewTypes()初始化Types结构体。<br>
+</span></span></code></pre></div><h2 id="初始化ssa配置initssaconfig">初始化SSA配置initssaconfig <a href="#%e5%88%9d%e5%a7%8b%e5%8c%96ssa%e9%85%8d%e7%bd%aeinitssaconfig" class="anchor">🔗</a></h2><p>1 ssa.NewTypes()初始化Types结构体。<br>
 2 func NewPtr(elem *Type) *Type <br>
 3 cmd/compile/internal/ssa.NewConfig根据传入的arch 设置 生成中间代码和机器代码的函数，当前编译器使用的指针
 寄存器大小，可用寄存器列表，等编译选项。</p>
 <p>处理runtime.deferproc, runtime.newproc, runtime.growslice。初始化特定的ABI</p>
-<h4 id="遍历和替换">遍历和替换 <a href="#%e9%81%8d%e5%8e%86%e5%92%8c%e6%9b%bf%e6%8d%a2" class="anchor">🔗</a></h4><p>cmd/compile/internal/gc.walk 用于遍历AST将一些关键字和内建函数 转换为 函数调用。
+<h2 id="遍历和替换">遍历和替换 <a href="#%e9%81%8d%e5%8e%86%e5%92%8c%e6%9b%bf%e6%8d%a2" class="anchor">🔗</a></h2><p>cmd/compile/internal/gc.walk 用于遍历AST将一些关键字和内建函数 转换为 函数调用。
 例如panic, recover 转换为runtime.gopanic , runtime.gorecover。new替换为runtime.newobject函数。
 在src/cmd/compile/internal/gc/builtin/runtime.go中找到函数的签名。</p>
 <p>例如channel的转换过程。发送和接收，OSEND， ORECV。在cmd/compile/internal/gc.walkexpr根据节点类型进入不同分支，OSEND时改写OSEND子树，cmd/compile/internal/gc.mkcall1创建OCALL节点（包含了runtime.chansend1）。</p>
 <p>所以channel的底层实现，发送，接受，关闭的实现在runtime.chansend1, runtime.chanrecv1, runtime.closechan中。</p>
-<h4 id="ssa的生成">SSA的生成 <a href="#ssa%e7%9a%84%e7%94%9f%e6%88%90" class="anchor">🔗</a></h4><p>经过walk函数处理后， ast就不再改变了。</p>
+<h2 id="ssa的生成">SSA的生成 <a href="#ssa%e7%9a%84%e7%94%9f%e6%88%90" class="anchor">🔗</a></h2><p>经过walk函数处理后， ast就不再改变了。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">compileSSA</span>(<span style="color:#a6e22e">fn</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Node</span>, <span style="color:#a6e22e">worker</span> <span style="color:#66d9ef">int</span>) {
 </span></span><span style="display:flex;"><span>    <span style="color:#75715e">// inner: cmd/compile/internal/gc.state.stmtList将ast转为ssa
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// cmd/compile/internal/ssa.Compile 经历多次更新ssa中间代码
@@ -582,7 +504,7 @@ type IntArr [2]int</p>
 </span></span><span style="display:flex;"><span>    {<span style="color:#a6e22e">name</span>: <span style="color:#e6db74">&#34;trim&#34;</span>, <span style="color:#a6e22e">fn</span>: <span style="color:#a6e22e">trim</span>},
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">...</span>
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h3 id="机器代码的生成">机器代码的生成 <a href="#%e6%9c%ba%e5%99%a8%e4%bb%a3%e7%a0%81%e7%9a%84%e7%94%9f%e6%88%90" class="anchor">🔗</a></h3><p>ssa中间代码的最后阶段，Go函数体的代码转换成cmd/compile/internal/obj.Prog结构。</p>
+</span></span></code></pre></div><h2 id="机器代码的生成">机器代码的生成 <a href="#%e6%9c%ba%e5%99%a8%e4%bb%a3%e7%a0%81%e7%9a%84%e7%94%9f%e6%88%90" class="anchor">🔗</a></h2><p>ssa中间代码的最后阶段，Go函数体的代码转换成cmd/compile/internal/obj.Prog结构。</p>
 <ul>
 <li>cmd/compile/internal/ssa包
 <ul>
@@ -603,7 +525,7 @@ type IntArr [2]int</p>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>如果是x86架构，调用cmd/compile/internal/ssa.rewriteBlock386()。</p>
 <p>汇编代码由 cmd/internal/obj.Flushplist函数生成。Preprocess, Assemble。</p>
-<h2 id="llvm的基础知识">LLVM的基础知识 <a href="#llvm%e7%9a%84%e5%9f%ba%e7%a1%80%e7%9f%a5%e8%af%86" class="anchor">🔗</a></h2><h2 id="go-汇编-劝退">go 汇编 (劝退) <a href="#go-%e6%b1%87%e7%bc%96-%e5%8a%9d%e9%80%80" class="anchor">🔗</a></h2><p>go tool compile -S main.go &gt; main.S</p>
+<h1 id="llvm的基础知识">LLVM的基础知识 <a href="#llvm%e7%9a%84%e5%9f%ba%e7%a1%80%e7%9f%a5%e8%af%86" class="anchor">🔗</a></h1><h1 id="go-汇编-劝退">go 汇编 (劝退) <a href="#go-%e6%b1%87%e7%bc%96-%e5%8a%9d%e9%80%80" class="anchor">🔗</a></h1><p>go tool compile -S main.go &gt; main.S</p>
 <p>原文: <a href="https://jingwei.link/2018/07/01/runtime-of-goroutine-creation.html" target="_blank" rel="noopener">https://jingwei.link/2018/07/01/runtime-of-goroutine-creation.html</a></p>
 <p>ssa里的优化pass：https://github.com/golang/go/blob/acbe242f8a2cae8ef4749806291a37d23089b572/src/cmd/compile/internal/ssa/compile.go#L418</p>
 <p>Generate x86 Assembly with Go</p>

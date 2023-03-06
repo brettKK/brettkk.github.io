@@ -81,25 +81,6 @@
         
         <section class="item">
           <div>
-            <h1 class="title"><a href='/posts/golang/static-analysis-golang/origin_parser/'></a></h1>
-            <div class ="date">
-                <time datetime="0001-01-01 00:00:00 &#43;0000 UTC">Jan 1, 0001</time>  
-            </div>
-          </div>
-
-          
-              <div class="summary">go compiler 🔗 go compiler的实现入口在src/cmd/compile
-cmd/compile/internal/gc.Main 初始化ssa配置，cmd/compile/internal/gc.initssaconfig cmd/compile/internal/gc.funccompile 优化中间代码的过程在cmd/compile/internal/ssa.Compile cmd/internal/obj
-golang compiler
-go gccgo closed project tulgo open source llgo GopherJS TARDIS Go ssa --&gt; llgo --&gt; llvm module --&gt; llgo-build --&gt; executable github.</div>
-          
-
-        </section>
-    
-        
-        
-        <section class="item">
-          <div>
             <h1 class="title"><a href='/posts/leetcode/other/'></a></h1>
             <div class ="date">
                 <time datetime="0001-01-01 00:00:00 &#43;0000 UTC">Jan 1, 0001</time>  
@@ -152,6 +133,24 @@ type Node struct{ int num, next Node, } func createCircleLink(int n) Node{ head 
 隐函数的求导。
 导数的应用 🔗单调性，求极值，凹凸性（二阶导数）
 3 不定积分，定积分 🔗不定积分 🔗不定积分： 求函数f的全部原函数。</div>
+          
+
+        </section>
+    
+        
+        
+        <section class="item">
+          <div>
+            <h1 class="title"><a href='/posts/rust/startup/'></a></h1>
+            <div class ="date">
+                <time datetime="0001-01-01 00:00:00 &#43;0000 UTC">Jan 1, 0001</time>  
+            </div>
+          </div>
+
+          
+              <div class="summary">标准库 🔗字符在计算机内部时如何表示的？ Unicode兼容了ASCII包含全世界的所有字符，常用UTF-8编码，变长1到4个字节。
+字符类型char占4个字节。 rust中字符是unicode编码占4个字节。
+std::mem::size_of_val(&amp;&#39;中&#39;） // 4 std::mem::size_of_val(&#34;中&#34;.to_string().as_str()) // 3 。 let a_len = std::mem::size_of_val(&#34;中&#34;); println!(&#34;a_len={:?}&#34;, a_len); // 3 字符串不能想数组那样的索引访问？ 第i个字符 vs 第i个字节 for c in &#34;1234&#34;.chars() {...} vs for c in &#34;1234&#34;.</div>
           
 
         </section>
