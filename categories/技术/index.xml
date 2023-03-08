@@ -58,7 +58,7 @@
       <pubDate>Tue, 15 Nov 2022 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/rust/rust%E7%BC%96%E8%AF%91%E5%99%A8/</guid>
-      <description>text -&amp;gt; tokens -&amp;gt; ast -&amp;gt; hir -&amp;gt;mir -&amp;gt; llvm ir -&amp;gt; llvm -&amp;gt; 1110 ThinLTO, PGO 快速看下rust语言，ve</description>
+      <description>rustc 🔗text -&amp;gt; tokens -&amp;gt; ast -&amp;gt; hir -&amp;gt;mir -&amp;gt; llvm ir -&amp;gt; llvm -&amp;gt; 1110 ThinLTO, PGO 快速看下rust</description>
     </item>
     
     <item>
@@ -148,7 +148,7 @@
       <pubDate>Sat, 07 May 2022 18:54:41 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/golang/golang%E7%AE%97%E6%B3%95/</guid>
-      <description>堆 与 优先队列 🔗正则表达式的识别 🔗lru 🔗map + list skiplist 🔗typ</description>
+      <description>堆 与 优先队列 🔗type Heap struct { arr []int } 正则表达式的识别 🔗lru 🔗</description>
     </item>
     
     <item>
@@ -215,15 +215,6 @@
     </item>
     
     <item>
-      <title>go timer</title>
-      <link>http://brettkk.github.io/posts/golang/go_timer/</link>
-      <pubDate>Wed, 05 May 2021 18:34:48 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/golang/go_timer/</guid>
-      <description>Go提供了两种定时器，分为：一次性定时器、周期性定时器。 两种</description>
-    </item>
-    
-    <item>
       <title>linux shell 工具命令</title>
       <link>http://brettkk.github.io/posts/os/shell/</link>
       <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
@@ -270,10 +261,10 @@
     
     <item>
       <title>golang bug_fix</title>
-      <link>http://brettkk.github.io/posts/golang/golang_bug_fix/</link>
+      <link>http://brettkk.github.io/posts/golang/golang%E9%97%AE%E9%A2%98/</link>
       <pubDate>Tue, 04 May 2021 19:10:43 +0800</pubDate>
       
-      <guid>http://brettkk.github.io/posts/golang/golang_bug_fix/</guid>
+      <guid>http://brettkk.github.io/posts/golang/golang%E9%97%AE%E9%A2%98/</guid>
       <description>可以解决的问题 🔗遇到过的bug init() 函数滥用 函数功能是查询类的，</description>
     </item>
     
@@ -288,10 +279,10 @@
     
     <item>
       <title>golang compiler</title>
-      <link>http://brettkk.github.io/posts/golang/go_toolchain/</link>
+      <link>http://brettkk.github.io/posts/golang/golang%E7%BC%96%E8%AF%91%E5%99%A8/</link>
       <pubDate>Sat, 01 May 2021 18:54:41 +0800</pubDate>
       
-      <guid>http://brettkk.github.io/posts/golang/go_toolchain/</guid>
+      <guid>http://brettkk.github.io/posts/golang/golang%E7%BC%96%E8%AF%91%E5%99%A8/</guid>
       <description>实际编译器 🔗编译器入口： src/cmd/compile/internal/gc/main.go#Main cmd/compile/internal/syntax 词法和语法分析 cmd/compile/internal/gc 类型检查， 处理语</description>
     </item>
     

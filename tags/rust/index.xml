@@ -31,7 +31,7 @@
       <pubDate>Tue, 15 Nov 2022 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/rust/rust%E7%BC%96%E8%AF%91%E5%99%A8/</guid>
-      <description>text -&amp;gt; tokens -&amp;gt; ast -&amp;gt; hir -&amp;gt;mir -&amp;gt; llvm ir -&amp;gt; llvm -&amp;gt; 1110 ThinLTO, PGO 快速看下rust语言，ve</description>
+      <description>rustc 🔗text -&amp;gt; tokens -&amp;gt; ast -&amp;gt; hir -&amp;gt;mir -&amp;gt; llvm ir -&amp;gt; llvm -&amp;gt; 1110 ThinLTO, PGO 快速看下rust</description>
     </item>
     
     <item>
