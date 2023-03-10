@@ -9,10 +9,10 @@
     <lastBuildDate>Mon, 05 Apr 2021 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/tags/%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>字符串匹配KMP</title>
-      <link>http://brettkk.github.io/posts/leetcode/string/</link>
+      <link>http://brettkk.github.io/posts/golang/data_structure/string/</link>
       <pubDate>Mon, 05 Apr 2021 11:33:56 +0800</pubDate>
       
-      <guid>http://brettkk.github.io/posts/leetcode/string/</guid>
+      <guid>http://brettkk.github.io/posts/golang/data_structure/string/</guid>
       <description>字符串匹配算法 🔗为了加速字符串的匹配 KMP： input source string</description>
     </item>
     
