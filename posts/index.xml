@@ -359,6 +359,15 @@
     </item>
     
     <item>
+      <title>读书笔记</title>
+      <link>http://brettkk.github.io/posts/culture/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Mon, 05 Apr 2021 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/culture/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</guid>
+      <description>《重要的事情只有一件》 🔗 《血色浪漫》 🔗 《拆掉思维里的墙》 🔗 《</description>
+    </item>
+    
+    <item>
       <title>java 小结</title>
       <link>http://brettkk.github.io/posts/tools/java/</link>
       <pubDate>Fri, 05 Mar 2021 11:33:56 +0800</pubDate>
@@ -373,7 +382,7 @@
       <pubDate>Wed, 03 Mar 2021 18:34:48 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/store_db/log_structure_tree/</guid>
-      <description>lsm 基本想法 🔗使用场景， 写多读少，例如存调用链的服务。 应用：l</description>
+      <description>lsm 基本想法 🔗磁盘上的key/value存储, bytes -&amp;gt; bytes, order by key 使用</description>
     </item>
     
     <item>
