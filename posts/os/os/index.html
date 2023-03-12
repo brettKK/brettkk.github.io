@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          4524 words
+          4902 words
         </span>
         <span class="split">
           ·
@@ -181,7 +181,10 @@
 </ul>
 </li>
 </ul>
-<p>查看/dev下的设备文件mount到哪种文件系统的哪个目录下。</p>
+<p>查看/dev下的设备文件mount到哪种文件系统的哪个目录下。
+格式化文件系统与挂载<br>
+格式化文件系统相当于在块设备上创建一个文件系统 <code>mkfs.ext4 /dev/file</code>
+挂载则是将该文件系统激活（在操作系统目录树呈现） <code>mount /dev/file /mnt/ext4_test</code></p>
 <p>elf格式的文件？什么是可执行文件？<br>可执行文件是描述了状态机的初始状态 + 迁移的数据结构。</p>
 <h2 id="zero-copy">zero copy <a href="#zero-copy" class="anchor">🔗</a></h2><p><p class="markdown-image">
   <img src="/os/zero_copy.png" alt="image"  />
@@ -399,11 +402,8 @@ mmap。
 </code></pre>
 <h2 id="进程控制块pcb在内核中的结构">进程控制块pcb在内核中的结构 <a href="#%e8%bf%9b%e7%a8%8b%e6%8e%a7%e5%88%b6%e5%9d%97pcb%e5%9c%a8%e5%86%85%e6%a0%b8%e4%b8%ad%e7%9a%84%e7%bb%93%e6%9e%84" class="anchor">🔗</a></h2><p>task_struct结构体对应与进程相关的信息<br></p>
 <ul>
-<li>
-<p>创建进程 fork 子进程从父进程上继承了哪些内容？子进程与父进程的区别与联系</p>
-</li>
-<li>
-<p>fork() pthread_create() 最后在linux中都是调用do_fork， copy_process方法</p>
+<li>创建进程 fork 子进程从父进程上继承了哪些内容？子进程与父进程的区别与联系</li>
+<li>fork() pthread_create() 最后在linux中都是调用do_fork， copy_process方法
 <ul>
 <li>linux中创建线程与进程均需要走到copy——process方法</li>
 <li>进程与线程，对于系统来说都是task， 与task_struct对应</li>
@@ -415,15 +415,22 @@ mmap。
 </li>
 </ul>
 </li>
-<li>
-<p>lsof</p>
+</ul>
+<p>创建进程：fork -&gt; sys_fork -&gt; do_fork -&gt; copy_process<br>
+创建线程：pthread_create -&gt; clone -&gt; system_clone -&gt; do_fork -&gt; copy_process<br>
+实际创建进程和线程的内核函数copy_process 做了什么?
+clone_flags区分是进程的clone还是线程的clone
+dup_task_struct :  复制父进程的task_struct</p>
+<p>进程的状态： R 进程在 CPU 的就绪队列中，正在运行或者正在等待运行， S 可中断的睡眠状态。进程因为等待某个事件而被系统挂起。D 不可中断的睡眠状态， 进程不响应异步信号，内核的某些处理流程（正在跟硬件交互）是不能被打断的。Z ，子进程实际上已经结束了，但是父进程还没有回收它的资源。T， 暂停状态。</p>
+<p>cfs调度器  completely fair scheduler 处于R状态的进程均分cpu。红黑树，排序key是已消耗cpu的时间vruntime。</p>
+<ul>
+<li>lsof
 <ul>
 <li>lsof -p pid 进程打开的文件</li>
 <li>lsof -i:8080 打开某端口的进程</li>
 </ul>
 </li>
-<li>
-<p>查某个进程打开的端口号</p>
+<li>查某个进程打开的端口号
 <ul>
 <li>lsof -p pid|grep LISTEN</li>
 <li>netstat -nltp |grep pid</li>
