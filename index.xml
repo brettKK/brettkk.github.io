@@ -328,7 +328,7 @@
       <pubDate>Mon, 03 May 2021 18:34:48 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/golang/gomemorymodel/</guid>
-      <description>go的内存模型规定： 在哪些情况下，一个golang中读取的变</description>
+      <description>内存模型的规定 🔗 go的内存模型规定： 在哪些条件下，一个gol</description>
     </item>
     
     <item>

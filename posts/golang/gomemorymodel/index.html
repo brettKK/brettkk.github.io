@@ -8,7 +8,7 @@
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
 <meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta name="description" content="go的内存模型规定： 在哪些情况下，一个golang中读取的变">
+<meta name="description" content="内存模型的规定 🔗 go的内存模型规定： 在哪些条件下，一个gol">
 <meta name="generator" content="Hugo 0.103.1" />
 
 
@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          557 words
+          579 words
         </span>
         <span class="split">
           ·
@@ -91,6 +91,15 @@
           <div>
               <nav id="TableOfContents">
   <ul>
+    <li><a href="#内存模型的规定">内存模型的规定</a>
+      <ul>
+        <li><a href="#程序的初始化-init-方法的执行顺序">程序的初始化 init 方法的执行顺序</a></li>
+        <li><a href="#goroutine">goroutine</a></li>
+        <li><a href="#channel通信">channel通信</a></li>
+      </ul>
+    </li>
+    <li><a href="#locks">Locks</a></li>
+    <li><a href="#atmoic">atmoic</a></li>
     <li><a href="#reference">reference</a></li>
   </ul>
 </nav>
@@ -104,53 +113,27 @@
 
 
     <div class="content">
-      <p>go的内存模型规定： 在哪些情况下，一个golang中读取的变量时可以观测到另一个golang对同一变量的新写的值。</p>
-<ul>
-<li>init 方法的执行顺序
-<p class="markdown-image">
+      <h1 id="内存模型的规定">内存模型的规定 <a href="#%e5%86%85%e5%ad%98%e6%a8%a1%e5%9e%8b%e7%9a%84%e8%a7%84%e5%ae%9a" class="anchor">🔗</a></h1><p>  go的内存模型规定： 在哪些条件下，一个golang中读取的变量时可以观测到另一个golang对同一变量的新写的值。<br>
+  序列化访问可以使用<code>channel</code>, <code>sync package</code>。<br></p>
+<h2 id="程序的初始化-init-方法的执行顺序">程序的初始化 init 方法的执行顺序 <a href="#%e7%a8%8b%e5%ba%8f%e7%9a%84%e5%88%9d%e5%a7%8b%e5%8c%96-init-%e6%96%b9%e6%b3%95%e7%9a%84%e6%89%a7%e8%a1%8c%e9%a1%ba%e5%ba%8f" class="anchor">🔗</a></h2><p><p class="markdown-image">
   <img src="/golang/init_func_order.png" alt="image"  />
-</p></li>
-<li>goroutine创建, 创建一个golang happens before 新golang的执行</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a</span> <span style="color:#66d9ef">string</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">f</span>() {
-</span></span><span style="display:flex;"><span>  print(<span style="color:#a6e22e">a</span>)
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">hello</span>() {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">a</span> = <span style="color:#e6db74">&#34;hello, world&#34;</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">go</span> <span style="color:#a6e22e">f</span>() <span style="color:#75715e">// 等到f执行时打印hello world
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
-</span></span></code></pre></div><ul>
-<li>goroutine销毁 没有happen before任何程序里的代码</li>
-</ul>
+</p></p>
+<pre tabindex="0"><code>If a package p imports package q, 
+the completion of q&#39;s init functions happens before the start of any of p&#39;s.
+</code></pre><h2 id="goroutine">goroutine <a href="#goroutine" class="anchor">🔗</a></h2><p>goroutine销毁 没有happen before任何程序里的代码</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a</span> <span style="color:#66d9ef">string</span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">hello</span>() {
 </span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {<span style="color:#a6e22e">a</span> = <span style="color:#e6db74">&#34;mike&#34;</span>}
 </span></span><span style="display:flex;"><span>  print(<span style="color:#a6e22e">a</span>) <span style="color:#75715e">// 不确定的值
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
-</span></span></code></pre></div><ul>
-<li>
-<p>channel通信</p>
-<ul>
+</span></span></code></pre></div><h2 id="channel通信">channel通信 <a href="#channel%e9%80%9a%e4%bf%a1" class="anchor">🔗</a></h2><ul>
 <li>写channel的动作 happen before 从channel的读</li>
 <li>关闭channel的动作 happen before 从channel中接收零值</li>
 <li>从非缓冲channel接收的动作 happen before 写channel</li>
 </ul>
-</li>
-<li>
-<p>Locks</p>
-<ul>
-<li>sync.Mutex and sync.RWMutex的unlock happen before lock</li>
-</ul>
-</li>
-<li>
-<p>Once  单例对象</p>
-<ul>
-<li>第一次once.Do(f) happen before 后面无数次调用Do(f)</li>
-</ul>
-</li>
-</ul>
-<p>硬件上规定的内存一致性模型<br></p>
+<h1 id="locks">Locks <a href="#locks" class="anchor">🔗</a></h1><p>sync.Mutex and sync.RWMutex的unlock happen before lock</p>
+<p>Once单例对象, 第一次once.Do(f) happen before 后面无数次调用Do(f)</p>
+<h1 id="atmoic">atmoic <a href="#atmoic" class="anchor">🔗</a></h1><p>硬件上规定的内存一致性模型<br></p>
 <ul>
 <li>顺序一致模型（sequential consistency model，SC）</li>
 <li>完全存储定序（total store order，TSO）
@@ -167,7 +150,8 @@
 <li>宽松存储模型（relax memory order，RMO）</li>
 </ul>
 <h1 id="reference">reference <a href="#reference" class="anchor">🔗</a></h1><p>[1]<a href="https://go.dev/ref/mem" target="_blank" rel="noopener">The Go Memory Model, Version of June 6, 2022</a>
-[2]<a href="https://research.swtch.com/mm" target="_blank" rel="noopener"> Memory Models written by Russ Cox</a></p>
+[2]<a href="https://research.swtch.com/mm" target="_blank" rel="noopener"> Memory Models written by Russ Cox</a>
+[3]<a href="https://www.hpl.hp.com/techreports/2008/HPL-2008-56.pdf" target="_blank" rel="noopener"> Foundations of the C++ Concurrency Memory Model</a></p>
 
     </div>
 
