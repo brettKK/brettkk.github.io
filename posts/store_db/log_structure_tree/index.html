@@ -70,13 +70,13 @@
           ·
         </span>
         <span>
-          347 words
+          515 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          1 minute read
+          2 minute read
         </span>
     </div>
 
@@ -94,6 +94,7 @@
     <li><a href="#lsm-基本想法">lsm 基本想法</a></li>
     <li><a href="#磁盘上的数据结构">磁盘上的数据结构</a>
       <ul>
+        <li><a href="#level-db磁盘数据结构">level db磁盘数据结构</a></li>
         <li><a href="#写入">写入</a></li>
         <li><a href="#读取">读取</a></li>
         <li><a href="#更新">更新</a></li>
@@ -125,6 +126,68 @@
 </li>
 </ul>
 <h1 id="磁盘上的数据结构">磁盘上的数据结构 <a href="#%e7%a3%81%e7%9b%98%e4%b8%8a%e7%9a%84%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84" class="anchor">🔗</a></h1><p>暂时不考虑<code>level</code>, <code>merge</code>, <code>compaction</code>, <code>logs</code>, 只考虑磁盘上的不可变的、排序的、字符串表的文件格式。</p>
+<h2 id="level-db磁盘数据结构">level db磁盘数据结构 <a href="#level-db%e7%a3%81%e7%9b%98%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84" class="anchor">🔗</a></h2><p>排序的表结构。
+处理table结构的时候有两种思路： hash VS sorting。</p>
+<pre tabindex="0"><code>// leveldb/db/dumpfile.cc#DumpTable()
+table format  default=2MB sorted by key
+
+data block1
+data block2
+data block3
+
+meta index
+index block
+footer(magicnumber, index.size, index.offset, meta index.size, meta index.offset)
+
+
+data block format
+
+entry(shared bytes, unshared bytes, value_length, key_delta, value)
+restart （对key重新做前缀压缩， 默认16个entry，平衡解码和存储的开销）
+type(是否压缩，压缩算法)
+CRC32
+</code></pre><p>entry format key的前缀压缩：</p>
+<table>
+<thead>
+<tr>
+<th>entries</th>
+<th>entrycontent</th>
+<th>shared</th>
+<th>unshared</th>
+<th>key_delta</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>entry1</td>
+<td>compute</td>
+<td>0</td>
+<td>7</td>
+<td>compute</td>
+</tr>
+<tr>
+<td>entry2</td>
+<td>computer</td>
+<td>7</td>
+<td>1</td>
+<td>r</td>
+</tr>
+<tr>
+<td>entry3</td>
+<td>computes</td>
+<td>7</td>
+<td>1</td>
+<td>s</td>
+</tr>
+<tr>
+<td>entry4</td>
+<td>computing</td>
+<td>6</td>
+<td>3</td>
+<td>ing</td>
+</tr>
+</tbody>
+</table>
 <h2 id="写入">写入 <a href="#%e5%86%99%e5%85%a5" class="anchor">🔗</a></h2><p>写数据时， 写入内存有序树结构memtable, 并更新布隆过滤器。</p>
 <p>当memtable累积到阈值，一次性写入segment内部有序文件到磁盘。</p>
 <p>后台有专门的定期执行compact操作的线程合并segment文件。</p>
