@@ -8,7 +8,7 @@
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
 <meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta name="description" content="lsm 基本想法 🔗磁盘上的key/value存储, bytes -&gt; bytes, order by key 使用">
+<meta name="description" content="lsm 基本想法 🔗 磁盘上的key/value存储, bytes -&gt; bytes, order by key 使用">
 <meta name="generator" content="Hugo 0.103.1" />
 
 
@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          546 words
+          530 words
         </span>
         <span class="split">
           ·
@@ -113,21 +113,17 @@
 
 
     <div class="content">
-      <h1 id="lsm-基本想法">lsm 基本想法 <a href="#lsm-%e5%9f%ba%e6%9c%ac%e6%83%b3%e6%b3%95" class="anchor">🔗</a></h1><p>磁盘上的key/value存储, bytes -&gt; bytes, order by key</p>
-<p>使用场景， 写多读少，例如存调用链的服务。</p>
-<p>应用：levelDB, RocksDB, HBase, TiDB, Cassandra<br></p>
-<ul>
-<li>为什么lsm
+      <h1 id="lsm-基本想法">lsm 基本想法 <a href="#lsm-%e5%9f%ba%e6%9c%ac%e6%83%b3%e6%b3%95" class="anchor">🔗</a></h1><p>  磁盘上的key/value存储, bytes -&gt; bytes, order by key<br>
+  使用场景， 写多读少。 <br></p>
 <ul>
 <li>分层，有序，面向磁盘的数据结构</li>
 <li>批量写，顺序写对硬件驱动友好</li>
 <li>顺序操作高吞吐</li>
 </ul>
-</li>
-</ul>
-<h1 id="磁盘上的数据结构">磁盘上的数据结构 <a href="#%e7%a3%81%e7%9b%98%e4%b8%8a%e7%9a%84%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84" class="anchor">🔗</a></h1><p>暂时不考虑<code>level</code>, <code>merge</code>, <code>compaction</code>, <code>logs</code>, 只考虑磁盘上的不可变的、排序的、字符串表的文件格式。</p>
-<h2 id="level-db磁盘数据结构">level db磁盘数据结构 <a href="#level-db%e7%a3%81%e7%9b%98%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84" class="anchor">🔗</a></h2><p>排序的表结构。
-处理table结构的时候有两种思路： hash VS sorting。</p>
+<p>  应用：levelDB, RocksDB, HBase, TiDB, Cassandra<br></p>
+<h1 id="磁盘上的数据结构">磁盘上的数据结构 <a href="#%e7%a3%81%e7%9b%98%e4%b8%8a%e7%9a%84%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84" class="anchor">🔗</a></h1><p>  暂时不考虑<code>level</code>, <code>merge</code>, <code>compaction</code>, <code>logs</code>, 只考虑磁盘上的不可变的、排序的、字符串表的文件格式。</p>
+<h2 id="level-db磁盘数据结构">level db磁盘数据结构 <a href="#level-db%e7%a3%81%e7%9b%98%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84" class="anchor">🔗</a></h2><p>  排序的表结构。
+  处理table结构的时候有两种思路： hash VS sorting。</p>
 <pre tabindex="0"><code>// leveldb/db/dumpfile.cc#DumpTable()
 table format  default=2MB sorted by key
 
@@ -188,11 +184,11 @@ CRC32
 </tr>
 </tbody>
 </table>
-<h2 id="写入">写入 <a href="#%e5%86%99%e5%85%a5" class="anchor">🔗</a></h2><p>写数据时， 写入内存有序树结构memtable, 并更新布隆过滤器。</p>
-<p>当memtable累积到阈值，一次性写入segment内部有序文件到磁盘。</p>
-<p>后台有专门的定期执行compact操作的线程合并segment文件。</p>
-<h2 id="读取">读取 <a href="#%e8%af%bb%e5%8f%96" class="anchor">🔗</a></h2><p>查询布隆过滤器，若不存在则一定是不存在； 若存在，按照从新到老的顺序依次查询每个segment。</p>
-<h2 id="更新">更新 <a href="#%e6%9b%b4%e6%96%b0" class="anchor">🔗</a></h2><h2 id="删除">删除 <a href="#%e5%88%a0%e9%99%a4" class="anchor">🔗</a></h2><p>删除时是覆盖写value为特殊标识位，而不是真执行查找并删除。</p>
+<h2 id="写入">写入 <a href="#%e5%86%99%e5%85%a5" class="anchor">🔗</a></h2><p>  写数据时， 写入内存有序树结构memtable, 并更新布隆过滤器。<br>
+  当memtable累积到阈值，一次性写入segment内部有序文件到磁盘。<br>
+  后台有专门的定期执行compact操作的线程合并segment文件。<br></p>
+<h2 id="读取">读取 <a href="#%e8%af%bb%e5%8f%96" class="anchor">🔗</a></h2><p>  查询布隆过滤器，若不存在则一定是不存在； 若存在，按照从新到老的顺序依次查询每个segment。</p>
+<h2 id="更新">更新 <a href="#%e6%9b%b4%e6%96%b0" class="anchor">🔗</a></h2><h2 id="删除">删除 <a href="#%e5%88%a0%e9%99%a4" class="anchor">🔗</a></h2><p>  删除时是覆盖写value为特殊标识位，而不是真执行查找并删除。</p>
 
     </div>
 

@@ -49,7 +49,7 @@
       <pubDate>Wed, 03 Mar 2021 18:34:48 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/store_db/log_structure_tree/</guid>
-      <description>lsm 基本想法 🔗磁盘上的key/value存储, bytes -&amp;gt; bytes, order by key 使用</description>
+      <description>lsm 基本想法 🔗 磁盘上的key/value存储, bytes -&amp;gt; bytes, order by key 使用</description>
     </item>
     
   </channel>
