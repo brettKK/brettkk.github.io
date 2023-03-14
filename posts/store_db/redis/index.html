@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          1583 words
+          1617 words
         </span>
         <span class="split">
           ·
@@ -110,6 +110,7 @@
     <li><a href="#持久化">持久化</a></li>
     <li><a href="#事务与lua">事务与lua</a></li>
     <li><a href="#redis实现令牌桶限流">redis实现令牌桶限流</a></li>
+    <li><a href="#redis-和-mysql-如何保证数据一致性">redis 和 mysql 如何保证数据一致性</a></li>
   </ul>
 </nav>
           </div>
@@ -234,6 +235,7 @@ redis中SIGUSR1信号关闭子进程的aof,rdb子进程。</p>
 <h1 id="redis实现令牌桶限流">redis实现令牌桶限流 <a href="#redis%e5%ae%9e%e7%8e%b0%e4%bb%a4%e7%89%8c%e6%a1%b6%e9%99%90%e6%b5%81" class="anchor">🔗</a></h1><p>  在redis中维护List对戏那个，作为令牌桶。<br>
   生产者每隔interval秒放令牌桶中放r个令牌， lpush。
   消费者brpop从list中获取令牌。</p>
+<h1 id="redis-和-mysql-如何保证数据一致性">redis 和 mysql 如何保证数据一致性 <a href="#redis-%e5%92%8c-mysql-%e5%a6%82%e4%bd%95%e4%bf%9d%e8%af%81%e6%95%b0%e6%8d%ae%e4%b8%80%e8%87%b4%e6%80%a7" class="anchor">🔗</a></h1><p>  在满足实时性的条件下，只有最终一致性方案。<br></p>
 
     </div>
 
