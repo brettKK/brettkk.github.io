@@ -31,7 +31,7 @@
       <pubDate>Mon, 05 Dec 2022 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/store_db/etcd/</guid>
-      <description>etcd使用场景 🔗 共享配置 服务发现 选主 分布式队列 分布式锁 etcd arch</description>
+      <description>etcd使用场景 🔗 共享配置 服务发现 选主 分布式锁 读多写少。 etcd arch</description>
     </item>
     
     <item>
@@ -338,6 +338,15 @@
       
       <guid>http://brettkk.github.io/posts/golang/golang%E7%BC%96%E8%AF%91%E5%99%A8/</guid>
       <description>实际编译器 🔗编译器入口： src/cmd/compile/internal/gc/main.go#Main cmd/compile/internal/syntax 词法和语法分析 cmd/compile/internal/gc 类型检查， 处理语</description>
+    </item>
+    
+    <item>
+      <title>rb-tree</title>
+      <link>http://brettkk.github.io/posts/golang/data_structure/red_black_tree/</link>
+      <pubDate>Mon, 05 Apr 2021 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/golang/data_structure/red_black_tree/</guid>
+      <description>红黑树的定义 🔗红黑树： 每个节点不是红色就是黑色 根节点（第一个</description>
     </item>
     
     <item>

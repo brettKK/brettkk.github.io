@@ -8,7 +8,7 @@
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
 <meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta name="description" content="etcd使用场景 🔗 共享配置 服务发现 选主 分布式队列 分布式锁 etcd arch">
+<meta name="description" content="etcd使用场景 🔗 共享配置 服务发现 选主 分布式锁 读多写少。 etcd arch">
 <meta name="generator" content="Hugo 0.103.1" />
 
 
@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          681 words
+          706 words
         </span>
         <span class="split">
           ·
@@ -93,6 +93,7 @@
   <ul>
     <li><a href="#etcd使用场景">etcd使用场景</a></li>
     <li><a href="#etcd-arch">etcd arch</a></li>
+    <li><a href="#etcd中的事务隔离级别的实现">etcd中的事务隔离级别的实现</a></li>
   </ul>
 </nav>
           </div>
@@ -109,52 +110,47 @@
 <li>共享配置</li>
 <li>服务发现</li>
 <li>选主</li>
-<li>分布式队列</li>
 <li>分布式锁</li>
 </ul>
+<p>  读多写少。</p>
 <h1 id="etcd-arch">etcd arch <a href="#etcd-arch" class="anchor">🔗</a></h1><p><img src="/store_db/etcd_arch.png" width = "600" /><br></p>
-<p>etcd中的事务隔离级别的实现。
-在server的mvcc基础上， 在client上事务。
-client v3中concurrency包。
-mutex.go 分布式锁的实现
-stm.go  在客户端实现的事务框架</p>
+<h1 id="etcd中的事务隔离级别的实现">etcd中的事务隔离级别的实现 <a href="#etcd%e4%b8%ad%e7%9a%84%e4%ba%8b%e5%8a%a1%e9%9a%94%e7%a6%bb%e7%ba%a7%e5%88%ab%e7%9a%84%e5%ae%9e%e7%8e%b0" class="anchor">🔗</a></h1><p>  分别在server的mvcc基础上、在client上事务（stm.go  在客户端实现的事务框架）上实现隔离级别。<br>
+client v3中concurrency包。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span><span style="color:#75715e">//stm（software transactional memory）
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">STM</span> <span style="color:#66d9ef">interface</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Get</span>(<span style="color:#a6e22e">key</span>)  <span style="color:#75715e">// 返回value，并insert到txn的read set中。
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">Put</span>(<span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">value</span>) <span style="color:#75715e">//写kv，并insert到txn的write set中。
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#f92672">......</span>
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>struct stm 实现了repeat read隔离级别，STM接口。
-rset readset， wset writeset， conflicts func() []v3.Cmp 冲突检测。
-读请求： 先以本地为准，没有则去server获取，并缓存，
-以此来实现可重复读。
-可重复读的实现关键点：
-1. readset缓存已经读过的数据，保持可重复读。
-2. readset中数据的modrevision与server中的modrevision
-相同，保持事务读到的数据是server中最新的。
-读已提交（read committed）实现上 仅仅是conflicts没有做
-检测。</p>
-<p>MVCC 的实现： 内存treeIndex（B树）， boltdb（B+树）</p>
-<pre><code>treeIndex 原理： 
-B树 （google开源的go版本codebase）
-key在内存中的布局
-节点的定义：
-</code></pre>
-<p>type treeIndex struct{
-tree *btree.BTree
-}</p>
-<pre><code>type KeyIndex struct {
-key []byte 
-modified reversion         // 最后一次修改的版本
-generations []generation // 多次轮的create delete
-</code></pre>
-<p>}</p>
-<p>type generation {
-ver int //修改次数
-created revision
-revs []revision //一轮从创建到删除的过程
-}</p>
-<p>leader 选举</p>
+</span></span></code></pre></div><p>  struct stm实现了repeat read隔离级别，STM接口。<br>
+  读请求： 先以本地为准，没有则去server获取，并缓存，以此来实现可重复读。</p>
+<p>  可重复读的实现点：</p>
+<ol>
+<li>readset缓存已经读过的数据，保持可重复读。</li>
+<li>readset中数据的modrevision与server中的modrevision相同，保持事务读到的数据是server中最新的。</li>
+<li>事务提交时做冲突检测。rset readset， wset writeset， conflicts func() []v3.Cmp 。</li>
+</ol>
+<p>  读已提交（read committed）实现上 仅仅是conflicts没有做检测。</p>
+<p>  MVCC 的实现： 内存treeIndex（B树）， boltdb（B+树）</p>
+<p>treeIndex 原理： B树 （google开源的go版本codebase）
+key在内存中的布局， 节点的定义：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">treeIndex</span> <span style="color:#66d9ef">struct</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">tree</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">btree</span>.<span style="color:#a6e22e">BTree</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">KeyIndex</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">key</span> []<span style="color:#66d9ef">byte</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">modified</span> <span style="color:#a6e22e">reversion</span>         <span style="color:#75715e">// 最后一次修改的版本
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">generations</span> []<span style="color:#a6e22e">generation</span> <span style="color:#75715e">// 多次轮的create delete
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">generation</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">ver</span> <span style="color:#66d9ef">int</span> <span style="color:#75715e">//修改次数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">created</span> <span style="color:#a6e22e">revision</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">revs</span> []<span style="color:#a6e22e">revision</span> <span style="color:#75715e">//一轮从创建到删除的过程
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p>  mutex.go 分布式锁的实现</p>
+<p>  leader 选举</p>
 <ul>
 <li>发起投票
 <ul>

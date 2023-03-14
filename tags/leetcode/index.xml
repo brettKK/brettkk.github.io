@@ -8,6 +8,15 @@
     <language>zh-cn</language>
     <lastBuildDate>Mon, 05 Apr 2021 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/tags/leetcode/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>rb-tree</title>
+      <link>http://brettkk.github.io/posts/golang/data_structure/red_black_tree/</link>
+      <pubDate>Mon, 05 Apr 2021 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/golang/data_structure/red_black_tree/</guid>
+      <description>红黑树的定义 🔗红黑树： 每个节点不是红色就是黑色 根节点（第一个</description>
+    </item>
+    
+    <item>
       <title>字符串匹配KMP</title>
       <link>http://brettkk.github.io/posts/golang/data_structure/string/</link>
       <pubDate>Mon, 05 Apr 2021 11:33:56 +0800</pubDate>

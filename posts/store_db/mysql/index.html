@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          2064 words
+          2085 words
         </span>
         <span class="split">
           ·
@@ -188,7 +188,8 @@
 </ul>
 </li>
 </ul>
-<h2 id="锁">锁 <a href="#%e9%94%81" class="anchor">🔗</a></h2><ul>
+<h2 id="锁">锁 <a href="#%e9%94%81" class="anchor">🔗</a></h2><p>参考 官网 <code>mysql reference manual</code>, <code>innoDB Locking</code>。<br></p>
+<ul>
 <li>
 <p>InnoDB 检索数据走索引是行锁，不走索引是表锁。</p>
 </li>
@@ -197,7 +198,7 @@
 <ul>
 <li>Record Lockx 对索引项加锁，锁定一条记录</li>
 <li>Gap Lockx 锁定一个范围，不包含记录本身</li>
-<li>Next-Key Lock = gap + record lock, 锁定一个范围 并锁定记录本身</li>
+<li>Next-Key Lock = gap + record lock, 锁定一个范围 并锁定记录本身 左开右闭 <code>(]</code></li>
 </ul>
 </li>
 <li>
