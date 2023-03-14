@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          515 words
+          546 words
         </span>
         <span class="split">
           ·
@@ -136,14 +136,14 @@ data block2
 data block3
 
 meta index
-index block
+index block（index1(last key, offset, size), index2, index3）
 footer(magicnumber, index.size, index.offset, meta index.size, meta index.offset)
 
 
 data block format
 
 entry(shared bytes, unshared bytes, value_length, key_delta, value)
-restart （对key重新做前缀压缩， 默认16个entry，平衡解码和存储的开销）
+restart （对key重新做前缀压缩， 默认16个entry，平衡解码时间和存储空间的开销）
 type(是否压缩，压缩算法)
 CRC32
 </code></pre><p>entry format key的前缀压缩：</p>
