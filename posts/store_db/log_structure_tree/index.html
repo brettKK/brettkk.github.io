@@ -124,6 +124,9 @@
 <h1 id="磁盘上的数据结构">磁盘上的数据结构 <a href="#%e7%a3%81%e7%9b%98%e4%b8%8a%e7%9a%84%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84" class="anchor">🔗</a></h1><p>  暂时不考虑<code>level</code>, <code>merge</code>, <code>compaction</code>, <code>logs</code>, 只考虑磁盘上的不可变的、排序的、字符串表的文件格式。</p>
 <h2 id="level-db磁盘数据结构">level db磁盘数据结构 <a href="#level-db%e7%a3%81%e7%9b%98%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84" class="anchor">🔗</a></h2><p>  排序的表结构。
   处理table结构的时候有两种思路： hash VS sorting。</p>
+<p><p class="markdown-image">
+  <img src="/store_db/leveldb_ldb%e6%96%87%e4%bb%b6%e6%a0%bc%e5%bc%8f.svg" alt="image"  />
+</p></p>
 <pre tabindex="0"><code>// leveldb/db/dumpfile.cc#DumpTable()
 table format  default=2MB sorted by key
 

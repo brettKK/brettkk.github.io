@@ -455,17 +455,26 @@ std::mem::size_of_val(&amp;amp;&amp;#39;中&amp;#39;） // 4 std::mem::size_of_v
     
     <item>
       <title></title>
+      <link>http://brettkk.github.io/posts/store_db/kafka/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/store_db/kafka/</guid>
+      <description>系统解耦。
+流量控制。
+什么时候会丢消息？</description>
+    </item>
+    
+    <item>
+      <title></title>
       <link>http://brettkk.github.io/posts/todo_list/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>http://brettkk.github.io/posts/todo_list/</guid>
       <description>要了几天饱饭就不记得西北风啥味了
-自己创建作品，下面的东西行不通： 刷题，数据库存储， 云原生方面， 重度AI训练。
-可能行得通： 视频，游戏， 教程， web等 + rust + typescript + html + css + react。
-计算机软件 = 存储（tidb，tikv，rocksdb）， 计算（zero knoledge）， 网络（tokio） 工作内容相关方面： 规则引擎grule[11.1]，
-工作流引擎（提一下就行）
-向量存储Faiss。
-密码方面： 零知识信任的代码库，spartan rust。</description>
+自己创建作品，下面的东西行不通： 刷题， 数据库存储， 云原生方面， 重度AI训练。
+普通人很难用chatGPT来赚钱，基本上是当韭菜被收割了，也不可能做出chatGPT, 需要上万块的GPU。 可能行得通： 视频，游戏， 教程， 轻度AI训练（某个细分垂直领域的chatGPT）,web等 + rust + typescript + html + css + react。
+计算机软件 = 存储（tidb，tikv，rocksdb）， 计算（zero knoledge）， 网络（tokio） 工作内容相关方面：
+规则引擎grule[11.1]。</description>
     </item>
     
   </channel>
