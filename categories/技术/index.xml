@@ -148,7 +148,7 @@
       <pubDate>Sat, 07 May 2022 18:54:41 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/golang/golang%E7%AE%97%E6%B3%95/</guid>
-      <description>堆 与 优先队列 🔗type Heap struct { arr []int } 正则表达式的识别 🔗lru 🔗</description>
+      <description>堆 与 优先队列 🔗import &amp;#34;fmt&amp;#34; type Heap struct { Data []int N int } func NewHeap() heap { return heap{ Data:</description>
     </item>
     
     <item>

@@ -8,7 +8,7 @@
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
 <meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta name="description" content="堆 与 优先队列 🔗type Heap struct { arr []int } 正则表达式的识别 🔗lru 🔗">
+<meta name="description" content="堆 与 优先队列 🔗import &#34;fmt&#34; type Heap struct { Data []int N int } func NewHeap() heap { return heap{ Data:">
 <meta name="generator" content="Hugo 0.103.1" />
 
 
@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          1178 words
+          1405 words
         </span>
         <span class="split">
           ·
@@ -107,10 +107,84 @@
 
 
     <div class="content">
-      <h1 id="堆-与-优先队列">堆 与 优先队列 <a href="#%e5%a0%86-%e4%b8%8e-%e4%bc%98%e5%85%88%e9%98%9f%e5%88%97" class="anchor">🔗</a></h1><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Heap</span> <span style="color:#66d9ef">struct</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">arr</span> []<span style="color:#66d9ef">int</span>
+      <h1 id="堆-与-优先队列">堆 与 优先队列 <a href="#%e5%a0%86-%e4%b8%8e-%e4%bc%98%e5%85%88%e9%98%9f%e5%88%97" class="anchor">🔗</a></h1><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Heap</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Data</span> []<span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">N</span> <span style="color:#66d9ef">int</span>
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h1 id="正则表达式的识别">正则表达式的识别 <a href="#%e6%ad%a3%e5%88%99%e8%a1%a8%e8%be%be%e5%bc%8f%e7%9a%84%e8%af%86%e5%88%ab" class="anchor">🔗</a></h1><h1 id="lru">lru <a href="#lru" class="anchor">🔗</a></h1><p>map + list</p>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">NewHeap</span>() <span style="color:#a6e22e">heap</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">heap</span>{
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">Data</span>: make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">0</span>),
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">N</span>: <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 入堆
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">h</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">heap</span>) <span style="color:#a6e22e">Add</span>(<span style="color:#a6e22e">elem</span> <span style="color:#66d9ef">int</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">N</span><span style="color:#f92672">++</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">Data</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">Data</span> =  append(<span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">Data</span>, <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">elem</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>	} <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">Data</span> = append(<span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">Data</span>, <span style="color:#a6e22e">elem</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// Upper Change heap
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">UpperChange</span>(len(<span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">Data</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">h</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">heap</span>) <span style="color:#a6e22e">UpperChange</span>(<span style="color:#a6e22e">index</span> <span style="color:#66d9ef">int</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">index</span> &gt; <span style="color:#ae81ff">1</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">parent</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">getParent</span>(<span style="color:#a6e22e">index</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">Data</span>[<span style="color:#a6e22e">parent</span>] &gt; <span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">Data</span>[<span style="color:#a6e22e">index</span>] {
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>		} <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">swap</span>(<span style="color:#a6e22e">parent</span>, <span style="color:#a6e22e">index</span>)
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">index</span> = <span style="color:#a6e22e">parent</span>
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 出堆
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">h</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">heap</span>) <span style="color:#a6e22e">DelMax</span>() <span style="color:#66d9ef">int</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">Data</span>) &lt; <span style="color:#ae81ff">1</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>	} <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">max</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">Data</span>[<span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">Data</span>[<span style="color:#ae81ff">1</span>] = <span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">Data</span>[len(<span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">Data</span>) <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">N</span><span style="color:#f92672">--</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">Data</span> = <span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">Data</span>[:len(<span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">Data</span>) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">//down change
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">DownChange</span>(<span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">max</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">h</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">heap</span>) <span style="color:#a6e22e">DownChange</span>(<span style="color:#a6e22e">index</span> <span style="color:#66d9ef">int</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">getLeftChld</span>(<span style="color:#a6e22e">index</span>) <span style="color:#f92672">&lt;=</span> <span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">N</span> <span style="color:#f92672">&amp;&amp;</span><span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">getLeftChld</span>(<span style="color:#a6e22e">index</span>) <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">getRightChld</span>(<span style="color:#a6e22e">index</span>) <span style="color:#f92672">&lt;=</span> <span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">N</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">getRightChld</span>(<span style="color:#a6e22e">index</span>) <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">1</span>{
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">cur</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">getLeftChld</span>(<span style="color:#a6e22e">index</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">Data</span>[<span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">getRightChld</span>(<span style="color:#a6e22e">index</span>)] &gt; <span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">Data</span>[<span style="color:#a6e22e">cur</span>] {
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">cur</span> = <span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">getRightChld</span>(<span style="color:#a6e22e">index</span>)
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">swap</span>(<span style="color:#a6e22e">index</span>, <span style="color:#a6e22e">cur</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">index</span> = <span style="color:#a6e22e">cur</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">h</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">heap</span>) <span style="color:#a6e22e">getParent</span>(<span style="color:#a6e22e">chld</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">chld</span> <span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">h</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">heap</span>) <span style="color:#a6e22e">getLeftChld</span>(<span style="color:#a6e22e">parent</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">N</span> &lt; <span style="color:#a6e22e">parent</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">parent</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">h</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">heap</span>) <span style="color:#a6e22e">getRightChld</span>(<span style="color:#a6e22e">parent</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">N</span> &lt; <span style="color:#a6e22e">parent</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">parent</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h1 id="正则表达式的识别">正则表达式的识别 <a href="#%e6%ad%a3%e5%88%99%e8%a1%a8%e8%be%be%e5%bc%8f%e7%9a%84%e8%af%86%e5%88%ab" class="anchor">🔗</a></h1><p><code>ken thompson</code></p>
+<h1 id="lru">lru <a href="#lru" class="anchor">🔗</a></h1><p>map + list</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">LinkNode</span> <span style="color:#66d9ef">struct</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">val</span> <span style="color:#66d9ef">int</span> 
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">pre</span>, <span style="color:#a6e22e">next</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">LinkNode</span>
