@@ -107,6 +107,24 @@
     </item>
     
     <item>
+      <title>计算机程序 等价于 状态机</title>
+      <link>http://brettkk.github.io/posts/os/state_machine/</link>
+      <pubDate>Sat, 05 Nov 2022 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/os/state_machine/</guid>
+      <description>计算机的本质 🔗软件、程序可以很复杂。但是计算机的本质还是冯诺</description>
+    </item>
+    
+    <item>
+      <title>前端</title>
+      <link>http://brettkk.github.io/posts/tools/%E5%89%8D%E7%AB%AF/</link>
+      <pubDate>Mon, 05 Sep 2022 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/tools/%E5%89%8D%E7%AB%AF/</guid>
+      <description>html 🔗css 🔗描述html中标签的样式格式。 盒子模型： 外边距，</description>
+    </item>
+    
+    <item>
       <title>区块链技术与应用 -- 学习</title>
       <link>http://brettkk.github.io/posts/tools/block_chain/</link>
       <pubDate>Mon, 05 Sep 2022 11:33:56 +0800</pubDate>
@@ -176,15 +194,6 @@
       
       <guid>http://brettkk.github.io/posts/tools/pkg_tools/</guid>
       <description>画图工具 🔗 draw.io （加载速度慢） xournal （操作不方便） excalidraw （本地local</description>
-    </item>
-    
-    <item>
-      <title>计算机程序 等价于 状态机</title>
-      <link>http://brettkk.github.io/posts/os/state_machine/</link>
-      <pubDate>Wed, 05 Jan 2022 11:33:56 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/os/state_machine/</guid>
-      <description>计算机的本质 🔗软件、程序可以很复杂。但是计算机的本质还是冯诺</description>
     </item>
     
     <item>
