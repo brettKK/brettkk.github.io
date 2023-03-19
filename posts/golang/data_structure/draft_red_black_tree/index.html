@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<html lang="zh-cn">
+  <head>
+    <title>rb-tree | brettkk</title>
+
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
+<meta name="viewport" content="width=device-width,minimum-scale=1">
+<meta name="description" content="红黑树的定义 🔗红黑树： 每个节点不是红色就是黑色 根节点（第一个">
+<meta name="generator" content="Hugo 0.103.1" />
+
+
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+<link href="https://cdn.bootcss.com/highlight.js/9.15.10/styles/zenburn.min.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<link rel="stylesheet" href="http://brettkk.github.io/css/syntax.css" />
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js" integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+
+
+
+
+  </head>
+
+  <body>
+    <nav class="navigation">
+	
+		<a href="/"> <span class="arrow">←</span>Home</a>
+	
+	<a href="/posts">Archive</a>
+	<a href="/tags">Tags</a>
+	<a href="/about">About</a>
+
+	
+
+	
+</nav>
+
+
+    <main class="main">
+      
+
+<section id="single">
+    <h1 class="title">rb-tree</h1>
+
+    <div class="tip">
+        <time datetime="2021-04-05 11:33:56 &#43;0800 CST">Apr 5, 2021</time>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          1687 words
+        </span>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          4 minute read
+        </span>
+    </div>
+
+    
+    
+        
+  
+    <aside class="toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
+          <div>
+              <nav id="TableOfContents">
+  <ul>
+    <li><a href="#红黑树的定义">红黑树的定义</a>
+      <ul>
+        <li><a href="#操作">操作</a>
+          <ul>
+            <li><a href="#插入节点">插入节点</a>
+              <ul>
+                <li><a href="#名词与概念">名词与概念。</a></li>
+                <li><a href="#左旋">左旋</a></li>
+                <li><a href="#比较好理解的插入实现">比较好理解的插入实现</a></li>
+              </ul>
+            </li>
+            <li><a href="#插入-wiki上的递归实现">插入 wiki上的递归实现</a>
+              <ul>
+                <li><a href="#insert-case1">insert case1</a></li>
+                <li><a href="#insert-case2">insert case2</a></li>
+                <li><a href="#insert-case3">insert case3</a></li>
+                <li><a href="#insert-case4">insert case4</a></li>
+                <li><a href="#insert-case5">insert case5</a></li>
+              </ul>
+            </li>
+            <li><a href="#删除节点">删除节点</a></li>
+          </ul>
+        </li>
+        <li><a href="#参考">参考</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+          </div>
+      </details>
+    </aside>
+  
+
+
+    
+
+
+    <div class="content">
+      <h1 id="红黑树的定义">红黑树的定义 <a href="#%e7%ba%a2%e9%bb%91%e6%a0%91%e7%9a%84%e5%ae%9a%e4%b9%89" class="anchor">🔗</a></h1><p><a href="https://zh.wikipedia.org/wiki/%E7%BA%A2%E9%BB%91%E6%A0%91" target="_blank" rel="noopener">红黑树</a>：</p>
+<ol>
+<li>每个节点不是红色就是黑色</li>
+<li>根节点（第一个节点）是黑色</li>
+<li>叶子结点都是黑色</li>
+<li>一定没有连在一起的红色节点 （每个红色节点的两个子节点都是黑色）</li>
+<li>从任一节点到其每个叶子的所有简单路径都包含相同数目的黑色节点</li>
+</ol>
+<h2 id="操作">操作 <a href="#%e6%93%8d%e4%bd%9c" class="anchor">🔗</a></h2><p>主要涉及：插入，删除和查找。<br>
+红黑树是二叉搜索树BST，所以查找与BST相同。 插入和删除节点可能会导致不符合红黑树的性质，调整过程稍微复杂。</p>
+<h3 id="插入节点">插入节点 <a href="#%e6%8f%92%e5%85%a5%e8%8a%82%e7%82%b9" class="anchor">🔗</a></h3><p>过程： 1 以二叉树搜索树的方式插入新增红色节点node。 <br>
+2 如果node的parent节点是黑色的，很完美，红黑树的性质维持，END插入过程。<br>
+3 如果node的parent节点是红色的，红色节点连在一起，违反性质4。通过颜色调换（color flips）和树旋转来调整<br></p>
+<h4 id="名词与概念">名词与概念。 <a href="#%e5%90%8d%e8%af%8d%e4%b8%8e%e6%a6%82%e5%bf%b5" class="anchor">🔗</a></h4><pre tabindex="0"><code>         G
+     P        U
+ N    
+</code></pre><p>插入的节点标为N，N的父节点标为P，N的祖父节点标为G，N的叔父节点标为U。</p>
+<p>左旋： 左旋当前的节点则节点会变成左孩子。</p>
+<p>右旋： 右旋当前的节点则节点会变成右孩子。</p>
+<h4 id="左旋">左旋 <a href="#%e5%b7%a6%e6%97%8b" class="anchor">🔗</a></h4><pre tabindex="0"><code>/* 
+ * 对红黑树的节点(x)进行左旋转
+ *
+ * 左旋示意图(对节点x进行左旋)：
+ *      px                              px
+ *     /                               /
+ *    x                               y                
+ *   /  \      --(左旋)--&gt;           / \                #
+ *  lx   y                          x  ry     
+ *     /   \                       /  \
+ *    ly   ry                     lx  ly  
+ *
+ *
+ */
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">rbtree_left_rotate</span>(RBRoot <span style="color:#f92672">*</span>root, Node <span style="color:#f92672">*</span>x)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">// 设置x的右孩子为y
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>   Node <span style="color:#f92672">*</span>y <span style="color:#f92672">=</span> x<span style="color:#f92672">-&gt;</span>right;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">// 将 “y的左孩子” 设为 “x的右孩子”；
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>   <span style="color:#75715e">// 如果y的左孩子非空，将 “x” 设为 “y的左孩子的父亲”
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>   x<span style="color:#f92672">-&gt;</span>right <span style="color:#f92672">=</span> y<span style="color:#f92672">-&gt;</span>left;
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">if</span> (y<span style="color:#f92672">-&gt;</span>left <span style="color:#f92672">!=</span> NULL)
+</span></span><span style="display:flex;"><span>       y<span style="color:#f92672">-&gt;</span>left<span style="color:#f92672">-&gt;</span>parent <span style="color:#f92672">=</span> x;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">// 将 “x的父亲” 设为 “y的父亲”
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>   y<span style="color:#f92672">-&gt;</span>parent <span style="color:#f92672">=</span> x<span style="color:#f92672">-&gt;</span>parent;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">if</span> (x<span style="color:#f92672">-&gt;</span>parent <span style="color:#f92672">==</span> NULL)
+</span></span><span style="display:flex;"><span>   {
+</span></span><span style="display:flex;"><span>       <span style="color:#75715e">//tree = y;            // 如果 “x的父亲” 是空节点，则将y设为根节点
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>       root<span style="color:#f92672">-&gt;</span>node <span style="color:#f92672">=</span> y;            <span style="color:#75715e">// 如果 “x的父亲” 是空节点，则将y设为根节点
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>   }
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>   {
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">if</span> (x<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>left <span style="color:#f92672">==</span> x)
+</span></span><span style="display:flex;"><span>           x<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>left <span style="color:#f92672">=</span> y;    <span style="color:#75715e">// 如果 x是它父节点的左孩子，则将y设为“x的父节点的左孩子”
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>       <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>           x<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>right <span style="color:#f92672">=</span> y;    <span style="color:#75715e">// 如果 x是它父节点的左孩子，则将y设为“x的父节点的左孩子”
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>   }
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">// 将 “x” 设为 “y的左孩子”
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>   y<span style="color:#f92672">-&gt;</span>left <span style="color:#f92672">=</span> x;
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">// 将 “x的父节点” 设为 “y”
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>   x<span style="color:#f92672">-&gt;</span>parent <span style="color:#f92672">=</span> y;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h4 id="比较好理解的插入实现">比较好理解的插入实现 <a href="#%e6%af%94%e8%be%83%e5%a5%bd%e7%90%86%e8%a7%a3%e7%9a%84%e6%8f%92%e5%85%a5%e5%ae%9e%e7%8e%b0" class="anchor">🔗</a></h4><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> t_red_black_node {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">enum</span> {red, black} color;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> data <span style="color:#75715e">// void *item;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    t_red_black_node <span style="color:#f92672">*</span>left, <span style="color:#f92672">*</span>right, <span style="color:#f92672">*</span>parent;
+</span></span><span style="display:flex;"><span>} Node;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> t_red_black {
+</span></span><span style="display:flex;"><span>    Node <span style="color:#f92672">*</span>root;
+</span></span><span style="display:flex;"><span>} Tree;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">bst_insert</span>(Tree <span style="color:#f92672">*</span>T, Node <span style="color:#f92672">*</span>x) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> T<span style="color:#f92672">-&gt;</span>root <span style="color:#f92672">==</span> NULL {
+</span></span><span style="display:flex;"><span>        T<span style="color:#f92672">-&gt;</span>root <span style="color:#f92672">=</span> x;
+</span></span><span style="display:flex;"><span>        T<span style="color:#f92672">-&gt;</span>root<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">=</span> black;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    Node <span style="color:#f92672">*</span>cur <span style="color:#f92672">=</span> T<span style="color:#f92672">-&gt;</span>root;
+</span></span><span style="display:flex;"><span>    Node <span style="color:#f92672">*</span>parent;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (cur <span style="color:#f92672">!=</span> NULL) {
+</span></span><span style="display:flex;"><span>        parent <span style="color:#f92672">=</span> cur
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (cur<span style="color:#f92672">-&gt;</span>data <span style="color:#f92672">&gt;</span> x<span style="color:#f92672">-&gt;</span>data) {
+</span></span><span style="display:flex;"><span>            cur <span style="color:#f92672">=</span> cur<span style="color:#f92672">-&gt;</span>left;
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>            cur <span style="color:#f92672">=</span> cur <span style="color:#f92672">-&gt;</span> right;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    x<span style="color:#f92672">-&gt;</span>parent <span style="color:#f92672">=</span> parent;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (parent<span style="color:#f92672">-&gt;</span>data <span style="color:#f92672">&gt;</span> x<span style="color:#f92672">-&gt;</span>data) {
+</span></span><span style="display:flex;"><span>        parent<span style="color:#f92672">-&gt;</span>left <span style="color:#f92672">=</span> x;
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>        parent<span style="color:#f92672">-&gt;</span>right <span style="color:#f92672">=</span> x;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 先向插入bst一样插入新增节点，然后fixup到rb-tree
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">rb_insert</span>(Tree <span style="color:#f92672">*</span>T, Node <span style="color:#f92672">*</span>x) {
+</span></span><span style="display:flex;"><span>    bst_insert(T, x);
+</span></span><span style="display:flex;"><span>    x<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">=</span> red;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> ( (x <span style="color:#f92672">!=</span> T<span style="color:#f92672">-&gt;</span>root) <span style="color:#f92672">&amp;&amp;</span> (x<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">==</span> red) ) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (x<span style="color:#f92672">-&gt;</span>parent <span style="color:#f92672">==</span> x<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>left) {
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// parent在Grand parent的左边
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            uncle <span style="color:#f92672">=</span> x<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>right;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (uncle<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">==</span> red) {
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">// uncle 是红色， 颜色反转，x move up to grand parent
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                x<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">=</span> black;
+</span></span><span style="display:flex;"><span>                uncle<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">=</span> black;
+</span></span><span style="display:flex;"><span>                x<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">=</span> red;
+</span></span><span style="display:flex;"><span>                x <span style="color:#f92672">=</span> x<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>parent;
+</span></span><span style="display:flex;"><span>            } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">// uncle 是黑色
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                <span style="color:#66d9ef">if</span> (x <span style="color:#f92672">==</span> x<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>right) {
+</span></span><span style="display:flex;"><span>                    <span style="color:#75715e">//x 是 parent的右孩子， x move up to parent, left rotate
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                    x <span style="color:#f92672">=</span> x<span style="color:#f92672">-&gt;</span>parent
+</span></span><span style="display:flex;"><span>                    left_rotate(T, x);
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>                x<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">=</span> black;
+</span></span><span style="display:flex;"><span>                x<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-</span>color <span style="color:#f92672">=</span> red;
+</span></span><span style="display:flex;"><span>                right_rotate(T, x<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>parent);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }<span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// parent在Grand parent的右边
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            uncle <span style="color:#f92672">=</span>  x<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>left;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (uncle<span style="color:#f92672">-</span>color <span style="color:#f92672">==</span> red) {
+</span></span><span style="display:flex;"><span>                x<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">=</span> black;
+</span></span><span style="display:flex;"><span>                uncle<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">=</span> black;
+</span></span><span style="display:flex;"><span>                x<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">=</span> red;
+</span></span><span style="display:flex;"><span>                x <span style="color:#f92672">=</span> x<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>parent;
+</span></span><span style="display:flex;"><span>            } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> ( x <span style="color:#f92672">==</span> x<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>left) {
+</span></span><span style="display:flex;"><span>                    x <span style="color:#f92672">=</span> x<span style="color:#f92672">-&gt;</span>parent;
+</span></span><span style="display:flex;"><span>                    right_rotate(T, x);
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>                x<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">=</span> black;
+</span></span><span style="display:flex;"><span>                x<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">=</span>red;
+</span></span><span style="display:flex;"><span>                left_rotate(T, x<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>parent);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    T<span style="color:#f92672">-&gt;</span>root<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">=</span> black;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="插入-wiki上的递归实现">插入 wiki上的递归实现 <a href="#%e6%8f%92%e5%85%a5-wiki%e4%b8%8a%e7%9a%84%e9%80%92%e5%bd%92%e5%ae%9e%e7%8e%b0" class="anchor">🔗</a></h3><h4 id="insert-case1">insert case1 <a href="#insert-case1" class="anchor">🔗</a></h4><p>新节点N位于树的根上，没有父节点。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">insert_case1</span>(node <span style="color:#f92672">*</span>n){
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">if</span>(n<span style="color:#f92672">-&gt;</span>parent <span style="color:#f92672">==</span> NULL)
+</span></span><span style="display:flex;"><span>         n<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">=</span> BLACK;
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>         insert_case2 (n);
+</span></span><span style="display:flex;"><span> }
+</span></span></code></pre></div><h4 id="insert-case2">insert case2 <a href="#insert-case2" class="anchor">🔗</a></h4><p>新节点N有父亲节点，且新节点的父节点P是黑色。 红黑树的性质维持。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">insert_case2</span>(node <span style="color:#f92672">*</span>n){
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">if</span>(n<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">==</span> BLACK)
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">return</span>; <span style="color:#75715e">/* 树仍旧有效*/</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>         insert_case3 (n);
+</span></span><span style="display:flex;"><span> }
+</span></span></code></pre></div><p>后续的case3， 4， 5，新节点的父节点为红色时的过程。 <br></p>
+<h4 id="insert-case3">insert case3 <a href="#insert-case3" class="anchor">🔗</a></h4><p>如果父节点P和叔父节点U二者都是红色。<br>
+过程： 重绘为parent和uncle为黑色并重绘祖父节点G为红色，操作节点指向Grand Parent转到case1。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">insert_case3</span>(node <span style="color:#f92672">*</span>n){
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">if</span>(uncle(n) <span style="color:#f92672">!=</span> NULL <span style="color:#f92672">&amp;&amp;</span> uncle (n)<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">==</span> RED) {
+</span></span><span style="display:flex;"><span>         n<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">=</span> BLACK;
+</span></span><span style="display:flex;"><span>         uncle (n)<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">=</span> BLACK;
+</span></span><span style="display:flex;"><span>         grandparent (n)<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">=</span> RED;
+</span></span><span style="display:flex;"><span>         insert_case1(grandparent(n));
+</span></span><span style="display:flex;"><span>     }
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>         insert_case4 (n);
+</span></span><span style="display:flex;"><span> }
+</span></span></code></pre></div><p>在余下的情形下，我们假定父节点P是其祖父G的左子节点。如果它是右子节点，情形4和情形5中的左和右应当对调<br></p>
+<h4 id="insert-case4">insert case4 <a href="#insert-case4" class="anchor">🔗</a></h4><p>父节点P是红色而叔父节点U是黑色或缺少，并且新节点N是其父节点P的右子节点而父节点P又是其父节点的左子节点。<br>
+过程：进行一次左旋转调换新节点和其父节点的角色。按情形5处理以前的父节点P以解决仍然失效的性质4。<br></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">insert_case4</span>(node <span style="color:#f92672">*</span>n){
+</span></span><span style="display:flex;"><span>     <span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">                   Grand
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">         parent
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">                N     
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     */</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">if</span>(n <span style="color:#f92672">==</span> n<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>right <span style="color:#f92672">&amp;&amp;</span> n<span style="color:#f92672">-&gt;</span>parent <span style="color:#f92672">==</span> grandparent(n)<span style="color:#f92672">-&gt;</span>left) {
+</span></span><span style="display:flex;"><span>         rotate_left(n);
+</span></span><span style="display:flex;"><span>         n <span style="color:#f92672">=</span> n<span style="color:#f92672">-&gt;</span>left;
+</span></span><span style="display:flex;"><span>     } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span>(n <span style="color:#f92672">==</span> n<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>left <span style="color:#f92672">&amp;&amp;</span> n<span style="color:#f92672">-&gt;</span>parent <span style="color:#f92672">==</span> grandparent(n)<span style="color:#f92672">-&gt;</span>right) {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            Grand
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">                    parent
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">                  N     
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    */</span>
+</span></span><span style="display:flex;"><span>         rotate_right(n);
+</span></span><span style="display:flex;"><span>         n <span style="color:#f92672">=</span> n<span style="color:#f92672">-&gt;</span>right;
+</span></span><span style="display:flex;"><span>     }
+</span></span><span style="display:flex;"><span>     insert_case5 (n);
+</span></span><span style="display:flex;"><span> }
+</span></span></code></pre></div><h4 id="insert-case5">insert case5 <a href="#insert-case5" class="anchor">🔗</a></h4><p>父节点P是红色而叔父节点U是黑色或缺少，新节点N是其父节点的左子节点，而父节点P又是其父节点G的左子节点。<br>
+过程：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">insert_case5</span>(node <span style="color:#f92672">*</span>n){
+</span></span><span style="display:flex;"><span>     n<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">=</span> BLACK;
+</span></span><span style="display:flex;"><span>     grandparent (n)<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">=</span> RED;
+</span></span><span style="display:flex;"><span>     <span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">             Grand
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        parent
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    N    
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     */</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">if</span>(n <span style="color:#f92672">==</span> n<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>left <span style="color:#f92672">&amp;&amp;</span> n<span style="color:#f92672">-&gt;</span>parent <span style="color:#f92672">==</span> grandparent(n)<span style="color:#f92672">-&gt;</span>left) {
+</span></span><span style="display:flex;"><span>         rotate_right(n<span style="color:#f92672">-&gt;</span>parent);
+</span></span><span style="display:flex;"><span>     } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            Grand
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">                    parent
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">                            N
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        */</span>
+</span></span><span style="display:flex;"><span>         <span style="color:#75715e">/* Here, n == n-&gt;parent-&gt;right &amp;&amp; n-&gt;parent == grandparent (n)-&gt;right */</span>
+</span></span><span style="display:flex;"><span>         rotate_left(n<span style="color:#f92672">-&gt;</span>parent);
+</span></span><span style="display:flex;"><span>     }
+</span></span><span style="display:flex;"><span> }
+</span></span></code></pre></div><h3 id="删除节点">删除节点 <a href="#%e5%88%a0%e9%99%a4%e8%8a%82%e7%82%b9" class="anchor">🔗</a></h3><p>...</p>
+<h2 id="参考">参考 <a href="#%e5%8f%82%e8%80%83" class="anchor">🔗</a></h2><p>[1]<a href="https://www.cnblogs.com/skywang12345/p/3624177.html" target="_blank" rel="noopener"> 红黑树C语言的实现</a>
+[2]<a href="https://zh.wikipedia.org/wiki/%E7%BA%A2%E9%BB%91%E6%A0%91" target="_blank" rel="noopener"> wiki</a>
+[3][ 红黑树插入过程] (<a href="https://www.cs.auckland.ac.nz/software/AlgAnim/red_black_op.html" target="_blank" rel="noopener">https://www.cs.auckland.ac.nz/software/AlgAnim/red_black_op.html</a>)
+[3]<a href=""> linux kernel rbtree</a>
+[4]<a href="https://www.cs.auckland.ac.nz/software/AlgAnim/red_black.html" target="_blank" rel="noopener"> </a></p>
+
+    </div>
+
+    
+        <div class="tags">
+            
+                <a href="http://brettkk.github.io/tags/leetcode">leetcode</a>
+            
+        </div>
+    
+    
+    
+
+</section>
+
+
+    </main>
+    
+    <footer id="footer">
+    
+
+    <script src="https://utteranc.es/client.js"
+repo="brettKK/brettkk.github.io"
+issue-term="title"
+theme="github-light"
+crossorigin="anonymous"
+async>
+</script>  
+
+    <div class="copyright">
+    
+       © Copyright 
+       2023 
+       <span class="split">
+        <svg fill="#bbbbbb" width="15" height="15" version="1.1" id="heart-15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 15 15">
+  <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>
+</svg>
+       </span>
+       
+    
+    </div>
+
+    
+      <div class="powerby">
+        Powered by <a href='http://www.gohugo.io/'>Hugo</a> Theme By <a href='https://github.com/nodejh/hugo-theme-cactus-plus'>nodejh</a>
+      </div>
+    
+</footer>
+
+
+
+
+  </body>
+</html>
