@@ -70,13 +70,13 @@
           ·
         </span>
         <span>
-          4902 words
+          5088 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          10 minute read
+          11 minute read
         </span>
     </div>
 
@@ -94,6 +94,7 @@
     <li><a href="#资料">资料</a></li>
     <li><a href="#文件系统">文件系统</a>
       <ul>
+        <li><a href="#进程与文件">进程与文件</a></li>
         <li><a href="#zero-copy">zero copy</a></li>
         <li><a href="#page-cache">page cache</a></li>
       </ul>
@@ -185,6 +186,13 @@
 格式化文件系统与挂载<br>
 格式化文件系统相当于在块设备上创建一个文件系统 <code>mkfs.ext4 /dev/file</code>
 挂载则是将该文件系统激活（在操作系统目录树呈现） <code>mount /dev/file /mnt/ext4_test</code></p>
+<h2 id="进程与文件">进程与文件 <a href="#%e8%bf%9b%e7%a8%8b%e4%b8%8e%e6%96%87%e4%bb%b6" class="anchor">🔗</a></h2><p>分三层：
+<code>file descriptor table</code>： 存了文件的一个状态（<code>FD_CLOEXEC</code>）<br>
+<code>file entry table</code>: 文件的状态（Nonblock, append, direct），存了文件的读写offset。<br>
+<code>inode table</code>： 文件size<br></p>
+<p><code>open</code> 2次： 两个独立的file table entry, 每个fd拥有独立的offset。<br>
+<code>open</code> &amp; <code>dup</code>: 一个file table entry, 两个fd指向同一个file object。<br>
+<code>open</code> &amp; <code>fork</code>: two fd指向同一个file object，共享offset。<br></p>
 <p>elf格式的文件？什么是可执行文件？<br>可执行文件是描述了状态机的初始状态 + 迁移的数据结构。</p>
 <h2 id="zero-copy">zero copy <a href="#zero-copy" class="anchor">🔗</a></h2><p><p class="markdown-image">
   <img src="/os/zero_copy.png" alt="image"  />
