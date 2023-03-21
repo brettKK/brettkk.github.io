@@ -13,7 +13,7 @@
       <pubDate>Thu, 05 Jan 2023 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/rust/rust_concurrency/</guid>
-      <description>异步编程 🔗future， async: 定义一个可并发执行的任务； await 触发这</description>
+      <description>异步编程 🔗 future， async: 定义一个可并发执行的任务； await 触发这</description>
     </item>
     
     <item>
@@ -41,6 +41,15 @@
       
       <guid>http://brettkk.github.io/posts/os/os/</guid>
       <description>资料 🔗 操作系统：南大 jyy。 http://jyywiki.cn/OS/2022/ Morris MIT 6.S081 上交： 陈海波 https://elixir.bootlin.com/linux/lastest/source 文件系统 🔗</description>
+    </item>
+    
+    <item>
+      <title>区块链技术</title>
+      <link>http://brettkk.github.io/posts/tools/block_chain/</link>
+      <pubDate>Mon, 05 Dec 2022 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/tools/block_chain/</guid>
+      <description>区块链技术与应用 🔗肖臻 技术分层 🔗layer2: 应用层，合约层</description>
     </item>
     
     <item>
@@ -122,15 +131,6 @@
       
       <guid>http://brettkk.github.io/posts/tools/%E5%89%8D%E7%AB%AF/</guid>
       <description>html 🔗css 🔗描述html中标签的样式格式。 盒子模型： 外边距，</description>
-    </item>
-    
-    <item>
-      <title>区块链技术与应用 -- 学习</title>
-      <link>http://brettkk.github.io/posts/tools/block_chain/</link>
-      <pubDate>Mon, 05 Sep 2022 11:33:56 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/tools/block_chain/</guid>
-      <description>区块链技术与应用 🔗北大肖臻 BTC 🔗proof of work: 做hash函数的</description>
     </item>
     
     <item>

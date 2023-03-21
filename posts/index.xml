@@ -13,7 +13,7 @@
       <pubDate>Thu, 05 Jan 2023 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/rust/rust_concurrency/</guid>
-      <description>异步编程 🔗future， async: 定义一个可并发执行的任务； await 触发这</description>
+      <description>异步编程 🔗 future， async: 定义一个可并发执行的任务； await 触发这</description>
     </item>
     
     <item>
@@ -41,6 +41,15 @@
       
       <guid>http://brettkk.github.io/posts/os/os/</guid>
       <description>资料 🔗 操作系统：南大 jyy。 http://jyywiki.cn/OS/2022/ Morris MIT 6.S081 上交： 陈海波 https://elixir.bootlin.com/linux/lastest/source 文件系统 🔗</description>
+    </item>
+    
+    <item>
+      <title>区块链技术</title>
+      <link>http://brettkk.github.io/posts/tools/block_chain/</link>
+      <pubDate>Mon, 05 Dec 2022 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/tools/block_chain/</guid>
+      <description>区块链技术与应用 🔗肖臻 技术分层 🔗layer2: 应用层，合约层</description>
     </item>
     
     <item>
@@ -140,15 +149,6 @@
       
       <guid>http://brettkk.github.io/posts/tools/%E5%89%8D%E7%AB%AF/</guid>
       <description>html 🔗css 🔗描述html中标签的样式格式。 盒子模型： 外边距，</description>
-    </item>
-    
-    <item>
-      <title>区块链技术与应用 -- 学习</title>
-      <link>http://brettkk.github.io/posts/tools/block_chain/</link>
-      <pubDate>Mon, 05 Sep 2022 11:33:56 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/tools/block_chain/</guid>
-      <description>区块链技术与应用 🔗北大肖臻 BTC 🔗proof of work: 做hash函数的</description>
     </item>
     
     <item>
@@ -475,6 +475,18 @@ std::mem::size_of_val(&amp;amp;&amp;#39;中&amp;#39;） // 4 std::mem::size_of_v
 普通人很难用chatGPT来赚钱，基本上是当韭菜被收割了，也不可能做出chatGPT, 需要上万块的GPU。 可能行得通： 视频，游戏， 教程， 轻度AI训练（某个细分垂直领域的chatGPT）,web等 + rust + typescript + html + css + react。
 计算机软件 = 存储（tidb，tikv，rocksdb）， 计算（zero knoledge）， 网络（tokio） 工作内容相关方面：
 规则引擎grule[11.1]。</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://brettkk.github.io/posts/tools/%E8%87%AA%E7%94%B1%E6%B8%B8%E6%88%8F/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/tools/%E8%87%AA%E7%94%B1%E6%B8%B8%E6%88%8F/</guid>
+      <description>Godot 相关的资源 🔗《 Godot Engine Game Development in 24 Hours, Sams Teach Yourself: The Official Guide to Godot 3.0 》
+GDQuest, Heartbeast. https://www.youtube.com/embed/d9t3CdMks7M. https://www.youtube.com/embed/Ee1HcECuhME.
+Juan Linietsky :https://www.youtube.com/embed/50Vw4e6JPOI.
+场景系统 🔗节点： 属性编辑的一个基本对象。</description>
     </item>
     
   </channel>

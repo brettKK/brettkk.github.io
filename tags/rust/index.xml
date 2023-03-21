@@ -13,7 +13,7 @@
       <pubDate>Thu, 05 Jan 2023 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/rust/rust_concurrency/</guid>
-      <description>异步编程 🔗future， async: 定义一个可并发执行的任务； await 触发这</description>
+      <description>异步编程 🔗 future， async: 定义一个可并发执行的任务； await 触发这</description>
     </item>
     
     <item>

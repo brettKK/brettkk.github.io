@@ -3,12 +3,12 @@
 <script src="https://cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
 <html lang="zh-cn">
   <head>
-    <title>区块链技术与应用 -- 学习 | brettkk</title>
+    <title>区块链技术 | brettkk</title>
 
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
 <meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta name="description" content="区块链技术与应用 🔗北大肖臻 BTC 🔗proof of work: 做hash函数的">
+<meta name="description" content="区块链技术与应用 🔗肖臻 技术分层 🔗layer2: 应用层，合约层">
 <meta name="generator" content="Hugo 0.103.1" />
 
 
@@ -62,21 +62,21 @@
       
 
 <section id="single">
-    <h1 class="title">区块链技术与应用 -- 学习</h1>
+    <h1 class="title">区块链技术</h1>
 
     <div class="tip">
-        <time datetime="2022-09-05 11:33:56 &#43;0800 CST">Sep 5, 2022</time>
+        <time datetime="2022-12-05 11:33:56 &#43;0800 CST">Dec 5, 2022</time>
         <span class="split">
           ·
         </span>
         <span>
-          280 words
+          551 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          1 minute read
+          2 minute read
         </span>
     </div>
 
@@ -93,12 +93,19 @@
   <ul>
     <li><a href="#区块链技术与应用"><code>区块链技术与应用</code></a>
       <ul>
+        <li><a href="#技术分层">技术分层</a></li>
         <li><a href="#btc">BTC</a></li>
-        <li><a href="#eth-以太坊">ETH 以太坊</a>
+        <li><a href="#eth-以太坊">ETH 以太坊</a></li>
+        <li><a href="#区块链中的树">区块链中的树</a>
           <ul>
             <li><a href="#sol语言">sol语言</a></li>
           </ul>
         </li>
+      </ul>
+    </li>
+    <li><a href="#区块链钱包">区块链钱包</a>
+      <ul>
+        <li><a href="#私钥公钥地址签名助记词">私钥，公钥，地址，签名，助记词</a></li>
       </ul>
     </li>
   </ul>
@@ -113,20 +120,36 @@
 
 
     <div class="content">
-      <h1 id="区块链技术与应用"><code>区块链技术与应用</code> <a href="#%e5%8c%ba%e5%9d%97%e9%93%be%e6%8a%80%e6%9c%af%e4%b8%8e%e5%ba%94%e7%94%a8" class="anchor">🔗</a></h1><p>北大肖臻</p>
+      <h1 id="区块链技术与应用"><code>区块链技术与应用</code> <a href="#%e5%8c%ba%e5%9d%97%e9%93%be%e6%8a%80%e6%9c%af%e4%b8%8e%e5%ba%94%e7%94%a8" class="anchor">🔗</a></h1><p>肖臻</p>
+<h2 id="技术分层">技术分层 <a href="#%e6%8a%80%e6%9c%af%e5%88%86%e5%b1%82" class="anchor">🔗</a></h2><p>layer2: 应用层，合约层。<br>
+layer1: 底层区块链。激励层（发币和分配机制）， 共识层（Pow, Pos, DPos），网络层（P2P）， 数据层（Merkle树，非对称加密）<br>
+layer0: 传输层。<br></p>
 <h2 id="btc">BTC <a href="#btc" class="anchor">🔗</a></h2><p>proof of work: 做hash函数的蛮力运算来获取产生新区块的资格<br></p>
 <p>出块时间10min左右。</p>
 <p>&lt;key=hash_value, value&gt; 存在在kv数据库leveldb中。</p>
 <h2 id="eth-以太坊">ETH 以太坊 <a href="#eth-%e4%bb%a5%e5%a4%aa%e5%9d%8a" class="anchor">🔗</a></h2><p>账户： 外部，合约</p>
 <p>交易，调用</p>
 <p>费用 = gasUsed * gasPrice</p>
+<h2 id="区块链中的树">区块链中的树 <a href="#%e5%8c%ba%e5%9d%97%e9%93%be%e4%b8%ad%e7%9a%84%e6%a0%91" class="anchor">🔗</a></h2><p>Proof of Inclusion.</p>
+<pre tabindex="0"><code>block：
+        block header (prev hash, Nonce,    Root hash)
+                                    hash01              hash23
+                                hash0     hash1     hash2   hash3
+                                Txn0       Txn1     Txn2     Txn3
+</code></pre><p>证明Txn3在区块链中： <code>PoI(Txn3) = [(hash2, hash01), MerkleRoot, Index3]</code></p>
 <p>状态树，交易树，收据树MPT。</p>
 <h3 id="sol语言">sol语言 <a href="#sol%e8%af%ad%e8%a8%80" class="anchor">🔗</a></h3><p>运用在EVM上，</p>
 <p>contract 中的mapping不支持遍历， 用数组记录map中的key集合。</p>
 <p>支持去中心化的合约（smart contract）。</p>
 <p>proof of stake: 权益证明。</p>
 <p>NPos：提名者通过质押投票产生提名池， 在提名池中产生验证者且均分奖励，验证者根据质押比例分配奖励。</p>
-<p>区块链应用的核心价值并不是去中心化，而是易于构建可被监督的价值流通体系。</p>
+<h1 id="区块链钱包">区块链钱包 <a href="#%e5%8c%ba%e5%9d%97%e9%93%be%e9%92%b1%e5%8c%85" class="anchor">🔗</a></h1><p>银行卡是由中心化的银行发放和进行资产管理，用户密码丢失可以让银行找回。<br>
+区块链钱包是密钥的管理工具，包含成对的公私钥。</p>
+<h2 id="私钥公钥地址签名助记词">私钥，公钥，地址，签名，助记词 <a href="#%e7%a7%81%e9%92%a5%e5%85%ac%e9%92%a5%e5%9c%b0%e5%9d%80%e7%ad%be%e5%90%8d%e5%8a%a9%e8%ae%b0%e8%af%8d" class="anchor">🔗</a></h2><p>在椭圆双曲线（伽罗瓦有限域）上指定生成点<code>G</code>和私钥数字<code>k</code>， <code>K=k*G</code> 多次加法操作生成公钥点<code>K</code>。
+已知<code>K</code>,<code>G</code>时极其困难推出私钥<code>k</code>。</p>
+<p>  公钥点 -- hash -&gt; 地址。</p>
+<p>签名： 证明私钥持有者同意交易内容。</p>
+<p>助记词</p>
 
     </div>
 
