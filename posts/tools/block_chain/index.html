@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          551 words
+          650 words
         </span>
         <span class="split">
           ·
@@ -108,6 +108,11 @@
         <li><a href="#私钥公钥地址签名助记词">私钥，公钥，地址，签名，助记词</a></li>
       </ul>
     </li>
+    <li><a href="#零知识证明">零知识证明</a>
+      <ul>
+        <li><a href="#拉格朗日插值">拉格朗日插值</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
           </div>
@@ -130,14 +135,15 @@ layer0: 传输层。<br></p>
 <h2 id="eth-以太坊">ETH 以太坊 <a href="#eth-%e4%bb%a5%e5%a4%aa%e5%9d%8a" class="anchor">🔗</a></h2><p>账户： 外部，合约</p>
 <p>交易，调用</p>
 <p>费用 = gasUsed * gasPrice</p>
-<h2 id="区块链中的树">区块链中的树 <a href="#%e5%8c%ba%e5%9d%97%e9%93%be%e4%b8%ad%e7%9a%84%e6%a0%91" class="anchor">🔗</a></h2><p>Proof of Inclusion.</p>
+<h2 id="区块链中的树">区块链中的树 <a href="#%e5%8c%ba%e5%9d%97%e9%93%be%e4%b8%ad%e7%9a%84%e6%a0%91" class="anchor">🔗</a></h2><p>Proof of Inclusion. <br>
+Merkele tree对array算hash。</p>
 <pre tabindex="0"><code>block：
         block header (prev hash, Nonce,    Root hash)
                                     hash01              hash23
                                 hash0     hash1     hash2   hash3
                                 Txn0       Txn1     Txn2     Txn3
 </code></pre><p>证明Txn3在区块链中： <code>PoI(Txn3) = [(hash2, hash01), MerkleRoot, Index3]</code></p>
-<p>状态树，交易树，收据树MPT。</p>
+<p>Merkle Patricia Tree，根据key的前缀进行索引，对map算hash。<code>Radix tree</code>, <code>Trie</code>。</p>
 <h3 id="sol语言">sol语言 <a href="#sol%e8%af%ad%e8%a8%80" class="anchor">🔗</a></h3><p>运用在EVM上，</p>
 <p>contract 中的mapping不支持遍历， 用数组记录map中的key集合。</p>
 <p>支持去中心化的合约（smart contract）。</p>
@@ -150,6 +156,14 @@ layer0: 传输层。<br></p>
 <p>  公钥点 -- hash -&gt; 地址。</p>
 <p>签名： 证明私钥持有者同意交易内容。</p>
 <p>助记词</p>
+<h1 id="零知识证明">零知识证明 <a href="#%e9%9b%b6%e7%9f%a5%e8%af%86%e8%af%81%e6%98%8e" class="anchor">🔗</a></h1><h2 id="拉格朗日插值">拉格朗日插值 <a href="#%e6%8b%89%e6%a0%bc%e6%9c%97%e6%97%a5%e6%8f%92%e5%80%bc" class="anchor">🔗</a></h2><p>  通过点值对构造多项式。
+$$
+f_1(x) = \frac{(x-x_2)(x-x_3)}{(x_1-x_2)(x_1-x_3)}
+$$
+  f(x)在x1处，等于y1，其他x处均为0<br>
+$$
+f(x) = \sum_{i=1}^{n}y_i f_i(x)
+$$</p>
 
     </div>
 
