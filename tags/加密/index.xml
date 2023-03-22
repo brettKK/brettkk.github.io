@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>加密 on brettkk</title>
+    <link>http://brettkk.github.io/tags/%E5%8A%A0%E5%AF%86/</link>
+    <description>Recent content in 加密 on brettkk</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 05 Dec 2022 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/tags/%E5%8A%A0%E5%AF%86/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>区块链技术</title>
+      <link>http://brettkk.github.io/posts/tools/block_chain/</link>
+      <pubDate>Mon, 05 Dec 2022 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/tools/block_chain/</guid>
+      <description>区块链技术与应用 🔗肖臻 技术分层 🔗layer2: 应用层，合约层</description>
+    </item>
+    
+    <item>
+      <title>加密相关</title>
+      <link>http://brettkk.github.io/posts/math/encrypt/</link>
+      <pubDate>Thu, 20 May 2021 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/math/encrypt/</guid>
+      <description>对称加密与散列 🔗有des, aes 方式， 计算性能好，但密钥的安全依</description>
+    </item>
+    
+  </channel>
+</rss>
