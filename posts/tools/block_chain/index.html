@@ -70,13 +70,13 @@
           ·
         </span>
         <span>
-          728 words
+          1075 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          2 minute read
+          3 minute read
         </span>
     </div>
 
@@ -96,7 +96,8 @@
         <li><a href="#技术分层">技术分层</a></li>
         <li><a href="#btc">BTC</a></li>
         <li><a href="#eth-以太坊">ETH 以太坊</a></li>
-        <li><a href="#区块链中的树">区块链中的树</a>
+        <li><a href="#区块链中的树">区块链中的树</a></li>
+        <li><a href="#挖矿">挖矿</a>
           <ul>
             <li><a href="#sol语言">sol语言</a></li>
           </ul>
@@ -106,8 +107,10 @@
     <li><a href="#区块链钱包">区块链钱包</a>
       <ul>
         <li><a href="#私钥公钥地址签名助记词">私钥，公钥，地址，签名，助记词</a></li>
+        <li><a href="#以太坊的-p2p-网络">以太坊的 P2P 网络</a></li>
       </ul>
     </li>
+    <li><a href="#web3">web3</a></li>
     <li><a href="#零知识证明">零知识证明</a>
       <ul>
         <li><a href="#knowledge---vector---多项式">knowledge -&gt; vector -&gt; 多项式</a></li>
@@ -148,6 +151,7 @@ Merkele tree对array算hash。</p>
                                 Txn0       Txn1     Txn2     Txn3
 </code></pre><p>证明Txn3在区块链中： <code>PoI(Txn3) = [(hash2, hash01), MerkleRoot, Index3]</code></p>
 <p>Merkle Patricia Tree，根据key的前缀进行索引，对map算hash。<code>Radix tree</code>, <code>Trie</code>。</p>
+<h2 id="挖矿">挖矿 <a href="#%e6%8c%96%e7%9f%bf" class="anchor">🔗</a></h2><p>共识算法： Pow。 比特币和以太坊均采用。 为了避免asci芯片挖矿，以太坊加入ethash增加内存访问。</p>
 <h3 id="sol语言">sol语言 <a href="#sol%e8%af%ad%e8%a8%80" class="anchor">🔗</a></h3><p>运用在EVM上，</p>
 <p>contract 中的mapping不支持遍历， 用数组记录map中的key集合。</p>
 <p>支持去中心化的合约（smart contract）。</p>
@@ -160,7 +164,36 @@ Merkele tree对array算hash。</p>
 <p>  公钥点 -- hash -&gt; 地址。</p>
 <p>签名： 证明私钥持有者同意交易内容。</p>
 <p>助记词</p>
-<h1 id="零知识证明">零知识证明 <a href="#%e9%9b%b6%e7%9f%a5%e8%af%86%e8%af%81%e6%98%8e" class="anchor">🔗</a></h1><h2 id="knowledge---vector---多项式">knowledge -&gt; vector -&gt; 多项式 <a href="#knowledge---vector---%e5%a4%9a%e9%a1%b9%e5%bc%8f" class="anchor">🔗</a></h2><h2 id="zk-snark-多项式的零知识证明">zk-snark 多项式的零知识证明 <a href="#zk-snark-%e5%a4%9a%e9%a1%b9%e5%bc%8f%e7%9a%84%e9%9b%b6%e7%9f%a5%e8%af%86%e8%af%81%e6%98%8e" class="anchor">🔗</a></h2><p>某个知识 -&gt; 程序计算 -&gt; 算数电路 -&gt; 多项式 -&gt; 证明多项式</p>
+<h2 id="以太坊的-p2p-网络">以太坊的 P2P 网络 <a href="#%e4%bb%a5%e5%a4%aa%e5%9d%8a%e7%9a%84-p2p-%e7%bd%91%e7%bb%9c" class="anchor">🔗</a></h2><p>P2P的点对点的传播是区块链的底层传输方式。<br></p>
+<ol>
+<li>节点之间互相广播用于节点发现的 udp 网络</li>
+<li>节点之间互相连接用于传输数据的 tcp 网络</li>
+</ol>
+<p>节点 NodeID 经过 hash 计算后的256个byte做xor比较数理上的距离（不是物理距离）</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">net</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Network</span>) <span style="color:#a6e22e">loop</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">...</span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> {        
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">select</span> {        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">pkt</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">net</span>.<span style="color:#a6e22e">read</span>:            
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 处理收到的 udp 消息
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">timeout</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">net</span>.<span style="color:#a6e22e">timeout</span>:            
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 发送的 udp ping 消息超时未收到 pong 应答
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">q</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">net</span>.<span style="color:#a6e22e">queryReq</span>:            
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 从table中查找距离某个target最近的n个节点
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">f</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">net</span>.<span style="color:#a6e22e">tableOpReq</span>:            
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 操作table, 这个case主要是为了防止table被异步操作
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">refreshTimer</span>.<span style="color:#a6e22e">C</span>:            
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 计时器到点，刷新table里的url
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h1 id="web3">web3 <a href="#web3" class="anchor">🔗</a></h1><p>DeFi (Decentralised Finance)
+DAO 去中心的组织。去中心化、自治、公开透明。例如比特币可以看作是一个DAO。
+DID去中心化身份。</p>
+<p>ipfs</p>
+<h1 id="零知识证明">零知识证明 <a href="#%e9%9b%b6%e7%9f%a5%e8%af%86%e8%af%81%e6%98%8e" class="anchor">🔗</a></h1><h2 id="knowledge---vector---多项式">knowledge -&gt; vector -&gt; 多项式 <a href="#knowledge---vector---%e5%a4%9a%e9%a1%b9%e5%bc%8f" class="anchor">🔗</a></h2><h2 id="zk-snark-多项式的零知识证明">zk-snark 多项式的零知识证明 <a href="#zk-snark-%e5%a4%9a%e9%a1%b9%e5%bc%8f%e7%9a%84%e9%9b%b6%e7%9f%a5%e8%af%86%e8%af%81%e6%98%8e" class="anchor">🔗</a></h2><p>程序计算 -&gt; 算数电路 -&gt; R1CS -&gt; 多项式 -&gt; 证明多项式</p>
 <p><code>Proving Key</code>, <code>Verifying Key</code></p>
 <h2 id="程序到多项式的构造">程序到多项式的构造 <a href="#%e7%a8%8b%e5%ba%8f%e5%88%b0%e5%a4%9a%e9%a1%b9%e5%bc%8f%e7%9a%84%e6%9e%84%e9%80%a0" class="anchor">🔗</a></h2><h2 id="数学表达">数学表达 <a href="#%e6%95%b0%e5%ad%a6%e8%a1%a8%e8%be%be" class="anchor">🔗</a></h2><h2 id="拉格朗日插值">拉格朗日插值 <a href="#%e6%8b%89%e6%a0%bc%e6%9c%97%e6%97%a5%e6%8f%92%e5%80%bc" class="anchor">🔗</a></h2><p>  通过点值对构造多项式。
 $$
