@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          531 words
+          713 words
         </span>
         <span class="split">
           ·
@@ -99,6 +99,7 @@
         <li><a href="#读取">读取</a></li>
         <li><a href="#更新">更新</a></li>
         <li><a href="#删除">删除</a></li>
+        <li><a href="#leveldb的使用">leveldb的使用</a></li>
       </ul>
     </li>
   </ul>
@@ -192,6 +193,22 @@ CRC32
   后台有专门的定期执行compact操作的线程合并segment文件。<br></p>
 <h2 id="读取">读取 <a href="#%e8%af%bb%e5%8f%96" class="anchor">🔗</a></h2><p>  查询布隆过滤器，若不存在则一定是不存在； 若存在，按照从新到老的顺序依次查询每个segment。</p>
 <h2 id="更新">更新 <a href="#%e6%9b%b4%e6%96%b0" class="anchor">🔗</a></h2><h2 id="删除">删除 <a href="#%e5%88%a0%e9%99%a4" class="anchor">🔗</a></h2><p>  删除时是覆盖写value为特殊标识位，而不是真执行查找并删除。</p>
+<h2 id="leveldb的使用">leveldb的使用 <a href="#leveldb%e7%9a%84%e4%bd%bf%e7%94%a8" class="anchor">🔗</a></h2><p>下载源代码编译生成<code>libleveldb.a</code></p>
+<ol>
+<li>git clone</li>
+<li>cd leveldb</li>
+<li>mkdir build &amp;&amp; cd build</li>
+<li>cmake -DCMAKE_BUILD_TYPE=Release ..</li>
+<li>make -j</li>
+</ol>
+<p>demo程序链接时需要<code>libleveldb.a</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>编译include：     g++ -std=c++11 -c  test_leveldb.cc -I/Users/brett/cplus_workspace/leveldb/include
+</span></span><span style="display:flex;"><span>链接libleveldb.a：g++ test_leveldb.o  /Users/brett/cplus_workspace/leveldb/build/libleveldb.a -lpthread -o test_leveldb
+</span></span><span style="display:flex;"><span>运行： ./test_leveldb
+</span></span></code></pre></div><p>demo程序， <code>include/leveldb/db.h</code>：主要的 DB 接口</p>
+<p>or</p>
+<p>在<code>CMakeLists.txt</code>文件，增加一行if(NOT BUILD_SHARED_LIBS)  leveldb_test(&quot;app/main.cc&quot;)
+<code>cmake .. &amp;&amp; cmake --build .</code></p>
 
     </div>
 
