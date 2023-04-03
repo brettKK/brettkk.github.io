@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          105 words
+          358 words
         </span>
         <span class="split">
           ·
@@ -93,7 +93,9 @@
   <ul>
     <li><a href="#python-解释器">python 解释器</a></li>
     <li><a href="#特殊语法">特殊语法</a></li>
+    <li><a href="#模块与包">模块与包</a></li>
     <li><a href="#python-system">python system</a></li>
+    <li><a href="#静态分析工具">静态分析工具</a></li>
   </ul>
 </nav>
           </div>
@@ -110,19 +112,24 @@
 <p><a href="https://github.com/makeyourownneuralnetwork" target="_blank" rel="noopener">https://github.com/makeyourownneuralnetwork</a></p>
 <p>Colab服务： colab.research.google.com</p>
 <p>数据分析包： matplotlib, numpy, pandas, scikit-learn, scipy</p>
-<h1 id="特殊语法">特殊语法 <a href="#%e7%89%b9%e6%ae%8a%e8%af%ad%e6%b3%95" class="anchor">🔗</a></h1><p>super()</p>
+<h1 id="特殊语法">特殊语法 <a href="#%e7%89%b9%e6%ae%8a%e8%af%ad%e6%b3%95" class="anchor">🔗</a></h1><p>函数参数<code>*arg</code>代表可变参数和<code>**kwargs</code>代表关键字参数，可以接收用参数名=参数值的方式传入的参数，传入的参数的会打包成一个字典。</p>
+<p><code>__init__</code>，<code>__new__</code></p>
+<p>super()</p>
 <p>type  动态创建类。创建类的雷：元类。</p>
 <p>迭代器</p>
 <p>生成器</p>
 <p>装饰器</p>
 <p>异常机制</p>
-<p>模块与包</p>
+<h1 id="模块与包">模块与包 <a href="#%e6%a8%a1%e5%9d%97%e4%b8%8e%e5%8c%85" class="anchor">🔗</a></h1><p>每个Python文件就是一个模块，文件夹就是一个包，必须要有一个名为<code>__init__.py</code>的文件<br>
+<code>import</code>导入包，<code>from x import y</code>导入模块</p>
 <h1 id="python-system">python system <a href="#python-system" class="anchor">🔗</a></h1><p>进程，线程，协程</p>
 <p>fanzhidongyzby/cit</p>
 <p>python gui, mac os</p>
 <p>pip3 install pyobjc-core <br>
 pip3 install pyobjc <br>
 pip3 install pyautogui <br></p>
+<h1 id="静态分析工具">静态分析工具 <a href="#%e9%9d%99%e6%80%81%e5%88%86%e6%9e%90%e5%b7%a5%e5%85%b7" class="anchor">🔗</a></h1><p>静态代码分析主要用到的是Pylint和Flake8<br>
+Flake8封装了Pyflakes（检查代码逻辑错误）、McCabe（检查代码复杂性）和Pycodestyle（检查代码是否符合PEP-8规范）工具</p>
 
     </div>
 

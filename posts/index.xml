@@ -461,7 +461,8 @@ std::mem::size_of_val(&amp;amp;&amp;#39;中&amp;#39;） // 4 std::mem::size_of_v
       <guid>http://brettkk.github.io/posts/store_db/kafka/</guid>
       <description>系统解耦。
 流量控制。
-什么时候会丢消息？</description>
+什么时候会丢消息？ 发送方发送ID &amp;amp; kafka之间的确认ID 接受方的确认
+消息的积压？ 扩大partition， consumer。****</description>
     </item>
     
     <item>
