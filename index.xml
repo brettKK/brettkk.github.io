@@ -17,7 +17,7 @@
     </item>
     
     <item>
-      <title>tidb学习</title>
+      <title>tidb</title>
       <link>http://brettkk.github.io/posts/store_db/tidb/</link>
       <pubDate>Thu, 05 Jan 2023 11:33:56 +0800</pubDate>
       
@@ -26,7 +26,7 @@
     </item>
     
     <item>
-      <title>etcd 小结</title>
+      <title>etcd</title>
       <link>http://brettkk.github.io/posts/store_db/etcd/</link>
       <pubDate>Mon, 05 Dec 2022 11:33:56 +0800</pubDate>
       
@@ -188,7 +188,7 @@
     </item>
     
     <item>
-      <title>redis 小结</title>
+      <title>redis</title>
       <link>http://brettkk.github.io/posts/store_db/redis/</link>
       <pubDate>Thu, 05 May 2022 11:33:56 +0800</pubDate>
       
@@ -278,7 +278,7 @@
     </item>
     
     <item>
-      <title>mysql 小结</title>
+      <title>mysql</title>
       <link>http://brettkk.github.io/posts/store_db/mysql/</link>
       <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
       
@@ -386,7 +386,7 @@
     </item>
     
     <item>
-      <title>lsm 小结</title>
+      <title>lsm</title>
       <link>http://brettkk.github.io/posts/store_db/log_structure_tree/</link>
       <pubDate>Wed, 03 Mar 2021 18:34:48 +0800</pubDate>
       
