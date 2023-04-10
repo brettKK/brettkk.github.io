@@ -8,7 +8,7 @@
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
 <meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta name="description" content="python 解释器 🔗cpython， pypy https://github.com/makeyourownneuralnetwork Colab服务： colab.research.google.com 数据分析包：">
+<meta name="description" content="python 解释器 🔗cpython， pypy https://github.com/makeyourownneuralnetwork Colab服务： colab.research.google.com 特殊语法 🔗函">
 <meta name="generator" content="Hugo 0.103.1" />
 
 
@@ -70,13 +70,13 @@
           ·
         </span>
         <span>
-          475 words
+          546 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          1 minute read
+          2 minute read
         </span>
     </div>
 
@@ -95,6 +95,7 @@
     <li><a href="#特殊语法">特殊语法</a></li>
     <li><a href="#模块与包">模块与包</a></li>
     <li><a href="#python-system">python system</a></li>
+    <li><a href="#编译与反编译">编译与反编译</a></li>
     <li><a href="#静态分析工具">静态分析工具</a></li>
   </ul>
 </nav>
@@ -111,11 +112,10 @@
       <h1 id="python-解释器">python 解释器 <a href="#python-%e8%a7%a3%e9%87%8a%e5%99%a8" class="anchor">🔗</a></h1><p>cpython， pypy</p>
 <p><a href="https://github.com/makeyourownneuralnetwork" target="_blank" rel="noopener">https://github.com/makeyourownneuralnetwork</a></p>
 <p>Colab服务： colab.research.google.com</p>
-<p>数据分析包： matplotlib, numpy, pandas, scikit-learn, scipy</p>
 <h1 id="特殊语法">特殊语法 <a href="#%e7%89%b9%e6%ae%8a%e8%af%ad%e6%b3%95" class="anchor">🔗</a></h1><p>函数参数<code>*arg</code>代表可变参数和<code>**kwargs</code>代表关键字参数，可以接收用参数名=参数值的方式传入的参数，传入的参数的会打包成一个字典。</p>
 <p><code>__init__</code>，<code>__new__</code></p>
 <p>super()</p>
-<p>type  动态创建类。创建类的类：元类。</p>
+<p>type 动态创建类。创建类的类：元类。</p>
 <p><code>__next__</code> 方法的对象都可以称为迭代器。<br>
 用关键字<code>yield</code>来返回值，这种函数叫生成器函数。函数被调用时会返回一个生成器对象。</p>
 <p><code>装饰器</code>不能更改被装饰对象， 添加一些扩展行为，来实现装饰的目的。<br>
@@ -129,6 +129,9 @@
 <p>pip3 install pyobjc-core <br>
 pip3 install pyobjc <br>
 pip3 install pyautogui <br></p>
+<h1 id="编译与反编译">编译与反编译 <a href="#%e7%bc%96%e8%af%91%e4%b8%8e%e5%8f%8d%e7%bc%96%e8%af%91" class="anchor">🔗</a></h1><p>编译为字节码 <code>python3 -m example.pyc example.py</code><br>
+反编译模块<code>dis</code><br>
+具体字节码是如何执行的，需要到cpython的ceval.c <code>_PyEval_EvalFrameDefault()</code>。</p>
 <h1 id="静态分析工具">静态分析工具 <a href="#%e9%9d%99%e6%80%81%e5%88%86%e6%9e%90%e5%b7%a5%e5%85%b7" class="anchor">🔗</a></h1><p>静态代码分析主要用到的是Pylint和Flake8<br>
 Flake8封装了Pyflakes（检查代码逻辑错误）、McCabe（检查代码复杂性）和Pycodestyle（检查代码是否符合PEP-8规范）工具</p>
 
