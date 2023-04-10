@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          546 words
+          596 words
         </span>
         <span class="split">
           ·
@@ -96,6 +96,7 @@
     <li><a href="#模块与包">模块与包</a></li>
     <li><a href="#python-system">python system</a></li>
     <li><a href="#编译与反编译">编译与反编译</a></li>
+    <li><a href="#code-object">code object</a></li>
     <li><a href="#静态分析工具">静态分析工具</a></li>
   </ul>
 </nav>
@@ -130,9 +131,19 @@
 pip3 install pyobjc <br>
 pip3 install pyautogui <br></p>
 <h1 id="编译与反编译">编译与反编译 <a href="#%e7%bc%96%e8%af%91%e4%b8%8e%e5%8f%8d%e7%bc%96%e8%af%91" class="anchor">🔗</a></h1><p>编译为字节码 <code>python3 -m example.pyc example.py</code><br>
-反编译模块<code>dis</code><br>
+反编译模块<code>dis</code>显示可读的字节码 <br>
 具体字节码是如何执行的，需要到cpython的ceval.c <code>_PyEval_EvalFrameDefault()</code>。</p>
-<h1 id="静态分析工具">静态分析工具 <a href="#%e9%9d%99%e6%80%81%e5%88%86%e6%9e%90%e5%b7%a5%e5%85%b7" class="anchor">🔗</a></h1><p>静态代码分析主要用到的是Pylint和Flake8<br>
+<h1 id="code-object">code object <a href="#code-object" class="anchor">🔗</a></h1><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">f</span>(a, b<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>, <span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">pass</span>
+</span></span><span style="display:flex;"><span>code <span style="color:#f92672">=</span> f<span style="color:#f92672">.</span>__code__
+</span></span><span style="display:flex;"><span>print(code<span style="color:#f92672">.</span>co_code)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># number of arguments (排除掉*， ** args)</span>
+</span></span><span style="display:flex;"><span>print(code<span style="color:#f92672">.</span>co_argcount)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#  number of positional only arguments</span>
+</span></span><span style="display:flex;"><span>print(code<span style="color:#f92672">.</span>co_posonlyargcount)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#  number of keyword only arguments </span>
+</span></span><span style="display:flex;"><span>print(code<span style="color:#f92672">.</span>co_kwonlyargcount)
+</span></span></code></pre></div><h1 id="静态分析工具">静态分析工具 <a href="#%e9%9d%99%e6%80%81%e5%88%86%e6%9e%90%e5%b7%a5%e5%85%b7" class="anchor">🔗</a></h1><p>静态代码分析主要用到的是Pylint和Flake8<br>
 Flake8封装了Pyflakes（检查代码逻辑错误）、McCabe（检查代码复杂性）和Pycodestyle（检查代码是否符合PEP-8规范）工具</p>
 
     </div>
