@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          1138 words
+          1294 words
         </span>
         <span class="split">
           ·
@@ -94,7 +94,11 @@
     <li><a href="#python历史">python历史</a></li>
     <li><a href="#python-解释器">python 解释器</a></li>
     <li><a href="#特殊语法">特殊语法</a></li>
-    <li><a href="#模块与包">模块与包</a></li>
+    <li><a href="#模块与包">模块与包</a>
+      <ul>
+        <li><a href="#访问可见性">访问可见性</a></li>
+      </ul>
+    </li>
     <li><a href="#gil-global-interpreter-lock">GIL (global interpreter lock)</a></li>
     <li><a href="#python-system">python system</a></li>
     <li><a href="#编译与反编译">编译与反编译</a></li>
@@ -139,7 +143,26 @@
   <code>import</code>导入包，<code>from x import y</code>导入模块<br></p>
 <p>  导入的模块除了定义函数之外还有可以执行代码，那么Python解释器在导入这个模块时就会执行这些代码<br>
   <code>if __name__ == '__main__':</code> , <code>__name__</code>是Python中一个隐含的变量它代表了模块的名字, 只有被Python解释器直接执行的模块的名字才是<code>__main__</code>。</p>
-<h1 id="gil-global-interpreter-lock">GIL (global interpreter lock) <a href="#gil-global-interpreter-lock" class="anchor">🔗</a></h1><p>  全局线程锁简单，可靠。<br>
+<h2 id="访问可见性">访问可见性 <a href="#%e8%ae%bf%e9%97%ae%e5%8f%af%e8%a7%81%e6%80%a7" class="anchor">🔗</a></h2><p>  在给属性命名时可以用两个下划线作为开头, 属性是私有的。<br>
+  Python并没有从语法上严格保证私有属性或方法的私密性，它只是给私有的属性和方法换了一个名字来妨碍对它们的访问，事实上如果你知道更换名字的规则仍然可以访问到它们。<br></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>  <span style="color:#ae81ff">16</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Test</span>:
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">15</span>     <span style="color:#66d9ef">def</span> __init__(self, foo):
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">14</span>         self<span style="color:#f92672">.</span>__foo <span style="color:#f92672">=</span> foo
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">13</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">12</span>     <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__bar</span>(self):
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">11</span>         print(self<span style="color:#f92672">.</span>__foo)
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">10</span>         print(<span style="color:#e6db74">&#39;__bar&#39;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">9</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">7</span> <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main</span>():
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">6</span>     test <span style="color:#f92672">=</span> Test(<span style="color:#e6db74">&#39;hello&#39;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">5</span>     test<span style="color:#f92672">.</span>_Test__bar()
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">4</span>     print(test<span style="color:#f92672">.</span>_Test__foo)
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">1</span> <span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">17</span>      main()
+</span></span></code></pre></div><h1 id="gil-global-interpreter-lock">GIL (global interpreter lock) <a href="#gil-global-interpreter-lock" class="anchor">🔗</a></h1><p>  全局线程锁简单，可靠。<br>
   缺点：python的多线程没法利用cpu的多核。<br>
   起多进程的方式利用cpu的多核 or 使用没有GIL的python解释器（Jython, IronPython, PyPy是有GIL的）。</p>
 <h1 id="python-system">python system <a href="#python-system" class="anchor">🔗</a></h1><p>进程，线程，协程</p>
