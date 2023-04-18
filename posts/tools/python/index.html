@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          1294 words
+          1347 words
         </span>
         <span class="split">
           ·
@@ -162,7 +162,8 @@
 </span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">2</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">1</span> <span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span>:
 </span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">17</span>      main()
-</span></span></code></pre></div><h1 id="gil-global-interpreter-lock">GIL (global interpreter lock) <a href="#gil-global-interpreter-lock" class="anchor">🔗</a></h1><p>  全局线程锁简单，可靠。<br>
+</span></span></code></pre></div><p>  属性命名以单下划线开头，通过这种方式来暗示属性是受保护的，不建议外界直接访问, 使用<code>@property</code>包装器<br></p>
+<h1 id="gil-global-interpreter-lock">GIL (global interpreter lock) <a href="#gil-global-interpreter-lock" class="anchor">🔗</a></h1><p>  全局线程锁简单，可靠。<br>
   缺点：python的多线程没法利用cpu的多核。<br>
   起多进程的方式利用cpu的多核 or 使用没有GIL的python解释器（Jython, IronPython, PyPy是有GIL的）。</p>
 <h1 id="python-system">python system <a href="#python-system" class="anchor">🔗</a></h1><p>进程，线程，协程</p>
