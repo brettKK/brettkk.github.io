@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          1928 words
+          1949 words
         </span>
         <span class="split">
           ·
@@ -94,7 +94,11 @@
     <li><a href="#容器">容器</a>
       <ul>
         <li><a href="#容器技术历史">容器技术历史</a></li>
-        <li><a href="#docker的实现">docker的实现</a></li>
+        <li><a href="#docker的实现">docker的实现</a>
+          <ul>
+            <li><a href="#容器运行时containerd">容器运行时containerd</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
     <li><a href="#k8s架构">k8s架构</a>
@@ -141,9 +145,15 @@
     executable that produces the output you are currently reading.
  4. The Docker daemon streamed that output to the Docker client, which sent it
     to your terminal.
-</code></pre><h2 id="docker的实现">docker的实现 <a href="#docker%e7%9a%84%e5%ae%9e%e7%8e%b0" class="anchor">🔗</a></h2><p>unionFS, namespace，cgroup</p>
-<p><code>unionFS</code>可以把文件系统上的多个目录内容联合挂载到同一个目录下，而目录的物理位置是分开的。<br></p>
-<hr>
+</code></pre><h2 id="docker的实现">docker的实现 <a href="#docker%e7%9a%84%e5%ae%9e%e7%8e%b0" class="anchor">🔗</a></h2><p>unionFS, 分层镜像实现。<code>unionFS</code>可以把文件系统上的多个目录内容联合挂载到同一个目录下，而目录的物理位置是分开的。<br></p>
+<p>namespace</p>
+<p>cgroup</p>
+<h3 id="容器运行时containerd">容器运行时containerd <a href="#%e5%ae%b9%e5%99%a8%e8%bf%90%e8%a1%8c%e6%97%b6containerd" class="anchor">🔗</a></h3><pre tabindex="0"><code>		docker client
+		docker daemon
+		containerd
+	containerd-shim   containerd-shim
+	runc(OCI 文档)	          runc
+</code></pre><hr>
 <h1 id="k8s架构">k8s架构 <a href="#k8s%e6%9e%b6%e6%9e%84" class="anchor">🔗</a></h1><p><img src="/cloud_native/k8s_architecture.png" width = "600" /><br></p>
 <ul>
 <li>
