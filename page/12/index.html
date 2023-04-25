@@ -81,22 +81,6 @@
         
         <section class="item">
           <div>
-            <h1 class="title"><a href='/posts/math/%E8%AE%A1%E7%AE%97%E5%A4%8D%E6%9D%82%E5%BA%A6/'>计算复杂度--P, NP, NPC, NP hard</a></h1>
-            <div class ="date">
-                <time datetime="2020-09-18 09:13:56 &#43;0800 CST">Sep 18, 2020</time>  
-            </div>
-          </div>
-
-          
-              <div class="summary"></div>
-          
-
-        </section>
-    
-        
-        
-        <section class="item">
-          <div>
             <h1 class="title"><a href='/posts/golang/data_structure/draft_other/'></a></h1>
             <div class ="date">
                 <time datetime="0001-01-01 00:00:00 &#43;0000 UTC">Jan 1, 0001</time>  
@@ -151,6 +135,25 @@ type Node struct{ int num, next Node, } func createCircleLink(int n) Node{ head 
               <div class="summary">标准库 🔗字符在计算机内部时如何表示的？ Unicode兼容了ASCII包含全世界的所有字符，常用UTF-8编码，变长1到4个字节。
 字符类型char占4个字节。 rust中字符是unicode编码占4个字节。
 std::mem::size_of_val(&amp;&#39;中&#39;） // 4 std::mem::size_of_val(&#34;中&#34;.to_string().as_str()) // 3 。 let a_len = std::mem::size_of_val(&#34;中&#34;); println!(&#34;a_len={:?}&#34;, a_len); // 3 字符串不能想数组那样的索引访问？ 第i个字符 vs 第i个字节 for c in &#34;1234&#34;.chars() {...} vs for c in &#34;1234&#34;.</div>
+          
+
+        </section>
+    
+        
+        
+        <section class="item">
+          <div>
+            <h1 class="title"><a href='/posts/store_db/kafka/'></a></h1>
+            <div class ="date">
+                <time datetime="0001-01-01 00:00:00 &#43;0000 UTC">Jan 1, 0001</time>  
+            </div>
+          </div>
+
+          
+              <div class="summary">系统解耦。
+流量控制。
+什么时候会丢消息？ 发送方发送ID &amp; kafka之间的确认ID 接受方的确认
+消息的积压？ 扩大partition， consumer。****</div>
           
 
         </section>

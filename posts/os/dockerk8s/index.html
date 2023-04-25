@@ -70,13 +70,13 @@
           ·
         </span>
         <span>
-          1949 words
+          2178 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          4 minute read
+          5 minute read
         </span>
     </div>
 
@@ -99,6 +99,7 @@
             <li><a href="#容器运行时containerd">容器运行时containerd</a></li>
           </ul>
         </li>
+        <li><a href="#runc-oci标准">runc （OCI标准）</a></li>
       </ul>
     </li>
     <li><a href="#k8s架构">k8s架构</a>
@@ -152,8 +153,13 @@
 		docker daemon
 		containerd
 	containerd-shim   containerd-shim
-	runc(OCI 文档)	          runc
-</code></pre><hr>
+	runc(OCI标准)	          runc
+</code></pre><h2 id="runc-oci标准">runc （OCI标准） <a href="#runc-oci%e6%a0%87%e5%87%86" class="anchor">🔗</a></h2><p>  OCI（Open Container Initiative）即开放的容器运行时规范， (runtime-spec)[https://github.com/opencontainers/runtime-spec/blob/main/runtime.md]：容器的生命周期管理; (image-spec)[https://github.com/opencontainers/image-spec/blob/main/spec.md]: 镜像的生命周期管理。 <br>
+  实现OCI标准的容器运行时有runc，kata<br>
+  runc用来创建和运行容器，containerd作为常驻进程用来管理容器<br>
+  <code>docker start</code> -&gt; <code>containerd api</code> -&gt; <code>containerd shim</code> -&gt; <code>runc create, init, start</code> <br>
+opencontainers/runc/create.go#<code>var createCommand = cli.Command{...}</code></p>
+<hr>
 <h1 id="k8s架构">k8s架构 <a href="#k8s%e6%9e%b6%e6%9e%84" class="anchor">🔗</a></h1><p><img src="/cloud_native/k8s_architecture.png" width = "600" /><br></p>
 <ul>
 <li>

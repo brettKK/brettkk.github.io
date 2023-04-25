@@ -179,15 +179,6 @@
     </item>
     
     <item>
-      <title>golang算法</title>
-      <link>http://brettkk.github.io/posts/golang/golang%E7%AE%97%E6%B3%95/</link>
-      <pubDate>Sat, 07 May 2022 18:54:41 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/golang/golang%E7%AE%97%E6%B3%95/</guid>
-      <description>堆 与 优先队列 🔗import &amp;#34;fmt&amp;#34; type Heap struct { Data []int N int } func NewHeap() heap { return heap{ Data:</description>
-    </item>
-    
-    <item>
       <title>redis</title>
       <link>http://brettkk.github.io/posts/store_db/redis/</link>
       <pubDate>Thu, 05 May 2022 11:33:56 +0800</pubDate>
