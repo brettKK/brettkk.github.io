@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          1638 words
+          1867 words
         </span>
         <span class="split">
           ·
@@ -109,6 +109,10 @@
         <li><a href="#macos-m1下安装虚拟机">macos m1下安装虚拟机</a></li>
         <li><a href="#macos-m1-arch">macos m1 arch</a></li>
         <li><a href="#遇到的问题">遇到的问题</a></li>
+      </ul>
+    </li>
+    <li><a href="#github连接上的问题">github连接上的问题</a>
+      <ul>
         <li><a href="#其他">其他</a></li>
       </ul>
     </li>
@@ -244,7 +248,25 @@ solved: https://github.com/TinkerBoard/debian_kernel/issues/26
   GZIP    arch/arm64/boot/Image.gz
   ubuntu@brett:~/linux-master$ file arch/arm64/boot/Image
 arch/arm64/boot/Image: Linux kernel ARM64 boot executable Image, little-endian, 4K pages
-</code></pre><h2 id="其他">其他 <a href="#%e5%85%b6%e4%bb%96" class="anchor">🔗</a></h2><p>本地安装付费的虚拟机。<br>
+</code></pre><h1 id="github连接上的问题">github连接上的问题 <a href="#github%e8%bf%9e%e6%8e%a5%e4%b8%8a%e7%9a%84%e9%97%ae%e9%a2%98" class="anchor">🔗</a></h1><pre tabindex="0"><code>@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
+Someone could be eavesdropping on you right now (man-in-the-middle attack)!
+It is also possible that a host key has just been changed.
+The fingerprint for the RSA key sent by the remote host is
+SHA256:.....
+Please contact your system administrator.
+Add correct host key in /Users/brettkk/.ssh/known_hosts to get rid of this message.
+Offending RSA key in /Users/brettkk/.ssh/known_hosts:2
+Host key for [ssh.github.com]:443 has changed and you have requested strict checking.
+Host key verification failed.
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+</code></pre><p>解决办法： 删除 <code>~/.ssh/known_hosts</code>中的github那几行配置, 再pull下。</p>
+<h2 id="其他">其他 <a href="#%e5%85%b6%e4%bb%96" class="anchor">🔗</a></h2><p>本地安装付费的虚拟机。<br>
 购买云主机， 例如腾讯云的轻量应用服务器。</p>
 
     </div>
