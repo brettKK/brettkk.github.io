@@ -58,7 +58,7 @@
       <pubDate>Mon, 05 Dec 2022 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/culture/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</guid>
-      <description>《重要的事情只有一件》 🔗 《血色浪漫》 🔗 《拆掉思维里的墙》 🔗 《</description>
+      <description>《生死疲劳》 莫言 🔗生死疲劳，从贪欲起。少贪无为，身心自在。 《</description>
     </item>
     
     <item>
@@ -470,14 +470,28 @@ std::mem::size_of_val(&amp;amp;&amp;#39;中&amp;#39;） // 4 std::mem::size_of_v
     
     <item>
       <title></title>
+      <link>http://brettkk.github.io/posts/tools/git/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/tools/git/</guid>
+      <description>删除commit 🔗git reset 🔗 git log git reset --hard commit_id git push origin HEAD --force // 误删除后的恢复 git relog git reset --hard hash_id
+git revert 🔗git rebase 🔗合并commit 🔗有些对git的提交记录有要求，需要合并commit</description>
+    </item>
+    
+    <item>
+      <title></title>
       <link>http://brettkk.github.io/posts/tools/%E8%87%AA%E7%94%B1%E6%B8%B8%E6%88%8F/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>http://brettkk.github.io/posts/tools/%E8%87%AA%E7%94%B1%E6%B8%B8%E6%88%8F/</guid>
-      <description>Godot 相关的资源 🔗《 Godot Engine Game Development in 24 Hours, Sams Teach Yourself: The Official Guide to Godot 3.0 》
-GDQuest, Heartbeast. https://www.youtube.com/embed/d9t3CdMks7M. https://www.youtube.com/embed/Ee1HcECuhME.
-Juan Linietsky :https://www.youtube.com/embed/50Vw4e6JPOI.
-场景系统 🔗节点： 属性编辑的一个基本对象。</description>
+      <description>小游戏开发申请流程
+小游戏开发环境搭建
+小游戏常用API
+小游戏开发原理
+小游戏开发实战
+微信开放平台, 微信公众平台
+Godot 相关的资源 🔗《 Godot Engine Game Development in 24 Hours, Sams Teach Yourself: The Official Guide to Godot 3.0 》
+GDQuest, Heartbeast. https://www.youtube.com/embed/d9t3CdMks7M. https://www.</description>
     </item>
     
   </channel>

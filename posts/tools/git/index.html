@@ -8,16 +8,8 @@
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
 <meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta name="description" content="Arm64 入门 developer.arm.com/documentation/102374/0100
-软件中的大局观 🔗软件是取、舍的平衡艺术。
-空间和时间的取舍 🔗性能优化：空间和时间的互换。
-索引： 空间换时间
-hash表， 二叉搜索树，avl树，红黑树，降低树的深度，变成多叉树（B树， B&#43;树，LSM树，Trie树），跳表skiplist， 倒排索引
-压缩： 时间换空间
-缓存
-开发RISC-V上的操作系统 🔗来源 b站和mooc上。
-risc-v ISA 🔗命名格式： RV[32|64|128][abc.....xyz] [abc...xyz]:标识该处理器支持的指令集模块集合, 1 个基本整数指令集 &#43; 多个可选的扩展指令集。
-git clone 🔗clone时的shadow clone 和 deep clone">
+<meta name="description" content="删除commit 🔗git reset 🔗 git log git reset --hard commit_id git push origin HEAD --force // 误删除后的恢复 git relog git reset --hard hash_id
+git revert 🔗git rebase 🔗合并commit 🔗有些对git的提交记录有要求，需要合并commit">
 <meta name="generator" content="Hugo 0.103.1" />
 
 
@@ -79,7 +71,7 @@ git clone 🔗clone时的shadow clone 和 deep clone">
           ·
         </span>
         <span>
-          93 words
+          29 words
         </span>
         <span class="split">
           ·
@@ -100,18 +92,14 @@ git clone 🔗clone时的shadow clone 和 deep clone">
           <div>
               <nav id="TableOfContents">
   <ul>
-    <li><a href="#软件中的大局观">软件中的大局观</a>
+    <li><a href="#删除commit">删除commit</a>
       <ul>
-        <li><a href="#空间和时间的取舍">空间和时间的取舍</a></li>
+        <li><a href="#git-reset">git reset</a></li>
+        <li><a href="#git-revert">git revert</a></li>
+        <li><a href="#git-rebase">git rebase</a></li>
       </ul>
     </li>
-    <li><a href="#开发risc-v上的操作系统">开发RISC-V上的操作系统</a>
-      <ul>
-        <li><a href="#risc-v-isa">risc-v ISA</a></li>
-        <li><a href="#git-clone">git clone</a></li>
-        <li><a href="#git入门">git入门</a></li>
-      </ul>
-    </li>
+    <li><a href="#合并commit">合并commit</a></li>
   </ul>
 </nav>
           </div>
@@ -124,37 +112,15 @@ git clone 🔗clone时的shadow clone 和 deep clone">
 
 
     <div class="content">
-      <p>Arm64 入门 developer.arm.com/documentation/102374/0100</p>
-<h1 id="软件中的大局观">软件中的大局观 <a href="#%e8%bd%af%e4%bb%b6%e4%b8%ad%e7%9a%84%e5%a4%a7%e5%b1%80%e8%a7%82" class="anchor">🔗</a></h1><p>软件是取、舍的平衡艺术。<br></p>
-<h2 id="空间和时间的取舍">空间和时间的取舍 <a href="#%e7%a9%ba%e9%97%b4%e5%92%8c%e6%97%b6%e9%97%b4%e7%9a%84%e5%8f%96%e8%88%8d" class="anchor">🔗</a></h2><p>性能优化：空间和时间的互换。<br></p>
-<p>索引： 空间换时间<br>
-hash表， 二叉搜索树，avl树，红黑树，降低树的深度，变成多叉树（B树， B+树，LSM树，Trie树），跳表skiplist， 倒排索引<br></p>
-<p>压缩： 时间换空间<br>
-缓存<br></p>
-<h1 id="开发risc-v上的操作系统">开发RISC-V上的操作系统 <a href="#%e5%bc%80%e5%8f%91risc-v%e4%b8%8a%e7%9a%84%e6%93%8d%e4%bd%9c%e7%b3%bb%e7%bb%9f" class="anchor">🔗</a></h1><p>来源 b站和mooc上。</p>
-<h2 id="risc-v-isa">risc-v ISA <a href="#risc-v-isa" class="anchor">🔗</a></h2><p>命名格式： <code>RV[32|64|128][abc.....xyz]</code>   <code>[abc...xyz]</code>:标识该处理器支持的指令集模块集合, 1 个基本整数指令集 + 多个可选的扩展指令集。<br></p>
-<h2 id="git-clone">git clone <a href="#git-clone" class="anchor">🔗</a></h2><p>clone时的shadow clone 和 deep clone<br></p>
-<p><a href="https://stackoverflow.com/questions/3796927/how-do-i-git-clone-a-repo-including-its-submodules" target="_blank" rel="noopener">git submodules</a></p>
-<p><a href="https://git-scm.com/book/en/v2/Git-Tools-Submodules" target="_blank" rel="noopener">https://git-scm.com/book/en/v2/Git-Tools-Submodules</a></p>
-<p>git clone --recursive <a href="https://github.com/rust-lang/rust.git" target="_blank" rel="noopener">https://github.com/rust-lang/rust.git</a></p>
-<pre tabindex="0"><code>LibreSSL SSL_read: error:02FFF03C:system library:func(4095):Operation timed out, errno 60
-fatal: unable to access  error:02FFF036:system library:func(4095):Connection reset by peer
-
-如果开了vpn：export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7890
-</code></pre><p>Failed to connect to github.com port 443 after 130469 ms: Connection timed out</p>
-<h2 id="git入门">git入门 <a href="#git%e5%85%a5%e9%97%a8" class="anchor">🔗</a></h2><ul>
-<li>搭建git环境</li>
-<li>文件添加，</li>
-<li>与git库的交互</li>
-<li>解决合并冲突</li>
-<li>创建分支列表</li>
-<li>创建标签</li>
-</ul>
-<p>git reflog 显示所有提交过的版本信息，包含提交，回退，删除的记录。
-git log 不包含删除的commit记录和reset的操作。</p>
-<p>项目历史管理</p>
-<p>DAG，</p>
-<p>使用git进行程序开发</p>
+      <h1 id="删除commit">删除commit <a href="#%e5%88%a0%e9%99%a4commit" class="anchor">🔗</a></h1><h2 id="git-reset">git reset <a href="#git-reset" class="anchor">🔗</a></h2><blockquote>
+<p>git log
+git reset --hard commit_id
+git push origin HEAD --force
+// 误删除后的恢复
+git relog
+git reset --hard hash_id</p>
+</blockquote>
+<h2 id="git-revert">git revert <a href="#git-revert" class="anchor">🔗</a></h2><h2 id="git-rebase">git rebase <a href="#git-rebase" class="anchor">🔗</a></h2><h1 id="合并commit">合并commit <a href="#%e5%90%88%e5%b9%b6commit" class="anchor">🔗</a></h1><p>有些对git的提交记录有要求，需要合并commit</p>
 
     </div>
 
