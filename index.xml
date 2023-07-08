@@ -6,7 +6,16 @@
     <description>Recent content on brettkk</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 05 Jan 2023 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 08 Jul 2023 16:30:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>从0到1搭建后台服务</title>
+      <link>http://brettkk.github.io/posts/tools/web_server/</link>
+      <pubDate>Sat, 08 Jul 2023 16:30:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/tools/web_server/</guid>
+      <description>环境配置 🔗从0到1搭建mysql web服务: golang，m</description>
+    </item>
+    
     <item>
       <title>rust concurrency</title>
       <link>http://brettkk.github.io/posts/rust/rust_concurrency/</link>
