@@ -81,6 +81,24 @@
         
         <section class="item">
           <div>
+            <h1 class="title"><a href='/posts/rust/startup/'></a></h1>
+            <div class ="date">
+                <time datetime="0001-01-01 00:00:00 &#43;0000 UTC">Jan 1, 0001</time>  
+            </div>
+          </div>
+
+          
+              <div class="summary">标准库 🔗字符在计算机内部时如何表示的？ Unicode兼容了ASCII包含全世界的所有字符，常用UTF-8编码，变长1到4个字节。
+字符类型char占4个字节。 rust中字符是unicode编码占4个字节。
+std::mem::size_of_val(&amp;&#39;中&#39;） // 4 std::mem::size_of_val(&#34;中&#34;.to_string().as_str()) // 3 。 let a_len = std::mem::size_of_val(&#34;中&#34;); println!(&#34;a_len={:?}&#34;, a_len); // 3 字符串不能想数组那样的索引访问？ 第i个字符 vs 第i个字节 for c in &#34;1234&#34;.chars() {...} vs for c in &#34;1234&#34;.</div>
+          
+
+        </section>
+    
+        
+        
+        <section class="item">
+          <div>
             <h1 class="title"><a href='/posts/store_db/kafka/'></a></h1>
             <div class ="date">
                 <time datetime="0001-01-01 00:00:00 &#43;0000 UTC">Jan 1, 0001</time>  
@@ -132,29 +150,6 @@ git revert 🔗git rebase 🔗合并commit 🔗有些对git的提交记录有要
 
         </section>
     
-        
-        
-        <section class="item">
-          <div>
-            <h1 class="title"><a href='/posts/tools/%E8%87%AA%E7%94%B1%E6%B8%B8%E6%88%8F/'></a></h1>
-            <div class ="date">
-                <time datetime="0001-01-01 00:00:00 &#43;0000 UTC">Jan 1, 0001</time>  
-            </div>
-          </div>
-
-          
-              <div class="summary">小游戏开发申请流程
-小游戏开发环境搭建
-小游戏常用API
-小游戏开发原理
-小游戏开发实战
-微信开放平台, 微信公众平台
-Godot 相关的资源 🔗《 Godot Engine Game Development in 24 Hours, Sams Teach Yourself: The Official Guide to Godot 3.0 》
-GDQuest, Heartbeast. https://www.youtube.com/embed/d9t3CdMks7M. https://www.</div>
-          
-
-        </section>
-    
 
     
         <div class="pagination">
@@ -166,6 +161,12 @@ GDQuest, Heartbeast. https://www.youtube.com/embed/d9t3CdMks7M. https://www.</di
             </span>
           
           
+          
+              <span class="next">
+                  <a href="/page/14/">
+                      Older posts <span class="arrow">→</span>
+                  </a>
+              </span>
           
         </div>
     
