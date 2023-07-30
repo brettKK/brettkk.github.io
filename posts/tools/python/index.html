@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          1347 words
+          1491 words
         </span>
         <span class="split">
           ·
@@ -105,6 +105,18 @@
     <li><a href="#code-object">code object</a></li>
     <li><a href="#frame">frame</a></li>
     <li><a href="#静态分析工具">静态分析工具</a></li>
+    <li><a href="#python-数据结构与算法">python 数据结构与算法</a>
+      <ul>
+        <li><a href="#collections集合">collections集合</a>
+          <ul>
+            <li><a href="#双端队列保存最后n个元素">双端队列，保存最后N个元素</a></li>
+            <li><a href="#堆-找到最大最小的n个元素">堆， 找到最大，最小的N个元素</a></li>
+            <li><a href="#字典中一键多值">字典中一键多值</a></li>
+            <li><a href="#字典中保存有序">字典中保存有序</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
     <li><a href="#参考">参考</a></li>
   </ul>
 </nav>
@@ -190,6 +202,10 @@ pip3 install pyautogui <br></p>
 </span></span><span style="display:flex;"><span>frame <span style="color:#f92672">=</span> inspect<span style="color:#f92672">.</span>currentframe()
 </span></span></code></pre></div><h1 id="静态分析工具">静态分析工具 <a href="#%e9%9d%99%e6%80%81%e5%88%86%e6%9e%90%e5%b7%a5%e5%85%b7" class="anchor">🔗</a></h1><p>静态代码分析主要用到的是Pylint和Flake8<br>
 Flake8封装了Pyflakes（检查代码逻辑错误）、McCabe（检查代码复杂性）和Pycodestyle（检查代码是否符合PEP-8规范）工具</p>
+<h1 id="python-数据结构与算法">python 数据结构与算法 <a href="#python-%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84%e4%b8%8e%e7%ae%97%e6%b3%95" class="anchor">🔗</a></h1><h2 id="collections集合">collections集合 <a href="#collections%e9%9b%86%e5%90%88" class="anchor">🔗</a></h2><h3 id="双端队列保存最后n个元素">双端队列，保存最后N个元素 <a href="#%e5%8f%8c%e7%ab%af%e9%98%9f%e5%88%97%e4%bf%9d%e5%ad%98%e6%9c%80%e5%90%8en%e4%b8%aa%e5%85%83%e7%b4%a0" class="anchor">🔗</a></h3><p><code>collections.deque</code></p>
+<h3 id="堆-找到最大最小的n个元素">堆， 找到最大，最小的N个元素 <a href="#%e5%a0%86-%e6%89%be%e5%88%b0%e6%9c%80%e5%a4%a7%e6%9c%80%e5%b0%8f%e7%9a%84n%e4%b8%aa%e5%85%83%e7%b4%a0" class="anchor">🔗</a></h3><p><code>heapq</code>模块， 优先队列。</p>
+<h3 id="字典中一键多值">字典中一键多值 <a href="#%e5%ad%97%e5%85%b8%e4%b8%ad%e4%b8%80%e9%94%ae%e5%a4%9a%e5%80%bc" class="anchor">🔗</a></h3><p><code>collections.defaultdict</code></p>
+<h3 id="字典中保存有序">字典中保存有序 <a href="#%e5%ad%97%e5%85%b8%e4%b8%ad%e4%bf%9d%e5%ad%98%e6%9c%89%e5%ba%8f" class="anchor">🔗</a></h3><p><code>collections.OrderedDict</code></p>
 <h1 id="参考">参考 <a href="#%e5%8f%82%e8%80%83" class="anchor">🔗</a></h1><p>[1]<a href="https://github.com/jackfrued/Python-100-Days" target="_blank" rel="noopener"> Python - 100天从新手到大师</a><br></p>
 
     </div>
