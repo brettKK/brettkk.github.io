@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          1378 words
+          1442 words
         </span>
         <span class="split">
           ·
@@ -152,6 +152,12 @@
 <li>ss -l看到主机上的端口在使用， lsof -i:port 没有发现使用这个端口的进程</li>
 <li>Unix domain socket 同一台操作系统上的两个或多个进程进行数据通信 跨进程通信</li>
 <li>使用 循环迭代器变量的引用， 大概率全部遍历的都是迭代的最后一个元素</li>
+<li>es使用上坑很多
+<ul>
+<li>script方式更新文档时，字符串需要额外添加`&quot;'&quot; +str  + &quot;'&quot;``</li>
+<li>不指定返回条数，默认只会回10条</li>
+</ul>
+</li>
 </ul>
 <h1 id="未解决的问题">未解决的问题 <a href="#%e6%9c%aa%e8%a7%a3%e5%86%b3%e7%9a%84%e9%97%ae%e9%a2%98" class="anchor">🔗</a></h1><p><strong>gopls插件占用内存过大, 不能忍受。</strong></p>
 <pre tabindex="0"><code>unsolved: 阅读go源码时，执行单测出现： use of internal package internal/byteal not allowed

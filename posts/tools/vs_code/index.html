@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          2646 words
+          2731 words
         </span>
         <span class="split">
           ·
@@ -231,13 +231,16 @@ cc1: error: unknown value ‘i386’ for ‘-march’
 cc1: note: valid arguments are: armv8-a armv8.1-a armv8.2-a armv8.3-a armv8.4-a armv8.5-a armv8.6-a armv8-r native
 </code></pre><hr>
 <h1 id="neovim">neovim <a href="#neovim" class="anchor">🔗</a></h1><p>可自己定制化的增加和删除功能的编辑器。</p>
+<p>nerdfonts， nvim-tree, dap, dap-ui, treesitter, nvim-telescope</p>
 <p>安装neovim和packer插件管理器。</p>
 <h2 id="安装neovim">安装neovim <a href="#%e5%ae%89%e8%a3%85neovim" class="anchor">🔗</a></h2><h3 id="通过brew源">通过brew源 <a href="#%e9%80%9a%e8%bf%87brew%e6%ba%90" class="anchor">🔗</a></h3><p><code>brew install neovim</code>
 <code>:checkhealth</code>
 更新neovim<code>brew upgrade neovim</code></p>
 <h3 id="通过github的release">通过github的release <a href="#%e9%80%9a%e8%bf%87github%e7%9a%84release" class="anchor">🔗</a></h3><p>从github下载压缩包： <code>curl https://github.com/neovim/neovim/releases/download/stable/nvim-xxx.tar.gz</code> <br>
 解压缩：<code>tar -xvf nvim-xxx.tar.gz</code> ，将解压后的软件包中<code>./nvim-xxx/bin/nvim</code>的路径添加到<code>$PATH</code>中，就可以<code>nvim</code>了。</p>
-<h2 id="插件管理器packer">插件管理器packer <a href="#%e6%8f%92%e4%bb%b6%e7%ae%a1%e7%90%86%e5%99%a8packer" class="anchor">🔗</a></h2><p>在neovim中pressing <code>SHIFT + :</code> 切换为命令模式, <code>SHIFT + %</code>创建新文件。<br></p>
+<h2 id="插件管理器packer">插件管理器packer <a href="#%e6%8f%92%e4%bb%b6%e7%ae%a1%e7%90%86%e5%99%a8packer" class="anchor">🔗</a></h2><p>在 nvim 中输入<code>:echo stdpath('data')</code>可以找到用来安装插件系统的文件夹。
+在 nvim 中输入 :echo stdpath('config') 可以找到存放配置文件的文件夹。
+在neovim中pressing <code>SHIFT + :</code> 切换为命令模式, <code>SHIFT + %</code>创建新文件。<br></p>
 <p>  <a href="https://github.com/wbthomason/packer.nvim" target="_blank" rel="noopener">packer.nvim</a><br>
   <code>git clone --depth 1 https://github.com/wbthomason/packer.nvim\ ~/.local/share/nvim/site/pack/packer/start/packer.nvim</code>。<br>
 插件的安装地址：<code>~/.local/share/nvim/site/pack/packer/start</code>。<br>
@@ -273,7 +276,7 @@ cc1: note: valid arguments are: armv8-a armv8.1-a armv8.2-a armv8.3-a armv8.4-a 
 Error: Cannot find module &#39;tslib&#39;
 </code></pre><p>可以看<a href="https://github.com/iamcco/markdown-preview.nvim" target="_blank" rel="noopener">issue</a>的解决方案比较靠谱。<br></p>
 <p>解决方式： <code>sudo npm install --global yarn</code>, <code>cd markdown-preview插件的安装地址</code> &amp;&amp; <code>yarn install &amp;&amp; upgrade</code></p>
-<h2 id="命令">命令 <a href="#%e5%91%bd%e4%bb%a4" class="anchor">🔗</a></h2><p><code>shift + :Explore</code>, <code>shift + %</code>创建文件。
+<h2 id="命令">命令 <a href="#%e5%91%bd%e4%bb%a4" class="anchor">🔗</a></h2><p><code>shift + :Explore</code>, 之后<code>shift + %</code>创建文件。
 <code>:checkhealth</code></p>
 <h2 id="go-development-plugingopls-treesitter-ast-dap-others">go development plugin,gopls, treesitter AST, Dap, others <a href="#go-development-plugingopls-treesitter-ast-dap-others" class="anchor">🔗</a></h2><h2 id="golang-debug-with-delve">golang debug with delve <a href="#golang-debug-with-delve" class="anchor">🔗</a></h2><p>检查安装好后，<code>dlv version</code> <br>
 开始使用说明<code>dlv help</code>， <code>debug debug main.go</code>, 入口为测试文件时<code>debug test a_test.go</code><br>
