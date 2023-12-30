@@ -70,13 +70,13 @@
           ·
         </span>
         <span>
-          2731 words
+          3018 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          6 minute read
+          7 minute read
         </span>
     </div>
 
@@ -233,7 +233,39 @@ cc1: note: valid arguments are: armv8-a armv8.1-a armv8.2-a armv8.3-a armv8.4-a 
 <h1 id="neovim">neovim <a href="#neovim" class="anchor">🔗</a></h1><p>可自己定制化的增加和删除功能的编辑器。</p>
 <p>nerdfonts， nvim-tree, dap, dap-ui, treesitter, nvim-telescope</p>
 <p>安装neovim和packer插件管理器。</p>
-<h2 id="安装neovim">安装neovim <a href="#%e5%ae%89%e8%a3%85neovim" class="anchor">🔗</a></h2><h3 id="通过brew源">通过brew源 <a href="#%e9%80%9a%e8%bf%87brew%e6%ba%90" class="anchor">🔗</a></h3><p><code>brew install neovim</code>
+<h2 id="安装neovim">安装neovim <a href="#%e5%ae%89%e8%a3%85neovim" class="anchor">🔗</a></h2><ul>
+<li>插件管理器Packer，</li>
+<li>安装mason（帮助安装代码相关的插件，lsp, dap-server， linter, formatter），mason-lspconfig</li>
+<li>安装nvim-lspconfig （）</li>
+<li>mason下载gopls, <code>LspInfo</code>看lsp的日志，排查lsp没生效的情况</li>
+<li>增加<code>code completion</code>和<code>suggestions</code>的插件， <code>hrsh7th/nvim-cmp</code>
+<ul>
+<li>改键</li>
+</ul>
+</li>
+<li>nvim-tree,</li>
+<li>mason下载DAP支持debug和UI</li>
+<li>Dracula主题</li>
+<li>treesitter更好的代码高亮</li>
+<li>linters, formatters</li>
+<li>telescope搜索</li>
+<li>lualine状态栏</li>
+<li>其他推荐的插件
+<ul>
+<li>autopair</li>
+<li>bufferline</li>
+<li>IndentBlankline, Guide for indention</li>
+<li>comment</li>
+<li>lspSaga,  Code Actions, Floating Hover docs, etc.</li>
+<li>FloatTerm , Open floating terminals, good for such as opening LazyGit.</li>
+<li>Nvim-Lint,  Linter! Much needed.</li>
+<li>trouble, Think VS Code Buttom Error tab</li>
+<li>TodoComments</li>
+<li>Tagbar, an overview of the structure, functions</li>
+</ul>
+</li>
+</ul>
+<h3 id="通过brew源">通过brew源 <a href="#%e9%80%9a%e8%bf%87brew%e6%ba%90" class="anchor">🔗</a></h3><p><code>brew install neovim</code>
 <code>:checkhealth</code>
 更新neovim<code>brew upgrade neovim</code></p>
 <h3 id="通过github的release">通过github的release <a href="#%e9%80%9a%e8%bf%87github%e7%9a%84release" class="anchor">🔗</a></h3><p>从github下载压缩包： <code>curl https://github.com/neovim/neovim/releases/download/stable/nvim-xxx.tar.gz</code> <br>
