@@ -70,13 +70,13 @@
           ·
         </span>
         <span>
-          1479 words
+          1598 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          3 minute read
+          4 minute read
         </span>
     </div>
 
@@ -160,7 +160,14 @@
 </ul>
 </li>
 </ul>
-<h1 id="未解决的问题">未解决的问题 <a href="#%e6%9c%aa%e8%a7%a3%e5%86%b3%e7%9a%84%e9%97%ae%e9%a2%98" class="anchor">🔗</a></h1><p><strong>gopls插件占用内存过大, 不能忍受。</strong></p>
+<h1 id="未解决的问题">未解决的问题 <a href="#%e6%9c%aa%e8%a7%a3%e5%86%b3%e7%9a%84%e9%97%ae%e9%a2%98" class="anchor">🔗</a></h1><ul>
+<li>构建go module项目时，go get github.com/xxx后，在nvim中 出现no required module privides package xxx
+<ul>
+<li>但是可以go run起来，之后换成 go get -u github.com/xxx之后，重启nvim就没有出现这个问题了， 所以问题是哪儿，在这里mark一下。</li>
+</ul>
+</li>
+</ul>
+<p><strong>gopls插件占用内存过大, 不能忍受。</strong></p>
 <pre tabindex="0"><code>unsolved: 阅读go源码时，执行单测出现： use of internal package internal/byteal not allowed
 cannot solve
 </code></pre><pre tabindex="0"><code>Failed to run &#34;go env env,-json,GOMOD&#34;: Command failed: /usr/local/go/bin/go env -json GOMOD $GOPATH/go.mod exists but should not
