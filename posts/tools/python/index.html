@@ -8,7 +8,7 @@
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
 <meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta name="description" content="python历史 🔗 1989年荷兰人Guido von Rossum开">
+<meta name="description" content="python 历史 🔗 1989 年荷兰人Guido von Rossum开始写 Python 语言的解释">
 <meta name="generator" content="Hugo 0.103.1" />
 
 
@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          1640 words
+          1768 words
         </span>
         <span class="split">
           ·
@@ -91,7 +91,7 @@
           <div>
               <nav id="TableOfContents">
   <ul>
-    <li><a href="#python历史">python历史</a></li>
+    <li><a href="#python-历史">python 历史</a></li>
     <li><a href="#python-enhancementt-proposal-8">Python Enhancementt Proposal #8</a></li>
     <li><a href="#python-解释器">python 解释器</a></li>
     <li><a href="#特殊语法">特殊语法</a></li>
@@ -108,10 +108,10 @@
     <li><a href="#静态分析工具">静态分析工具</a></li>
     <li><a href="#python-数据结构与算法">python 数据结构与算法</a>
       <ul>
-        <li><a href="#collections集合">collections集合</a>
+        <li><a href="#collections-集合">collections 集合</a>
           <ul>
-            <li><a href="#双端队列保存最后n个元素">双端队列，保存最后N个元素</a></li>
-            <li><a href="#堆-找到最大最小的n个元素">堆， 找到最大，最小的N个元素</a></li>
+            <li><a href="#双端队列保存最后-n-个元素">双端队列，保存最后 N 个元素</a></li>
+            <li><a href="#堆-找到最大最小的-n-个元素">堆， 找到最大，最小的 N 个元素</a></li>
             <li><a href="#字典中一键多值">字典中一键多值</a></li>
             <li><a href="#字典中保存有序">字典中保存有序</a></li>
           </ul>
@@ -119,6 +119,13 @@
       </ul>
     </li>
     <li><a href="#模型文件">模型文件</a></li>
+    <li><a href="#可能遇到的实际问题">可能遇到的实际问题</a>
+      <ul>
+        <li><a href="#modulenotfounderror-no-module-named-xxx">ModuleNotFoundError: No module named 'xxx'</a></li>
+        <li><a href="#importerror-cannot-import-name-celery-from-celery">ImportError: cannot import name 'Celery' from 'celery'</a></li>
+        <li><a href="#打包功能">打包功能</a></li>
+      </ul>
+    </li>
     <li><a href="#参考">参考</a></li>
   </ul>
 </nav>
@@ -132,20 +139,20 @@
 
 
     <div class="content">
-      <h1 id="python历史">python历史 <a href="#python%e5%8e%86%e5%8f%b2" class="anchor">🔗</a></h1><p>  1989年荷兰人<code>Guido von Rossum</code>开始写Python语言的解释器。<br>
-  1994年1月：Python 1.0正式发布<br>
-  2000年10月Python 2.0发布, <br>
-  2008年12月Python 3.0发布，不完全兼容之前的Python代码<br>
-  人生苦短，我用Python<br></p>
-<p>代码中<code>import sys</code> <code>sys.version_info, sys.version</code> 模块查询python版本信息。</p>
-<h1 id="python-enhancementt-proposal-8">Python Enhancementt Proposal #8 <a href="#python-enhancementt-proposal-8" class="anchor">🔗</a></h1><p>PEP 8 对于python代码格式的指南。 pylint python的源码静态分析工具， 检查代码是否符合PEP 8的规范。</p>
-<h1 id="python-解释器">python 解释器 <a href="#python-%e8%a7%a3%e9%87%8a%e5%99%a8" class="anchor">🔗</a></h1><p>(python)[https://zh.wikipedia.org/zh-cn/Python], 解释器cpython(最常见的实现方式)， pypy。</p>
+      <h1 id="python-历史">python 历史 <a href="#python-%e5%8e%86%e5%8f%b2" class="anchor">🔗</a></h1><p>  1989 年荷兰人<code>Guido von Rossum</code>开始写 Python 语言的解释器。<br>
+  1994 年 1 月：Python 1.0 正式发布<br>
+  2000 年 10 月 Python 2.0 发布, <br>
+  2008 年 12 月 Python 3.0 发布，不完全兼容之前的 Python 代码<br>
+  人生苦短，我用 Python<br></p>
+<p>代码中<code>import sys</code> <code>sys.version_info, sys.version</code> 模块查询 python 版本信息。</p>
+<h1 id="python-enhancementt-proposal-8">Python Enhancementt Proposal #8 <a href="#python-enhancementt-proposal-8" class="anchor">🔗</a></h1><p>PEP 8 对于 python 代码格式的指南。 pylint python 的源码静态分析工具， 检查代码是否符合 PEP 8 的规范。</p>
+<h1 id="python-解释器">python 解释器 <a href="#python-%e8%a7%a3%e9%87%8a%e5%99%a8" class="anchor">🔗</a></h1><p>(python)[https://zh.wikipedia.org/zh-cn/Python], 解释器 cpython(最常见的实现方式)， pypy。</p>
 <p>Python 3.10.6 (main, Aug 30 2022, 04:58:14) [Clang 13.1.6 (clang-1316.0.21.2.5)] on darwin
 <code>stack based</code>的字节码。</p>
 <p><a href="https://github.com/makeyourownneuralnetwork" target="_blank" rel="noopener">https://github.com/makeyourownneuralnetwork</a></p>
-<p>Colab服务： colab.research.google.com</p>
+<p>Colab 服务： colab.research.google.com</p>
 <h1 id="特殊语法">特殊语法 <a href="#%e7%89%b9%e6%ae%8a%e8%af%ad%e6%b3%95" class="anchor">🔗</a></h1><p>函数参数<code>*arg</code>代表可变参数和<code>**kwargs</code>代表关键字参数，可以接收用参数名=参数值的方式传入的参数，传入的参数的会打包成一个字典。</p>
-<p>描述器： class中定义了<code>__get__</code> <code>__set__</code> <code>__delete__</code>方法。<br>
+<p>描述器： class 中定义了<code>__get__</code> <code>__set__</code> <code>__delete__</code>方法。<br>
 <code>dis.dis(&quot;a.b&quot;)</code>编程成<code>LOAD_ATTR</code>字节码</p>
 <p><code>__init__</code>，<code>__new__</code></p>
 <p>super()</p>
@@ -153,14 +160,14 @@
 <p><code>__next__</code> 方法的对象都可以称为迭代器。<br>
 用关键字<code>yield</code>来返回值，这种函数叫生成器函数。函数被调用时会返回一个生成器对象。</p>
 <p><code>装饰器</code> 一是：添加一些扩展行为，来实现装饰的目的； 二是： 装饰器函数在加载模块时执行，被装饰的函数在明确调用时执行。<br></p>
-<p>装饰器的功能上与 java spring里的aop， rust里的过程宏达到相同的目的。</p>
+<p>装饰器的功能上与 java spring 里的 aop， rust 里的过程宏达到相同的目的。</p>
 <p>异常机制<br></p>
-<h1 id="模块与包">模块与包 <a href="#%e6%a8%a1%e5%9d%97%e4%b8%8e%e5%8c%85" class="anchor">🔗</a></h1><p>  每个Python文件就是一个模块，文件夹就是一个包，必须要有一个名为<code>__init__.py</code>的文件<br>
+<h1 id="模块与包">模块与包 <a href="#%e6%a8%a1%e5%9d%97%e4%b8%8e%e5%8c%85" class="anchor">🔗</a></h1><p>  每个 Python 文件就是一个模块，文件夹就是一个包，必须要有一个名为<code>__init__.py</code>的文件<br>
   <code>import</code>导入包，<code>from x import y</code>导入模块<br></p>
-<p>  导入的模块除了定义函数之外还有可以执行代码，那么Python解释器在导入这个模块时就会执行这些代码<br>
-  <code>if __name__ == '__main__':</code> , <code>__name__</code>是Python中一个隐含的变量它代表了模块的名字, 只有被Python解释器直接执行的模块的名字才是<code>__main__</code>。</p>
+<p>  导入的模块除了定义函数之外还有可以执行代码，那么 Python 解释器在导入这个模块时就会执行这些代码<br>
+  <code>if __name__ == '__main__':</code> , <code>__name__</code>是 Python 中一个隐含的变量它代表了模块的名字, 只有被 Python 解释器直接执行的模块的名字才是<code>__main__</code>。</p>
 <h2 id="访问可见性">访问可见性 <a href="#%e8%ae%bf%e9%97%ae%e5%8f%af%e8%a7%81%e6%80%a7" class="anchor">🔗</a></h2><p>  在给属性命名时可以用两个下划线作为开头, 属性是私有的。<br>
-  Python并没有从语法上严格保证私有属性或方法的私密性，它只是给私有的属性和方法换了一个名字来妨碍对它们的访问，事实上如果你知道更换名字的规则仍然可以访问到它们。<br></p>
+  Python 并没有从语法上严格保证私有属性或方法的私密性，它只是给私有的属性和方法换了一个名字来妨碍对它们的访问，事实上如果你知道更换名字的规则仍然可以访问到它们。<br></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>  <span style="color:#ae81ff">16</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Test</span>:
 </span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">15</span>     <span style="color:#66d9ef">def</span> __init__(self, foo):
 </span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">14</span>         self<span style="color:#f92672">.</span>__foo <span style="color:#f92672">=</span> foo
@@ -180,8 +187,8 @@
 </span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">17</span>      main()
 </span></span></code></pre></div><p>  属性命名以单下划线开头，通过这种方式来暗示属性是受保护的，不建议外界直接访问, 使用<code>@property</code>包装器<br></p>
 <h1 id="gil-global-interpreter-lock">GIL (global interpreter lock) <a href="#gil-global-interpreter-lock" class="anchor">🔗</a></h1><p>  全局线程锁简单，可靠。<br>
-  缺点：python的多线程没法利用cpu的多核。<br>
-  起多进程的方式利用cpu的多核 or 使用没有GIL的python解释器（Jython, IronPython, PyPy是有GIL的）。</p>
+  缺点：python 的多线程没法利用 cpu 的多核。<br>
+  起多进程的方式利用 cpu 的多核 or 使用没有 GIL 的 python 解释器（Jython, IronPython, PyPy 是有 GIL 的）。</p>
 <h1 id="python-system">python system <a href="#python-system" class="anchor">🔗</a></h1><p>进程，线程，协程</p>
 <p>fanzhidongyzby/cit</p>
 <p>python gui, mac os</p>
@@ -190,7 +197,7 @@ pip3 install pyobjc <br>
 pip3 install pyautogui <br></p>
 <h1 id="编译与反编译">编译与反编译 <a href="#%e7%bc%96%e8%af%91%e4%b8%8e%e5%8f%8d%e7%bc%96%e8%af%91" class="anchor">🔗</a></h1><p>编译为字节码 <code>python3 -m example.pyc example.py</code><br>
 反编译模块<code>dis</code>显示可读的字节码 <br>
-具体字节码是如何执行的，需要到cpython的ceval.c <code>_PyEval_EvalFrameDefault()</code>。</p>
+具体字节码是如何执行的，需要到 cpython 的 ceval.c <code>_PyEval_EvalFrameDefault()</code>。</p>
 <h1 id="code-object">code object <a href="#code-object" class="anchor">🔗</a></h1><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">f</span>(a, b<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>, <span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs):
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">pass</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># 函数被编译为code object</span>
@@ -200,17 +207,33 @@ pip3 install pyautogui <br></p>
 </span></span><span style="display:flex;"><span>print(code<span style="color:#f92672">.</span>co_argcount)
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#  number of positional only arguments</span>
 </span></span><span style="display:flex;"><span>print(code<span style="color:#f92672">.</span>co_posonlyargcount)
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#  number of keyword only arguments </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#  number of keyword only arguments</span>
 </span></span><span style="display:flex;"><span>print(code<span style="color:#f92672">.</span>co_kwonlyargcount)
 </span></span></code></pre></div><h1 id="frame">frame <a href="#frame" class="anchor">🔗</a></h1><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> inspect
 </span></span><span style="display:flex;"><span>frame <span style="color:#f92672">=</span> inspect<span style="color:#f92672">.</span>currentframe()
-</span></span></code></pre></div><h1 id="静态分析工具">静态分析工具 <a href="#%e9%9d%99%e6%80%81%e5%88%86%e6%9e%90%e5%b7%a5%e5%85%b7" class="anchor">🔗</a></h1><p>静态代码分析主要用到的是Pylint和Flake8<br>
-Flake8封装了Pyflakes（检查代码逻辑错误）、McCabe（检查代码复杂性）和Pycodestyle（检查代码是否符合PEP-8规范）工具</p>
-<h1 id="python-数据结构与算法">python 数据结构与算法 <a href="#python-%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84%e4%b8%8e%e7%ae%97%e6%b3%95" class="anchor">🔗</a></h1><h2 id="collections集合">collections集合 <a href="#collections%e9%9b%86%e5%90%88" class="anchor">🔗</a></h2><h3 id="双端队列保存最后n个元素">双端队列，保存最后N个元素 <a href="#%e5%8f%8c%e7%ab%af%e9%98%9f%e5%88%97%e4%bf%9d%e5%ad%98%e6%9c%80%e5%90%8en%e4%b8%aa%e5%85%83%e7%b4%a0" class="anchor">🔗</a></h3><p><code>collections.deque</code></p>
-<h3 id="堆-找到最大最小的n个元素">堆， 找到最大，最小的N个元素 <a href="#%e5%a0%86-%e6%89%be%e5%88%b0%e6%9c%80%e5%a4%a7%e6%9c%80%e5%b0%8f%e7%9a%84n%e4%b8%aa%e5%85%83%e7%b4%a0" class="anchor">🔗</a></h3><p><code>heapq</code>模块， 优先队列。</p>
+</span></span></code></pre></div><h1 id="静态分析工具">静态分析工具 <a href="#%e9%9d%99%e6%80%81%e5%88%86%e6%9e%90%e5%b7%a5%e5%85%b7" class="anchor">🔗</a></h1><p>静态代码分析主要用到的是 Pylint 和 Flake8<br>
+Flake8 封装了 Pyflakes（检查代码逻辑错误）、McCabe（检查代码复杂性）和 Pycodestyle（检查代码是否符合 PEP-8 规范）工具</p>
+<h1 id="python-数据结构与算法">python 数据结构与算法 <a href="#python-%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84%e4%b8%8e%e7%ae%97%e6%b3%95" class="anchor">🔗</a></h1><h2 id="collections-集合">collections 集合 <a href="#collections-%e9%9b%86%e5%90%88" class="anchor">🔗</a></h2><h3 id="双端队列保存最后-n-个元素">双端队列，保存最后 N 个元素 <a href="#%e5%8f%8c%e7%ab%af%e9%98%9f%e5%88%97%e4%bf%9d%e5%ad%98%e6%9c%80%e5%90%8e-n-%e4%b8%aa%e5%85%83%e7%b4%a0" class="anchor">🔗</a></h3><p><code>collections.deque</code></p>
+<h3 id="堆-找到最大最小的-n-个元素">堆， 找到最大，最小的 N 个元素 <a href="#%e5%a0%86-%e6%89%be%e5%88%b0%e6%9c%80%e5%a4%a7%e6%9c%80%e5%b0%8f%e7%9a%84-n-%e4%b8%aa%e5%85%83%e7%b4%a0" class="anchor">🔗</a></h3><p><code>heapq</code>模块， 优先队列。</p>
 <h3 id="字典中一键多值">字典中一键多值 <a href="#%e5%ad%97%e5%85%b8%e4%b8%ad%e4%b8%80%e9%94%ae%e5%a4%9a%e5%80%bc" class="anchor">🔗</a></h3><p><code>collections.defaultdict</code></p>
 <h3 id="字典中保存有序">字典中保存有序 <a href="#%e5%ad%97%e5%85%b8%e4%b8%ad%e4%bf%9d%e5%ad%98%e6%9c%89%e5%ba%8f" class="anchor">🔗</a></h3><p><code>collections.OrderedDict</code></p>
-<h1 id="模型文件">模型文件 <a href="#%e6%a8%a1%e5%9e%8b%e6%96%87%e4%bb%b6" class="anchor">🔗</a></h1><p>Yolo V5, pt文件， onnx， netron格式。</p>
+<h1 id="模型文件">模型文件 <a href="#%e6%a8%a1%e5%9e%8b%e6%96%87%e4%bb%b6" class="anchor">🔗</a></h1><p>Yolo V5, pt 文件， onnx， netron 格式。</p>
+<h1 id="可能遇到的实际问题">可能遇到的实际问题 <a href="#%e5%8f%af%e8%83%bd%e9%81%87%e5%88%b0%e7%9a%84%e5%ae%9e%e9%99%85%e9%97%ae%e9%a2%98" class="anchor">🔗</a></h1><h2 id="modulenotfounderror-no-module-named-xxx">ModuleNotFoundError: No module named 'xxx' <a href="#modulenotfounderror-no-module-named-xxx" class="anchor">🔗</a></h2><p>描述： clone 下来一个项目，在终端中执行<code>python3.12 app.py</code>时遇到。<br>
+在 IDE 中执行 python 程序，编译器会自动把当前项目的根目录加入到包查找路径中，可以理解为加到 PYTHONPATH 下，所以直接执行是没有问题的。<br>
+解决方法是使用 sys.append()命令把报警包的所在文件夹路径加入到 PYTHONPATH。</p>
+<p>pip install -r requirements.txt</p>
+<h2 id="importerror-cannot-import-name-celery-from-celery">ImportError: cannot import name 'Celery' from 'celery' <a href="#importerror-cannot-import-name-celery-from-celery" class="anchor">🔗</a></h2><p>File &quot;/Users/gonglei/python_script/opencve/opencve/extensions.py&quot;, line 1, in <module>
+from celery import Celery
+ImportError: cannot import name 'Celery' from 'celery' (/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/celery/<strong>init</strong>.py)</p>
+<p>pip3.12 install --upgrade celery
+Requirement already satisfied: celery in /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages (4.3.0)</p>
+<p>done.</p>
+<p>ImportError: cannot import name 'Iterable' from 'collections' (/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/collections/<strong>init</strong>.py)</p>
+<p>python3.12 需要<code>from collections.abc import Iterable</code></p>
+<h2 id="打包功能">打包功能 <a href="#%e6%89%93%e5%8c%85%e5%8a%9f%e8%83%bd" class="anchor">🔗</a></h2><p><code>setuptools</code>
+<code>setup.py</code></p>
+<p>python setup.py build, python setup.py install 安装软件。</p>
+<p><code>MANIFEST.in</code>的文件，来控制文件的分发.</p>
 <h1 id="参考">参考 <a href="#%e5%8f%82%e8%80%83" class="anchor">🔗</a></h1><p>[1]<a href="https://github.com/jackfrued/Python-100-Days" target="_blank" rel="noopener"> Python - 100天从新手到大师</a><br></p>
 
     </div>
