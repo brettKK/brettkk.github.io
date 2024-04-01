@@ -13,7 +13,7 @@
       <pubDate>Sat, 08 Jul 2023 16:30:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/tools/web_server/</guid>
-      <description>环境配置 🔗从0到1搭建mysql web服务: golang，m</description>
+      <description>环境配置 🔗从 0 到 1 搭建 mysql web 服务: golang，mysql， post</description>
     </item>
     
     <item>
@@ -238,7 +238,7 @@
       <pubDate>Sun, 27 Jun 2021 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/os/dockerk8s/</guid>
-      <description>容器 🔗docker架构，镜像，容器，网络，存储。 容器规范OC</description>
+      <description>容器 🔗docker 架构，镜像，容器，网络，存储。 容器规范 OC</description>
     </item>
     
     <item>
