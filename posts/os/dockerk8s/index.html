@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          1935 words
+          1944 words
         </span>
         <span class="split">
           ·
@@ -158,7 +158,9 @@
 </code></pre><h2 id="docker-的实现">docker 的实现 <a href="#docker-%e7%9a%84%e5%ae%9e%e7%8e%b0" class="anchor">🔗</a></h2><p>unionFS, 分层镜像实现。<code>unionFS</code>可以把文件系统上的多个目录内容联合挂载到同一个目录下，而目录的物理位置是分开的。<br></p>
 <p>namespace</p>
 <p>cgroup</p>
-<h1 id="docker-常见命令">docker 常见命令 <a href="#docker-%e5%b8%b8%e8%a7%81%e5%91%bd%e4%bb%a4" class="anchor">🔗</a></h1><h2 id="将镜像打包为-tar-文件">将镜像打包为 tar 文件 <a href="#%e5%b0%86%e9%95%9c%e5%83%8f%e6%89%93%e5%8c%85%e4%b8%ba-tar-%e6%96%87%e4%bb%b6" class="anchor">🔗</a></h2><h2 id="dockerfile">dockerfile <a href="#dockerfile" class="anchor">🔗</a></h2><h2 id="基于容器生成镜像">基于容器生成镜像 <a href="#%e5%9f%ba%e4%ba%8e%e5%ae%b9%e5%99%a8%e7%94%9f%e6%88%90%e9%95%9c%e5%83%8f" class="anchor">🔗</a></h2><p><code>docker commit -m  &quot;create new image&quot; -a &quot;brett&quot; container_id newimage:v1.0</code></p>
+<h1 id="docker-常见命令">docker 常见命令 <a href="#docker-%e5%b8%b8%e8%a7%81%e5%91%bd%e4%bb%a4" class="anchor">🔗</a></h1><h2 id="将镜像打包为-tar-文件">将镜像打包为 tar 文件 <a href="#%e5%b0%86%e9%95%9c%e5%83%8f%e6%89%93%e5%8c%85%e4%b8%ba-tar-%e6%96%87%e4%bb%b6" class="anchor">🔗</a></h2><p>image -- docker save --&gt; tar 包</p>
+<p>tar 包 -- docker load --&gt; image</p>
+<h2 id="dockerfile">dockerfile <a href="#dockerfile" class="anchor">🔗</a></h2><h2 id="基于容器生成镜像">基于容器生成镜像 <a href="#%e5%9f%ba%e4%ba%8e%e5%ae%b9%e5%99%a8%e7%94%9f%e6%88%90%e9%95%9c%e5%83%8f" class="anchor">🔗</a></h2><p><code>docker commit -m  &quot;create new image&quot; -a &quot;brett&quot; container_id newimage:v1.0</code></p>
 <h2 id="执行容器内部的脚本">执行容器内部的脚本 <a href="#%e6%89%a7%e8%a1%8c%e5%ae%b9%e5%99%a8%e5%86%85%e9%83%a8%e7%9a%84%e8%84%9a%e6%9c%ac" class="anchor">🔗</a></h2><p><code>docker exec container_name bash -c 'bash /root/start.sh'</code></p>
 <h2 id="基于镜像启动容器">基于镜像启动容器 <a href="#%e5%9f%ba%e4%ba%8e%e9%95%9c%e5%83%8f%e5%90%af%e5%8a%a8%e5%ae%b9%e5%99%a8" class="anchor">🔗</a></h2><p><code>docker run -itd --name=&quot;container name&quot; --net=host -v /home/dist/:/root/server/web/public image_name</code></p>
 <h3 id="容器运行时-containerdy">容器运行时 containerdy <a href="#%e5%ae%b9%e5%99%a8%e8%bf%90%e8%a1%8c%e6%97%b6-containerdy" class="anchor">🔗</a></h3><pre tabindex="0"><code>		docker client
