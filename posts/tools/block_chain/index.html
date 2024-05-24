@@ -70,13 +70,13 @@
           ·
         </span>
         <span>
-          2454 words
+          2603 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          5 minute read
+          6 minute read
         </span>
     </div>
 
@@ -99,7 +99,7 @@
         <li><a href="#区块链中的树">区块链中的树</a></li>
         <li><a href="#挖矿">挖矿</a>
           <ul>
-            <li><a href="#sol语言">sol语言</a></li>
+            <li><a href="#sol-语言">sol 语言</a></li>
           </ul>
         </li>
       </ul>
@@ -124,7 +124,7 @@
         <li><a href="#量化交易">量化交易</a></li>
       </ul>
     </li>
-    <li><a href="#合约futures-现货spot-杠杆margin">合约futures 现货spot 杠杆margin</a></li>
+    <li><a href="#合约-futures-现货-spot-杠杆-margin">合约 futures 现货 spot 杠杆 margin</a></li>
     <li><a href="#nft--gamefi--metaverse">NFT &amp; GameFi &amp; Metaverse</a>
       <ul>
         <li><a href="#awesome-blockchain-rust">awesome-blockchain-rust</a></li>
@@ -149,10 +149,11 @@
       </ul>
     </li>
     <li><a href="#铭文">铭文</a></li>
-    <li><a href="#move语言的生态链">move语言的生态链</a></li>
+    <li><a href="#move-语言的生态链">move 语言的生态链</a></li>
     <li><a href="#不看好区块链技术的观点">不看好区块链技术的观点</a></li>
-    <li><a href="#工作jd上的要求">工作jd上的要求</a>
+    <li><a href="#工作-jd-上的要求">工作 jd 上的要求</a>
       <ul>
+        <li><a href="#前端-jsts">前端 js，ts</a></li>
         <li><a href="#公链开发">公链开发</a></li>
         <li><a href="#zk-研发工程师">zk 研发工程师</a></li>
       </ul>
@@ -172,14 +173,14 @@
       <h1 id="区块链技术与应用"><code>区块链技术与应用</code> <a href="#%e5%8c%ba%e5%9d%97%e9%93%be%e6%8a%80%e6%9c%af%e4%b8%8e%e5%ba%94%e7%94%a8" class="anchor">🔗</a></h1><p>肖臻</p>
 <p>区块链不可能三角： scalability， decentralization， security</p>
 <h2 id="技术分层">技术分层 <a href="#%e6%8a%80%e6%9c%af%e5%88%86%e5%b1%82" class="anchor">🔗</a></h2><p>layer2: 应用层，合约层。<br>
-layer1: 底层区块链。激励层（发币和分配机制）， 共识层（Pow, Pos, DPos），网络层（P2P）， 数据层（Merkle树，非对称加密）<br>
+layer1: 底层区块链。激励层（发币和分配机制）， 共识层（Pow, Pos, DPos），网络层（P2P）， 数据层（Merkle 树，非对称加密）<br>
 layer0: 传输层。<br></p>
-<h2 id="btc">BTC <a href="#btc" class="anchor">🔗</a></h2><p>proof of work: 做hash函数的蛮力运算来获取产生新区块的资格<br></p>
-<p>出块时间10min左右。</p>
-<p>&lt;key=hash_value, value&gt; 存在在kv数据库leveldb中。</p>
-<h2 id="eth-以太坊">ETH 以太坊 <a href="#eth-%e4%bb%a5%e5%a4%aa%e5%9d%8a" class="anchor">🔗</a></h2><p>账户： 20个字节。 在以太坊中的地址标识符是无法区分的<br>
+<h2 id="btc">BTC <a href="#btc" class="anchor">🔗</a></h2><p>proof of work: 做 hash 函数的蛮力运算来获取产生新区块的资格<br></p>
+<p>出块时间 10min 左右。</p>
+<p>&lt;key=hash_value, value&gt; 存在在 kv 数据库 leveldb 中。</p>
+<h2 id="eth-以太坊">ETH 以太坊 <a href="#eth-%e4%bb%a5%e5%a4%aa%e5%9d%8a" class="anchor">🔗</a></h2><p>账户： 20 个字节。 在以太坊中的地址标识符是无法区分的<br>
 合约账户和外部账户的主要区别在于合约账户有关联的合约代码。<br>
-eth的eth_getCode这个方法来判断代码哈希是否为空<br></p>
+eth 的 eth_getCode 这个方法来判断代码哈希是否为空<br></p>
 <p>交易，调用</p>
 <p>费用 = gasUsed * gasPrice</p>
 <p>EVM， Solidity, web3.js</p>
@@ -188,17 +189,17 @@ eth的eth_getCode这个方法来判断代码哈希是否为空<br></p>
 <p>区块浏览器 etherscan.io</p>
 <p>ghost 协议。</p>
 <h2 id="区块链中的树">区块链中的树 <a href="#%e5%8c%ba%e5%9d%97%e9%93%be%e4%b8%ad%e7%9a%84%e6%a0%91" class="anchor">🔗</a></h2><p>Proof of Inclusion. <br>
-Merkele tree对array算hash。</p>
+Merkele tree 对 array 算 hash。</p>
 <pre tabindex="0"><code>block：
         block header (prev hash, Nonce,    Root hash)
                                     hash01              hash23
                                 hash0     hash1     hash2   hash3
                                 Txn0       Txn1     Txn2     Txn3
-</code></pre><p>证明Txn3在区块链中： <code>PoI(Txn3) = [(hash2, hash01), MerkleRoot, Index3]</code></p>
-<p>Merkle Patricia Tree，根据key的前缀进行索引，对map算hash。<code>Radix tree</code>, <code>Trie</code>。</p>
-<h2 id="挖矿">挖矿 <a href="#%e6%8c%96%e7%9f%bf" class="anchor">🔗</a></h2><p>共识算法： Pow。 比特币和以太坊均采用。 为了避免asci芯片挖矿，以太坊加入ethash增加内存访问。</p>
-<h3 id="sol语言">sol语言 <a href="#sol%e8%af%ad%e8%a8%80" class="anchor">🔗</a></h3><p>运用在EVM上，</p>
-<p>contract 中的mapping不支持遍历， 用数组记录map中的key集合。</p>
+</code></pre><p>证明 Txn3 在区块链中： <code>PoI(Txn3) = [(hash2, hash01), MerkleRoot, Index3]</code></p>
+<p>Merkle Patricia Tree，根据 key 的前缀进行索引，对 map 算 hash。<code>Radix tree</code>, <code>Trie</code>。</p>
+<h2 id="挖矿">挖矿 <a href="#%e6%8c%96%e7%9f%bf" class="anchor">🔗</a></h2><p>共识算法： Pow。 比特币和以太坊均采用。 为了避免 asci 芯片挖矿，以太坊加入 ethash 增加内存访问。</p>
+<h3 id="sol-语言">sol 语言 <a href="#sol-%e8%af%ad%e8%a8%80" class="anchor">🔗</a></h3><p>运用在 EVM 上，</p>
+<p>contract 中的 mapping 不支持遍历， 用数组记录 map 中的 key 集合。</p>
 <p>支持去中心化的合约（smart contract）。</p>
 <p>proof of stake: 权益证明。</p>
 <p>NPos：提名者通过质押投票产生提名池， 在提名池中产生验证者且均分奖励，验证者根据质押比例分配奖励。</p>
@@ -209,25 +210,25 @@ Merkele tree对array算hash。</p>
 <p>  公钥点 -- hash -&gt; 地址。</p>
 <p>签名： 证明私钥持有者同意交易内容。</p>
 <p>助记词</p>
-<h2 id="以太坊的-p2p-网络">以太坊的 P2P 网络 <a href="#%e4%bb%a5%e5%a4%aa%e5%9d%8a%e7%9a%84-p2p-%e7%bd%91%e7%bb%9c" class="anchor">🔗</a></h2><p>P2P的点对点的传播是区块链的底层传输方式。<br></p>
+<h2 id="以太坊的-p2p-网络">以太坊的 P2P 网络 <a href="#%e4%bb%a5%e5%a4%aa%e5%9d%8a%e7%9a%84-p2p-%e7%bd%91%e7%bb%9c" class="anchor">🔗</a></h2><p>P2P 的点对点的传播是区块链的底层传输方式。<br></p>
 <ol>
 <li>节点之间互相广播用于节点发现的 udp 网络</li>
 <li>节点之间互相连接用于传输数据的 tcp 网络</li>
 </ol>
-<p>节点 NodeID 经过 hash 计算后的256个byte做xor比较数理上的距离（不是物理距离）</p>
+<p>节点 NodeID 经过 hash 计算后的 256 个 byte 做 xor 比较数理上的距离（不是物理距离）</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">net</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Network</span>) <span style="color:#a6e22e">loop</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">...</span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> {        
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">select</span> {        
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">pkt</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">net</span>.<span style="color:#a6e22e">read</span>:            
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">select</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">pkt</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">net</span>.<span style="color:#a6e22e">read</span>:
 </span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 处理收到的 udp 消息
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">timeout</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">net</span>.<span style="color:#a6e22e">timeout</span>:            
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">timeout</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">net</span>.<span style="color:#a6e22e">timeout</span>:
 </span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 发送的 udp ping 消息超时未收到 pong 应答
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">q</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">net</span>.<span style="color:#a6e22e">queryReq</span>:            
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">q</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">net</span>.<span style="color:#a6e22e">queryReq</span>:
 </span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 从table中查找距离某个target最近的n个节点
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">f</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">net</span>.<span style="color:#a6e22e">tableOpReq</span>:            
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">f</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">net</span>.<span style="color:#a6e22e">tableOpReq</span>:
 </span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 操作table, 这个case主要是为了防止table被异步操作
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">refreshTimer</span>.<span style="color:#a6e22e">C</span>:            
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">refreshTimer</span>.<span style="color:#a6e22e">C</span>:
 </span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 计时器到点，刷新table里的url
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#f92672">...</span>
 </span></span><span style="display:flex;"><span>        }
@@ -235,50 +236,50 @@ Merkele tree对array算hash。</p>
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">...</span>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><h1 id="web3">web3 <a href="#web3" class="anchor">🔗</a></h1><p>DeFi (Decentralised Finance)， MakerDao, AAVE, Compound.</p>
-<p>DAO 去中心的组织。去中心化、自治、公开透明。例如比特币可以看作是一个DAO。
-DID去中心化身份。</p>
+<p>DAO 去中心的组织。去中心化、自治、公开透明。例如比特币可以看作是一个 DAO。
+DID 去中心化身份。</p>
 <p>ipfs</p>
-<h2 id="公链技术">公链技术 <a href="#%e5%85%ac%e9%93%be%e6%8a%80%e6%9c%af" class="anchor">🔗</a></h2><p>Ethereum, Hyperledger联盟链。</p>
-<p>性能扩展： Conflux, Eth2.0分片，Plasma侧链， 跨链Polkadot</p>
+<h2 id="公链技术">公链技术 <a href="#%e5%85%ac%e9%93%be%e6%8a%80%e6%9c%af" class="anchor">🔗</a></h2><p>Ethereum, Hyperledger 联盟链。</p>
+<p>性能扩展： Conflux, Eth2.0 分片，Plasma 侧链， 跨链 Polkadot</p>
 <h2 id="polygon">Polygon <a href="#polygon" class="anchor">🔗</a></h2><p>扩容的目的： 提升交易速度和交易吞吐量，而不影响去中心化和安全性
-Polygon是以太坊 layer2扩容的主要解决方案。 zk rollup, Optimistic Rollups.</p>
-<h2 id="uniswap">uniswap <a href="#uniswap" class="anchor">🔗</a></h2><p>DEX赛道的头部协议，uniswap是基于以太坊的去中心话交易协议，通过智能合约自动执行代币互换。</p>
-<h3 id="v1">v1 <a href="#v1" class="anchor">🔗</a></h3><p>恒定乘积曲线，引导AMM机制走向主流。</p>
-<h3 id="v2">v2 <a href="#v2" class="anchor">🔗</a></h3><p>sushiswap的竞争。</p>
+Polygon 是以太坊 layer2 扩容的主要解决方案。 zk rollup, Optimistic Rollups.</p>
+<h2 id="uniswap">uniswap <a href="#uniswap" class="anchor">🔗</a></h2><p>DEX 赛道的头部协议，uniswap 是基于以太坊的去中心话交易协议，通过智能合约自动执行代币互换。</p>
+<h3 id="v1">v1 <a href="#v1" class="anchor">🔗</a></h3><p>恒定乘积曲线，引导 AMM 机制走向主流。</p>
+<h3 id="v2">v2 <a href="#v2" class="anchor">🔗</a></h3><p>sushiswap 的竞争。</p>
 <h3 id="v3">v3 <a href="#v3" class="anchor">🔗</a></h3><h2 id="量化交易">量化交易 <a href="#%e9%87%8f%e5%8c%96%e4%ba%a4%e6%98%93" class="anchor">🔗</a></h2><ul>
 <li>跨平台搬砖</li>
 <li>趋势交易</li>
 <li>对冲</li>
 </ul>
-<p>区块链资产场外交易（OTC交易）：不通过撮合成交，自己寻找交易。</p>
-<h1 id="合约futures-现货spot-杠杆margin">合约futures 现货spot 杠杆margin <a href="#%e5%90%88%e7%ba%a6futures-%e7%8e%b0%e8%b4%a7spot-%e6%9d%a0%e6%9d%86margin" class="anchor">🔗</a></h1><p>杠杆不同： 现货1倍，合约100倍，杠杆10倍。</p>
+<p>区块链资产场外交易（OTC 交易）：不通过撮合成交，自己寻找交易。</p>
+<h1 id="合约-futures-现货-spot-杠杆-margin">合约 futures 现货 spot 杠杆 margin <a href="#%e5%90%88%e7%ba%a6-futures-%e7%8e%b0%e8%b4%a7-spot-%e6%9d%a0%e6%9d%86-margin" class="anchor">🔗</a></h1><p>杠杆不同： 现货 1 倍，合约 100 倍，杠杆 10 倍。</p>
 <p>合约： 利用杠杆放大收益的金融工具。投入的本金作为仓位保证金，当仓位亏完时，就爆仓（强制平仓）。<br></p>
-<h1 id="nft--gamefi--metaverse">NFT &amp; GameFi &amp; Metaverse <a href="#nft--gamefi--metaverse" class="anchor">🔗</a></h1><p>NFT是遵循ERC721协议发行的代币。</p>
-<p>NFT起源于以太坊的智能合约， 在EIP-721中被提出， 在EIP-1155被改进。</p>
-<p>NFT发行的主流公链：eth, Polygon, BSC, SOL等。 ETH主流， NFT代币标准ERC721, ERC1155。</p>
+<h1 id="nft--gamefi--metaverse">NFT &amp; GameFi &amp; Metaverse <a href="#nft--gamefi--metaverse" class="anchor">🔗</a></h1><p>NFT 是遵循 ERC721 协议发行的代币。</p>
+<p>NFT 起源于以太坊的智能合约， 在 EIP-721 中被提出， 在 EIP-1155 被改进。</p>
+<p>NFT 发行的主流公链：eth, Polygon, BSC, SOL 等。 ETH 主流， NFT 代币标准 ERC721, ERC1155。</p>
 <p>EOS， KOL</p>
-<h2 id="awesome-blockchain-rust">awesome-blockchain-rust <a href="#awesome-blockchain-rust" class="anchor">🔗</a></h2><p>使用rust开发的solana与以太坊等区块链不同的公链。<br>
+<h2 id="awesome-blockchain-rust">awesome-blockchain-rust <a href="#awesome-blockchain-rust" class="anchor">🔗</a></h2><p>使用 rust 开发的 solana 与以太坊等区块链不同的公链。<br>
 <code>Polkadot</code> 跨链。</p>
-<h1 id="零知识证明">零知识证明 <a href="#%e9%9b%b6%e7%9f%a5%e8%af%86%e8%af%81%e6%98%8e" class="anchor">🔗</a></h1><p>匿名币Zcash</p>
+<h1 id="零知识证明">零知识证明 <a href="#%e9%9b%b6%e7%9f%a5%e8%af%86%e8%af%81%e6%98%8e" class="anchor">🔗</a></h1><p>匿名币 Zcash</p>
 <h2 id="knowledge---vector---多项式">knowledge -&gt; vector -&gt; 多项式 <a href="#knowledge---vector---%e5%a4%9a%e9%a1%b9%e5%bc%8f" class="anchor">🔗</a></h2><h2 id="zk-snark-多项式的零知识证明">zk-snark 多项式的零知识证明 <a href="#zk-snark-%e5%a4%9a%e9%a1%b9%e5%bc%8f%e7%9a%84%e9%9b%b6%e7%9f%a5%e8%af%86%e8%af%81%e6%98%8e" class="anchor">🔗</a></h2><p>程序计算 -&gt; 算数电路 -&gt; R1CS -&gt; 多项式 -&gt; 证明多项式</p>
 <p><code>Proving Key</code>, <code>Verifying Key</code></p>
-<h2 id="程序到多项式的构造">程序到多项式的构造 <a href="#%e7%a8%8b%e5%ba%8f%e5%88%b0%e5%a4%9a%e9%a1%b9%e5%bc%8f%e7%9a%84%e6%9e%84%e9%80%a0" class="anchor">🔗</a></h2><h2 id="数学表达">数学表达 <a href="#%e6%95%b0%e5%ad%a6%e8%a1%a8%e8%be%be" class="anchor">🔗</a></h2><h2 id="拉格朗日插值">拉格朗日插值 <a href="#%e6%8b%89%e6%a0%bc%e6%9c%97%e6%97%a5%e6%8f%92%e5%80%bc" class="anchor">🔗</a></h2><p>  通过点值对构造多项式。
-$$
+<h2 id="程序到多项式的构造">程序到多项式的构造 <a href="#%e7%a8%8b%e5%ba%8f%e5%88%b0%e5%a4%9a%e9%a1%b9%e5%bc%8f%e7%9a%84%e6%9e%84%e9%80%a0" class="anchor">🔗</a></h2><h2 id="数学表达">数学表达 <a href="#%e6%95%b0%e5%ad%a6%e8%a1%a8%e8%be%be" class="anchor">🔗</a></h2><h2 id="拉格朗日插值">拉格朗日插值 <a href="#%e6%8b%89%e6%a0%bc%e6%9c%97%e6%97%a5%e6%8f%92%e5%80%bc" class="anchor">🔗</a></h2><p>  通过点值对构造多项式。</p>
+<p>$$
 f_1(x) = \frac{(x-x_2)(x-x_3)}{(x_1-x_2)(x_1-x_3)}
-$$
-  f(x)在x1处，等于y1，其他x处均为0。<br>
-$$
+$$</p>
+<p>  f(x)在 x1 处，等于 y1，其他 x 处均为 0。<br></p>
+<p>$$
 f(x) = \sum_{i=1}^{n}y_i f_i(x)
 $$</p>
-<h1 id="钱包">钱包 <a href="#%e9%92%b1%e5%8c%85" class="anchor">🔗</a></h1><p>钱包的基础是BIP32/BIP39/BIP44这三个协议 <br>
+<h1 id="钱包">钱包 <a href="#%e9%92%b1%e5%8c%85" class="anchor">🔗</a></h1><p>钱包的基础是 BIP32/BIP39/BIP44 这三个协议 <br>
 BIP32: 一个助记词/种子，可以生成一个树形的结构 <br>
 BIP39: 一个助记词-》关联确定性种子,种子生成确定性私钥 <br>
 BIP44: 多币种的基础，一个种子可以生成多个账户，每个账户有自己的地址空间，用户可以同一个钱包管理多种资产<br></p>
-<p>得到助记词: 生成128-256位的一个随机数，通过sha256生成一个校验和+随机数长度/32，切割字符串为11段，从2048个字符数组中，选择助记词
-得到私钥:  助记词+随机数-〉通过PBKDF2生成私钥， 这里因为BIP39协议所以固定助记词的私钥固定
-得到公钥:  通过私钥*ecc中的曲线上的一个点，生成一个公钥，这里曲线的点是一个固定的点，所以不会生成多个公钥</p>
+<p>得到助记词: 生成 128-256 位的一个随机数，通过 sha256 生成一个校验和+随机数长度/32，切割字符串为 11 段，从 2048 个字符数组中，选择助记词
+得到私钥: 助记词+随机数-〉通过 PBKDF2 生成私钥， 这里因为 BIP39 协议所以固定助记词的私钥固定
+得到公钥: 通过私钥*ecc 中的曲线上的一个点，生成一个公钥，这里曲线的点是一个固定的点，所以不会生成多个公钥</p>
 <p>如何生成一个钱包， 助记词， 私钥，公钥。</p>
-<h1 id="好项目">好项目 <a href="#%e5%a5%bd%e9%a1%b9%e7%9b%ae" class="anchor">🔗</a></h1><p>eth上的uniswap, bsc上的pancakeswap</p>
+<h1 id="好项目">好项目 <a href="#%e5%a5%bd%e9%a1%b9%e7%9b%ae" class="anchor">🔗</a></h1><p>eth 上的 uniswap, bsc 上的 pancakeswap</p>
 <h1 id="最近发展">最近发展 <a href="#%e6%9c%80%e8%bf%91%e5%8f%91%e5%b1%95" class="anchor">🔗</a></h1><h2 id="性能扩展">性能扩展 <a href="#%e6%80%a7%e8%83%bd%e6%89%a9%e5%b1%95" class="anchor">🔗</a></h2><p>区块大小扩大，出块时间，扩容，隔离见证，树图，conflux<br></p>
 <p>闪电网络 layer2： optimism, arbitrum, ;
 侧链： polygon, BNB chain。</p>
@@ -287,14 +288,59 @@ BIP44: 多币种的基础，一个种子可以生成多个账户，每个账户�
 <p>btc eth layer1<br></p>
 <h2 id="隐私匿名">隐私匿名 <a href="#%e9%9a%90%e7%a7%81%e5%8c%bf%e5%90%8d" class="anchor">🔗</a></h2><p>门罗币，zk_sync,环形签名，交易隐私性，混币</p>
 <h2 id="跨链">跨链 <a href="#%e8%b7%a8%e9%93%be" class="anchor">🔗</a></h2><p>多链： polkadot， Cosmos， Avalanche</p>
-<h1 id="铭文">铭文 <a href="#%e9%93%ad%e6%96%87" class="anchor">🔗</a></h1><p>Ordinals协议为BTC的聪进行编码，也可把数据植入到聪。 Sats币。</p>
-<h1 id="move语言的生态链">move语言的生态链 <a href="#move%e8%af%ad%e8%a8%80%e7%9a%84%e7%94%9f%e6%80%81%e9%93%be" class="anchor">🔗</a></h1><p>sui， aptos。</p>
+<h1 id="铭文">铭文 <a href="#%e9%93%ad%e6%96%87" class="anchor">🔗</a></h1><p>Ordinals 协议为 BTC 的聪进行编码，也可把数据植入到聪。 Sats 币。</p>
+<h1 id="move-语言的生态链">move 语言的生态链 <a href="#move-%e8%af%ad%e8%a8%80%e7%9a%84%e7%94%9f%e6%80%81%e9%93%be" class="anchor">🔗</a></h1><p>sui， aptos。</p>
 <h1 id="不看好区块链技术的观点">不看好区块链技术的观点 <a href="#%e4%b8%8d%e7%9c%8b%e5%a5%bd%e5%8c%ba%e5%9d%97%e9%93%be%e6%8a%80%e6%9c%af%e7%9a%84%e8%a7%82%e7%82%b9" class="anchor">🔗</a></h1><p>构造去中心化，获得公平和信任，牺牲了效率。</p>
-<p>BTC还是掌握在少部分人手里。</p>
-<h1 id="工作jd上的要求">工作jd上的要求 <a href="#%e5%b7%a5%e4%bd%9cjd%e4%b8%8a%e7%9a%84%e8%a6%81%e6%b1%82" class="anchor">🔗</a></h1><h2 id="公链开发">公链开发 <a href="#%e5%85%ac%e9%93%be%e5%bc%80%e5%8f%91" class="anchor">🔗</a></h2><p>rust, go.
-区块链底层，公链的架构， 底层协议，共识算法， 智能合约， 加密算法， p2p网络</p>
+<p>BTC 还是掌握在少部分人手里。</p>
+<h1 id="工作-jd-上的要求">工作 jd 上的要求 <a href="#%e5%b7%a5%e4%bd%9c-jd-%e4%b8%8a%e7%9a%84%e8%a6%81%e6%b1%82" class="anchor">🔗</a></h1><h2 id="前端-jsts">前端 js，ts <a href="#%e5%89%8d%e7%ab%af-jsts" class="anchor">🔗</a></h2><p>因为智能合约开发框架 <code>hardhat</code>，使用了前端测试框架 <code>Mocha</code>，断言库 <code>Chai</code>
+<code>npx mocha a.test.js</code></p>
+<h2 id="公链开发">公链开发 <a href="#%e5%85%ac%e9%93%be%e5%bc%80%e5%8f%91" class="anchor">🔗</a></h2><p>rust, go.
+区块链底层，公链的架构， 底层协议，共识算法， 智能合约， 加密算法， p2p 网络</p>
 <h2 id="zk-研发工程师">zk 研发工程师 <a href="#zk-%e7%a0%94%e5%8f%91%e5%b7%a5%e7%a8%8b%e5%b8%88" class="anchor">🔗</a></h2><p>c++, rust, go. zk-snarks, zk-starks, ethereum, bitcoin.
-zkEVM经验， 熟悉GPU， asic， 有cuda， openCL经验。</p>
+zkEVM 经验， 熟悉 GPU， asic， 有 cuda， openCL 经验。</p>
+<ul>
+<li>智能合约编程语言 solidity</li>
+<li>智能合约库 openzeppelin</li>
+<li>智能合约开发框架（不推荐 remix） Hardhat， truffle
+<ul>
+<li>js 开发的 npm 包。</li>
+</ul>
+</li>
+<li>全栈框架 Nextjs</li>
+<li>CSS 框架 Tailwindcss</li>
+<li>智能合约交互库 Ethersjs</li>
+<li>智能合约交互库 React Hooks, Wagmi</li>
+<li>去中心化存储 IPFS， 固定服务 Pinata</li>
+</ul>
+<ul>
+<li>区块链基础
+<ul>
+<li>分布式账本，共识机制</li>
+</ul>
+</li>
+<li>最小链系统设计
+<ul>
+<li>数据层： Merkle Tree(验证数据的完整性，一致性), Merkle DAG, Merkle Patricia Trie(MPT), 账户管理（BTC 的 UTXO， cell 模型，以太坊 Account 模型，EOA， SCA）， 世界状态
+<ul>
+<li>结点，区块（区块头，区块体），交易</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>执行层：交易结构，交易池，执行引擎</li>
+<li>网络层： Peer 2Peer 对等网络通讯，P2P 覆盖网络（Gossip， Kademlia）</li>
+<li>共识层： PoW， Pos， PBFT， RAFT</li>
+</ul>
+</li>
+<li>DApp 开发
+<ul>
+<li>基于区块链进行开发（侧链，layer2， 跨链）</li>
+<li>基于 VM（以太坊的 EVM， solana 的 WASAM， JSVM）</li>
+<li>结合分布式存储，实现无服务器架构应用的搭建</li>
+<li>套利，链的交易池监听</li>
+</ul>
+</li>
+</ul>
 
     </div>
 

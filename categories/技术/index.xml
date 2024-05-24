@@ -274,7 +274,7 @@
       <pubDate>Tue, 04 May 2021 19:10:43 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/golang/golang%E9%97%AE%E9%A2%98/</guid>
-      <description>可以解决的问题 🔗遇到过的bug golang中数组和切片的区别</description>
+      <description>可以解决的问题 🔗遇到过的 bug golang 中数组和切片的区别，数组是值类型</description>
     </item>
     
     <item>
