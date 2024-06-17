@@ -70,13 +70,13 @@
           ·
         </span>
         <span>
-          2961 words
+          3937 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          6 minute read
+          8 minute read
         </span>
     </div>
 
@@ -104,6 +104,7 @@
         </li>
       </ul>
     </li>
+    <li><a href="#公链开发的教程大纲">公链开发的教程大纲</a></li>
     <li><a href="#区块链钱包">区块链钱包</a>
       <ul>
         <li><a href="#区块链钱包的教程大纲">区块链钱包的教程大纲</a></li>
@@ -151,6 +152,7 @@
     </li>
     <li><a href="#铭文">铭文</a></li>
     <li><a href="#move-语言的生态链">move 语言的生态链</a></li>
+    <li><a href="#ton">ton</a></li>
     <li><a href="#不看好区块链技术的观点">不看好区块链技术的观点</a></li>
     <li><a href="#工作-jd-上的要求">工作 jd 上的要求</a>
       <ul>
@@ -190,21 +192,50 @@ eth 的 eth_getCode 这个方法来判断代码哈希是否为空<br></p>
 <p>以太坊白皮书，黄皮书。</p>
 <p>区块浏览器 etherscan.io</p>
 <p>ghost 协议。</p>
-<h2 id="区块链中的树">区块链中的树 <a href="#%e5%8c%ba%e5%9d%97%e9%93%be%e4%b8%ad%e7%9a%84%e6%a0%91" class="anchor">🔗</a></h2><p>Proof of Inclusion. <br>
-Merkele tree 对 array 算 hash。</p>
+<h2 id="区块链中的树">区块链中的树 <a href="#%e5%8c%ba%e5%9d%97%e9%93%be%e4%b8%ad%e7%9a%84%e6%a0%91" class="anchor">🔗</a></h2><p>Proof of Inclusion. 证明包含 <br></p>
+<p>一笔交易是否在链上。怎么证明？ 如果交易存为数组，向轻节点提供完整的 array 才可以。 如果交易存为 map，也需要知道完整的。</p>
+<p><code>merkle tree</code> 是一种对 array 求 hash 的方法，把提供包含证明的复杂度降低了。</p>
 <pre tabindex="0"><code>block：
         block header (prev hash, Nonce,    Root hash)
                                     hash01              hash23
                                 hash0     hash1     hash2   hash3
                                 Txn0       Txn1     Txn2     Txn3
 </code></pre><p>证明 Txn3 在区块链中： <code>PoI(Txn3) = [(hash2, hash01), MerkleRoot, Index3]</code></p>
-<p>Merkle Patricia Tree，根据 key 的前缀进行索引，对 map 算 hash。<code>Radix tree</code>, <code>Trie</code>。</p>
+<p><code>Merkle Patricia Tree</code>，根据 key 的前缀进行索引，对 map 算 hash。<code>Radix tree</code>, <code>Trie</code>。</p>
 <h2 id="挖矿">挖矿 <a href="#%e6%8c%96%e7%9f%bf" class="anchor">🔗</a></h2><p>共识算法： Pow。 比特币和以太坊均采用。 为了避免 asci 芯片挖矿，以太坊加入 ethash 增加内存访问。</p>
 <h3 id="sol-语言">sol 语言 <a href="#sol-%e8%af%ad%e8%a8%80" class="anchor">🔗</a></h3><p>运用在 EVM 上，</p>
 <p>contract 中的 mapping 不支持遍历， 用数组记录 map 中的 key 集合。</p>
 <p>支持去中心化的合约（smart contract）。</p>
 <p>proof of stake: 权益证明。</p>
 <p>NPos：提名者通过质押投票产生提名池， 在提名池中产生验证者且均分奖励，验证者根据质押比例分配奖励。</p>
+<h1 id="公链开发的教程大纲">公链开发的教程大纲 <a href="#%e5%85%ac%e9%93%be%e5%bc%80%e5%8f%91%e7%9a%84%e6%95%99%e7%a8%8b%e5%a4%a7%e7%ba%b2" class="anchor">🔗</a></h1><p><code>learnblockchain.cn/maps/Web3</code> 制作的图谱</p>
+<p>公链</p>
+<ul>
+<li>bitcoin</li>
+<li>以太坊</li>
+<li>以太坊的 layer2 方案
+<ul>
+<li>数据可用层，去中心化排序器，Rollup 模块（op rollup, zk rollup），欺诈证明，零知识证明</li>
+</ul>
+</li>
+<li>cosmos 解决链之间的互操作性和扩展性</li>
+<li>solana</li>
+<li>aptos，Sui 高性能的区块链平台，move 语言作为合约开发。</li>
+</ul>
+<p>公链基础知识： 区块，交易，默克尔树，区块头，公钥加密算法，共识算法，智能合约，状态树，虚拟机，去中心化网络。</p>
+<p>共识算法： pow，pos，poh（solana）</p>
+<p>密码学： 零知识证明。 算法（Kzg， Groth16， Sonic， Fractal， Halo2， SuperSonic， Marlin， Plonk， Stark， SNARK）</p>
+<p>数据库： leveldb， rocksdb， mongodb</p>
+<p>以太坊： ethereum RPC 服务节点搭建， 使用的签名算法，各套带前缀 RPC 接口的作用，底层数据结构和算法， EVM 原理和 op-code， 区块重组和回滚机制， 重要的 EIP 协议分析，分片链 EIP4844 的原理和实现。</p>
+<p>以太坊 layer2: 主流项目分析.</p>
+<ul>
+<li>Arbitrum Nitro, 架构解析，如何本地启动 Nitro devnet 网络， Rollup 流程</li>
+<li>Optimistim，Op-stack 结构解析，Op-stack 跨链调用过程，erc20 的充提过程， Rollup 流程，</li>
+<li>PolygonZkEVM</li>
+</ul>
+<p>Rollup 模块： 数据 rollup, 证明 rollup
+Sequencer： 基于 geth 改进的适配 l2 的 EVM 客户端
+证明和验证系统： zk proof（链下 zk prove 生成证明，链上 verifier 合约验证） 和 fraud proof（）。</p>
 <h1 id="区块链钱包">区块链钱包 <a href="#%e5%8c%ba%e5%9d%97%e9%93%be%e9%92%b1%e5%8c%85" class="anchor">🔗</a></h1><p>银行卡是由中心化的银行发放和进行资产管理，用户密码丢失可以让银行找回。<br>
 区块链钱包是密钥的管理工具，包含成对的公私钥。</p>
 <h2 id="区块链钱包的教程大纲">区块链钱包的教程大纲 <a href="#%e5%8c%ba%e5%9d%97%e9%93%be%e9%92%b1%e5%8c%85%e7%9a%84%e6%95%99%e7%a8%8b%e5%a4%a7%e7%ba%b2" class="anchor">🔗</a></h2><p>为什么有不同类别的钱包？ 私钥的管理方式不同导致的类别</p>
@@ -239,9 +270,9 @@ Merkele tree 对 array 算 hash。</p>
 </ul>
 <h2 id="私钥公钥地址签名助记词">私钥，公钥，地址，签名，助记词 <a href="#%e7%a7%81%e9%92%a5%e5%85%ac%e9%92%a5%e5%9c%b0%e5%9d%80%e7%ad%be%e5%90%8d%e5%8a%a9%e8%ae%b0%e8%af%8d" class="anchor">🔗</a></h2><p>在椭圆双曲线（伽罗瓦有限域）上指定生成点<code>G</code>和私钥数字<code>k</code>， <code>K=k*G</code> 多次加法操作生成公钥点<code>K</code>。
 已知<code>K</code>,<code>G</code>时极其困难推出私钥<code>k</code>。</p>
-<p>  公钥点 -- hash -&gt; 地址。</p>
+<p>  公钥点 -- hash -&gt; 钱包地址。</p>
 <p>签名： 证明私钥持有者同意交易内容。</p>
-<p>助记词</p>
+<p>助记词， <code>BIP39</code>, 助记词 + salt --BIP39--》 seed 种子 --BIP32--&gt; 生成多层的私钥。 BIP44.</p>
 <h2 id="以太坊的-p2p-网络">以太坊的 P2P 网络 <a href="#%e4%bb%a5%e5%a4%aa%e5%9d%8a%e7%9a%84-p2p-%e7%bd%91%e7%bb%9c" class="anchor">🔗</a></h2><p>P2P 的点对点的传播是区块链的底层传输方式。<br></p>
 <ol>
 <li>节点之间互相广播用于节点发现的 udp 网络</li>
@@ -275,6 +306,36 @@ DID 去中心化身份。</p>
 <p>性能扩展： Conflux, Eth2.0 分片，Plasma 侧链， 跨链 Polkadot</p>
 <h2 id="polygon">Polygon <a href="#polygon" class="anchor">🔗</a></h2><p>扩容的目的： 提升交易速度和交易吞吐量，而不影响去中心化和安全性
 Polygon 是以太坊 layer2 扩容的主要解决方案。 zk rollup, Optimistic Rollups.</p>
+<ul>
+<li>on-chain， layer1 扩容
+<ul>
+<li>共识算法，中心化换性能， avalanche, solana</li>
+<li>分片， 并行计算， eth2.0， Near</li>
+</ul>
+</li>
+<li>off-chain， layer2 扩容， 链下计算，结果上链
+<ul>
+<li>各种扩容方案的区别在与 保证 State Validity 状态的正确性（SV） 和 Data Availablity 数据的可用性(DA)的方式不同。</li>
+<li>SV 作恶
+<ul>
+<li>如何保证 layer2 state 的正确的？ zk proof， Fraud Proof， PoA 多签， Light client？</li>
+<li>防止 layer2 的无效状态回传到主链</li>
+</ul>
+</li>
+<li>DA 跑路
+<ul>
+<li>如何保证 layer2 state 的持久化， 存去中心化的 layer1？存中心化的 layer2？</li>
+</ul>
+</li>
+<li>RollUp
+<ul>
+<li>DA 上， layer2 的数据压缩后传到 layer1， 由 layer1 保证 DA</li>
+<li>SV 上， zk rollup() 兼容 EVM 不太好，zkEVM 需要开发；和 optimistic rollup（op,arbitrum）较好兼容 EVM, Fraud proof 保证，定期同步状态。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 <h2 id="uniswap">uniswap <a href="#uniswap" class="anchor">🔗</a></h2><p>DEX 赛道的头部协议，uniswap 是基于以太坊的去中心话交易协议，通过智能合约自动执行代币互换。</p>
 <h3 id="v1">v1 <a href="#v1" class="anchor">🔗</a></h3><p>恒定乘积曲线，引导 AMM 机制走向主流。</p>
 <h3 id="v2">v2 <a href="#v2" class="anchor">🔗</a></h3><p>sushiswap 的竞争。</p>
@@ -323,7 +384,7 @@ BIP44: 多币种的基础，一个种子可以生成多个账户，每个账户�
 <h1 id="铭文">铭文 <a href="#%e9%93%ad%e6%96%87" class="anchor">🔗</a></h1><p>Ordinals 协议为 BTC 的聪进行编码，也可把数据植入到聪。 Sats 币。</p>
 <p>ordinals (2022.12) btc 生态上的 NFT， BRC-20（2023.03）铭文， Runes 符文（2024.04.20）</p>
 <h1 id="move-语言的生态链">move 语言的生态链 <a href="#move-%e8%af%ad%e8%a8%80%e7%9a%84%e7%94%9f%e6%80%81%e9%93%be" class="anchor">🔗</a></h1><p>sui， aptos。</p>
-<h1 id="不看好区块链技术的观点">不看好区块链技术的观点 <a href="#%e4%b8%8d%e7%9c%8b%e5%a5%bd%e5%8c%ba%e5%9d%97%e9%93%be%e6%8a%80%e6%9c%af%e7%9a%84%e8%a7%82%e7%82%b9" class="anchor">🔗</a></h1><p>构造去中心化，获得公平和信任，牺牲了效率。</p>
+<h1 id="ton">ton <a href="#ton" class="anchor">🔗</a></h1><h1 id="不看好区块链技术的观点">不看好区块链技术的观点 <a href="#%e4%b8%8d%e7%9c%8b%e5%a5%bd%e5%8c%ba%e5%9d%97%e9%93%be%e6%8a%80%e6%9c%af%e7%9a%84%e8%a7%82%e7%82%b9" class="anchor">🔗</a></h1><p>构造去中心化，获得公平和信任，牺牲了效率。</p>
 <p>BTC 还是掌握在少部分人手里。</p>
 <h1 id="工作-jd-上的要求">工作 jd 上的要求 <a href="#%e5%b7%a5%e4%bd%9c-jd-%e4%b8%8a%e7%9a%84%e8%a6%81%e6%b1%82" class="anchor">🔗</a></h1><h2 id="前端-jsts">前端 js，ts <a href="#%e5%89%8d%e7%ab%af-jsts" class="anchor">🔗</a></h2><p>因为智能合约开发框架 <code>hardhat</code>，使用了前端测试框架 <code>Mocha</code>，断言库 <code>Chai</code>
 <code>npx mocha a.test.js</code></p>

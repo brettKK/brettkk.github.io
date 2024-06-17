@@ -6,7 +6,16 @@
     <description>Recent content on brettkk</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 08 Jul 2023 16:30:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 05 May 2024 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>git 原理与操作</title>
+      <link>http://brettkk.github.io/posts/tools/git/</link>
+      <pubDate>Sun, 05 May 2024 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/tools/git/</guid>
+      <description>.git 的内部目录结构 🔗Git 是一个内容寻址（content-ad</description>
+    </item>
+    
     <item>
       <title>从0到1搭建后台服务</title>
       <link>http://brettkk.github.io/posts/tools/web_server/</link>
@@ -435,6 +444,19 @@ type Node struct{ int num, next Node, } func createCircleLink(int n) Node{ head 
     
     <item>
       <title></title>
+      <link>http://brettkk.github.io/posts/golang/go-ethereum/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/golang/go-ethereum/</guid>
+      <description>ethdb 包： 对 leveldb 的封装
+les 包： 轻量级以太坊客户端
+light：
+miner 包：
+struct 中内嵌 interface。</description>
+    </item>
+    
+    <item>
+      <title></title>
       <link>http://brettkk.github.io/posts/math/draft_%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
@@ -464,6 +486,19 @@ std::mem::size_of_val(&amp;amp;&amp;#39;中&amp;#39;） // 4 std::mem::size_of_v
     
     <item>
       <title></title>
+      <link>http://brettkk.github.io/posts/store_db/ipfs/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/store_db/ipfs/</guid>
+      <description>ipfs 🔗去中心化的文件系统。
+怎么存（Merkle DAG, IPLD），
+Blob 对象 存小文件{&amp;quot;data&amp;quot;: &amp;quot;hello&amp;quot;}, List 对象 存大文件 {&amp;quot;data&amp;quot;: [&amp;quot;blob&amp;quot;, &amp;quot;list&amp;quot;], &amp;quot;links&amp;quot;: [{&amp;quot;hash&amp;quot;: &amp;quot;d&amp;quot;, size: 23}, {}]}
+tree 对象 代表一个目录。
+commit 对象 代表根文件夹的 hash 快照， 版本控制。</description>
+    </item>
+    
+    <item>
+      <title></title>
       <link>http://brettkk.github.io/posts/store_db/kafka/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
@@ -472,6 +507,15 @@ std::mem::size_of_val(&amp;amp;&amp;#39;中&amp;#39;） // 4 std::mem::size_of_v
 流量控制。
 什么时候会丢消息？ 发送方发送ID &amp;amp; kafka之间的确认ID 接受方的确认
 消息的积压？ 扩大partition， consumer。****</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://brettkk.github.io/posts/store_db/minio/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/store_db/minio/</guid>
+      <description></description>
     </item>
     
     <item>
@@ -488,12 +532,12 @@ std::mem::size_of_val(&amp;amp;&amp;#39;中&amp;#39;） // 4 std::mem::size_of_v
     
     <item>
       <title></title>
-      <link>http://brettkk.github.io/posts/tools/git/</link>
+      <link>http://brettkk.github.io/posts/tools/ai/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://brettkk.github.io/posts/tools/git/</guid>
-      <description>删除commit 🔗git reset 🔗 git log git reset --hard commit_id git push origin HEAD --force // 误删除后的恢复 git relog git reset --hard hash_id
-git revert 🔗git rebase 🔗这个视频很清楚。https://www.youtube.com/watch?v=CRlGDDprdOQ 两个用处： 分支合并，基于的commitid变基分支。 合并local commit记录，需要 rebase 的所有 commits 历史还没有被 push 过。</description>
+      <guid>http://brettkk.github.io/posts/tools/ai/</guid>
+      <description>comfyUI 🔗macos 上安装 🔗brew install cmake protobuf rust python@3.10 git wget
+然后搞成 API 🔗</description>
     </item>
     
     <item>

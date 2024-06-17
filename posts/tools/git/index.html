@@ -3,13 +3,12 @@
 <script src="https://cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
 <html lang="zh-cn">
   <head>
-    <title>brettkk</title>
+    <title>git 原理与操作 | brettkk</title>
 
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
 <meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta name="description" content="删除commit 🔗git reset 🔗 git log git reset --hard commit_id git push origin HEAD --force // 误删除后的恢复 git relog git reset --hard hash_id
-git revert 🔗git rebase 🔗这个视频很清楚。https://www.youtube.com/watch?v=CRlGDDprdOQ 两个用处： 分支合并，基于的commitid变基分支。 合并local commit记录，需要 rebase 的所有 commits 历史还没有被 push 过。">
+<meta name="description" content=".git 的内部目录结构 🔗Git 是一个内容寻址（content-ad">
 <meta name="generator" content="Hugo 0.103.1" />
 
 
@@ -63,21 +62,21 @@ git revert 🔗git rebase 🔗这个视频很清楚。https://www.youtube.com/wa
       
 
 <section id="single">
-    <h1 class="title"></h1>
+    <h1 class="title">git 原理与操作</h1>
 
     <div class="tip">
-        <time datetime="0001-01-01 00:00:00 &#43;0000 UTC">Jan 1, 0001</time>
+        <time datetime="2024-05-05 11:33:56 &#43;0800 CST">May 5, 2024</time>
         <span class="split">
           ·
         </span>
         <span>
-          78 words
+          1165 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          1 minute read
+          3 minute read
         </span>
     </div>
 
@@ -92,16 +91,31 @@ git revert 🔗git rebase 🔗这个视频很清楚。https://www.youtube.com/wa
           <div>
               <nav id="TableOfContents">
   <ul>
-    <li><a href="#删除commit">删除commit</a>
+    <li><a href="#git-的内部目录结构">.git 的内部目录结构</a>
+      <ul>
+        <li><a href="#上层命令-与-底层命令">上层命令 与 底层命令</a></li>
+        <li><a href="#对象">对象</a></li>
+        <li><a href="#git-引用">git 引用</a></li>
+        <li><a href="#包文件">包文件</a></li>
+      </ul>
+    </li>
+    <li><a href="#删除-commit">删除 commit</a>
       <ul>
         <li><a href="#git-reset">git reset</a></li>
         <li><a href="#git-revert">git revert</a></li>
         <li><a href="#git-rebase">git rebase</a></li>
       </ul>
     </li>
-    <li><a href="#合并commit">合并commit</a>
+    <li><a href="#合并-commit">合并 commit</a>
       <ul>
-        <li><a href="#git-pull-与-git-pull--rebase的区别">git pull 与 git pull -rebase的区别</a></li>
+        <li><a href="#git-pull-与-git-pull--rebase-的区别">git pull 与 git pull -rebase 的区别</a></li>
+      </ul>
+    </li>
+    <li><a href="#git-internals-内部">git internals 内部</a></li>
+    <li><a href="#可能会遇到的问题">可能会遇到的问题</a>
+      <ul>
+        <li><a href="#git-cat-file--p-objectname---fatal-error--not-a-valid-object-name">git cat-file -p objectName -&gt; Fatal error : Not a valid object name</a></li>
+        <li><a href="#heading"></a></li>
       </ul>
     </li>
   </ul>
@@ -116,7 +130,45 @@ git revert 🔗git rebase 🔗这个视频很清楚。https://www.youtube.com/wa
 
 
     <div class="content">
-      <h1 id="删除commit">删除commit <a href="#%e5%88%a0%e9%99%a4commit" class="anchor">🔗</a></h1><h2 id="git-reset">git reset <a href="#git-reset" class="anchor">🔗</a></h2><blockquote>
+      <h1 id="git-的内部目录结构">.git 的内部目录结构 <a href="#git-%e7%9a%84%e5%86%85%e9%83%a8%e7%9b%ae%e5%bd%95%e7%bb%93%e6%9e%84" class="anchor">🔗</a></h1><p>Git 是一个内容寻址（content-addressable）文件系统, 在此之上提供了一个版本控制系统。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ ls -F1
+</span></span><span style="display:flex;"><span>config
+</span></span><span style="display:flex;"><span>description
+</span></span><span style="display:flex;"><span>HEAD
+</span></span><span style="display:flex;"><span>hooks/
+</span></span><span style="display:flex;"><span>info/
+</span></span><span style="display:flex;"><span>objects/
+</span></span><span style="display:flex;"><span>refs/
+</span></span></code></pre></div><p>HEAD 文件指向目前被检出的分支。<code>.git/objects</code> 目录存储数据内容。 <code>refs</code> 目录存储指向数据（分支、远程仓库和标签等）的提交对象的指针。<code>index</code> 文件保存<code>暂存区</code>信息。</p>
+<h2 id="上层命令-与-底层命令">上层命令 与 底层命令 <a href="#%e4%b8%8a%e5%b1%82%e5%91%bd%e4%bb%a4-%e4%b8%8e-%e5%ba%95%e5%b1%82%e5%91%bd%e4%bb%a4" class="anchor">🔗</a></h2><p>checkout、branch、remote 等 git 子命令为上层命令。</p>
+<p>底层命令得以让你窥探 Git 内部的工作机制，也有助于说明 Git 是如何完成工作的。
+例如 底层命令 <code>git hash-object</code> 可将任意数据保存于 .git/objects 目录（即 对象数据库），并返回指向该数据对象的唯一的键
+如何向 Git 中存入内容，以及如何将它们取出? <br>
+<code>echo 'test content' | git hash-object -w --stdin</code> <br>
+<code>git cat-file -p</code> 查看对象文件。</p>
+<h2 id="对象">对象 <a href="#%e5%af%b9%e8%b1%a1" class="anchor">🔗</a></h2><p><code>Blob</code>数据对象。 <code>tree</code>目录对象。<code>commit</code> 版本对象。以单独文件的形式保存在<code>.git/objects</code>目录<br></p>
+<p>删除工作目录下的文件，可以用 git 从对象文件中恢复回来。 <code>git cat-file -p 83baae61804e65cc73a7201a7252750c76066a30 &gt; test.txt</code></p>
+<p>文件的每个版本所对应的 SHA-1 不好记。 blob 对象里没有没有存文件名（类似 inode 里没有存文件名）， 引入 tree 对象了。</p>
+<hr>
+<p>tree 目录对象解决多个文件组织，存文件名的问题。 <br></p>
+<p><code>git cat-file -p master^{tree}</code> master 分支上最新的提交所指向的树对象。</p>
+<hr>
+<p>commit 对象。跟踪项目的不同快照。</p>
+<p><code>echo 'first commit' | git commit-tree d8329f</code> <code>git cat-file -p fdf4fc3</code></p>
+<h2 id="git-引用">git 引用 <a href="#git-%e5%bc%95%e7%94%a8" class="anchor">🔗</a></h2><p>Git 分支的本质：一个指向某一系列提交之首的指针或引用。<br>
+<code>find .git/refs -type f</code> -type f 指定只查找普通文件（files）。<br></p>
+<p><code>.git/refs</code> 目录下。 <br>
+<code>.git/refs/heads</code> 包含了本地分支的引用。每个文件的内容是相应分支的最新提交的哈希值。<br>
+<code>.git/refs/tags</code> 包含了标签的引用。每个文件的内容是相应标签所指向的提交的哈希值。 <br>
+<code>.git/refs/remotes</code> 包含了远程分支的引用。每个文件的内容是相应远程分支的最新提交的哈希值。 <br></p>
+<p><code>git update-ref refs/heads/test cac0ca</code></p>
+<p><p class="markdown-image">
+  <img src="/tools/git_refs.png" alt="image"  />
+</p></p>
+<h2 id="包文件">包文件 <a href="#%e5%8c%85%e6%96%87%e4%bb%b6" class="anchor">🔗</a></h2><p>一个大文件，只修改了一行，存在两个 blob 对象文件里很占用空间。“包文件（packfile）”的二进制文件
+<code>git gc</code></p>
+<hr>
+<h1 id="删除-commit">删除 commit <a href="#%e5%88%a0%e9%99%a4-commit" class="anchor">🔗</a></h1><h2 id="git-reset">git reset <a href="#git-reset" class="anchor">🔗</a></h2><blockquote>
 <p>git log
 git reset --hard commit_id
 git push origin HEAD --force
@@ -126,17 +178,28 @@ git reset --hard hash_id</p>
 </blockquote>
 <h2 id="git-revert">git revert <a href="#git-revert" class="anchor">🔗</a></h2><h2 id="git-rebase">git rebase <a href="#git-rebase" class="anchor">🔗</a></h2><p>这个视频很清楚。https://www.youtube.com/watch?v=CRlGDDprdOQ
 两个用处：
-分支合并，基于的commitid变基分支。
-合并local commit记录，需要 rebase 的所有 commits 历史还没有被 push 过。</p>
-<h1 id="合并commit">合并commit <a href="#%e5%90%88%e5%b9%b6commit" class="anchor">🔗</a></h1><p>有些对git的提交记录有要求，需要合并commit
-git merge --squash xx_branch 接着需要git commit -m &quot;merge info&quot;</p>
+分支合并，基于的 commitid 变基分支。
+合并 local commit 记录，需要 rebase 的所有 commits 历史还没有被 push 过。</p>
+<h1 id="合并-commit">合并 commit <a href="#%e5%90%88%e5%b9%b6-commit" class="anchor">🔗</a></h1><p>有些对 git 的提交记录有要求，需要合并 commit
+git merge --squash xx_branch 接着需要 git commit -m &quot;merge info&quot;</p>
 <p>整合来自不同分支的修改主要有两种方法：merge 以及 rebase。</p>
-<h2 id="git-pull-与-git-pull--rebase的区别">git pull 与 git pull -rebase的区别 <a href="#git-pull-%e4%b8%8e-git-pull--rebase%e7%9a%84%e5%8c%ba%e5%88%ab" class="anchor">🔗</a></h2><p>fetch之后的merge和rebase操作不同。<br>
+<h2 id="git-pull-与-git-pull--rebase-的区别">git pull 与 git pull -rebase 的区别 <a href="#git-pull-%e4%b8%8e-git-pull--rebase-%e7%9a%84%e5%8c%ba%e5%88%ab" class="anchor">🔗</a></h2><p>fetch 之后的 merge 和 rebase 操作不同。<br>
 git pull == git fetch + git merge FETCH_HEAD
 git pull -rebase == git fetch + git rebase FETCH_HEAD</p>
-
+<h1 id="git-internals-内部">git internals 内部 <a href="#git-internals-%e5%86%85%e9%83%a8" class="anchor">🔗</a></h1><p>执行 git commit 时发生了什么？ 每次 commit 时存储了什么？ git init 时发生了什么？</p>
+<p>object： blob， tree， commit。</p>
+<p>分支 branch。</p>
+<p>working directory， staging area， repository。</p>
+<h1 id="可能会遇到的问题">可能会遇到的问题 <a href="#%e5%8f%af%e8%83%bd%e4%bc%9a%e9%81%87%e5%88%b0%e7%9a%84%e9%97%ae%e9%a2%98" class="anchor">🔗</a></h1><h2 id="git-cat-file--p-objectname---fatal-error--not-a-valid-object-name">git cat-file -p objectName -&gt; Fatal error : Not a valid object name <a href="#git-cat-file--p-objectname---fatal-error--not-a-valid-object-name" class="anchor">🔗</a></h2><p><code>.git/objects/ff/e531e3643e95e811da231410f14c76e12a68be</code> objectName=ffe531e3643e95e811da231410f14c76e12a68be</p>
+<h2 id="heading"> <a href="#heading" class="anchor">🔗</a></h2>
     </div>
 
+    
+        <div class="tags">
+            
+                <a href="http://brettkk.github.io/tags/%E5%B7%A5%E5%85%B7">工具</a>
+            
+        </div>
     
     
     
