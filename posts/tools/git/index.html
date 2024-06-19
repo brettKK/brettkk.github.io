@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          1165 words
+          1314 words
         </span>
         <span class="split">
           ·
@@ -99,6 +99,8 @@
         <li><a href="#包文件">包文件</a></li>
       </ul>
     </li>
+    <li><a href="#work-dir-indexstaging-area-repository">work dir, index/staging area, repository</a></li>
+    <li><a href="#undo-the-changes-rewrite-history-with-confidence">undo the changes, rewrite history with confidence</a></li>
     <li><a href="#删除-commit">删除 commit</a>
       <ul>
         <li><a href="#git-reset">git reset</a></li>
@@ -168,7 +170,14 @@
 <h2 id="包文件">包文件 <a href="#%e5%8c%85%e6%96%87%e4%bb%b6" class="anchor">🔗</a></h2><p>一个大文件，只修改了一行，存在两个 blob 对象文件里很占用空间。“包文件（packfile）”的二进制文件
 <code>git gc</code></p>
 <hr>
-<h1 id="删除-commit">删除 commit <a href="#%e5%88%a0%e9%99%a4-commit" class="anchor">🔗</a></h1><h2 id="git-reset">git reset <a href="#git-reset" class="anchor">🔗</a></h2><blockquote>
+<hr>
+<h1 id="work-dir-indexstaging-area-repository">work dir, index/staging area, repository <a href="#work-dir-indexstaging-area-repository" class="anchor">🔗</a></h1><p>work dir (touch a.txt) -- git add a.txt --&gt; index/staging area(blob 文件) --git commit -m &quot;aa&quot; --&gt; repository.</p>
+<h1 id="undo-the-changes-rewrite-history-with-confidence">undo the changes, rewrite history with confidence <a href="#undo-the-changes-rewrite-history-with-confidence" class="anchor">🔗</a></h1><p><code>git revert</code></p>
+<p><code>git reset --soft HEAD~1</code> <code>git reflog</code></p>
+<p><code>git cherry-pick commit-id</code> <code>git log -g</code></p>
+<p>diff &amp; patch, merge, 3 way merge, rebase(只操作本地的 commit，远程其他人依赖的 commit 不要操作)。</p>
+<h1 id="删除-commit">删除 commit <a href="#%e5%88%a0%e9%99%a4-commit" class="anchor">🔗</a></h1><h2 id="git-reset">git reset <a href="#git-reset" class="anchor">🔗</a></h2><p><code>git reset --soft</code> 仅移动 HEAD, <code>git reset --mixed</code> 移动 HEAD，更改 index 暂存区, <code>git reset --hard</code> 移动 HEAD，更改 index 暂存区，更改工作目录。</p>
+<blockquote>
 <p>git log
 git reset --hard commit_id
 git push origin HEAD --force
@@ -176,7 +185,8 @@ git push origin HEAD --force
 git relog
 git reset --hard hash_id</p>
 </blockquote>
-<h2 id="git-revert">git revert <a href="#git-revert" class="anchor">🔗</a></h2><h2 id="git-rebase">git rebase <a href="#git-rebase" class="anchor">🔗</a></h2><p>这个视频很清楚。https://www.youtube.com/watch?v=CRlGDDprdOQ
+<h2 id="git-revert">git revert <a href="#git-revert" class="anchor">🔗</a></h2><p><code>git cheri-pick</code> <code>git reflog</code></p>
+<h2 id="git-rebase">git rebase <a href="#git-rebase" class="anchor">🔗</a></h2><p>这个视频很清楚。https://www.youtube.com/watch?v=CRlGDDprdOQ
 两个用处：
 分支合并，基于的 commitid 变基分支。
 合并 local commit 记录，需要 rebase 的所有 commits 历史还没有被 push 过。</p>
