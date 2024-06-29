@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          3190 words
+          3221 words
         </span>
         <span class="split">
           ·
@@ -259,7 +259,7 @@ wireshake 上的 seq 和 ack number 是 relative number，0 和 1 是为了方�
 </ul>
 <p>http keep-alive 与 tcp keep alive 区别与联系：http 用于连接复用， tcp 用于保证连接存活，发送探测包确认连接是否存活。</p>
 <p>有时 ping url 结果为 unkown host，但是 curl url 可以通, 有可能对方防火墙屏蔽 ping 的 ICMP 协议。</p>
-<h2 id="cors-csrf">CORS， CSRF <a href="#cors-csrf" class="anchor">🔗</a></h2><p>CORS（跨域资源共享）</p>
+<h2 id="cors-csrf">CORS， CSRF <a href="#cors-csrf" class="anchor">🔗</a></h2><p>CORS（跨域资源共享）: 一种浏览器安全机制，它允许受信任的域对其他域的资源进行访问。</p>
 <p>curl 模拟跨域访问。</p>
 <p><code>curl -H 'Origin: 123' ip:port/uri --verbose</code> 发起跨域 http 请求， 当 http 的响应 header 中出现<code>Access-Control-Allow-Origin: *</code> 时证明后端允许跨域访问。</p>
 <hr>
