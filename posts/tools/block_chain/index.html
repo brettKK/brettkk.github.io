@@ -70,13 +70,13 @@
           ·
         </span>
         <span>
-          4343 words
+          4547 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          9 minute read
+          10 minute read
         </span>
     </div>
 
@@ -221,7 +221,7 @@ eth 的 eth_getCode 这个方法来判断代码哈希是否为空<br></p>
 <li>以太坊</li>
 <li>以太坊的 layer2 方案
 <ul>
-<li>数据可用层，去中心化排序器，Rollup 模块（op rollup, zk rollup），欺诈证明，零知识证明</li>
+<li>数据可用层，去中心化排序器，Rollup 模块（op rollup, zk rollup），op 的欺诈证明，零知识证明</li>
 </ul>
 </li>
 <li>cosmos 解决链之间的互操作性和扩展性</li>
@@ -304,9 +304,10 @@ Sequencer： 基于 geth 改进的适配 l2 的 EVM 客户端
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">...</span>
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h1 id="web3">web3 <a href="#web3" class="anchor">🔗</a></h1><p>DeFi (Decentralised Finance)， MakerDao, AAVE, Compound， RWA。</p>
+</span></span></code></pre></div><h1 id="web3">web3 <a href="#web3" class="anchor">🔗</a></h1><p>DeFi (Decentralised Finance)， MakerDao, AAVE, Compound， RWA。 主流质押协议。 去中心化交易所 dex。</p>
 <p>DAO 去中心的组织。去中心化、自治、公开透明。例如比特币可以看作是一个 DAO。
 DID 去中心化身份。</p>
+<p>中心化交易所的业务： 现货，合约，做市商， OTC，量化。</p>
 <p>ipfs</p>
 <h1 id="solidity">solidity <a href="#solidity" class="anchor">🔗</a></h1><p>EVM 可以获取和存储数据的 6 个地方： (memory, storage, calldata)(data location 只能描述 array， struct， map), stack, code, logs.</p>
 <h2 id="独有的语言特性">独有的语言特性 <a href="#%e7%8b%ac%e6%9c%89%e7%9a%84%e8%af%ad%e8%a8%80%e7%89%b9%e6%80%a7" class="anchor">🔗</a></h2><ul>
@@ -319,7 +320,8 @@ DID 去中心化身份。</p>
 <h2 id="solidity-compiler-solc-编译器">solidity compiler (solc 编译器) <a href="#solidity-compiler-solc-%e7%bc%96%e8%af%91%e5%99%a8" class="anchor">🔗</a></h2><p>x.sol --solc --&gt; (ABI + 字节码) --web3.js --&gt; 部署到网络中。</p>
 <p>编译器源码地址：。</p>
 <h2 id="合约审计工具">合约审计工具 <a href="#%e5%90%88%e7%ba%a6%e5%ae%a1%e8%ae%a1%e5%b7%a5%e5%85%b7" class="anchor">🔗</a></h2><p>slither</p>
-<h2 id="合约事件监听器">合约事件监听器 <a href="#%e5%90%88%e7%ba%a6%e4%ba%8b%e4%bb%b6%e7%9b%91%e5%90%ac%e5%99%a8" class="anchor">🔗</a></h2><h2 id="公链技术">公链技术 <a href="#%e5%85%ac%e9%93%be%e6%8a%80%e6%9c%af" class="anchor">🔗</a></h2><p>Ethereum, Hyperledger 联盟链。</p>
+<h2 id="合约事件监听器">合约事件监听器 <a href="#%e5%90%88%e7%ba%a6%e4%ba%8b%e4%bb%b6%e7%9b%91%e5%90%ac%e5%99%a8" class="anchor">🔗</a></h2><p>the graph</p>
+<h2 id="公链技术">公链技术 <a href="#%e5%85%ac%e9%93%be%e6%8a%80%e6%9c%af" class="anchor">🔗</a></h2><p>Ethereum, Hyperledger 联盟链。</p>
 <p>性能扩展： Conflux, Eth2.0 分片，Plasma 侧链， 跨链 Polkadot</p>
 <h2 id="polygon">Polygon <a href="#polygon" class="anchor">🔗</a></h2><p>扩容的目的： 提升交易速度和交易吞吐量，而不影响去中心化和安全性
 Polygon 是以太坊 layer2 扩容的主要解决方案。 zk rollup, Optimistic Rollups.</p>
@@ -354,6 +356,8 @@ Polygon 是以太坊 layer2 扩容的主要解决方案。 zk rollup, Optimistic
 </li>
 </ul>
 <h2 id="uniswap">uniswap <a href="#uniswap" class="anchor">🔗</a></h2><p>DEX 赛道的头部协议，uniswap 是基于以太坊的去中心话交易协议，通过智能合约自动执行代币互换。</p>
+<p>sushiswap， curve， Balancer</p>
+<p>订单薄，自动做市商。</p>
 <h3 id="v1">v1 <a href="#v1" class="anchor">🔗</a></h3><p>恒定乘积曲线，引导 AMM 机制走向主流。</p>
 <h3 id="v2">v2 <a href="#v2" class="anchor">🔗</a></h3><p>sushiswap 的竞争。</p>
 <h3 id="v3">v3 <a href="#v3" class="anchor">🔗</a></h3><h2 id="量化交易">量化交易 <a href="#%e9%87%8f%e5%8c%96%e4%ba%a4%e6%98%93" class="anchor">🔗</a></h2><ul>
@@ -389,7 +393,11 @@ BIP44: 多币种的基础，一个种子可以生成多个账户，每个账户�
 得到私钥: 助记词+随机数-〉通过 PBKDF2 生成私钥， 这里因为 BIP39 协议所以固定助记词的私钥固定
 得到公钥: 通过私钥*ecc 中的曲线上的一个点，生成一个公钥，这里曲线的点是一个固定的点，所以不会生成多个公钥</p>
 <p>如何生成一个钱包， 助记词， 私钥，公钥。</p>
-<p>钱包开发者： 扫块入账，交易回滚， 离线签名， L1 L2 跨链， BIP 钱包协议族。 Uniswap。</p>
+<p>钱包开发者： 扫块入账，交易回滚， 离线签名， L1 L2 跨链， BIP 钱包协议族。 Uniswap。
+github《区块链钱包技术指南》
+爬块服务。
+用户，资产，交易，NFT， social = socialfi。</p>
+<p>交易所充提币的解析， 热钱包地址，归集地址。</p>
 <h1 id="好项目">好项目 <a href="#%e5%a5%bd%e9%a1%b9%e7%9b%ae" class="anchor">🔗</a></h1><p>eth 上的 uniswap, bsc 上的 pancakeswap</p>
 <h1 id="最近发展">最近发展 <a href="#%e6%9c%80%e8%bf%91%e5%8f%91%e5%b1%95" class="anchor">🔗</a></h1><h2 id="性能扩展">性能扩展 <a href="#%e6%80%a7%e8%83%bd%e6%89%a9%e5%b1%95" class="anchor">🔗</a></h2><p>区块大小扩大，出块时间，扩容，隔离见证，树图，conflux<br></p>
 <p>layer2 op rollup 的代表： optimism, arbitrum。
@@ -406,8 +414,14 @@ arbitrum 的 arb 排序器， 验证节点，争议解决，锁仓 7 天。</p>
 <p>BTC 还是掌握在少部分人手里。</p>
 <h1 id="工作-jd-上的要求">工作 jd 上的要求 <a href="#%e5%b7%a5%e4%bd%9c-jd-%e4%b8%8a%e7%9a%84%e8%a6%81%e6%b1%82" class="anchor">🔗</a></h1><h2 id="前端-jsts">前端 js，ts <a href="#%e5%89%8d%e7%ab%af-jsts" class="anchor">🔗</a></h2><p>因为智能合约开发框架 <code>hardhat</code>，使用了前端测试框架 <code>Mocha</code>，断言库 <code>Chai</code>
 <code>npx mocha a.test.js</code></p>
+<p><code>nextjs.org/docs</code> <code>React</code></p>
+<p><code>yarn create next-app .</code>
+<code>yarn run dev</code> -&gt; <code>localhost:3000</code>
+<code>yarn add --dev hardhat</code> <code>yarn hardhat</code></p>
 <h2 id="公链开发">公链开发 <a href="#%e5%85%ac%e9%93%be%e5%bc%80%e5%8f%91" class="anchor">🔗</a></h2><p>rust, go.
 区块链底层，公链的架构， 底层协议，共识算法， 智能合约， 加密算法， p2p 网络</p>
+<p>EVM = 执行引擎， 状态数据库， 高效状态树，P2P， 去中心化 sequencer 协议。</p>
+<p>EIP 1559 交易费，拥堵。</p>
 <h2 id="zk-研发工程师">zk 研发工程师 <a href="#zk-%e7%a0%94%e5%8f%91%e5%b7%a5%e7%a8%8b%e5%b8%88" class="anchor">🔗</a></h2><p>c++, rust, go. zk-snarks, zk-starks, ethereum, bitcoin.
 zkEVM 经验， 熟悉 GPU， asic， 有 cuda， openCL 经验。</p>
 <ul>
@@ -452,7 +466,7 @@ zkEVM 经验， 熟悉 GPU， asic， 有 cuda， openCL 经验。</p>
 <li>基于区块链进行开发（侧链，layer2， 跨链）</li>
 <li>基于 VM（以太坊的 EVM， solana 的 WASAM， JSVM）</li>
 <li>结合分布式存储，实现无服务器架构应用的搭建</li>
-<li>套利，链的交易池监听</li>
+<li>MEV 套利，链的交易池监听</li>
 </ul>
 </li>
 </ul>
