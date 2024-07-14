@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          4105 words
+          4343 words
         </span>
         <span class="split">
           ·
@@ -115,6 +115,10 @@
     <li><a href="#web3">web3</a></li>
     <li><a href="#solidity">solidity</a>
       <ul>
+        <li><a href="#独有的语言特性">独有的语言特性</a></li>
+        <li><a href="#solidity-compiler-solc-编译器">solidity compiler (solc 编译器)</a></li>
+        <li><a href="#合约审计工具">合约审计工具</a></li>
+        <li><a href="#合约事件监听器">合约事件监听器</a></li>
         <li><a href="#公链技术">公链技术</a></li>
         <li><a href="#polygon">Polygon</a></li>
         <li><a href="#uniswap">uniswap</a>
@@ -304,8 +308,18 @@ Sequencer： 基于 geth 改进的适配 l2 的 EVM 客户端
 <p>DAO 去中心的组织。去中心化、自治、公开透明。例如比特币可以看作是一个 DAO。
 DID 去中心化身份。</p>
 <p>ipfs</p>
-<h1 id="solidity">solidity <a href="#solidity" class="anchor">🔗</a></h1><p>EVM 可以获取和存储数据的 6 个地方： stack, memory, storage, calldata, code, logs.</p>
-<h2 id="公链技术">公链技术 <a href="#%e5%85%ac%e9%93%be%e6%8a%80%e6%9c%af" class="anchor">🔗</a></h2><p>Ethereum, Hyperledger 联盟链。</p>
+<h1 id="solidity">solidity <a href="#solidity" class="anchor">🔗</a></h1><p>EVM 可以获取和存储数据的 6 个地方： (memory, storage, calldata)(data location 只能描述 array， struct， map), stack, code, logs.</p>
+<h2 id="独有的语言特性">独有的语言特性 <a href="#%e7%8b%ac%e6%9c%89%e7%9a%84%e8%af%ad%e8%a8%80%e7%89%b9%e6%80%a7" class="anchor">🔗</a></h2><ul>
+<li>修饰器 <code>modifier</code> 去给函数加限制。 <code>modifier onlyOwner { require(msg.sender == over, &quot;not contract owner&quot;); _;}</code></li>
+<li>事件<code>Event</code> 产生日志 log。</li>
+<li>函数的参数为 struct，map， array 类型时需要加修饰符 memory or calldata。</li>
+<li>override， virtual</li>
+</ul>
+<p>receive，fallback . msg.data is empty?</p>
+<h2 id="solidity-compiler-solc-编译器">solidity compiler (solc 编译器) <a href="#solidity-compiler-solc-%e7%bc%96%e8%af%91%e5%99%a8" class="anchor">🔗</a></h2><p>x.sol --solc --&gt; (ABI + 字节码) --web3.js --&gt; 部署到网络中。</p>
+<p>编译器源码地址：。</p>
+<h2 id="合约审计工具">合约审计工具 <a href="#%e5%90%88%e7%ba%a6%e5%ae%a1%e8%ae%a1%e5%b7%a5%e5%85%b7" class="anchor">🔗</a></h2><p>slither</p>
+<h2 id="合约事件监听器">合约事件监听器 <a href="#%e5%90%88%e7%ba%a6%e4%ba%8b%e4%bb%b6%e7%9b%91%e5%90%ac%e5%99%a8" class="anchor">🔗</a></h2><h2 id="公链技术">公链技术 <a href="#%e5%85%ac%e9%93%be%e6%8a%80%e6%9c%af" class="anchor">🔗</a></h2><p>Ethereum, Hyperledger 联盟链。</p>
 <p>性能扩展： Conflux, Eth2.0 分片，Plasma 侧链， 跨链 Polkadot</p>
 <h2 id="polygon">Polygon <a href="#polygon" class="anchor">🔗</a></h2><p>扩容的目的： 提升交易速度和交易吞吐量，而不影响去中心化和安全性
 Polygon 是以太坊 layer2 扩容的主要解决方案。 zk rollup, Optimistic Rollups.</p>
@@ -367,7 +381,7 @@ $$</p>
 <p>$$
 f(x) = \sum_{i=1}^{n}y_i f_i(x)
 $$</p>
-<h1 id="钱包">钱包 <a href="#%e9%92%b1%e5%8c%85" class="anchor">🔗</a></h1><p>钱包的基础是 BIP32/BIP39/BIP44 这三个协议 <br>
+<h1 id="钱包">钱包 <a href="#%e9%92%b1%e5%8c%85" class="anchor">🔗</a></h1><p>钱包的基础是 BIP32/BIP39/BIP44(BIP 协议族) 这三个协议 <br>
 BIP32: 一个助记词/种子，可以生成一个树形的结构 <br>
 BIP39: 一个助记词-》关联确定性种子,种子生成确定性私钥 <br>
 BIP44: 多币种的基础，一个种子可以生成多个账户，每个账户有自己的地址空间，用户可以同一个钱包管理多种资产<br></p>
@@ -375,6 +389,7 @@ BIP44: 多币种的基础，一个种子可以生成多个账户，每个账户�
 得到私钥: 助记词+随机数-〉通过 PBKDF2 生成私钥， 这里因为 BIP39 协议所以固定助记词的私钥固定
 得到公钥: 通过私钥*ecc 中的曲线上的一个点，生成一个公钥，这里曲线的点是一个固定的点，所以不会生成多个公钥</p>
 <p>如何生成一个钱包， 助记词， 私钥，公钥。</p>
+<p>钱包开发者： 扫块入账，交易回滚， 离线签名， L1 L2 跨链， BIP 钱包协议族。 Uniswap。</p>
 <h1 id="好项目">好项目 <a href="#%e5%a5%bd%e9%a1%b9%e7%9b%ae" class="anchor">🔗</a></h1><p>eth 上的 uniswap, bsc 上的 pancakeswap</p>
 <h1 id="最近发展">最近发展 <a href="#%e6%9c%80%e8%bf%91%e5%8f%91%e5%b1%95" class="anchor">🔗</a></h1><h2 id="性能扩展">性能扩展 <a href="#%e6%80%a7%e8%83%bd%e6%89%a9%e5%b1%95" class="anchor">🔗</a></h2><p>区块大小扩大，出块时间，扩容，隔离见证，树图，conflux<br></p>
 <p>layer2 op rollup 的代表： optimism, arbitrum。

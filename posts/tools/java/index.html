@@ -8,7 +8,7 @@
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
 <meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta name="description" content="java字节码格式 🔗Class文件格式图 javap查看字节码">
+<meta name="description" content="java 字节码格式 🔗Class 文件格式图 javap 查看字节码文件 🔗 magic, 0xCAFEBABE ，p">
 <meta name="generator" content="Hugo 0.103.1" />
 
 
@@ -70,13 +70,13 @@
           ·
         </span>
         <span>
-          3151 words
+          2571 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          7 minute read
+          6 minute read
         </span>
     </div>
 
@@ -91,18 +91,23 @@
           <div>
               <nav id="TableOfContents">
   <ul>
-    <li><a href="#java字节码格式">java字节码格式</a>
+    <li><a href="#java-字节码格式">java 字节码格式</a>
       <ul>
-        <li><a href="#javap查看字节码文件">javap查看字节码文件</a></li>
+        <li><a href="#javap-查看字节码文件">javap 查看字节码文件</a></li>
         <li><a href="#字节码指令">字节码指令</a></li>
       </ul>
     </li>
     <li><a href="#类加载">类加载</a></li>
     <li><a href="#生成字节码的框架">生成字节码的框架</a></li>
-    <li><a href="#java程序的静态分析框架-soot-wala">java程序的静态分析框架 soot, wala</a></li>
+    <li><a href="#java-程序的静态分析框架-soot-wala">java 程序的静态分析框架 soot, wala</a></li>
     <li><a href="#软件分析技术software-analysis">软件分析技术（Software Analysis）</a>
       <ul>
         <li><a href="#数据流分析">数据流分析</a></li>
+      </ul>
+    </li>
+    <li><a href="#spring">spring</a>
+      <ul>
+        <li><a href="#value">@value</a></li>
       </ul>
     </li>
   </ul>
@@ -117,26 +122,26 @@
 
 
     <div class="content">
-      <h1 id="java字节码格式">java字节码格式 <a href="#java%e5%ad%97%e8%8a%82%e7%a0%81%e6%a0%bc%e5%bc%8f" class="anchor">🔗</a></h1><p>Class文件格式图
+      <h1 id="java-字节码格式">java 字节码格式 <a href="#java-%e5%ad%97%e8%8a%82%e7%a0%81%e6%a0%bc%e5%bc%8f" class="anchor">🔗</a></h1><p>Class 文件格式图
 <p class="markdown-image">
   <img src="/os/java-class-file-internal-structure.png" alt="image"  />
 </p></p>
-<h2 id="javap查看字节码文件">javap查看字节码文件 <a href="#javap%e6%9f%a5%e7%9c%8b%e5%ad%97%e8%8a%82%e7%a0%81%e6%96%87%e4%bb%b6" class="anchor">🔗</a></h2><ul>
-<li>magic,  0xCAFEBABE ，pdf png文件内都有魔数</li>
-<li>version, 生成class文件时的java版本</li>
-<li>constant pool,  javap -v Helloworld</li>
-<li>access flag, 2字节 标识一个类为final, abstract, public 之类的</li>
-<li>this class,  确定类的继承关系 指向常量池的索引</li>
+<h2 id="javap-查看字节码文件">javap 查看字节码文件 <a href="#javap-%e6%9f%a5%e7%9c%8b%e5%ad%97%e8%8a%82%e7%a0%81%e6%96%87%e4%bb%b6" class="anchor">🔗</a></h2><ul>
+<li>magic, 0xCAFEBABE ，pdf png 文件内都有魔数</li>
+<li>version, 生成 class 文件时的 java 版本</li>
+<li>constant pool, javap -v Helloworld</li>
+<li>access flag, 2 字节 标识一个类为 final, abstract, public 之类的</li>
+<li>this class, 确定类的继承关系 指向常量池的索引</li>
 <li>super class, 确定类的继承关系</li>
-<li>interface,   确定类的继承关系</li>
+<li>interface, 确定类的继承关系</li>
 <li>field, 字段表
 <ul>
 <li>变长</li>
-<li>field_info结构
+<li>field_info 结构
 <ul>
 <li>access_flags 字段访问标识</li>
 <li>name_index 字段名索引 指向常量池的字符串常量</li>
-<li>descriptor_index  字段类型描述符的索引  引用类型“L;” -&gt; “Ljava/lang/String;” 指向常量池的字符串常量</li>
+<li>descriptor_index 字段类型描述符的索引 引用类型“L;” -&gt; “Ljava/lang/String;” 指向常量池的字符串常量</li>
 </ul>
 </li>
 </ul>
@@ -148,7 +153,7 @@
 <ul>
 <li>access_flags</li>
 <li>name_index</li>
-<li>decriptor_index 方法描述符 指向常量池类型为constant_uft8_innfo的字符串常量项，表述(参1的类型，参2的类型...) 返回值类型</li>
+<li>decriptor_index 方法描述符 指向常量池类型为 constant_uft8_innfo 的字符串常量项，表述(参 1 的类型，参 2 的类型...) 返回值类型</li>
 </ul>
 </li>
 </ul>
@@ -159,26 +164,26 @@
 <li>attribute_name_index 属性名索引 指向常量池的字符串常量</li>
 <li>attribute_length info 数组长度</li>
 <li>info</li>
-<li>ConstantValue属性</li>
-<li>Code属性 重要的部分 包含了方法的字节码</li>
+<li>ConstantValue 属性</li>
+<li>Code 属性 重要的部分 包含了方法的字节码</li>
 </ul>
 </li>
 </ul>
 <h2 id="字节码指令">字节码指令 <a href="#%e5%ad%97%e8%8a%82%e7%a0%81%e6%8c%87%e4%bb%a4" class="anchor">🔗</a></h2><ul>
-<li>switch-case的两种字节码指令的实现
+<li>switch-case 的两种字节码指令的实现
 <ul>
-<li>tableswitch , case间隔紧密时使用 o(1)</li>
-<li>lookupswitch , case间隔稀疏时使用  o(lgn)</li>
+<li>tableswitch , case 间隔紧密时使用 o(1)</li>
+<li>lookupswitch , case 间隔稀疏时使用 o(lgn)</li>
 </ul>
 </li>
-<li>try-catch 字节码分析 JVM的异常处理是通过编译期间确定下来的异常表，在运行时利用异常表来实现的
+<li>try-catch 字节码分析 JVM 的异常处理是通过编译期间确定下来的异常表，在运行时利用异常表来实现的
 <ul>
-<li>code属性里有异常表 表项4元组：from, to, target, exception type</li>
-<li>在from,to 范围内的字节码发生指定的exception type时跳转到target字节码的位置</li>
+<li>code 属性里有异常表 表项 4 元组：from, to, target, exception type</li>
+<li>在 from,to 范围内的字节码发生指定的 exception type 时跳转到 target 字节码的位置</li>
 <li>finally 字节码分析
 <ul>
-<li>为什么finally一定执行： javac生成字节码时在try和catch中所有退出之前加入invokevirtual 调用finally里代码块</li>
-<li>finally语句中有return语句时，javac生成字节码时会将try 和catch里的return语句的值临时放入局部变量表里，只返回finally里的return语句</li>
+<li>为什么 finally 一定执行： javac 生成字节码时在 try 和 catch 中所有退出之前加入 invokevirtual 调用 finally 里代码块</li>
+<li>finally 语句中有 return 语句时，javac 生成字节码时会将 try 和 catch 里的 return 语句的值临时放入局部变量表里，只返回 finally 里的 return 语句</li>
 </ul>
 </li>
 </ul>
@@ -202,18 +207,18 @@
 <p>方法调用</p>
 <ul>
 <li>
-<p>5条方法调用指令的联系和区别 （以invoke开头的指令）</p>
+<p>5 条方法调用指令的联系和区别 （以 invoke 开头的指令）</p>
 <ul>
-<li>invokestatic 调用static静态方法
+<li>invokestatic 调用 static 静态方法
 <ul>
 <li>调用的方法在编译期间确定，静态绑定</li>
-<li>不需要将对象加载到操作数栈上，仅参数入栈，执行invokestatic就行</li>
+<li>不需要将对象加载到操作数栈上，仅参数入栈，执行 invokestatic 就行</li>
 </ul>
 </li>
-<li>invokespecial  调用特殊的实例方法，构造器方法
+<li>invokespecial 调用特殊的实例方法，构造器方法
 <ul>
-<li>调用的方法在编译期间确定，效率比invokevirtual高</li>
-<li>实例构造器方法<init>, private修饰的私有方法， super关键词调用的父类方法</li>
+<li>调用的方法在编译期间确定，效率比 invokevirtual 高</li>
+<li>实例构造器方法<init>, private 修饰的私有方法， super 关键词调用的父类方法</li>
 </ul>
 </li>
 <li>invokevirtual 运行时根据对象的实际类型，执行具体子类的实现方法。 vtable
@@ -222,69 +227,69 @@
 <li>需要将对象应用，参数入栈</li>
 </ul>
 </li>
-<li>invokeinterface 调用接口方法  itable
+<li>invokeinterface 调用接口方法 itable
 <ul>
 <li>调用的方法在运行时根据对象的类型确定目标方法</li>
-<li>invokeinterface从itbale表找对应的方法</li>
+<li>invokeinterface 从 itbale 表找对应的方法</li>
 </ul>
 </li>
 <li>invokedynamic 调用动态方法
 <ul>
-<li>前4条指令的分派规则固化在jvm中</li>
+<li>前 4 条指令的分派规则固化在 jvm 中</li>
 <li>invokedynamic 是把如何查找目标方法的决定权给了具体的用户代码中</li>
 </ul>
 </li>
 </ul>
 </li>
 <li>
-<p>JVM方法分配机制与vtable,itable原理， 方法分派</p>
+<p>JVM 方法分配机制与 vtable,itable 原理， 方法分派</p>
 <ul>
-<li>vtable, itable是java实现多态的基础</li>
+<li>vtable, itable 是 java 实现多态的基础</li>
 <li>对象的继承与多态</li>
-<li>子类继承父类的vtable。 一个没有方法的类的vtable也有5条来自Object类</li>
-<li>final, static, private 方法不能被继承和重写，所以不会出现在vtable中</li>
-<li>itable = offset table + method table 去支持invokeinterface指令</li>
+<li>子类继承父类的 vtable。 一个没有方法的类的 vtable 也有 5 条来自 Object 类</li>
+<li>final, static, private 方法不能被继承和重写，所以不会出现在 vtable 中</li>
+<li>itable = offset table + method table 去支持 invokeinterface 指令</li>
 </ul>
 </li>
 <li>
-<p>invokedynamic指令，lambda表达式中的作用</p>
+<p>invokedynamic 指令，lambda 表达式中的作用</p>
 <ul>
-<li>java8中出现的lambda表达式才第一次使用上这条指令</li>
-<li>匿名内部类是在编译期间生成新的class文件来实现的</li>
-<li>asm在运行时生成class对象</li>
+<li>java8 中出现的 lambda 表达式才第一次使用上这条指令</li>
+<li>匿名内部类是在编译期间生成新的 class 文件来实现的</li>
+<li>asm 在运行时生成 class 对象</li>
 </ul>
 </li>
 <li>
 <p>从字节码角度理解范型擦除</p>
 <ul>
-<li>范型类型会被擦除为Object类型</li>
-<li>ArrayList<int> 不允许，因为原始类型不能存储到Object类型上</li>
+<li>范型类型会被擦除为 Object 类型</li>
+<li>ArrayList<int> 不允许，因为原始类型不能存储到 Object 类型上</li>
 </ul>
 </li>
 <li>
 <p>synchronized 关键字的字节码原理</p>
 <ul>
-<li>插入monitorenter (获取栈顶对象的锁)， 插入monitorexit(释放锁，一定插入至少2个，原因是正常退出和异常退出均会插入）</li>
-<li>一定会在code属性里生成异常处理的描述表，即在所有退出的地方插入monitorexit 保证锁在任何退出的节点均被释放（try-catch-finaly monitorexit）</li>
+<li>插入 monitorenter (获取栈顶对象的锁)， 插入 monitorexit(释放锁，一定插入至少 2 个，原因是正常退出和异常退出均会插入）</li>
+<li>一定会在 code 属性里生成异常处理的描述表，即在所有退出的地方插入 monitorexit 保证锁在任何退出的节点均被释放（try-catch-finaly monitorexit）</li>
 </ul>
 </li>
 </ul>
 <h1 id="类加载">类加载 <a href="#%e7%b1%bb%e5%8a%a0%e8%bd%bd" class="anchor">🔗</a></h1><p>主要做三件事</p>
 <ul>
 <li>
-<p>通过类名从class文件中获取字节流</p>
+<p>通过类名从 class 文件中获取字节流</p>
 </li>
 <li>
 <p>将字节流存储在方法区上的运行时数据结构</p>
 </li>
 <li>
-<p>在堆上生成Class对象，作为这个类在方法区上的访问入口</p>
+<p>在堆上生成 Class 对象，作为这个类在方法区上的访问入口</p>
 </li>
 <li>
-<p>java基础类库提供2种动态加载类的方法</p>
+<p>java 基础类库提供 2 种动态加载类的方法</p>
 <ul>
-<li>Class的静态方法forName, 会执行该类的clinit初始化。</li>
-<li>ClassLoader的loadClass方法，不会执行泪的初始化</li>
+<li>Class 的静态方法 forName, 会执行该类的 clinit 初始化。</li>
+<li>ClassLoader 的 loadClass 方法，不会执行泪的初始化</li>
 </ul>
 </li>
 </ul>
@@ -292,8 +297,8 @@
 <li>javassit，cglib，asm</li>
 <li>读和写字节码
 <ul>
-<li>一个CtClass对象 - 对应Class对象</li>
-<li>ClassPool是由CtClass对象组成的hashtable</li>
+<li>一个 CtClass 对象 - 对应 Class 对象</li>
+<li>ClassPool 是由 CtClass 对象组成的 hashtable</li>
 </ul>
 </li>
 </ul>
@@ -301,35 +306,35 @@
 <p><p class="markdown-image">
   <img src="/os/object-memory-structure.png" alt="image"  />
 </p></p>
-<p>对象头由2部分组成 - mark word（32位或者64位）： 25bit 哈希码，2bit 锁标志位 ； 二  类型指针（指向Class对象）</p>
+<p>对象头由 2 部分组成 - mark word（32 位或者 64 位）： 25bit 哈希码，2bit 锁标志位 ； 二 类型指针（指向 Class 对象）</p>
 <p>在对象上加锁的过程</p>
 <ul>
 <li>
 <p>复制对象头到执行栈中的锁记录中</p>
 </li>
 <li>
-<p>修改对象头中的mark word， 2点修改：修改mark word的前30bit为存放锁记录的地址，修改锁标志位</p>
+<p>修改对象头中的 mark word， 2 点修改：修改 mark word 的前 30bit 为存放锁记录的地址，修改锁标志位</p>
 </li>
 <li>
-<p>如何自实现一个Immutable类</p>
+<p>如何自实现一个 Immutable 类</p>
 <ul>
-<li>class定义为final，避免继承</li>
-<li>所有成员熟悉定义为final</li>
+<li>class 定义为 final，避免继承</li>
+<li>所有成员熟悉定义为 final</li>
 <li>构造函数不要引用外部对象，构造时深度拷贝</li>
 <li>其实在类加载是可以做任何字节码修改</li>
 </ul>
 </li>
 <li>
-<p>判断一个类是否是Immutable的</p>
+<p>判断一个类是否是 Immutable 的</p>
 </li>
 <li>
 <p>Concurrent Modification（并发修改集合对象）</p>
 <ul>
-<li>遍历集合类的同时，修改集合类的结构，产生ConcurrentModificationException</li>
+<li>遍历集合类的同时，修改集合类的结构，产生 ConcurrentModificationException</li>
 </ul>
 </li>
 <li>
-<p>java里有2种iterator的实现方式： fail-safe , fail-fast(快速失败)</p>
+<p>java 里有 2 种 iterator 的实现方式： fail-safe , fail-fast(快速失败)</p>
 <ul>
 <li>fail fast
 <ul>
@@ -349,67 +354,67 @@
 <li>
 <p>扩容过程</p>
 <ul>
-<li>经过rehash之后，元素的位置要么是在原位置，要么是在原位置再移动2次幂的位置</li>
-<li>HashMap 扩容时，size增大一倍， newsize=oldsize*2</li>
-<li>ArrayList（动态数组）扩容时，扩大0.5倍，newsize=oldsize*1.5</li>
-<li>ArrayQueue， 当size小于64时，+2；size大于64时，newsize=oldsize*1.5</li>
+<li>经过 rehash 之后，元素的位置要么是在原位置，要么是在原位置再移动 2 次幂的位置</li>
+<li>HashMap 扩容时，size 增大一倍， newsize=oldsize*2</li>
+<li>ArrayList（动态数组）扩容时，扩大 0.5 倍，newsize=oldsize*1.5</li>
+<li>ArrayQueue， 当 size 小于 64 时，+2；size 大于 64 时，newsize=oldsize*1.5</li>
 </ul>
 </li>
 </ul>
-<h1 id="java程序的静态分析框架-soot-wala">java程序的静态分析框架 soot, wala <a href="#java%e7%a8%8b%e5%ba%8f%e7%9a%84%e9%9d%99%e6%80%81%e5%88%86%e6%9e%90%e6%a1%86%e6%9e%b6-soot-wala" class="anchor">🔗</a></h1><p>4中IR</p>
+<h1 id="java-程序的静态分析框架-soot-wala">java 程序的静态分析框架 soot, wala <a href="#java-%e7%a8%8b%e5%ba%8f%e7%9a%84%e9%9d%99%e6%80%81%e5%88%86%e6%9e%90%e6%a1%86%e6%9e%b6-soot-wala" class="anchor">🔗</a></h1><p>4 中 IR</p>
 <ul>
 <li>Baf
 <ul>
-<li>在bytecode上进行的抽象，忽略字节码对于常量池和type的依赖</li>
+<li>在 bytecode 上进行的抽象，忽略字节码对于常量池和 type 的依赖</li>
 </ul>
 </li>
 <li>Jimple
 <ul>
-<li>重要的IR，三地址表达式res = num1 op num2，一个表达式最多有三个引用地址</li>
-<li>15条指令</li>
+<li>重要的 IR，三地址表达式 res = num1 op num2，一个表达式最多有三个引用地址</li>
+<li>15 条指令</li>
 <li>SSA,Static Single-Assignment。 每个变量仅被赋值一次，保证每个被使用的变量都有唯一的定义</li>
 </ul>
 </li>
 <li>Grimple</li>
 <li>Shimple</li>
 </ul>
-<p>Soot中的数据结构</p>
+<p>Soot 中的数据结构</p>
 <ul>
-<li>Scene类, 环境上下文</li>
+<li>Scene 类, 环境上下文</li>
 <li>SootClass， 代表类</li>
 <li>SootMethod，类的方法</li>
 <li>SootField，类的属性</li>
 <li>Body，方法体</li>
 </ul>
-<p>Soot支持的分析：</p>
+<p>Soot 支持的分析：</p>
 <ul>
-<li>Call-graph构建</li>
-<li>Points-to分析</li>
-<li>Def/use链</li>
+<li>Call-graph 构建</li>
+<li>Points-to 分析</li>
+<li>Def/use 链</li>
 <li>模板驱动的过程间数据流分析</li>
-<li>模板驱动的跨过程数据流分析（与heros组合使用）</li>
-<li>污点分析（与FlowDroid组合使用）</li>
+<li>模板驱动的跨过程数据流分析（与 heros 组合使用）</li>
+<li>污点分析（与 FlowDroid 组合使用）</li>
 </ul>
-<p>Body类 （用来存放方法的代码）</p>
+<p>Body 类 （用来存放方法的代码）</p>
 <ul>
-<li>BafBody, JimpleBody, ShimpleBody, GrimpBody 四种不同IR所对应的Body类</li>
-<li>3中主要的chain， Unints chain, Locals chain, Traps chain</li>
+<li>BafBody, JimpleBody, ShimpleBody, GrimpBody 四种不同 IR 所对应的 Body 类</li>
+<li>3 中主要的 chain， Unints chain, Locals chain, Traps chain</li>
 </ul>
 <p>Jimple 代码</p>
 <p>locals
 方法内的局部变量在方法的顶部
-$开头的变量为原java代码中没有的变量</p>
-<p>traps: 异常处理被表示为一个tuple(元组，异常，开始，结束，处理器)</p>
-<p>units: body中包含的实际代码, 语句</p>
+$开头的变量为原 java 代码中没有的变量</p>
+<p>traps: 异常处理被表示为一个 tuple(元组，异常，开始，结束，处理器)</p>
+<p>units: body 中包含的实际代码, 语句</p>
 <ul>
-<li>interface Unit, Jimple使用Stmt， Grimp使用Inst</li>
+<li>interface Unit, Jimple 使用 Stmt， Grimp 使用 Inst</li>
 </ul>
-<p>Value接口（代表数据）： Locals, Constants, Expressions, ParameterRefs</p>
+<p>Value 接口（代表数据）： Locals, Constants, Expressions, ParameterRefs</p>
 <p>Boxes(代表指针)： ValueBox, UnitBox</p>
 <p>AnalysisScope</p>
 <ul>
 <li>用于指定用户静态代码分析的程序或库</li>
-<li>format: Classloader, Language,  Type, Location</li>
+<li>format: Classloader, Language, Type, Location</li>
 </ul>
 <p>CallGraphBuilder</p>
 <ul>
@@ -427,10 +432,11 @@ $开头的变量为原java代码中没有的变量</p>
 <p>《Lecture notes on static analysis》Moller and
 Schwartzbach</p>
 <p><a href="https://cs.au.dk/~amoeller/spa/" target="_blank" rel="noopener">https://cs.au.dk/~amoeller/spa/</a></p>
-<p>南京大学《软件分析》课（B站视频）</p>
+<p>南京大学《软件分析》课（B 站视频）</p>
 <p>《Decision Procedures -- An Algorithmic Point of View》
 Daniel Kroening and Ofer Strichman</p>
 <p>github: CMinor-Verifier.</p>
+<h1 id="spring">spring <a href="#spring" class="anchor">🔗</a></h1><h2 id="value">@value <a href="#value" class="anchor">🔗</a></h2><p>启动 jar 包时的命令行参数优先级最高，会覆盖 application.properties 里的参数。</p>
 
     </div>
 
