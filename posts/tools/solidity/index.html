@@ -3,12 +3,12 @@
 <script src="https://cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
 <html lang="zh-cn">
   <head>
-    <title>brettkk</title>
+    <title>solidity | brettkk</title>
 
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
 <meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta name="description" content="">
+<meta name="description" content="安装 solidity 的编译器 🔗自动化安装 🔗自定义编译 solidity，安装">
 <meta name="generator" content="Hugo 0.103.1" />
 
 
@@ -40,16 +40,13 @@
 
 
 
-  
-    <link href="/index.xml" rel="alternate" type="application/rss+xml" title="brettkk" />
-    <link href="/index.xml" rel="feed" type="application/rss+xml" title="brettkk" />
-  
-
 
   </head>
 
   <body>
     <nav class="navigation">
+	
+		<a href="/"> <span class="arrow">←</span>Home</a>
 	
 	<a href="/posts">Archive</a>
 	<a href="/tags">Tags</a>
@@ -63,107 +60,75 @@
 
     <main class="main">
       
-<header class="profile">
-    
-        <img class="avatar" alt="avatar" src="/images/avatar.png" />
-    
 
-    <h1>brettkk</h1>
-    
-    
-</header>
+<section id="single">
+    <h1 class="title">solidity</h1>
 
-<div id="list-page">
-    
+    <div class="tip">
+        <time datetime="2021-05-05 11:33:56 &#43;0800 CST">May 5, 2021</time>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          47 words
+        </span>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          1 minute read
+        </span>
+    </div>
+
     
     
         
-        
-        <section class="item">
+  
+    <aside class="toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
           <div>
-            <h1 class="title"><a href='/posts/store_db/mysql/'>mysql</a></h1>
-            <div class ="date">
-                <time datetime="2021-05-05 11:33:56 &#43;0800 CST">May 5, 2021</time>  
-            </div>
+              <nav id="TableOfContents">
+  <ul>
+    <li><a href="#安装-solidity-的编译器">安装 solidity 的编译器</a>
+      <ul>
+        <li><a href="#自动化安装">自动化安装</a></li>
+        <li><a href="#自定义编译-solidity安装-solc">自定义编译 solidity，安装 solc</a></li>
+      </ul>
+    </li>
+    <li><a href="#可能遇到的问题">可能遇到的问题</a>
+      <ul>
+        <li><a href="#系统里缺-boost-库">系统里缺 boost 库</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
           </div>
+      </details>
+    </aside>
+  
 
-          
-              <div class="summary">mysql 起源&amp;基础 🔗 创建表时的存储引擎 🔗 存储引擎-是创建表</div>
-          
-
-        </section>
-    
-        
-        
-        <section class="item">
-          <div>
-            <h1 class="title"><a href='/posts/tools/python/'>python</a></h1>
-            <div class ="date">
-                <time datetime="2021-05-05 11:33:56 &#43;0800 CST">May 5, 2021</time>  
-            </div>
-          </div>
-
-          
-              <div class="summary">python 历史 🔗 1989 年荷兰人Guido von Rossum开始写 Python 语言的解释</div>
-          
-
-        </section>
-    
-        
-        
-        <section class="item">
-          <div>
-            <h1 class="title"><a href='/posts/rust/rust_unsafe/'>rust unsafe</a></h1>
-            <div class ="date">
-                <time datetime="2021-05-05 11:33:56 &#43;0800 CST">May 5, 2021</time>  
-            </div>
-          </div>
-
-          
-              <div class="summary">fn main() { let mut d = String::from(&#34;aaaa&#34;); let d_len = d.len(); { // 去掉 or 不去掉 let mut e = String::wtih_capacity(d_len); unsafe { // 两个</div>
-          
-
-        </section>
-    
-        
-        
-        <section class="item">
-          <div>
-            <h1 class="title"><a href='/posts/tools/solidity/'>solidity</a></h1>
-            <div class ="date">
-                <time datetime="2021-05-05 11:33:56 &#43;0800 CST">May 5, 2021</time>  
-            </div>
-          </div>
-
-          
-              <div class="summary">安装 solidity 的编译器 🔗自动化安装 🔗自定义编译 solidity，安装</div>
-          
-
-        </section>
-    
 
     
-        <div class="pagination">
-          
-              <span class="prev">
-                  <a href="/page/8/">
-                      <span class="arrow">←</span> Newer posts
-                  </a>
-            </span>
-          
-          
-          
-              <span class="next">
-                  <a href="/page/10/">
-                      Older posts <span class="arrow">→</span>
-                  </a>
-              </span>
-          
+
+
+    <div class="content">
+      <h1 id="安装-solidity-的编译器">安装 solidity 的编译器 <a href="#%e5%ae%89%e8%a3%85-solidity-%e7%9a%84%e7%bc%96%e8%af%91%e5%99%a8" class="anchor">🔗</a></h1><h2 id="自动化安装">自动化安装 <a href="#%e8%87%aa%e5%8a%a8%e5%8c%96%e5%ae%89%e8%a3%85" class="anchor">🔗</a></h2><h2 id="自定义编译-solidity安装-solc">自定义编译 solidity，安装 solc <a href="#%e8%87%aa%e5%ae%9a%e4%b9%89%e7%bc%96%e8%af%91-solidity%e5%ae%89%e8%a3%85-solc" class="anchor">🔗</a></h2><h1 id="可能遇到的问题">可能遇到的问题 <a href="#%e5%8f%af%e8%83%bd%e9%81%87%e5%88%b0%e7%9a%84%e9%97%ae%e9%a2%98" class="anchor">🔗</a></h1><h2 id="系统里缺-boost-库">系统里缺 boost 库 <a href="#%e7%b3%bb%e7%bb%9f%e9%87%8c%e7%bc%ba-boost-%e5%ba%93" class="anchor">🔗</a></h2>
+    </div>
+
+    
+        <div class="tags">
+            
+                <a href="http://brettkk.github.io/tags/solidity">solidity</a>
+            
         </div>
     
+    
+    
 
+</section>
 
-</div>
 
     </main>
     

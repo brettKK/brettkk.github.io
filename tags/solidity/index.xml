@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>solidity on brettkk</title>
+    <link>http://brettkk.github.io/tags/solidity/</link>
+    <description>Recent content in solidity on brettkk</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 05 May 2021 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/tags/solidity/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>solidity</title>
+      <link>http://brettkk.github.io/posts/tools/solidity/</link>
+      <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/tools/solidity/</guid>
+      <description>安装 solidity 的编译器 🔗自动化安装 🔗自定义编译 solidity，安装</description>
+    </item>
+    
+  </channel>
+</rss>

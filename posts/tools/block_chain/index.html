@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          4547 words
+          4759 words
         </span>
         <span class="split">
           ·
@@ -115,6 +115,8 @@
     <li><a href="#web3">web3</a></li>
     <li><a href="#solidity">solidity</a>
       <ul>
+        <li><a href="#从源码开始生产-solc">从源码开始生产 solc</a></li>
+        <li><a href="#可能遇到的问题">可能遇到的问题</a></li>
         <li><a href="#独有的语言特性">独有的语言特性</a></li>
         <li><a href="#solidity-compiler-solc-编译器">solidity compiler (solc 编译器)</a></li>
         <li><a href="#合约审计工具">合约审计工具</a></li>
@@ -310,6 +312,30 @@ DID 去中心化身份。</p>
 <p>中心化交易所的业务： 现货，合约，做市商， OTC，量化。</p>
 <p>ipfs</p>
 <h1 id="solidity">solidity <a href="#solidity" class="anchor">🔗</a></h1><p>EVM 可以获取和存储数据的 6 个地方： (memory, storage, calldata)(data location 只能描述 array， struct， map), stack, code, logs.</p>
+<h2 id="从源码开始生产-solc">从源码开始生产 solc <a href="#%e4%bb%8e%e6%ba%90%e7%a0%81%e5%bc%80%e5%a7%8b%e7%94%9f%e4%ba%a7-solc" class="anchor">🔗</a></h2><h2 id="可能遇到的问题">可能遇到的问题 <a href="#%e5%8f%af%e8%83%bd%e9%81%87%e5%88%b0%e7%9a%84%e9%97%ae%e9%a2%98" class="anchor">🔗</a></h2><p>系统里缺少<code>Boost</code>库。 需要指明<code>Boost_INCLUDE_DIR</code>。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>➜  build git:<span style="color:#f92672">(</span>develop<span style="color:#f92672">)</span> cmake ..
+</span></span><span style="display:flex;"><span>-- The C compiler identification is AppleClang 15.0.0.15000309
+</span></span><span style="display:flex;"><span>-- The CXX compiler identification is AppleClang 15.0.0.15000309
+</span></span><span style="display:flex;"><span>-- Detecting C compiler ABI info
+</span></span><span style="display:flex;"><span>-- Detecting C compiler ABI info - <span style="color:#66d9ef">done</span>
+</span></span><span style="display:flex;"><span>-- Check <span style="color:#66d9ef">for</span> working C compiler: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc - skipped
+</span></span><span style="display:flex;"><span>-- Detecting C compile features
+</span></span><span style="display:flex;"><span>-- Detecting C compile features - <span style="color:#66d9ef">done</span>
+</span></span><span style="display:flex;"><span>-- Detecting CXX compiler ABI info
+</span></span><span style="display:flex;"><span>-- Detecting CXX compiler ABI info - <span style="color:#66d9ef">done</span>
+</span></span><span style="display:flex;"><span>-- Check <span style="color:#66d9ef">for</span> working CXX compiler: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ - skipped
+</span></span><span style="display:flex;"><span>-- Detecting CXX compile features
+</span></span><span style="display:flex;"><span>-- Detecting CXX compile features - <span style="color:#66d9ef">done</span>
+</span></span><span style="display:flex;"><span>CMake Error at /opt/homebrew/Cellar/cmake/3.24.2/share/cmake/Modules/FindPackageHandleStandardArgs.cmake:230 <span style="color:#f92672">(</span>message<span style="color:#f92672">)</span>:
+</span></span><span style="display:flex;"><span>  Could NOT find Boost <span style="color:#f92672">(</span>missing: Boost_INCLUDE_DIR filesystem
+</span></span><span style="display:flex;"><span>  unit_test_framework program_options system<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>Required is at least version
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;1.65.0&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Call Stack <span style="color:#f92672">(</span>most recent call first<span style="color:#f92672">)</span>:
+</span></span><span style="display:flex;"><span>  /opt/homebrew/Cellar/cmake/3.24.2/share/cmake/Modules/FindPackageHandleStandardArgs.cmake:594 <span style="color:#f92672">(</span>_FPHSA_FAILURE_MESSAGE<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  /opt/homebrew/Cellar/cmake/3.24.2/share/cmake/Modules/FindBoost.cmake:2376 <span style="color:#f92672">(</span>find_package_handle_standard_args<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  cmake/EthDependencies.cmake:40 <span style="color:#f92672">(</span>find_package<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  CMakeLists.txt:51 <span style="color:#f92672">(</span>include<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>mac 上通过<code>brew install boost</code></p>
 <h2 id="独有的语言特性">独有的语言特性 <a href="#%e7%8b%ac%e6%9c%89%e7%9a%84%e8%af%ad%e8%a8%80%e7%89%b9%e6%80%a7" class="anchor">🔗</a></h2><ul>
 <li>修饰器 <code>modifier</code> 去给函数加限制。 <code>modifier onlyOwner { require(msg.sender == over, &quot;not contract owner&quot;); _;}</code></li>
 <li>事件<code>Event</code> 产生日志 log。</li>
@@ -385,10 +411,11 @@ $$</p>
 <p>$$
 f(x) = \sum_{i=1}^{n}y_i f_i(x)
 $$</p>
-<h1 id="钱包">钱包 <a href="#%e9%92%b1%e5%8c%85" class="anchor">🔗</a></h1><p>钱包的基础是 BIP32/BIP39/BIP44(BIP 协议族) 这三个协议 <br>
-BIP32: 一个助记词/种子，可以生成一个树形的结构 <br>
-BIP39: 一个助记词-》关联确定性种子,种子生成确定性私钥 <br>
-BIP44: 多币种的基础，一个种子可以生成多个账户，每个账户有自己的地址空间，用户可以同一个钱包管理多种资产<br></p>
+<h1 id="钱包">钱包 <a href="#%e9%92%b1%e5%8c%85" class="anchor">🔗</a></h1><p>HD（分层确定性钱包）wallet 的基础是 BIP32/BIP39/BIP44(BIP 协议族) 这三个协议。 <br></p>
+<p>图</p>
+<p>BIP32: 一个助记词/种子，可以生成一个树形的结构 <br></p>
+<p>BIP39: 一个助记词-》关联确定性种子,种子生成确定性私钥 <br></p>
+<p>BIP44: 扩展 BIP32。多币种的基础，一个种子可以生成多个账户，每个账户有自己的地址空间，用户可以同一个钱包管理多种资产<br></p>
 <p>得到助记词: 生成 128-256 位的一个随机数，通过 sha256 生成一个校验和+随机数长度/32，切割字符串为 11 段，从 2048 个字符数组中，选择助记词
 得到私钥: 助记词+随机数-〉通过 PBKDF2 生成私钥， 这里因为 BIP39 协议所以固定助记词的私钥固定
 得到公钥: 通过私钥*ecc 中的曲线上的一个点，生成一个公钥，这里曲线的点是一个固定的点，所以不会生成多个公钥</p>
