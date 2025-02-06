@@ -8,7 +8,7 @@
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
 <meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta name="description" content="python 历史 🔗 简单好用。 1989 年荷兰人Guido von Rossum开始写 Python">
+<meta name="description" content="python 历史 🔗 简单易用。 1989 年荷兰人Guido von Rossum开始写 Python">
 <meta name="generator" content="Hugo 0.103.1" />
 
 
@@ -70,13 +70,13 @@
           ·
         </span>
         <span>
-          2505 words
+          2761 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          5 minute read
+          6 minute read
         </span>
     </div>
 
@@ -92,7 +92,7 @@
               <nav id="TableOfContents">
   <ul>
     <li><a href="#python-历史">python 历史</a></li>
-    <li><a href="#python-enhancementt-proposal-8">Python Enhancementt Proposal #8</a></li>
+    <li><a href="#python-enhancementt-proposal-8">Python Enhancementt Proposal 8</a></li>
     <li><a href="#python-解释器">python 解释器</a></li>
     <li><a href="#特殊语法">特殊语法</a>
       <ul>
@@ -107,36 +107,28 @@
         <li><a href="#描述器">描述器</a></li>
         <li><a href="#模块与包">模块与包</a></li>
         <li><a href="#访问可见性">访问可见性</a></li>
+        <li><a href="#python-程序退出方式">python 程序退出方式</a></li>
+        <li><a href="#gil-global-interpreter-lock">GIL (global interpreter lock)</a></li>
       </ul>
     </li>
-    <li><a href="#gil-global-interpreter-lock">GIL (global interpreter lock)</a></li>
     <li><a href="#编译与反编译">编译与反编译</a>
       <ul>
         <li><a href="#code-object">code object</a></li>
         <li><a href="#frame">frame</a></li>
+        <li><a href="#静态分析工具">静态分析工具</a></li>
       </ul>
     </li>
-    <li><a href="#静态分析工具">静态分析工具</a></li>
     <li><a href="#python-数据结构与算法">python 数据结构与算法</a>
       <ul>
-        <li><a href="#collections-集合">collections 集合</a>
-          <ul>
-            <li><a href="#双端队列保存最后-n-个元素">双端队列，保存最后 N 个元素</a></li>
-            <li><a href="#堆-找到最大最小的-n-个元素">堆， 找到最大，最小的 N 个元素</a></li>
-            <li><a href="#字典中一键多值">字典中一键多值</a></li>
-            <li><a href="#字典中保存有序">字典中保存有序</a></li>
-          </ul>
-        </li>
+        <li><a href="#collections-集合">collections 集合</a></li>
       </ul>
     </li>
-    <li><a href="#模型文件">模型文件</a></li>
     <li><a href="#可能遇到的实际问题">可能遇到的实际问题</a>
       <ul>
         <li><a href="#modulenotfounderror-no-module-named-xxx">ModuleNotFoundError: No module named 'xxx'</a></li>
         <li><a href="#importerror-cannot-import-name-celery-from-celery">ImportError: cannot import name 'Celery' from 'celery'</a></li>
         <li><a href="#打包功能">打包功能</a></li>
         <li><a href="#安装">安装</a></li>
-        <li><a href="#conda">conda</a></li>
       </ul>
     </li>
     <li><a href="#实验场">实验场</a></li>
@@ -152,13 +144,13 @@
 
 
     <div class="content">
-      <h1 id="python-历史">python 历史 <a href="#python-%e5%8e%86%e5%8f%b2" class="anchor">🔗</a></h1><p>  简单好用。<br></p>
+      <h1 id="python-历史">python 历史 <a href="#python-%e5%8e%86%e5%8f%b2" class="anchor">🔗</a></h1><p>  简单易用。<br></p>
 <p>  1989 年荷兰人<code>Guido von Rossum</code>开始写 Python 语言的解释器。<br>
   1994 年 1 月：Python 1.0 正式发布<br>
   2000 年 10 月 Python 2.0 发布, <br>
   2008 年 12 月 Python 3.0 发布，不完全兼容之前的 Python 代码<br></p>
 <p>  代码中<code>import sys</code> <code>sys.version_info, sys.version</code> 模块查询 python 版本信息。</p>
-<h1 id="python-enhancementt-proposal-8">Python Enhancementt Proposal #8 <a href="#python-enhancementt-proposal-8" class="anchor">🔗</a></h1><p>  PEP 8 对于 python 代码格式的指南。 pylint python 的源码静态分析工具， 检查代码是否符合 PEP 8 的规范。</p>
+<h1 id="python-enhancementt-proposal-8">Python Enhancementt Proposal 8 <a href="#python-enhancementt-proposal-8" class="anchor">🔗</a></h1><p>  PEP 8 对于 python 代码格式的指南。 pylint python 的源码静态分析工具， 检查代码是否符合 PEP 8 的规范。</p>
 <h1 id="python-解释器">python 解释器 <a href="#python-%e8%a7%a3%e9%87%8a%e5%99%a8" class="anchor">🔗</a></h1><p>   <a href="https://zh.wikipedia.org/zh-cn/Python" target="_blank" rel="noopener">python</a>, cpython 解释器 (最常见的实现方式)。</p>
 <hr>
 <h1 id="特殊语法">特殊语法 <a href="#%e7%89%b9%e6%ae%8a%e8%af%ad%e6%b3%95" class="anchor">🔗</a></h1><h2 id="函数参数">函数参数 <a href="#%e5%87%bd%e6%95%b0%e5%8f%82%e6%95%b0" class="anchor">🔗</a></h2><p>函数参数<code>*arg</code>代表可变参数，类型为元组。</p>
@@ -176,13 +168,36 @@
 </span></span><span style="display:flex;"><span>        item_list <span style="color:#f92672">=</span> []
 </span></span><span style="display:flex;"><span>    item_list<span style="color:#f92672">.</span>append(item)
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> item_list
-</span></span></code></pre></div><h2 id="内部特殊函数">内部特殊函数 <a href="#%e5%86%85%e9%83%a8%e7%89%b9%e6%ae%8a%e5%87%bd%e6%95%b0" class="anchor">🔗</a></h2><p><code>__init__</code>，</p>
-<p><code>__new__</code></p>
-<h2 id="装饰器">装饰器 <a href="#%e8%a3%85%e9%a5%b0%e5%99%a8" class="anchor">🔗</a></h2><p><code>装饰器</code> 一是：添加一些扩展行为，来实现装饰的目的； 二是： 装饰器函数在加载模块时执行，被装饰的函数在明确调用时执行。<br></p>
-<p>装饰器的功能上与 java spring 里的 aop， rust 里的过程宏达到相同的目的。</p>
-<h2 id="可迭代对象迭代器生成器">可迭代对象，迭代器，生成器 <a href="#%e5%8f%af%e8%bf%ad%e4%bb%a3%e5%af%b9%e8%b1%a1%e8%bf%ad%e4%bb%a3%e5%99%a8%e7%94%9f%e6%88%90%e5%99%a8" class="anchor">🔗</a></h2><p><code>__next__</code> 方法的对象都可以称为迭代器。<br>
-用关键字<code>yield</code>来返回值，这种函数叫生成器函数。函数被调用时会返回一个生成器对象。</p>
-<h2 id="函数的传参方式">函数的传参方式 <a href="#%e5%87%bd%e6%95%b0%e7%9a%84%e4%bc%a0%e5%8f%82%e6%96%b9%e5%bc%8f" class="anchor">🔗</a></h2><p>在 Python 中，函数参数传递的机制被称为“传对象引用”（pass-by-object-reference）。</p>
+</span></span></code></pre></div><h2 id="内部特殊函数">内部特殊函数 <a href="#%e5%86%85%e9%83%a8%e7%89%b9%e6%ae%8a%e5%87%bd%e6%95%b0" class="anchor">🔗</a></h2><p>  名称前后都有双下划线， 例如：<code>__new__</code>方法在创建对象时被调用，比<code>__init__</code>更早执行，主要用于控制实例的创建过程。<code>__init__</code>用于初始化对象，在创建对象时被自动调用。</p>
+<h2 id="装饰器">装饰器 <a href="#%e8%a3%85%e9%a5%b0%e5%99%a8" class="anchor">🔗</a></h2><p>  <code>装饰器</code>：添加一些扩展行为，来实现装饰的目的；装饰器函数在加载模块时执行，被装饰的函数在明确调用时执行。<br>
+   装饰器的功能上与 java spring 里的 aop， rust 里的过程宏达到相同的目的。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># 装饰器函数</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">simple_decorator</span>(func):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">wrapper</span>():
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#34;Before function call&#34;</span>)
+</span></span><span style="display:flex;"><span>        func()
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#34;After function call&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> wrapper
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 使用装饰器</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@simple_decorator</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">say_hello</span>():
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;Hello, world!&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 等价于 say_hello = simple_decorator(say_hello)</span>
+</span></span><span style="display:flex;"><span>say_hello()
+</span></span></code></pre></div><h2 id="可迭代对象迭代器生成器">可迭代对象，迭代器，生成器 <a href="#%e5%8f%af%e8%bf%ad%e4%bb%a3%e5%af%b9%e8%b1%a1%e8%bf%ad%e4%bb%a3%e5%99%a8%e7%94%9f%e6%88%90%e5%99%a8" class="anchor">🔗</a></h2><p>  三者的关系：可迭代对象 &gt; 迭代器 &gt; 生成器。<br>
+  可迭代对象 iterable: 是一个容器，实现<code>__iter__</code>方法返回一个 iterator 迭代器。<br>
+  迭代器使用 next 函数， iterator： 有状态。 实现<code>__next__()</code> 和<code>__iter__()</code>方法的对象。实现了<code>__next__</code> 方法的对象都可以称为迭代器。<br>
+  生成器 generator， 特殊的迭代器。 生成器函数（带 yield）和生成器表达式 （与列表推导式类似， 使用小括号包裹）。<br></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>lst <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5</span>]
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span>  lst:
+</span></span><span style="display:flex;"><span>  print(i)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>lst <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5</span>]
+</span></span><span style="display:flex;"><span>it <span style="color:#f92672">=</span> iter(lst) <span style="color:#75715e"># 调用可迭代对象的iter方法返回迭代器。</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> it:
+</span></span><span style="display:flex;"><span>  print(i)
+</span></span></code></pre></div><h2 id="函数的传参方式">函数的传参方式 <a href="#%e5%87%bd%e6%95%b0%e7%9a%84%e4%bc%a0%e5%8f%82%e6%96%b9%e5%bc%8f" class="anchor">🔗</a></h2><p>在 Python 中，函数参数传递的机制被称为“传对象引用”（pass-by-object-reference）。</p>
 <h2 id="变量的作用域">变量的作用域 <a href="#%e5%8f%98%e9%87%8f%e7%9a%84%e4%bd%9c%e7%94%a8%e5%9f%9f" class="anchor">🔗</a></h2><p>Python 中的作用域遵循 LEGB（Local → Enclosing → Global → Built-in）规则，即：</p>
 <ul>
 <li>Local（局部作用域）：函数内部定义的变量，函数外部无法访问。</li>
@@ -239,7 +254,28 @@
 </span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">1</span> <span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span>:
 </span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">17</span>      main()
 </span></span></code></pre></div><p>  属性命名以单下划线开头，通过这种方式来暗示属性是受保护的，不建议外界直接访问， 但可以直接访问到。<br></p>
-<h1 id="gil-global-interpreter-lock">GIL (global interpreter lock) <a href="#gil-global-interpreter-lock" class="anchor">🔗</a></h1><p>  全局线程锁简单，可靠。<br>
+<h2 id="python-程序退出方式">python 程序退出方式 <a href="#python-%e7%a8%8b%e5%ba%8f%e9%80%80%e5%87%ba%e6%96%b9%e5%bc%8f" class="anchor">🔗</a></h2><ul>
+<li>quit(), exit(),</li>
+<li>sys.exit() 推荐使用。</li>
+<li>os._exit()</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>  quit()
+</span></span><span style="display:flex;"><span>  exit()
+</span></span><span style="display:flex;"><span>  sys<span style="color:#f92672">.</span>exit()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">except</span> <span style="color:#a6e22e">SystemExit</span>:
+</span></span><span style="display:flex;"><span>  print(<span style="color:#e6db74">&#34;Ignore Exit&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;yes&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># try:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   os._exit(0) # 直接退出。</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># except:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   pass</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># print(&#34;no&#34;)</span>
+</span></span></code></pre></div><h2 id="gil-global-interpreter-lock">GIL (global interpreter lock) <a href="#gil-global-interpreter-lock" class="anchor">🔗</a></h2><p>  全局线程锁简单，可靠。<br>
   缺点：python 的计算密集型多线程没法利用 cpu 的多核。<br>
   起多进程的方式利用 cpu 的多核 or 使用没有 GIL 的 python 解释器（Jython, IronPython, PyPy 是有 GIL 的）。</p>
 <h1 id="编译与反编译">编译与反编译 <a href="#%e7%bc%96%e8%af%91%e4%b8%8e%e5%8f%8d%e7%bc%96%e8%af%91" class="anchor">🔗</a></h1><p>  编译为字节码 <code>python3 -m example.pyc example.py</code>。反编译模块<code>dis</code>显示可读的字节码。具体字节码是如何执行的，需要到 <code>cpython</code> 的 <code>ceval.c</code>文件的 <code>_PyEval_EvalFrameDefault()</code>。</p>
@@ -257,13 +293,14 @@
 </span></span><span style="display:flex;"><span>print(code<span style="color:#f92672">.</span>co_kwonlyargcount)
 </span></span></code></pre></div><h2 id="frame">frame <a href="#frame" class="anchor">🔗</a></h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> inspect
 </span></span><span style="display:flex;"><span>frame <span style="color:#f92672">=</span> inspect<span style="color:#f92672">.</span>currentframe()
-</span></span></code></pre></div><h1 id="静态分析工具">静态分析工具 <a href="#%e9%9d%99%e6%80%81%e5%88%86%e6%9e%90%e5%b7%a5%e5%85%b7" class="anchor">🔗</a></h1><p>静态代码分析主要用到的是 Pylint 和 Flake8<br>
+</span></span></code></pre></div><h2 id="静态分析工具">静态分析工具 <a href="#%e9%9d%99%e6%80%81%e5%88%86%e6%9e%90%e5%b7%a5%e5%85%b7" class="anchor">🔗</a></h2><p>静态代码分析主要用到的是 Pylint 和 Flake8<br>
 Flake8 封装了 Pyflakes（检查代码逻辑错误）、McCabe（检查代码复杂性）和 Pycodestyle（检查代码是否符合 PEP-8 规范）工具</p>
-<h1 id="python-数据结构与算法">python 数据结构与算法 <a href="#python-%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84%e4%b8%8e%e7%ae%97%e6%b3%95" class="anchor">🔗</a></h1><h2 id="collections-集合">collections 集合 <a href="#collections-%e9%9b%86%e5%90%88" class="anchor">🔗</a></h2><h3 id="双端队列保存最后-n-个元素">双端队列，保存最后 N 个元素 <a href="#%e5%8f%8c%e7%ab%af%e9%98%9f%e5%88%97%e4%bf%9d%e5%ad%98%e6%9c%80%e5%90%8e-n-%e4%b8%aa%e5%85%83%e7%b4%a0" class="anchor">🔗</a></h3><p><code>collections.deque</code></p>
-<h3 id="堆-找到最大最小的-n-个元素">堆， 找到最大，最小的 N 个元素 <a href="#%e5%a0%86-%e6%89%be%e5%88%b0%e6%9c%80%e5%a4%a7%e6%9c%80%e5%b0%8f%e7%9a%84-n-%e4%b8%aa%e5%85%83%e7%b4%a0" class="anchor">🔗</a></h3><p><code>heapq</code>模块， 优先队列。</p>
-<h3 id="字典中一键多值">字典中一键多值 <a href="#%e5%ad%97%e5%85%b8%e4%b8%ad%e4%b8%80%e9%94%ae%e5%a4%9a%e5%80%bc" class="anchor">🔗</a></h3><p><code>collections.defaultdict</code></p>
-<h3 id="字典中保存有序">字典中保存有序 <a href="#%e5%ad%97%e5%85%b8%e4%b8%ad%e4%bf%9d%e5%ad%98%e6%9c%89%e5%ba%8f" class="anchor">🔗</a></h3><p><code>collections.OrderedDict</code></p>
-<h1 id="模型文件">模型文件 <a href="#%e6%a8%a1%e5%9e%8b%e6%96%87%e4%bb%b6" class="anchor">🔗</a></h1><p>Yolo V5, pt 文件， onnx， netron 格式。</p>
+<h1 id="python-数据结构与算法">python 数据结构与算法 <a href="#python-%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84%e4%b8%8e%e7%ae%97%e6%b3%95" class="anchor">🔗</a></h1><p>测试库: unittest 库。test_开头的文件。</p>
+<h2 id="collections-集合">collections 集合 <a href="#collections-%e9%9b%86%e5%90%88" class="anchor">🔗</a></h2><p>双端队列，保存最后 N 个元素: <code>collections.deque</code></p>
+<p>堆， 找到最大，最小的 N 个元素: <code>heapq</code>模块， 优先队列。</p>
+<p>字典中一键多值: <code>collections.defaultdict</code></p>
+<p>字典中保存有序: <code>collections.OrderedDict</code></p>
+<p>模型文件: Yolo V5, pt 文件， onnx， netron 格式。</p>
 <hr>
 <h1 id="可能遇到的实际问题">可能遇到的实际问题 <a href="#%e5%8f%af%e8%83%bd%e9%81%87%e5%88%b0%e7%9a%84%e5%ae%9e%e9%99%85%e9%97%ae%e9%a2%98" class="anchor">🔗</a></h1><h2 id="modulenotfounderror-no-module-named-xxx">ModuleNotFoundError: No module named 'xxx' <a href="#modulenotfounderror-no-module-named-xxx" class="anchor">🔗</a></h2><p>描述： clone 下来一个项目，在终端中执行<code>python3.12 app.py</code>时遇到。<br>
 在 IDE 中执行 python 程序，编译器会自动把当前项目的根目录加入到包查找路径中，可以理解为加到 PYTHONPATH 下，所以直接执行是没有问题的。<br>
@@ -283,7 +320,6 @@ Requirement already satisfied: celery in /Library/Frameworks/Python.framework/Ve
 例如 opencve</p>
 <p><code>MANIFEST.in</code>的文件，来控制文件的分发.</p>
 <h2 id="安装">安装 <a href="#%e5%ae%89%e8%a3%85" class="anchor">🔗</a></h2><p><code>pip install /path/to/directory</code> pip 将会查找目录中的 setup.py 文件并根据其中的配置进行安装</p>
-<h2 id="conda">conda <a href="#conda" class="anchor">🔗</a></h2><p>conda activate abc_env</p>
 <h1 id="实验场">实验场 <a href="#%e5%ae%9e%e9%aa%8c%e5%9c%ba" class="anchor">🔗</a></h1><p><a href="https://github.com/makeyourownneuralnetwork" target="_blank" rel="noopener">https://github.com/makeyourownneuralnetwork</a>
 Colab 服务： colab.research.google.com</p>
 
