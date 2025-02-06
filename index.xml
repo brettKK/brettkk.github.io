@@ -6,7 +6,16 @@
     <description>Recent content on brettkk</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 05 May 2024 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 05 Dec 2024 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>python简介</title>
+      <link>http://brettkk.github.io/posts/tools/python/</link>
+      <pubDate>Thu, 05 Dec 2024 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/tools/python/</guid>
+      <description>python 历史 🔗 简单好用。 1989 年荷兰人Guido von Rossum开始写 Python</description>
+    </item>
+    
     <item>
       <title>git 原理与操作</title>
       <link>http://brettkk.github.io/posts/tools/git/</link>
@@ -305,15 +314,6 @@
     </item>
     
     <item>
-      <title>python</title>
-      <link>http://brettkk.github.io/posts/tools/python/</link>
-      <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/tools/python/</guid>
-      <description>python 历史 🔗 1989 年荷兰人Guido von Rossum开始写 Python 语言的解释</description>
-    </item>
-    
-    <item>
       <title>rust unsafe</title>
       <link>http://brettkk.github.io/posts/rust/rust_unsafe/</link>
       <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
@@ -437,6 +437,16 @@
       
       <guid>http://brettkk.github.io/posts/math/%E8%AE%A1%E7%AE%97%E5%A4%8D%E6%9D%82%E5%BA%A6/</guid>
       <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://brettkk.github.io/posts/francais/english/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/francais/english/</guid>
+      <description>英文会议即兴问答 🔗给自己争取时间去思考 buy yourself some time 🔗不要一上来就心急火燎的去回答这个问题。先跟问问题的人互动一下。顺便给自己争取点时间去思考。
+step1： acknowledge or compliment the question. 夸奖或者确认这个问题。 that is an excellent question, or that is a very important question, or i really like this question.</description>
     </item>
     
     <item>

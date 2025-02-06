@@ -70,13 +70,13 @@
           ·
         </span>
         <span>
-          1695 words
+          2262 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          4 minute read
+          5 minute read
         </span>
     </div>
 
@@ -95,16 +95,17 @@
     <li><a href="#css">css</a></li>
     <li><a href="#javascript">javascript</a>
       <ul>
-        <li><a href="#类型">类型</a></li>
+        <li><a href="#基本语法">基本语法</a></li>
       </ul>
     </li>
     <li><a href="#typescript">typescript</a>
       <ul>
+        <li><a href="#cocos-creator-3x-的游戏开发">cocos creator 3.x 的游戏开发</a></li>
         <li><a href="#安装-nodejs">安装 node.js</a></li>
         <li><a href="#npm-安装-typescript">npm 安装 typescript</a></li>
-        <li><a href="#基本语法">基本语法</a>
+        <li><a href="#基本语法-1">基本语法</a>
           <ul>
-            <li><a href="#类型-1">类型</a></li>
+            <li><a href="#类型">类型</a></li>
             <li><a href="#接口类对象">接口、类、对象</a></li>
             <li><a href="#声明文件">声明文件</a></li>
           </ul>
@@ -166,12 +167,33 @@
 <p>语法规则： 声明语句，选择器。<br></p>
 <p>选择器：通用选择器，标签选择器，类选择器（.className），id 选择器（#idName） <br></p>
 <p>盒子模型： 外边距 margin， 边宽 border，内边距 padding， heigth, width, 内容 element<br></p>
-<h1 id="javascript">javascript <a href="#javascript" class="anchor">🔗</a></h1><p>js 语言的 runtime 有浏览器和 nodejs</p>
-<h2 id="类型">类型 <a href="#%e7%b1%bb%e5%9e%8b" class="anchor">🔗</a></h2><p>Null 与 Undefined
-<code>Undefined</code> 声明但没初始化。</p>
-<p><code>Null</code></p>
+<h1 id="javascript">javascript <a href="#javascript" class="anchor">🔗</a></h1><p>js 语言的 runtime 有浏览器和 nodejs。</p>
+<p>js 的核心语法精简， 只包括两部分： 基本的语法构造（操作符，控制语句），标准库（Array， Date， Math 等）。<br>
+此外是宿主环境提供额外的 api，浏览器提供三大类： 浏览器控制类（操作浏览器），DOM 类，Web 类（实现互联网的功能）。</p>
+<ul>
+<li>基本语法</li>
+<li>标准库</li>
+<li>浏览器 api</li>
+<li>DOM</li>
+</ul>
+<h2 id="基本语法">基本语法 <a href="#%e5%9f%ba%e6%9c%ac%e8%af%ad%e6%b3%95" class="anchor">🔗</a></h2><p>js runtime 时的工作方式是： 先解析代码获取所有声明的变量，再一行一行执行。<code>var</code> 出现变量提升。</p>
+<p><code>数据的类型</code> ：null 与 undefined。
+查看值的类型： <code>typeof</code>, <code>instanceof</code>, <code>Object.prototype.toString</code>。</p>
+<p><code>undefined</code> 此初无定义，声明但没初始化。</p>
+<p><code>null</code> 空值。</p>
+<p><code>undefined</code>, <code>null</code>, <code>false</code>, <code>0</code>, <code>&quot;&quot;</code>, <code>''</code>, <code>NaN</code> 可以转为 false。空数组，空对象都是 true。</p>
 <p><code>Object</code>类型。</p>
-<h1 id="typescript">typescript <a href="#typescript" class="anchor">🔗</a></h1><p>与 c++,java 这类先定义类在定义对象的做法很大不同，js 的对象定义是动态，对象的属性和方法可以随时增删改。<br></p>
+<p>典型的面向对象编程语言（c++, java） 有类的概念。类是对象的模版，对象是类的实例。 但 javascript 的对象体系里，不是基于类的，而是基于构造函数(constructor)和原型链(prototype)。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">Vehicle</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">price</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>; <span style="color:#75715e">// 函数内部使用了this
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vehicle</span>(); <span style="color:#75715e">// 生成对象时使用了new，忘记带new时不会生成实例对象。
+</span></span></span></code></pre></div><p>this 会动态切换。js 提供了 call，apply，bind 三个方法来切换/绑定 this 的指向。</p>
+<p>js中所有对象都有自己的原型对象。原型对象的作用是定义所有实例对象共享的属性和方法。</p>
+<h1 id="typescript">typescript <a href="#typescript" class="anchor">🔗</a></h1><h2 id="cocos-creator-3x-的游戏开发">cocos creator 3.x 的游戏开发 <a href="#cocos-creator-3x-%e7%9a%84%e6%b8%b8%e6%88%8f%e5%bc%80%e5%8f%91" class="anchor">🔗</a></h2><p><a href="https://www.bilibili.com/video/BV1Vw4m1e7wt" target="_blank" rel="noopener">B 站 Siki 老师的（Cocos 开发入门）TypeScript 零基础入门视频教程。</a>
+需要 1 天时间，快速入门就够了。</p>
+<p>与 c++,java 这类先定义类在定义对象的做法很大不同，js 的对象定义是动态，对象的属性和方法可以随时增删改。<br></p>
 <p>typescript -- tsc 编译--&gt; app.js<br>
 node app.js<br></p>
 <p>ts 是静态类型语言，在编译期做类型检查。也是弱类型语言，允许隐式类型转换。<br>
@@ -185,7 +207,7 @@ TypeScript 是完全兼容 JavaScript 的，它不会修改 JavaScript 运行时
 </code></pre><p>修改 npm 获取包的地址： <code>npm config set registry https://registry.npm.taobao.org</code></p>
 <h2 id="npm-安装-typescript">npm 安装 typescript <a href="#npm-%e5%ae%89%e8%a3%85-typescript" class="anchor">🔗</a></h2><p><code>npm install typescript --save-dev</code></p>
 <p><a href="https://www.typescriptlang.org/docs/handbook/typescript-from-scratch.html" target="_blank" rel="noopener">https://www.typescriptlang.org/docs/handbook/typescript-from-scratch.html</a></p>
-<h2 id="基本语法">基本语法 <a href="#%e5%9f%ba%e6%9c%ac%e8%af%ad%e6%b3%95" class="anchor">🔗</a></h2><p>静态类型， 类和模块。</p>
+<h2 id="基本语法-1">基本语法 <a href="#%e5%9f%ba%e6%9c%ac%e8%af%ad%e6%b3%95-1" class="anchor">🔗</a></h2><p>静态类型， 类和模块。</p>
 <p>迭代器，生成器，装饰器，命名空间。
 <a href="https://www.typescriptlang.org/docs/handbook/intro.html" target="_blank" rel="noopener">https://www.typescriptlang.org/docs/handbook/intro.html</a></p>
 <p>迭代器： 实现 next()方法的对象。<br>
@@ -230,7 +252,7 @@ TypeScript 是完全兼容 JavaScript 的，它不会修改 JavaScript 运行时
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">num</span> <span style="color:#66d9ef">of</span> <span style="color:#a6e22e">obj</span>) {
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">num</span>);
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h3 id="类型-1">类型 <a href="#%e7%b1%bb%e5%9e%8b-1" class="anchor">🔗</a></h3><p>任意值（Any）用来表示允许赋值为任意类型<br>
+</span></span></code></pre></div><h3 id="类型">类型 <a href="#%e7%b1%bb%e5%9e%8b" class="anchor">🔗</a></h3><p>任意值（Any）用来表示允许赋值为任意类型<br>
 定义的时候没有赋值，不管之后有没有赋值，都会被推断成 any 类型而完全不被类型检查</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#66d9ef">number</span>;
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">number</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;seven&#34;</span>;
@@ -362,7 +384,7 @@ async>
     <div class="copyright">
     
        © Copyright 
-       2024 
+       2025 
        <span class="split">
         <svg fill="#bbbbbb" width="15" height="15" version="1.1" id="heart-15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 15 15">
   <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>

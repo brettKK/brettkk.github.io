@@ -6,7 +6,16 @@
     <description>Recent content in Tags on brettkk</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 05 May 2024 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 05 Dec 2024 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>python</title>
+      <link>http://brettkk.github.io/tags/python/</link>
+      <pubDate>Thu, 05 Dec 2024 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/tags/python/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>工具</title>
       <link>http://brettkk.github.io/tags/%E5%B7%A5%E5%85%B7/</link>
@@ -94,15 +103,6 @@
       <pubDate>Fri, 05 Aug 2022 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/tags/c/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>python</title>
-      <link>http://brettkk.github.io/tags/python/</link>
-      <pubDate>Fri, 05 Aug 2022 11:33:56 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/tags/python/</guid>
       <description></description>
     </item>
     

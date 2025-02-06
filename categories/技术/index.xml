@@ -6,7 +6,16 @@
     <description>Recent content in 技术 on brettkk</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 05 May 2024 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/categories/%E6%8A%80%E6%9C%AF/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 05 Dec 2024 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/categories/%E6%8A%80%E6%9C%AF/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>python简介</title>
+      <link>http://brettkk.github.io/posts/tools/python/</link>
+      <pubDate>Thu, 05 Dec 2024 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/tools/python/</guid>
+      <description>python 历史 🔗 简单好用。 1989 年荷兰人Guido von Rossum开始写 Python</description>
+    </item>
+    
     <item>
       <title>git 原理与操作</title>
       <link>http://brettkk.github.io/posts/tools/git/</link>
@@ -257,15 +266,6 @@
       
       <guid>http://brettkk.github.io/posts/store_db/mysql/</guid>
       <description>mysql 起源&amp;amp;基础 🔗 创建表时的存储引擎 🔗 存储引擎-是创建表</description>
-    </item>
-    
-    <item>
-      <title>python</title>
-      <link>http://brettkk.github.io/posts/tools/python/</link>
-      <pubDate>Wed, 05 May 2021 11:33:56 +0800</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/tools/python/</guid>
-      <description>python 历史 🔗 1989 年荷兰人Guido von Rossum开始写 Python 语言的解释</description>
     </item>
     
     <item>
