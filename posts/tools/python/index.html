@@ -3,7 +3,7 @@
 <script src="https://cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
 <html lang="zh-cn">
   <head>
-    <title>python简介 | brettkk</title>
+    <title>python | brettkk</title>
 
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
@@ -62,7 +62,7 @@
       
 
 <section id="single">
-    <h1 class="title">python简介</h1>
+    <h1 class="title">python</h1>
 
     <div class="tip">
         <time datetime="2024-12-05 11:33:56 &#43;0800 CST">Dec 5, 2024</time>
@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          2761 words
+          2518 words
         </span>
         <span class="split">
           ·
@@ -121,14 +121,7 @@
     <li><a href="#python-数据结构与算法">python 数据结构与算法</a>
       <ul>
         <li><a href="#collections-集合">collections 集合</a></li>
-      </ul>
-    </li>
-    <li><a href="#可能遇到的实际问题">可能遇到的实际问题</a>
-      <ul>
-        <li><a href="#modulenotfounderror-no-module-named-xxx">ModuleNotFoundError: No module named 'xxx'</a></li>
-        <li><a href="#importerror-cannot-import-name-celery-from-celery">ImportError: cannot import name 'Celery' from 'celery'</a></li>
         <li><a href="#打包功能">打包功能</a></li>
-        <li><a href="#安装">安装</a></li>
       </ul>
     </li>
     <li><a href="#实验场">实验场</a></li>
@@ -302,24 +295,12 @@ Flake8 封装了 Pyflakes（检查代码逻辑错误）、McCabe（检查代码�
 <p>字典中保存有序: <code>collections.OrderedDict</code></p>
 <p>模型文件: Yolo V5, pt 文件， onnx， netron 格式。</p>
 <hr>
-<h1 id="可能遇到的实际问题">可能遇到的实际问题 <a href="#%e5%8f%af%e8%83%bd%e9%81%87%e5%88%b0%e7%9a%84%e5%ae%9e%e9%99%85%e9%97%ae%e9%a2%98" class="anchor">🔗</a></h1><h2 id="modulenotfounderror-no-module-named-xxx">ModuleNotFoundError: No module named 'xxx' <a href="#modulenotfounderror-no-module-named-xxx" class="anchor">🔗</a></h2><p>描述： clone 下来一个项目，在终端中执行<code>python3.12 app.py</code>时遇到。<br>
-在 IDE 中执行 python 程序，编译器会自动把当前项目的根目录加入到包查找路径中，可以理解为加到 PYTHONPATH 下，所以直接执行是没有问题的。<br>
-解决方法是使用 sys.append()命令把报警包的所在文件夹路径加入到 PYTHONPATH。</p>
-<p>pip install -r requirements.txt</p>
-<h2 id="importerror-cannot-import-name-celery-from-celery">ImportError: cannot import name 'Celery' from 'celery' <a href="#importerror-cannot-import-name-celery-from-celery" class="anchor">🔗</a></h2><p>File &quot;/Users/gonglei/python_script/opencve/opencve/extensions.py&quot;, line 1, in <module>
-from celery import Celery
-ImportError: cannot import name 'Celery' from 'celery' (/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/celery/<strong>init</strong>.py)</p>
-<p>pip3.12 install --upgrade celery
-Requirement already satisfied: celery in /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages (4.3.0)</p>
-<p>done.</p>
-<p>ImportError: cannot import name 'Iterable' from 'collections' (/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/collections/<strong>init</strong>.py)</p>
-<p>python3.12 需要<code>from collections.abc import Iterable</code></p>
 <h2 id="打包功能">打包功能 <a href="#%e6%89%93%e5%8c%85%e5%8a%9f%e8%83%bd" class="anchor">🔗</a></h2><p><code>setuptools</code>
 <code>setup.py</code></p>
 <p>python setup.py build, python setup.py install 安装软件。
 例如 opencve</p>
 <p><code>MANIFEST.in</code>的文件，来控制文件的分发.</p>
-<h2 id="安装">安装 <a href="#%e5%ae%89%e8%a3%85" class="anchor">🔗</a></h2><p><code>pip install /path/to/directory</code> pip 将会查找目录中的 setup.py 文件并根据其中的配置进行安装</p>
+<p><code>pip install /path/to/directory</code> pip 将会查找目录中的 setup.py 文件并根据其中的配置进行安装</p>
 <h1 id="实验场">实验场 <a href="#%e5%ae%9e%e9%aa%8c%e5%9c%ba" class="anchor">🔗</a></h1><p><a href="https://github.com/makeyourownneuralnetwork" target="_blank" rel="noopener">https://github.com/makeyourownneuralnetwork</a>
 Colab 服务： colab.research.google.com</p>
 
