@@ -70,13 +70,13 @@
           ·
         </span>
         <span>
-          2262 words
+          1767 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          5 minute read
+          4 minute read
         </span>
     </div>
 
@@ -134,22 +134,6 @@
         <li><a href="#vue">vue</a></li>
       </ul>
     </li>
-    <li><a href="#react-1">react</a>
-      <ul>
-        <li><a href="#单步调试-react-的入口">单步调试 react 的入口</a></li>
-        <li><a href="#核心概念">核心概念</a>
-          <ul>
-            <li><a href="#react-hooks">react hooks</a></li>
-          </ul>
-        </li>
-        <li><a href="#原理">原理</a>
-          <ul>
-            <li><a href="#react-compiler">react compiler</a></li>
-          </ul>
-        </li>
-        <li><a href="#参考">参考</a></li>
-      </ul>
-    </li>
   </ul>
 </nav>
           </div>
@@ -190,7 +174,7 @@
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vehicle</span>(); <span style="color:#75715e">// 生成对象时使用了new，忘记带new时不会生成实例对象。
 </span></span></span></code></pre></div><p>this 会动态切换。js 提供了 call，apply，bind 三个方法来切换/绑定 this 的指向。</p>
-<p>js中所有对象都有自己的原型对象。原型对象的作用是定义所有实例对象共享的属性和方法。</p>
+<p>js 中所有对象都有自己的原型对象。原型对象的作用是定义所有实例对象共享的属性和方法。</p>
 <h1 id="typescript">typescript <a href="#typescript" class="anchor">🔗</a></h1><h2 id="cocos-creator-3x-的游戏开发">cocos creator 3.x 的游戏开发 <a href="#cocos-creator-3x-%e7%9a%84%e6%b8%b8%e6%88%8f%e5%bc%80%e5%8f%91" class="anchor">🔗</a></h2><p><a href="https://www.bilibili.com/video/BV1Vw4m1e7wt" target="_blank" rel="noopener">B 站 Siki 老师的（Cocos 开发入门）TypeScript 零基础入门视频教程。</a>
 需要 1 天时间，快速入门就够了。</p>
 <p>与 c++,java 这类先定义类在定义对象的做法很大不同，js 的对象定义是动态，对象的属性和方法可以随时增删改。<br></p>
@@ -294,65 +278,7 @@ Delete <code>·</code> prettier/prettier</p>
 <p>Module ‘“xx.vue“‘ has no default export.Vetur(1192)
 选择卸载 vetur，安装 volar 插件</p>
 <hr>
-<h1 id="react-1">react <a href="#react-1" class="anchor">🔗</a></h1><p>react 是一个 js 的库， 简化 html 和 js 操作 dom 的开发过程。</p>
-<p>react 中引入<code>Flow</code> 是一个静态类型检查器，用于在 JavaScript 中引入静态类型</p>
-<p><code>https://github.com/facebook/react</code></p>
-<h2 id="单步调试-react-的入口">单步调试 react 的入口 <a href="#%e5%8d%95%e6%ad%a5%e8%b0%83%e8%af%95-react-%e7%9a%84%e5%85%a5%e5%8f%a3" class="anchor">🔗</a></h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">App</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;./App&#34;</span>;
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">createRoot</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;react-dom/client&#34;</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">container</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#34;root&#34;</span>);
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">root</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createRoot</span>(<span style="color:#a6e22e">container</span>);
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">root</span>.<span style="color:#a6e22e">render</span>(&lt;<span style="color:#f92672">App</span> /&gt;);
-</span></span></code></pre></div><p><code>cmd+shift+d</code> 打开 vs code 调试面板，创建 launch.json 文件。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;version&#34;</span>: <span style="color:#e6db74">&#34;0.2.0&#34;</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;configurations&#34;</span>: [
-</span></span><span style="display:flex;"><span>    {
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;chrome&#34;</span>,
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;request&#34;</span>: <span style="color:#e6db74">&#34;launch&#34;</span>,
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;针对 localhost 启动 Chrome&#34;</span>,
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;url&#34;</span>: <span style="color:#e6db74">&#34;http://localhost:3000&#34;</span>,
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;webRoot&#34;</span>: <span style="color:#e6db74">&#34;${workspaceFolder}/src&#34;</span>,
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;sourceMaps&#34;</span>: <span style="color:#66d9ef">true</span>,
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;skipFiles&#34;</span>: [<span style="color:#e6db74">&#34;&lt;node_internals&gt;/**&#34;</span>]
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>  ]
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>运行和调试“针对 localhost 启动 Chrome”，即可 debug 程序。</p>
-<h2 id="核心概念">核心概念 <a href="#%e6%a0%b8%e5%bf%83%e6%a6%82%e5%bf%b5" class="anchor">🔗</a></h2><p><code>JSX</code> 是 js+html， 一种更自然的方式创建 react element。 jsx 会 <code>babel</code> 被翻译为<code>React.createElement</code>函数，返回 js 对象（ VDOM）。</p>
-<p><code>babel</code>可以将 JSX 转译为等价的 js 代码。</p>
-<p>组件是函数的定义，输出一组 hmtl 标签。</p>
-<p>组件的属性，状态，事件。</p>
-<p>组件通讯:</p>
-<ul>
-<li>
-<p>通过组件的属性 props， 单向数据流。</p>
-<ul>
-<li>父-&gt;子，props， 将 jsx 传给子组件（插槽）</li>
-<li>子-&gt;父，子调父传进来的函数</li>
-</ul>
-</li>
-<li>
-<p>context hook 多组件共享状态</p>
-<p><code>React Hooks</code>： useState, useContext, useRef, useEffect。</p>
-</li>
-</ul>
-<p>状态管理。</p>
-<p>渲染流程。</p>
-<p>避免重复渲染。</p>
-<h3 id="react-hooks">react hooks <a href="#react-hooks" class="anchor">🔗</a></h3><p>hook 是 react 16.8 的新增特性。</p>
-<p>每个组件有一个 js 对象（fiber 对象）里存 hook 的链表。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">//react/packages/react-reconciler/src/ReactFiberHooks.js
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">export</span> <span style="color:#a6e22e">type</span> <span style="color:#a6e22e">Hook</span> <span style="color:#f92672">=</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">memoizedState</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">any</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">baseState</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">any</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">baseQueue</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Update</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">any</span>, <span style="color:#a6e22e">any</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">null</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">queue</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">any</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">next</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Hook</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">null</span>,
-</span></span><span style="display:flex;"><span>};
-</span></span></code></pre></div><h2 id="原理">原理 <a href="#%e5%8e%9f%e7%90%86" class="anchor">🔗</a></h2><p>性能优化。</p>
-<h3 id="react-compiler">react compiler <a href="#react-compiler" class="anchor">🔗</a></h3><p>2024 年在开源实验中。</p>
-<h2 id="参考">参考 <a href="#%e5%8f%82%e8%80%83" class="anchor">🔗</a></h2>
+
     </div>
 
     

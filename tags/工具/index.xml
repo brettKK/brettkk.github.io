@@ -6,7 +6,16 @@
     <description>Recent content in 工具 on brettkk</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 05 May 2024 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/tags/%E5%B7%A5%E5%85%B7/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 15 Feb 2025 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/tags/%E5%B7%A5%E5%85%B7/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>全栈框架next.js</title>
+      <link>http://brettkk.github.io/posts/tools/next_js/</link>
+      <pubDate>Sat, 15 Feb 2025 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/tools/next_js/</guid>
+      <description>what next.js is 🔗react: a library for building interactive UIs next.js: is dependent for react. A framework = libs + tools + conventions. next.js</description>
+    </item>
+    
     <item>
       <title>git 原理与操作</title>
       <link>http://brettkk.github.io/posts/tools/git/</link>

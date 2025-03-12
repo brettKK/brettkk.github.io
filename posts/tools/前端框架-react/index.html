@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<html lang="zh-cn">
+  <head>
+    <title>前端框架-react | brettkk</title>
+
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
+<meta name="viewport" content="width=device-width,minimum-scale=1">
+<meta name="description" content="react 🔗react 是一个 js 的库， 简化 html 和 js 操作 dom 的开发过程。 核心">
+<meta name="generator" content="Hugo 0.103.1" />
+
+
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+<link href="https://cdn.bootcss.com/highlight.js/9.15.10/styles/zenburn.min.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<link rel="stylesheet" href="http://brettkk.github.io/css/syntax.css" />
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js" integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+
+
+
+
+  </head>
+
+  <body>
+    <nav class="navigation">
+	
+		<a href="/"> <span class="arrow">←</span>Home</a>
+	
+	<a href="/posts">Archive</a>
+	<a href="/tags">Tags</a>
+	<a href="/about">About</a>
+
+	
+
+	
+</nav>
+
+
+    <main class="main">
+      
+
+<section id="single">
+    <h1 class="title">前端框架-react</h1>
+
+    <div class="tip">
+        <time datetime="2025-03-05 11:33:56 &#43;0800 CST">Mar 5, 2025</time>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          1022 words
+        </span>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          3 minute read
+        </span>
+    </div>
+
+    
+    
+        
+  
+    <aside class="toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
+          <div>
+              <nav id="TableOfContents">
+  <ul>
+    <li><a href="#react">react</a></li>
+    <li><a href="#核心概念">核心概念</a>
+      <ul>
+        <li><a href="#react-hooks">react hooks</a></li>
+        <li><a href="#state-management">state management</a></li>
+        <li><a href="#effect-hooks">effect hooks</a></li>
+        <li><a href="#ref-hooks">ref hooks</a></li>
+        <li><a href="#performance-hooks">performance hooks</a></li>
+        <li><a href="#context-hooks">context hooks</a></li>
+        <li><a href="#transition-hooks">transition hooks</a></li>
+        <li><a href="#random-hooks">random hooks</a></li>
+        <li><a href="#react-19-hooks">react 19 hooks</a></li>
+      </ul>
+    </li>
+    <li><a href="#单步调试-react-的入口">单步调试 react 的入口</a>
+      <ul>
+        <li><a href="#原理">原理</a>
+          <ul>
+            <li><a href="#react-compiler">react compiler</a></li>
+          </ul>
+        </li>
+        <li><a href="#参考">参考</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+          </div>
+      </details>
+    </aside>
+  
+
+
+    
+
+
+    <div class="content">
+      <h1 id="react">react <a href="#react" class="anchor">🔗</a></h1><p>react 是一个 js 的库， 简化 html 和 js 操作 dom 的开发过程。 核心是管理组件 <code>make components</code>，管理状态 <code>manage state</code>。 <br>
+react 中引入<code>Flow</code> 是一个静态类型检查器，用于在 JavaScript 中引入静态类型。<code>https://github.com/facebook/react</code></p>
+<h1 id="核心概念">核心概念 <a href="#%e6%a0%b8%e5%bf%83%e6%a6%82%e5%bf%b5" class="anchor">🔗</a></h1><p><code>component 组件</code>是函数的定义，函数返回一组 hmtl 标签（JSX）。<br>
+<code>JSX</code> 是 js+html，属性名称为<code>camelCase</code>, 不是<code>HTML attributes</code>， 一种更自然的方式创建 react element。 jsx 会 <code>babel</code> 被翻译为<code>React.createElement</code>函数，返回 js 对象（ VDOM）。<br>
+<code>babel</code>可以将 JSX 转译为等价的 js 代码。<br></p>
+<p>html 为<code>&lt;button class=&quot;btn&quot;&gt;</code> , jsx 为<code>&lt;button className=&quot;btn&quot;&gt;</code></p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;Greeting text={&#39;yo&#39;} /&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Greeting</span>(<span style="color:#a6e22e">props</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">h1</span><span style="color:#f92672">&gt;</span>{<span style="color:#a6e22e">props</span>.<span style="color:#a6e22e">text</span>}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/h1&gt;;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;Parent&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  &lt;Child /&gt;    // passed as &#34;children&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;/Parent&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Parent</span>(<span style="color:#a6e22e">props</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span><span style="color:#f92672">&gt;</span>{<span style="color:#a6e22e">props</span>.<span style="color:#a6e22e">children</span>}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>组件的属性，状态，事件。</p>
+<p>组件通讯:</p>
+<ul>
+<li>
+<p>通过组件的属性 props， 单向数据流(pass data into another component)。</p>
+<ul>
+<li>父-&gt;子，props， 将 jsx 传给子组件（插槽）</li>
+<li>子-&gt;父，子调父传进来的函数</li>
+</ul>
+</li>
+<li>
+<p>context hook 多组件共享状态</p>
+<p><code>React Hooks</code>： useState, useContext, useRef, useEffect。</p>
+</li>
+</ul>
+<p>状态管理。</p>
+<p>渲染流程。</p>
+<p>避免重复渲染。</p>
+<h2 id="react-hooks">react hooks <a href="#react-hooks" class="anchor">🔗</a></h2><p>hook 是 react 16.8 的新增特性。</p>
+<p>每个组件有一个 js 对象（fiber 对象）里存 hook 的链表。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">//react/packages/react-reconciler/src/ReactFiberHooks.js
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">export</span> <span style="color:#a6e22e">type</span> <span style="color:#a6e22e">Hook</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">memoizedState</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">any</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">baseState</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">any</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">baseQueue</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Update</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">any</span>, <span style="color:#a6e22e">any</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">null</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">queue</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">any</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">next</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Hook</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">null</span>,
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>fiber 对象实现了状态更新机制，支持任务不同优先级，可中断与恢复。每个任务更新单元为 react element 对应的 fiber 节点。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">FiberNode</span>(
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">tag</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">WorkTag</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">pendingProps</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">mixed</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">key</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">null</span> <span style="color:#f92672">|</span> <span style="color:#a6e22e">string</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mode</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">TypeOfMode</span>
+</span></span><span style="display:flex;"><span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 静态属性
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">tag</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tag</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">key</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">key</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">stateNode</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>; <span style="color:#75715e">// 对应的DOM节点。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">// 连接其他fiber节点形成Fiber树
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">this</span>.<span style="color:#66d9ef">return</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>; <span style="color:#75715e">// 父
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">child</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>; <span style="color:#75715e">// 子
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">sibling</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>; <span style="color:#75715e">// 兄
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">index</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">ref</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 动态属性
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">pendingProps</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">pendingProps</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">memoizedProps</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">updateQueue</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">memoizedState</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">dependencies</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 保存更新时造成的DOM操作
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">effectTag</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">NoEffect</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">nextEffect</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">firstEffect</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">lastEffect</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 更新时对应的fiber， 双缓存。 更新时指向workInProgress Fiber 节点。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">alternate</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="state-management">state management <a href="#state-management" class="anchor">🔗</a></h2><p>useState, useReducer, useSyncExternalStore</p>
+<h2 id="effect-hooks">effect hooks <a href="#effect-hooks" class="anchor">🔗</a></h2><p>useEffect, useLayoutEffect, useInsertionEffect</p>
+<h2 id="ref-hooks">ref hooks <a href="#ref-hooks" class="anchor">🔗</a></h2><p>useRef, useImperativeHandle</p>
+<h2 id="performance-hooks">performance hooks <a href="#performance-hooks" class="anchor">🔗</a></h2><p>unnecessary in react 19 .
+useMemo, useCallback</p>
+<h2 id="context-hooks">context hooks <a href="#context-hooks" class="anchor">🔗</a></h2><p>useContext</p>
+<h2 id="transition-hooks">transition hooks <a href="#transition-hooks" class="anchor">🔗</a></h2><p>useTransition, useDeferredValue</p>
+<h2 id="random-hooks">random hooks <a href="#random-hooks" class="anchor">🔗</a></h2><p>useDebugValue, useId</p>
+<h2 id="react-19-hooks">react 19 hooks <a href="#react-19-hooks" class="anchor">🔗</a></h2><p>useFormStatus, useFormState, useOptimistic, use</p>
+<h1 id="单步调试-react-的入口">单步调试 react 的入口 <a href="#%e5%8d%95%e6%ad%a5%e8%b0%83%e8%af%95-react-%e7%9a%84%e5%85%a5%e5%8f%a3" class="anchor">🔗</a></h1><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">App</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;./App&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">createRoot</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;react-dom/client&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">container</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#34;root&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">root</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createRoot</span>(<span style="color:#a6e22e">container</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">root</span>.<span style="color:#a6e22e">render</span>(&lt;<span style="color:#f92672">App</span> /&gt;);
+</span></span></code></pre></div><p><code>cmd+shift+d</code> 打开 vs code 调试面板，创建 launch.json 文件。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;version&#34;</span>: <span style="color:#e6db74">&#34;0.2.0&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;configurations&#34;</span>: [
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;chrome&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;request&#34;</span>: <span style="color:#e6db74">&#34;launch&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;针对 localhost 启动 Chrome&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;url&#34;</span>: <span style="color:#e6db74">&#34;http://localhost:3000&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;webRoot&#34;</span>: <span style="color:#e6db74">&#34;${workspaceFolder}/src&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;sourceMaps&#34;</span>: <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;skipFiles&#34;</span>: [<span style="color:#e6db74">&#34;&lt;node_internals&gt;/**&#34;</span>]
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  ]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>运行和调试“针对 localhost 启动 Chrome”，即可 debug 程序。</p>
+<h2 id="原理">原理 <a href="#%e5%8e%9f%e7%90%86" class="anchor">🔗</a></h2><p>性能优化。</p>
+<h3 id="react-compiler">react compiler <a href="#react-compiler" class="anchor">🔗</a></h3><p>2024 年在开源实验中。</p>
+<h2 id="参考">参考 <a href="#%e5%8f%82%e8%80%83" class="anchor">🔗</a></h2>
+    </div>
+
+    
+        <div class="tags">
+            
+                <a href="http://brettkk.github.io/tags/%E5%89%8D%E7%AB%AF">前端</a>
+            
+        </div>
+    
+    
+    
+
+</section>
+
+
+    </main>
+    
+    <footer id="footer">
+    
+
+    <script src="https://utteranc.es/client.js"
+repo="brettKK/brettkk.github.io"
+issue-term="title"
+theme="github-light"
+crossorigin="anonymous"
+async>
+</script>  
+
+    <div class="copyright">
+    
+       © Copyright 
+       2025 
+       <span class="split">
+        <svg fill="#bbbbbb" width="15" height="15" version="1.1" id="heart-15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 15 15">
+  <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>
+</svg>
+       </span>
+       
+    
+    </div>
+
+    
+      <div class="powerby">
+        Powered by <a href='http://www.gohugo.io/'>Hugo</a> Theme By <a href='https://github.com/nodejh/hugo-theme-cactus-plus'>nodejh</a>
+      </div>
+    
+</footer>
+
+
+
+
+  </body>
+</html>
