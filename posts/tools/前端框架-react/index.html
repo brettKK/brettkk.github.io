@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          1022 words
+          1119 words
         </span>
         <span class="split">
           ·
@@ -91,7 +91,11 @@
           <div>
               <nav id="TableOfContents">
   <ul>
-    <li><a href="#react">react</a></li>
+    <li><a href="#react">react</a>
+      <ul>
+        <li><a href="#virtualdom">VirtualDOM</a></li>
+      </ul>
+    </li>
     <li><a href="#核心概念">核心概念</a>
       <ul>
         <li><a href="#react-hooks">react hooks</a></li>
@@ -129,8 +133,26 @@
     <div class="content">
       <h1 id="react">react <a href="#react" class="anchor">🔗</a></h1><p>react 是一个 js 的库， 简化 html 和 js 操作 dom 的开发过程。 核心是管理组件 <code>make components</code>，管理状态 <code>manage state</code>。 <br>
 react 中引入<code>Flow</code> 是一个静态类型检查器，用于在 JavaScript 中引入静态类型。<code>https://github.com/facebook/react</code></p>
+<ul>
+<li>react 核心概念快速入门
+<ul>
+<li>JQuery 是命令式库（需要指明每一步的命令）， React 是声明式库。</li>
+<li>UI = f(data), data = props + state.</li>
+</ul>
+</li>
+<li>Fiber 结构
+<ul>
+<li>实现异步可中断的找出变化的组件。</li>
+</ul>
+</li>
+<li>
+<h2 id="virtualdom">VirtualDOM <a href="#virtualdom" class="anchor">🔗</a></h2></li>
+<li>Diff 算法</li>
+<li>Hooks，</li>
+</ul>
 <h1 id="核心概念">核心概念 <a href="#%e6%a0%b8%e5%bf%83%e6%a6%82%e5%bf%b5" class="anchor">🔗</a></h1><p><code>component 组件</code>是函数的定义，函数返回一组 hmtl 标签（JSX）。<br>
-<code>JSX</code> 是 js+html，属性名称为<code>camelCase</code>, 不是<code>HTML attributes</code>， 一种更自然的方式创建 react element。 jsx 会 <code>babel</code> 被翻译为<code>React.createElement</code>函数，返回 js 对象（ VDOM）。<br>
+<code>JSX</code> 是 js+html，属性名称为<code>camelCase</code>, 不是<code>HTML attributes</code>， 一种更自然的方式创建 react element。 <br>
+<code>jsx</code> 会 <code>babel</code> 被翻译为<code>React.createElement</code>函数，返回 js 对象（ VDOM）。<br>
 <code>babel</code>可以将 JSX 转译为等价的 js 代码。<br></p>
 <p>html 为<code>&lt;button class=&quot;btn&quot;&gt;</code> , jsx 为<code>&lt;button className=&quot;btn&quot;&gt;</code></p>
 <hr>
@@ -152,18 +174,15 @@ react 中引入<code>Flow</code> 是一个静态类型检查器，用于在 Java
 </span></span></code></pre></div><p>组件的属性，状态，事件。</p>
 <p>组件通讯:</p>
 <ul>
-<li>
-<p>通过组件的属性 props， 单向数据流(pass data into another component)。</p>
+<li>通过组件的属性 props， 单向数据流(pass data into another component)。
 <ul>
 <li>父-&gt;子，props， 将 jsx 传给子组件（插槽）</li>
 <li>子-&gt;父，子调父传进来的函数</li>
 </ul>
 </li>
-<li>
-<p>context hook 多组件共享状态</p>
-<p><code>React Hooks</code>： useState, useContext, useRef, useEffect。</p>
-</li>
+<li>context hook 多组件共享状态</li>
 </ul>
+<p><code>React Hooks</code>： useState, useContext, useRef, useEffect。</p>
 <p>状态管理。</p>
 <p>渲染流程。</p>
 <p>避免重复渲染。</p>
@@ -209,12 +228,12 @@ react 中引入<code>Flow</code> 是一个静态类型检查器，用于在 Java
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 更新时对应的fiber， 双缓存。 更新时指向workInProgress Fiber 节点。
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">alternate</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h2 id="state-management">state management <a href="#state-management" class="anchor">🔗</a></h2><p>useState, useReducer, useSyncExternalStore</p>
-<h2 id="effect-hooks">effect hooks <a href="#effect-hooks" class="anchor">🔗</a></h2><p>useEffect, useLayoutEffect, useInsertionEffect</p>
+</span></span></code></pre></div><h2 id="state-management">state management <a href="#state-management" class="anchor">🔗</a></h2><p>useState（常用）, useReducer, useSyncExternalStore</p>
+<h2 id="effect-hooks">effect hooks <a href="#effect-hooks" class="anchor">🔗</a></h2><p>useEffect（常用）, useLayoutEffect, useInsertionEffect</p>
 <h2 id="ref-hooks">ref hooks <a href="#ref-hooks" class="anchor">🔗</a></h2><p>useRef, useImperativeHandle</p>
 <h2 id="performance-hooks">performance hooks <a href="#performance-hooks" class="anchor">🔗</a></h2><p>unnecessary in react 19 .
 useMemo, useCallback</p>
-<h2 id="context-hooks">context hooks <a href="#context-hooks" class="anchor">🔗</a></h2><p>useContext</p>
+<h2 id="context-hooks">context hooks <a href="#context-hooks" class="anchor">🔗</a></h2><p>useContext（常用）</p>
 <h2 id="transition-hooks">transition hooks <a href="#transition-hooks" class="anchor">🔗</a></h2><p>useTransition, useDeferredValue</p>
 <h2 id="random-hooks">random hooks <a href="#random-hooks" class="anchor">🔗</a></h2><p>useDebugValue, useId</p>
 <h2 id="react-19-hooks">react 19 hooks <a href="#react-19-hooks" class="anchor">🔗</a></h2><p>useFormStatus, useFormState, useOptimistic, use</p>
@@ -241,7 +260,7 @@ useMemo, useCallback</p>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>运行和调试“针对 localhost 启动 Chrome”，即可 debug 程序。</p>
 <h2 id="原理">原理 <a href="#%e5%8e%9f%e7%90%86" class="anchor">🔗</a></h2><p>性能优化。</p>
-<h3 id="react-compiler">react compiler <a href="#react-compiler" class="anchor">🔗</a></h3><p>2024 年在开源实验中。</p>
+<h3 id="react-compiler">react compiler <a href="#react-compiler" class="anchor">🔗</a></h3><p>2024 年在开源实验中。 学习一下 compiler 的设计与实现。</p>
 <h2 id="参考">参考 <a href="#%e5%8f%82%e8%80%83" class="anchor">🔗</a></h2>
     </div>
 
