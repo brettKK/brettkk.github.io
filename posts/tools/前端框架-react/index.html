@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          1119 words
+          1439 words
         </span>
         <span class="split">
           ·
@@ -91,14 +91,11 @@
           <div>
               <nav id="TableOfContents">
   <ul>
-    <li><a href="#react">react</a>
-      <ul>
-        <li><a href="#virtualdom">VirtualDOM</a></li>
-      </ul>
-    </li>
+    <li><a href="#react">react</a></li>
     <li><a href="#核心概念">核心概念</a>
       <ul>
         <li><a href="#react-hooks">react hooks</a></li>
+        <li><a href="#hooks-的实现原理">hooks 的实现原理</a></li>
         <li><a href="#state-management">state management</a></li>
         <li><a href="#effect-hooks">effect hooks</a></li>
         <li><a href="#ref-hooks">ref hooks</a></li>
@@ -145,10 +142,17 @@ react 中引入<code>Flow</code> 是一个静态类型检查器，用于在 Java
 <li>实现异步可中断的找出变化的组件。</li>
 </ul>
 </li>
-<li>
-<h2 id="virtualdom">VirtualDOM <a href="#virtualdom" class="anchor">🔗</a></h2></li>
+<li>VirtualDOM
+<ul>
+<li>优势： 不用具体考虑 DOM 操作，可以用申明式的方式写代码；减少页面渲染次数；更好的跨平台能力。</li>
+</ul>
+</li>
 <li>Diff 算法</li>
-<li>Hooks，</li>
+<li>Hooks
+<ul>
+<li>useState 让函数组件具有维持状态的能力。</li>
+</ul>
+</li>
 </ul>
 <h1 id="核心概念">核心概念 <a href="#%e6%a0%b8%e5%bf%83%e6%a6%82%e5%bf%b5" class="anchor">🔗</a></h1><p><code>component 组件</code>是函数的定义，函数返回一组 hmtl 标签（JSX）。<br>
 <code>JSX</code> 是 js+html，属性名称为<code>camelCase</code>, 不是<code>HTML attributes</code>， 一种更自然的方式创建 react element。 <br>
@@ -196,7 +200,35 @@ react 中引入<code>Flow</code> 是一个静态类型检查器，用于在 Java
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">queue</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">any</span>,
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">next</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Hook</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">null</span>,
 </span></span><span style="display:flex;"><span>};
-</span></span></code></pre></div><p>fiber 对象实现了状态更新机制，支持任务不同优先级，可中断与恢复。每个任务更新单元为 react element 对应的 fiber 节点。</p>
+</span></span></code></pre></div><h2 id="hooks-的实现原理">hooks 的实现原理 <a href="#hooks-%e7%9a%84%e5%ae%9e%e7%8e%b0%e5%8e%9f%e7%90%86" class="anchor">🔗</a></h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">_state</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">myUseState</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">initialValue</span>) =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">_state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">_state</span> <span style="color:#f92672">===</span> <span style="color:#66d9ef">undefined</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">initialValue</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">_state</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">setState</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">newValue</span>) =&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">_state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">newValue</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">render</span>();
+</span></span><span style="display:flex;"><span>  };
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> [<span style="color:#a6e22e">_state</span>, <span style="color:#a6e22e">setState</span>];
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>hooks 利用 js 的闭包实现。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">_state</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">any</span> <span style="color:#f92672">=</span> [];
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 实际不能定义在全局，其他组件怎么办？ 给每个组件创建一个_state数组和index， 并放在组件对应的Fiber Node上。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">index</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">myUseState</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">initialState</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">any</span>) =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">currentIndex</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">index</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">_state</span>[<span style="color:#a6e22e">currentIndex</span>] <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">_state</span>[<span style="color:#a6e22e">currentIndex</span>] <span style="color:#f92672">===</span> <span style="color:#66d9ef">undefined</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">initialState</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">_state</span>[<span style="color:#a6e22e">currentIndex</span>];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">setState</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">newValue</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">any</span>) =&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">_state</span>[<span style="color:#a6e22e">currentIndex</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">newValue</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">render</span>(); <span style="color:#75715e">// 重置index为0，
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  };
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">index</span> <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> [<span style="color:#a6e22e">_state</span>[<span style="color:#a6e22e">currentIndex</span>], <span style="color:#a6e22e">setState</span>];
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>为什么 react hooks 的使用规则中不能再循环，条件中调用 hook 函数了？ 因为 hooks 函数的存储方式是数组（实际是链表）， 加入控制流后，需要通过 index 获取对应的 state， setState 就关系就错了。</p>
+<hr>
+<p>fiber 对象实现了状态更新机制，支持任务不同优先级，可中断与恢复。每个任务更新单元为 react element 对应的 fiber 节点。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">FiberNode</span>(
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">tag</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">WorkTag</span>,
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">pendingProps</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">mixed</span>,
@@ -207,6 +239,7 @@ react 中引入<code>Flow</code> 是一个静态类型检查器，用于在 Java
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">tag</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tag</span>;
 </span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">key</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">key</span>;
 </span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">stateNode</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>; <span style="color:#75715e">// 对应的DOM节点。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">memoizedState</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>; <span style="color:#75715e">// 对应的hooks链表。
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">// 连接其他fiber节点形成Fiber树
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">this</span>.<span style="color:#66d9ef">return</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>; <span style="color:#75715e">// 父
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">child</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>; <span style="color:#75715e">// 子

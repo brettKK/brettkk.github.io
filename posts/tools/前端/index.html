@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          1767 words
+          1923 words
         </span>
         <span class="split">
           ·
@@ -124,6 +124,8 @@
     <li><a href="#vue3">vue3</a>
       <ul>
         <li><a href="#vite">vite</a></li>
+        <li><a href="#使用-loaders-转换代码如-typescript-转为-javascript-sass-转为-css">使用 loaders 转换代码。（如 typescript 转为 javascript， sass 转为 css）</a></li>
+        <li><a href="#使用-plugins-进行额外优化压缩代码生产-html-文件">使用 plugins 进行额外优化（压缩代码，生产 html 文件）</a></li>
         <li><a href="#创建第一个-vite-项目">创建第一个 vite 项目</a></li>
         <li><a href="#heading"></a></li>
       </ul>
@@ -175,6 +177,7 @@
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vehicle</span>(); <span style="color:#75715e">// 生成对象时使用了new，忘记带new时不会生成实例对象。
 </span></span></span></code></pre></div><p>this 会动态切换。js 提供了 call，apply，bind 三个方法来切换/绑定 this 的指向。</p>
 <p>js 中所有对象都有自己的原型对象。原型对象的作用是定义所有实例对象共享的属性和方法。</p>
+<hr>
 <h1 id="typescript">typescript <a href="#typescript" class="anchor">🔗</a></h1><h2 id="cocos-creator-3x-的游戏开发">cocos creator 3.x 的游戏开发 <a href="#cocos-creator-3x-%e7%9a%84%e6%b8%b8%e6%88%8f%e5%bc%80%e5%8f%91" class="anchor">🔗</a></h2><p><a href="https://www.bilibili.com/video/BV1Vw4m1e7wt" target="_blank" rel="noopener">B 站 Siki 老师的（Cocos 开发入门）TypeScript 零基础入门视频教程。</a>
 需要 1 天时间，快速入门就够了。</p>
 <p>与 c++,java 这类先定义类在定义对象的做法很大不同，js 的对象定义是动态，对象的属性和方法可以随时增删改。<br></p>
@@ -236,8 +239,10 @@ TypeScript 是完全兼容 JavaScript 的，它不会修改 JavaScript 运行时
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">num</span> <span style="color:#66d9ef">of</span> <span style="color:#a6e22e">obj</span>) {
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">num</span>);
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h3 id="类型">类型 <a href="#%e7%b1%bb%e5%9e%8b" class="anchor">🔗</a></h3><p>任意值（Any）用来表示允许赋值为任意类型<br>
-定义的时候没有赋值，不管之后有没有赋值，都会被推断成 any 类型而完全不被类型检查</p>
+</span></span></code></pre></div><h3 id="类型">类型 <a href="#%e7%b1%bb%e5%9e%8b" class="anchor">🔗</a></h3><p>any， unkown， never 区别？</p>
+<p>interface， type 的区别？</p>
+<p>任意值（Any）用来表示允许赋值为任意类型<br></p>
+<p>定义的时候没有赋值，不管之后有没有赋值，都会被推断成 any 类型而完全不被类型检查</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#66d9ef">number</span>;
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">number</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;seven&#34;</span>;
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">number</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">7</span>;
@@ -263,6 +268,16 @@ src 包含了 TypeScript 和 CSS 源码。index.tsx 是强制使用的入口文�
 </blockquote>
 <h1 id="现成的项目">现成的项目 <a href="#%e7%8e%b0%e6%88%90%e7%9a%84%e9%a1%b9%e7%9b%ae" class="anchor">🔗</a></h1><p>Geeker-admin</p>
 <h1 id="vue3">vue3 <a href="#vue3" class="anchor">🔗</a></h1><h2 id="vite">vite <a href="#vite" class="anchor">🔗</a></h2><p>vite 是 vue3 的构建工具。使用 ES Module 导入来提供代码，不使用 webpack 工具。</p>
+<p>webpack 的工作流程</p>
+<ul>
+<li>读取<code>webpack.config.js</code> 配置</li>
+<li>解析 entry 指定的入口文件，分析代码中的模块依赖</li>
+<li>
+<h2 id="使用-loaders-转换代码如-typescript-转为-javascript-sass-转为-css">使用 loaders 转换代码。（如 typescript 转为 javascript， sass 转为 css） <a href="#%e4%bd%bf%e7%94%a8-loaders-%e8%bd%ac%e6%8d%a2%e4%bb%a3%e7%a0%81%e5%a6%82-typescript-%e8%bd%ac%e4%b8%ba-javascript-sass-%e8%bd%ac%e4%b8%ba-css" class="anchor">🔗</a></h2></li>
+<li>
+<h2 id="使用-plugins-进行额外优化压缩代码生产-html-文件">使用 plugins 进行额外优化（压缩代码，生产 html 文件） <a href="#%e4%bd%bf%e7%94%a8-plugins-%e8%bf%9b%e8%a1%8c%e9%a2%9d%e5%a4%96%e4%bc%98%e5%8c%96%e5%8e%8b%e7%bc%a9%e4%bb%a3%e7%a0%81%e7%94%9f%e4%ba%a7-html-%e6%96%87%e4%bb%b6" class="anchor">🔗</a></h2></li>
+<li>将最后的 js，css，html 代码输出到 dist 目录中</li>
+</ul>
 <h2 id="创建第一个-vite-项目">创建第一个 vite 项目 <a href="#%e5%88%9b%e5%bb%ba%e7%ac%ac%e4%b8%80%e4%b8%aa-vite-%e9%a1%b9%e7%9b%ae" class="anchor">🔗</a></h2><p><code>npm init vue@latest</code></p>
 <p><code>npm create vite@latest</code> <code>cd project &amp;&amp; npm instasll &amp;&amp; npm run dev</code> <br>
 http://localhost:3000</p>

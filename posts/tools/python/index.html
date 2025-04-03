@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          2556 words
+          2807 words
         </span>
         <span class="split">
           ·
@@ -96,6 +96,7 @@
     <li><a href="#python-解释器">python 解释器</a></li>
     <li><a href="#特殊语法">特殊语法</a>
       <ul>
+        <li><a href="#python-data-model">python data model</a></li>
         <li><a href="#函数参数">函数参数</a></li>
         <li><a href="#内部特殊函数">内部特殊函数</a></li>
         <li><a href="#装饰器">装饰器</a></li>
@@ -147,7 +148,16 @@
 <h1 id="python-enhancementt-proposal-8">Python Enhancementt Proposal 8 <a href="#python-enhancementt-proposal-8" class="anchor">🔗</a></h1><p>  PEP 8 对于 python 代码格式的指南。 pylint python 的源码静态分析工具， 检查代码是否符合 PEP 8 的规范。</p>
 <h1 id="python-解释器">python 解释器 <a href="#python-%e8%a7%a3%e9%87%8a%e5%99%a8" class="anchor">🔗</a></h1><p>   <a href="https://zh.wikipedia.org/zh-cn/Python" target="_blank" rel="noopener">python</a>, cpython 解释器 (最常见的实现方式)。</p>
 <hr>
-<h1 id="特殊语法">特殊语法 <a href="#%e7%89%b9%e6%ae%8a%e8%af%ad%e6%b3%95" class="anchor">🔗</a></h1><h2 id="函数参数">函数参数 <a href="#%e5%87%bd%e6%95%b0%e5%8f%82%e6%95%b0" class="anchor">🔗</a></h2><p>函数参数<code>*arg</code>代表可变参数，类型为元组。</p>
+<h1 id="特殊语法">特殊语法 <a href="#%e7%89%b9%e6%ae%8a%e8%af%ad%e6%b3%95" class="anchor">🔗</a></h1><h2 id="python-data-model">python data model <a href="#python-data-model" class="anchor">🔗</a></h2><p>pythonic</p>
+<p>获取对象的大小，用 len(collection), 而不是 collection.len().</p>
+<p><code>obj[key]</code> 解释器转为了 <code>obj.__getitem__(key)</code></p>
+<p><code>Python Data Model</code></p>
+<p>想让对象支持以下基本的语言结构， 需要实现特色方法： 容器(collections)， 属性(attribute)访问， 迭代（包括用 async for 的异步迭代）， 运算符重载， 函数和方法调用，字符串表示与格式化，使用 await 的异步编程，对象创建与销毁， 用 with 或者 async with 语句管理上下文。</p>
+<p><code>==</code> 比较的是对象的内容， <code>is</code> 比较的是对象的 id。</p>
+<p><code>list(l1)</code>, <code>l1[:]</code> 浅拷贝。</p>
+<p>每个对象有 id，类型和值。</p>
+<p>函数是对象，是function类的实例对象。 9种可调用的对象。函数，生成器，协程，</p>
+<h2 id="函数参数">函数参数 <a href="#%e5%87%bd%e6%95%b0%e5%8f%82%e6%95%b0" class="anchor">🔗</a></h2><p>函数参数<code>*arg</code>代表可变参数，类型为元组。</p>
 <p><code>**kwargs</code>代表关键字参数，可以接收用参数名=参数值的方式传入的参数，传入的参数的会打包成一个字典。</p>
 <p>默认参数的值是函数定义时计算的，可能会导致某些陷阱，尤其是在可变对象（如列表或字典）作为默认值时。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">append_item</span>(item, item_list<span style="color:#f92672">=</span>[]):  <span style="color:#75715e"># 默认列表是可变的</span>
