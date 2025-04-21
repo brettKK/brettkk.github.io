@@ -6,7 +6,25 @@
     <description>Recent content in Posts on brettkk</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 05 Mar 2025 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 21 Apr 2025 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>金融行为与金钱</title>
+      <link>http://brettkk.github.io/posts/culture/draft_jinrong/</link>
+      <pubDate>Mon, 21 Apr 2025 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/culture/draft_jinrong/</guid>
+      <description>美元霸权与加关税 🔗 美元霸权体系如何形成的 全球关税乱战 本国货币</description>
+    </item>
+    
+    <item>
+      <title>AI绘本读物</title>
+      <link>http://brettkk.github.io/posts/tools/ai_full_stack/</link>
+      <pubDate>Sun, 06 Apr 2025 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/tools/ai_full_stack/</guid>
+      <description>讨论记录 🔗 2025 年 4.6 调研范围 文本转语音的模型 （hugging face 上</description>
+    </item>
+    
     <item>
       <title>前端框架-react</title>
       <link>http://brettkk.github.io/posts/tools/%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6-react/</link>

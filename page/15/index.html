@@ -81,6 +81,44 @@
         
         <section class="item">
           <div>
+            <h1 class="title"><a href='/posts/rust/startup/'></a></h1>
+            <div class ="date">
+                <time datetime="0001-01-01 00:00:00 &#43;0000 UTC">Jan 1, 0001</time>  
+            </div>
+          </div>
+
+          
+              <div class="summary">标准库 🔗字符在计算机内部时如何表示的？ Unicode兼容了ASCII包含全世界的所有字符，常用UTF-8编码，变长1到4个字节。
+字符类型char占4个字节。 rust中字符是unicode编码占4个字节。
+std::mem::size_of_val(&amp;&#39;中&#39;） // 4 std::mem::size_of_val(&#34;中&#34;.to_string().as_str()) // 3 。 let a_len = std::mem::size_of_val(&#34;中&#34;); println!(&#34;a_len={:?}&#34;, a_len); // 3 字符串不能想数组那样的索引访问？ 第i个字符 vs 第i个字节 for c in &#34;1234&#34;.chars() {...} vs for c in &#34;1234&#34;.</div>
+          
+
+        </section>
+    
+        
+        
+        <section class="item">
+          <div>
+            <h1 class="title"><a href='/posts/store_db/ipfs/'></a></h1>
+            <div class ="date">
+                <time datetime="0001-01-01 00:00:00 &#43;0000 UTC">Jan 1, 0001</time>  
+            </div>
+          </div>
+
+          
+              <div class="summary">ipfs 🔗去中心化的文件系统。
+怎么存（Merkle DAG, IPLD），
+Blob 对象 存小文件{&#34;data&#34;: &#34;hello&#34;}, List 对象 存大文件 {&#34;data&#34;: [&#34;blob&#34;, &#34;list&#34;], &#34;links&#34;: [{&#34;hash&#34;: &#34;d&#34;, size: 23}, {}]}
+tree 对象 代表一个目录。
+commit 对象 代表根文件夹的 hash 快照， 版本控制。</div>
+          
+
+        </section>
+    
+        
+        
+        <section class="item">
+          <div>
             <h1 class="title"><a href='/posts/store_db/kafka/'></a></h1>
             <div class ="date">
                 <time datetime="0001-01-01 00:00:00 &#43;0000 UTC">Jan 1, 0001</time>  
@@ -108,42 +146,6 @@
 
           
               <div class="summary"></div>
-          
-
-        </section>
-    
-        
-        
-        <section class="item">
-          <div>
-            <h1 class="title"><a href='/posts/todo_list/'></a></h1>
-            <div class ="date">
-                <time datetime="0001-01-01 00:00:00 &#43;0000 UTC">Jan 1, 0001</time>  
-            </div>
-          </div>
-
-          
-              <div class="summary">个体的行不通与行得通 🔗自己创建作品，下面的东西行不通：
-刷题。 刷到极限就是去卖课，如代码随想录。 数据库存储。 tp数据库的存储结构比较稳定，不容易创新。只能去卷ap，htap，云原生等外围生态领域。个人不能发挥决定性的作用。 云原生方面。 主要是做运维服务容器的平台，大公司在使用，小公司或者个人不使用对业务也没有影响。 重度AI训练。 数字造梦， 生成式AI、大模型需要大数据和gpu集群，成本高，对普通个人的机会几乎为0。普通人很难用chatGPT来赚钱，基本上是当韭菜被收割了，也不可能做出chatGPT, 需要上万块的GPU。 要了几天饱饭就不记得西北风啥味了
-自己创建作品，下面的东西可能行得通：
-视频、教程。 游戏。 godot轻量游戏引擎，开发2D游戏。godot &#43; rust 游戏。 轻度AI训练（某个细分垂直领域的chatGPT）,web等 &#43; rust &#43; typescript &#43; html &#43; css &#43; react。 计算机软件 = 存储（tidb，tikv，rocksdb）， 计算（zero knoledge）， 网络（tokio） 工作内容相关方面：</div>
-          
-
-        </section>
-    
-        
-        
-        <section class="item">
-          <div>
-            <h1 class="title"><a href='/posts/tools/ai/'></a></h1>
-            <div class ="date">
-                <time datetime="0001-01-01 00:00:00 &#43;0000 UTC">Jan 1, 0001</time>  
-            </div>
-          </div>
-
-          
-              <div class="summary">comfyUI 🔗macos 上安装 🔗brew install cmake protobuf rust python@3.10 git wget
-然后搞成 API 🔗</div>
           
 
         </section>

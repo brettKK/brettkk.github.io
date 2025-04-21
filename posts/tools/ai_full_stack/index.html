@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<html lang="zh-cn">
+  <head>
+    <title>AI绘本读物 | brettkk</title>
+
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
+<meta name="viewport" content="width=device-width,minimum-scale=1">
+<meta name="description" content="讨论记录 🔗 2025 年 4.6 调研范围 文本转语音的模型 （hugging face 上">
+<meta name="generator" content="Hugo 0.103.1" />
+
+
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+<link href="https://cdn.bootcss.com/highlight.js/9.15.10/styles/zenburn.min.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<link rel="stylesheet" href="http://brettkk.github.io/css/syntax.css" />
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js" integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+
+
+
+
+  </head>
+
+  <body>
+    <nav class="navigation">
+	
+		<a href="/"> <span class="arrow">←</span>Home</a>
+	
+	<a href="/posts">Archive</a>
+	<a href="/tags">Tags</a>
+	<a href="/about">About</a>
+
+	
+
+	
+</nav>
+
+
+    <main class="main">
+      
+
+<section id="single">
+    <h1 class="title">AI绘本读物</h1>
+
+    <div class="tip">
+        <time datetime="2025-04-06 11:33:56 &#43;0800 CST">Apr 6, 2025</time>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          391 words
+        </span>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          1 minute read
+        </span>
+    </div>
+
+    
+    
+        
+  
+    <aside class="toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
+          <div>
+              <nav id="TableOfContents">
+  <ul>
+    <li><a href="#讨论记录">讨论记录</a></li>
+    <li><a href="#2025-年-46">2025 年 4.6</a>
+      <ul>
+        <li><a href="#文本转语音的模型">文本转语音的模型</a></li>
+        <li><a href="#前端图片翻页动效">前端图片翻页动效</a></li>
+        <li><a href="#前端音频的播放">前端音频的播放</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+          </div>
+      </details>
+    </aside>
+  
+
+
+    
+
+
+    <div class="content">
+      <h1 id="讨论记录">讨论记录 <a href="#%e8%ae%a8%e8%ae%ba%e8%ae%b0%e5%bd%95" class="anchor">🔗</a></h1><ul>
+<li>2025 年 4.6
+<ul>
+<li>调研范围
+<ul>
+<li>文本转语音的模型 （hugging face 上的 text-to-speek）</li>
+<li>前端图片翻页动效 （react 的库）</li>
+<li>前端音频的播放 （react 的库）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>后续</li>
+</ul>
+<hr>
+<h1 id="2025-年-46">2025 年 4.6 <a href="#2025-%e5%b9%b4-46" class="anchor">🔗</a></h1><h2 id="文本转语音的模型">文本转语音的模型 <a href="#%e6%96%87%e6%9c%ac%e8%bd%ac%e8%af%ad%e9%9f%b3%e7%9a%84%e6%a8%a1%e5%9e%8b" class="anchor">🔗</a></h2><p>先选择轻量的模型，https://huggingface.co/hexgrad/Kokoro-82M， 参数千万级别的。</p>
+<p>语音模型是否支持中文语音？ 字节的模型应该支持中文语音 <a href="https://huggingface.co/ByteDance/MegaTTS3" target="_blank" rel="noopener">https://huggingface.co/ByteDance/MegaTTS3</a></p>
+<p>模型的运行，chatgpt 描述的很简单的。</p>
+<hr>
+<h2 id="前端图片翻页动效">前端图片翻页动效 <a href="#%e5%89%8d%e7%ab%af%e5%9b%be%e7%89%87%e7%bf%bb%e9%a1%b5%e5%8a%a8%e6%95%88" class="anchor">🔗</a></h2><p>react-page-flip， 非常流行的 React 组件库，可以帮助你实现类似图书翻页的效果。它支持 3D 翻页动画，非常适合用于电子书、数字化杂志等项目。</p>
+<p>react-flip-page， react-pdf 显示 PDF 文件的 React 库， flipbook.js 是一个 JavaScript 库，用于实现经典的翻页效果。</p>
+<hr>
+<h2 id="前端音频的播放">前端音频的播放 <a href="#%e5%89%8d%e7%ab%af%e9%9f%b3%e9%a2%91%e7%9a%84%e6%92%ad%e6%94%be" class="anchor">🔗</a></h2><p><code>&lt;audio&gt;</code> 标签将多个音频文件的播放管理放在一个数组中，通过 JavaScript 来控制每个音频段的播放</p>
+<p>react-player 更灵活的音频控制</p>
+
+    </div>
+
+    
+        <div class="tags">
+            
+                <a href="http://brettkk.github.io/tags/%E8%AE%A8%E8%AE%BA">讨论</a>
+            
+                <a href="http://brettkk.github.io/tags/%E8%B0%83%E7%A0%94">调研</a>
+            
+        </div>
+    
+    
+    
+
+</section>
+
+
+    </main>
+    
+    <footer id="footer">
+    
+
+    <script src="https://utteranc.es/client.js"
+repo="brettKK/brettkk.github.io"
+issue-term="title"
+theme="github-light"
+crossorigin="anonymous"
+async>
+</script>  
+
+    <div class="copyright">
+    
+       © Copyright 
+       2025 
+       <span class="split">
+        <svg fill="#bbbbbb" width="15" height="15" version="1.1" id="heart-15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 15 15">
+  <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>
+</svg>
+       </span>
+       
+    
+    </div>
+
+    
+      <div class="powerby">
+        Powered by <a href='http://www.gohugo.io/'>Hugo</a> Theme By <a href='https://github.com/nodejh/hugo-theme-cactus-plus'>nodejh</a>
+      </div>
+    
+</footer>
+
+
+
+
+  </body>
+</html>
