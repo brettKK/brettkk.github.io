@@ -477,16 +477,6 @@
     
     <item>
       <title></title>
-      <link>http://brettkk.github.io/posts/francais/english/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/francais/english/</guid>
-      <description>英文会议即兴问答 🔗给自己争取时间去思考 buy yourself some time 🔗不要一上来就心急火燎的去回答这个问题。先跟问问题的人互动一下。顺便给自己争取点时间去思考。
-step1： acknowledge or compliment the question. 夸奖或者确认这个问题。 that is an excellent question, or that is a very important question, or i really like this question.</description>
-    </item>
-    
-    <item>
-      <title></title>
       <link>http://brettkk.github.io/posts/golang/data_structure/draft_other/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
@@ -495,94 +485,6 @@ step1： acknowledge or compliment the question. 夸奖或者确认这个问题�
 数组 🔗遍历数组，数到m的位置标记为-1， 直到数组中仅剩一个非-1的元素，返回元素的位置
 环形链表 🔗不做标记，直接从环形链表中删除。
 type Node struct{ int num, next Node, } func createCircleLink(int n) Node{ head := Node{num: 1} cur = head for i := 2; i &amp;lt; n; i++ { tmp := Node{num: i} cur.</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>http://brettkk.github.io/posts/golang/go-ethereum/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/golang/go-ethereum/</guid>
-      <description>ethdb 包： 对 leveldb 的封装
-les 包： 轻量级以太坊客户端
-light：
-miner 包：
-struct 中内嵌 interface。</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>http://brettkk.github.io/posts/math/draft_%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/math/draft_%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/</guid>
-      <description>数学分析 🔗1 极限，连续 🔗连续的定义 🔗初等函数在定义域内都是连续的。 一般讨论高等函数，如分段函数。
-极限的定义 🔗极限的求法 🔗无穷小 $$ lim $$
-，无穷大
-洛必达法则求极限
-2 导数（微商），微分 🔗导数叫微商，是极限。
-导数的定义。 🔗导数的几何意义。 🔗斜率
-求导的方法 🔗复合函数的求导
-隐函数的求导。
-导数的应用 🔗单调性，求极值，凹凸性（二阶导数）
-3 不定积分，定积分 🔗不定积分 🔗不定积分： 求函数f的全部原函数。</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>http://brettkk.github.io/posts/rust/startup/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/rust/startup/</guid>
-      <description>标准库 🔗字符在计算机内部时如何表示的？ Unicode兼容了ASCII包含全世界的所有字符，常用UTF-8编码，变长1到4个字节。
-字符类型char占4个字节。 rust中字符是unicode编码占4个字节。
-std::mem::size_of_val(&amp;amp;&amp;#39;中&amp;#39;） // 4 std::mem::size_of_val(&amp;#34;中&amp;#34;.to_string().as_str()) // 3 。 let a_len = std::mem::size_of_val(&amp;#34;中&amp;#34;); println!(&amp;#34;a_len={:?}&amp;#34;, a_len); // 3 字符串不能想数组那样的索引访问？ 第i个字符 vs 第i个字节 for c in &amp;quot;1234&amp;quot;.chars() {...} vs for c in &amp;quot;1234&amp;quot;.</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>http://brettkk.github.io/posts/store_db/ipfs/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/store_db/ipfs/</guid>
-      <description>ipfs 🔗去中心化的文件系统。
-怎么存（Merkle DAG, IPLD），
-Blob 对象 存小文件{&amp;quot;data&amp;quot;: &amp;quot;hello&amp;quot;}, List 对象 存大文件 {&amp;quot;data&amp;quot;: [&amp;quot;blob&amp;quot;, &amp;quot;list&amp;quot;], &amp;quot;links&amp;quot;: [{&amp;quot;hash&amp;quot;: &amp;quot;d&amp;quot;, size: 23}, {}]}
-tree 对象 代表一个目录。
-commit 对象 代表根文件夹的 hash 快照， 版本控制。</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>http://brettkk.github.io/posts/store_db/kafka/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/store_db/kafka/</guid>
-      <description>系统解耦。
-流量控制。
-什么时候会丢消息？ 发送方发送ID &amp;amp; kafka之间的确认ID 接受方的确认
-消息的积压？ 扩大partition， consumer。****</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>http://brettkk.github.io/posts/store_db/minio/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/store_db/minio/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>http://brettkk.github.io/posts/todo_list/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/todo_list/</guid>
-      <description>个体的行不通与行得通 🔗自己创建作品，下面的东西行不通：
-刷题。 刷到极限就是去卖课，如代码随想录。 数据库存储。 tp数据库的存储结构比较稳定，不容易创新。只能去卷ap，htap，云原生等外围生态领域。个人不能发挥决定性的作用。 云原生方面。 主要是做运维服务容器的平台，大公司在使用，小公司或者个人不使用对业务也没有影响。 重度AI训练。 数字造梦， 生成式AI、大模型需要大数据和gpu集群，成本高，对普通个人的机会几乎为0。普通人很难用chatGPT来赚钱，基本上是当韭菜被收割了，也不可能做出chatGPT, 需要上万块的GPU。 要了几天饱饭就不记得西北风啥味了
-自己创建作品，下面的东西可能行得通：
-视频、教程。 游戏。 godot轻量游戏引擎，开发2D游戏。godot + rust 游戏。 轻度AI训练（某个细分垂直领域的chatGPT）,web等 + rust + typescript + html + css + react。 计算机软件 = 存储（tidb，tikv，rocksdb）， 计算（zero knoledge）， 网络（tokio） 工作内容相关方面：</description>
     </item>
     
   </channel>
