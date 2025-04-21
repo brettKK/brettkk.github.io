@@ -585,49 +585,5 @@ commit 对象 代表根文件夹的 hash 快照， 版本控制。</description>
 视频、教程。 游戏。 godot轻量游戏引擎，开发2D游戏。godot + rust 游戏。 轻度AI训练（某个细分垂直领域的chatGPT）,web等 + rust + typescript + html + css + react。 计算机软件 = 存储（tidb，tikv，rocksdb）， 计算（zero knoledge）， 网络（tokio） 工作内容相关方面：</description>
     </item>
     
-    <item>
-      <title></title>
-      <link>http://brettkk.github.io/posts/tools/ai/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/tools/ai/</guid>
-      <description>comfyUI 🔗macos 上安装 🔗brew install cmake protobuf rust python@3.10 git wget
-然后搞成 API 🔗</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>http://brettkk.github.io/posts/tools/cosmos/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/tools/cosmos/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>http://brettkk.github.io/posts/tools/polkadot_substrate/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/tools/polkadot_substrate/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>http://brettkk.github.io/posts/tools/%E8%87%AA%E7%94%B1%E6%B8%B8%E6%88%8F/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/tools/%E8%87%AA%E7%94%B1%E6%B8%B8%E6%88%8F/</guid>
-      <description>小游戏开发申请流程
-小游戏开发环境搭建
-小游戏常用API
-小游戏开发原理
-小游戏开发实战
-微信开放平台, 微信公众平台
-Godot 相关的资源 🔗《 Godot Engine Game Development in 24 Hours, Sams Teach Yourself: The Official Guide to Godot 3.0 》
-GDQuest, Heartbeast. https://www.youtube.com/embed/d9t3CdMks7M. https://www.</description>
-    </item>
-    
   </channel>
 </rss>
