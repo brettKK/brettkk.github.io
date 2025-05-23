@@ -6,7 +6,16 @@
     <description>Recent content in 前端 on brettkk</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 05 Mar 2025 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/tags/%E5%89%8D%E7%AB%AF/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 20 May 2025 09:31:18 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/tags/%E5%89%8D%E7%AB%AF/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>html parser</title>
+      <link>http://brettkk.github.io/posts/tools/htmlparser/</link>
+      <pubDate>Tue, 20 May 2025 09:31:18 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/tools/htmlparser/</guid>
+      <description>涉及的三个仓库 🔗 domhandler 将语法时间转换为 DOM 树结构 domutils 遍历 DOM htmlparser2 负责解析</description>
+    </item>
+    
     <item>
       <title>前端框架-react</title>
       <link>http://brettkk.github.io/posts/tools/%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6-react/</link>

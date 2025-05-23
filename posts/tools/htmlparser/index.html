@@ -3,12 +3,12 @@
 <script src="https://cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
 <html lang="zh-cn">
   <head>
-    <title>brettkk</title>
+    <title>html parser | brettkk</title>
 
     <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
 <meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta name="description" content="">
+<meta name="description" content="涉及的三个仓库 🔗 domhandler 将语法时间转换为 DOM 树结构 domutils 遍历 DOM htmlparser2 负责解析">
 <meta name="generator" content="Hugo 0.103.1" />
 
 
@@ -40,16 +40,13 @@
 
 
 
-  
-    <link href="/index.xml" rel="alternate" type="application/rss+xml" title="brettkk" />
-    <link href="/index.xml" rel="feed" type="application/rss+xml" title="brettkk" />
-  
-
 
   </head>
 
   <body>
     <nav class="navigation">
+	
+		<a href="/"> <span class="arrow">←</span>Home</a>
 	
 	<a href="/posts">Archive</a>
 	<a href="/tags">Tags</a>
@@ -63,107 +60,77 @@
 
     <main class="main">
       
-<header class="profile">
-    
-        <img class="avatar" alt="avatar" src="/images/avatar.png" />
-    
 
-    <h1>brettkk</h1>
-    
-    
-</header>
+<section id="single">
+    <h1 class="title">html parser</h1>
 
-<div id="list-page">
-    
+    <div class="tip">
+        <time datetime="2025-05-20 09:31:18 &#43;0800 CST">May 20, 2025</time>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          75 words
+        </span>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          1 minute read
+        </span>
+    </div>
+
     
     
         
-        
-        <section class="item">
+  
+    <aside class="toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
           <div>
-            <h1 class="title"><a href='/posts/math/loan/'>等额本息</a></h1>
-            <div class ="date">
-                <time datetime="2021-04-05 11:33:56 &#43;0800 CST">Apr 5, 2021</time>  
-            </div>
+              <nav id="TableOfContents">
+  <ul>
+    <li><a href="#涉及的三个仓库">涉及的三个仓库</a></li>
+    <li><a href="#如何配合使用的">如何配合使用的</a></li>
+    <li><a href="#构建-ast-的思路">构建 AST 的思路</a></li>
+    <li><a href="#参考链接">参考链接</a></li>
+  </ul>
+</nav>
           </div>
+      </details>
+    </aside>
+  
 
-          
-              <div class="summary">涉及的变量 🔗 本金M 期数N 利率R 等额本息X 公式推导 🔗当N=1时</div>
-          
-
-        </section>
-    
-        
-        
-        <section class="item">
-          <div>
-            <h1 class="title"><a href='/posts/tools/java/'>java 小结</a></h1>
-            <div class ="date">
-                <time datetime="2021-03-05 11:33:56 &#43;0800 CST">Mar 5, 2021</time>  
-            </div>
-          </div>
-
-          
-              <div class="summary">java 字节码格式 🔗Class 文件格式图 javap 查看字节码文件 🔗 magic, 0xCAFEBABE ，p</div>
-          
-
-        </section>
-    
-        
-        
-        <section class="item">
-          <div>
-            <h1 class="title"><a href='/posts/store_db/log_structure_tree/'>lsm</a></h1>
-            <div class ="date">
-                <time datetime="2021-03-03 18:34:48 &#43;0800 CST">Mar 3, 2021</time>  
-            </div>
-          </div>
-
-          
-              <div class="summary">lsm 基本想法 🔗 磁盘上的key/value存储, bytes -&gt; bytes, order by key 使用</div>
-          
-
-        </section>
-    
-        
-        
-        <section class="item">
-          <div>
-            <h1 class="title"><a href='/posts/math/algeb/'>代数 algebra</a></h1>
-            <div class ="date">
-                <time datetime="2021-02-05 11:33:56 &#43;0800 CST">Feb 5, 2021</time>  
-            </div>
-          </div>
-
-          
-              <div class="summary">高等代数 🔗3Blue1Brown的系列视频 线性代数的本质 矩阵</div>
-          
-
-        </section>
-    
 
     
-        <div class="pagination">
-          
-              <span class="prev">
-                  <a href="/page/12/">
-                      <span class="arrow">←</span> Newer posts
-                  </a>
-            </span>
-          
-          
-          
-              <span class="next">
-                  <a href="/page/14/">
-                      Older posts <span class="arrow">→</span>
-                  </a>
-              </span>
-          
+
+
+    <div class="content">
+      <h1 id="涉及的三个仓库">涉及的三个仓库 <a href="#%e6%b6%89%e5%8f%8a%e7%9a%84%e4%b8%89%e4%b8%aa%e4%bb%93%e5%ba%93" class="anchor">🔗</a></h1><ul>
+<li>domhandler 将语法时间转换为 DOM 树结构</li>
+<li>domutils 遍历 DOM</li>
+<li>htmlparser2 负责解析 html 为时间流（fb55/htmlparser2）
+<ul>
+<li>src/Parser.ts, Tokenizer.ts</li>
+</ul>
+</li>
+</ul>
+<h1 id="如何配合使用的">如何配合使用的 <a href="#%e5%a6%82%e4%bd%95%e9%85%8d%e5%90%88%e4%bd%bf%e7%94%a8%e7%9a%84" class="anchor">🔗</a></h1><h1 id="构建-ast-的思路">构建 AST 的思路 <a href="#%e6%9e%84%e5%bb%ba-ast-%e7%9a%84%e6%80%9d%e8%b7%af" class="anchor">🔗</a></h1><h1 id="参考链接">参考链接 <a href="#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5" class="anchor">🔗</a></h1>
+    </div>
+
+    
+        <div class="tags">
+            
+                <a href="http://brettkk.github.io/tags/%E5%89%8D%E7%AB%AF">前端</a>
+            
         </div>
     
+    
+    
 
+</section>
 
-</div>
 
     </main>
     
