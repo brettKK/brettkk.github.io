@@ -70,13 +70,13 @@
           ·
         </span>
         <span>
-          1880 words
+          2021 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          4 minute read
+          5 minute read
         </span>
     </div>
 
@@ -269,7 +269,11 @@ react 中引入<code>Flow</code> 是一个静态类型检查器，用于在 Java
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">alternate</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><h2 id="state-management">state management <a href="#state-management" class="anchor">🔗</a></h2><p>useState（常用）, useReducer, useSyncExternalStore</p>
-<h2 id="effect-hooks">effect hooks <a href="#effect-hooks" class="anchor">🔗</a></h2><p>useEffect（常用）, useLayoutEffect, useInsertionEffect</p>
+<p>useState 如何更新状态？
+为什么 setState 是异步的？ 批量处理，延迟执行的异步机制。</p>
+<h2 id="effect-hooks">effect hooks <a href="#effect-hooks" class="anchor">🔗</a></h2><p>useEffect（常用）, useLayoutEffect, useInsertionEffect。</p>
+<p><code>三种调用时机</code>， <code>副作用清理</code>， <code>常见bug，死循环</code></p>
+<p><code>useEffect</code>三种调用时机，取决于依赖数组的写法。 <code>useEffect(fn)</code> 首次和每次组件更新时调用, <code>useEffect(fn, [])</code>仅首次渲染时调用, <code>useEffect(fn, [a, b])</code> 首次+依赖项变化时调用。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tsx" data-lang="tsx"><span style="display:flex;"><span><span style="color:#66d9ef">import</span>  <span style="color:#a6e22e">React</span>, {<span style="color:#a6e22e">useEffect</span>, <span style="color:#a6e22e">useState</span>} <span style="color:#a6e22e">rom</span> <span style="color:#e6db74">&#39;react&#39;</span>;
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> {<span style="color:#a6e22e">Link</span>} <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;react-router-dom&#39;</span>;
 </span></span><span style="display:flex;"><span>
