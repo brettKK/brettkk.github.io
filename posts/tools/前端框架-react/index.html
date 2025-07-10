@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          1607 words
+          1880 words
         </span>
         <span class="split">
           ·
@@ -111,6 +111,7 @@
         <li><a href="#原理">原理</a>
           <ul>
             <li><a href="#react-compiler">react compiler</a></li>
+            <li><a href="#jsx-tsx-如何变成-dom-的">JSX， tsx 如何变成 DOM 的？</a></li>
           </ul>
         </li>
       </ul>
@@ -269,6 +270,46 @@ react 中引入<code>Flow</code> 是一个静态类型检查器，用于在 Java
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><h2 id="state-management">state management <a href="#state-management" class="anchor">🔗</a></h2><p>useState（常用）, useReducer, useSyncExternalStore</p>
 <h2 id="effect-hooks">effect hooks <a href="#effect-hooks" class="anchor">🔗</a></h2><p>useEffect（常用）, useLayoutEffect, useInsertionEffect</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tsx" data-lang="tsx"><span style="display:flex;"><span><span style="color:#66d9ef">import</span>  <span style="color:#a6e22e">React</span>, {<span style="color:#a6e22e">useEffect</span>, <span style="color:#a6e22e">useState</span>} <span style="color:#a6e22e">rom</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> {<span style="color:#a6e22e">Link</span>} <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;react-router-dom&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Demo() {</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">count</span>, <span style="color:#a6e22e">setCount</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(<span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">useEffect</span>(()<span style="color:#f92672">=&gt;</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;1&#39;</span>, <span style="color:#a6e22e">count</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> () <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;2&#39;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  });
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">useEffect</span>(() <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;3&#39;</span>, <span style="color:#a6e22e">count</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> () <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;4&#39;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }, []);
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">useEffect</span>(() <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;5&#39;</span>, <span style="color:#a6e22e">count</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> () <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;6&#39;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }, [<span style="color:#a6e22e">count</span>]);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> (
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">p</span>&gt;<span style="color:#a6e22e">count</span> <span style="color:#66d9ef">is</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">count</span>}&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{() <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">setCount</span>(<span style="color:#a6e22e">count</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)}&gt;<span style="color:#a6e22e">add</span>&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">Link</span> <span style="color:#a6e22e">to</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/management&#34;</span>&gt;<span style="color:#a6e22e">About</span>&lt;/<span style="color:#f92672">Link</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>  );
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">Demo</span>;
+</span></span></code></pre></div><p>初始化时执行所有 useEffect 的主体函数。
+状态更新时： 先执行依赖变化的 useEffect 的清理函数， 再执行主体函数。
+组件卸载时： 执行清理函数。</p>
+<p>初始化渲染（组件挂载） 10 30 50
+点击 add 按钮 2 6 11 51
+点击跳转按钮 2 4 6</p>
 <h2 id="ref-hooks">ref hooks <a href="#ref-hooks" class="anchor">🔗</a></h2><p>useRef, useImperativeHandle</p>
 <h2 id="performance-hooks">performance hooks <a href="#performance-hooks" class="anchor">🔗</a></h2><p>unnecessary in react 19 .
 useMemo, useCallback</p>
@@ -300,6 +341,19 @@ useMemo, useCallback</p>
 </span></span></code></pre></div><p>运行和调试“针对 localhost 启动 Chrome”，即可 debug 程序。</p>
 <h2 id="原理">原理 <a href="#%e5%8e%9f%e7%90%86" class="anchor">🔗</a></h2><p>性能优化。</p>
 <h3 id="react-compiler">react compiler <a href="#react-compiler" class="anchor">🔗</a></h3><p>2024 年在开源实验中。 学习一下 compiler 的设计与实现。</p>
+<h3 id="jsx-tsx-如何变成-dom-的">JSX， tsx 如何变成 DOM 的？ <a href="#jsx-tsx-%e5%a6%82%e4%bd%95%e5%8f%98%e6%88%90-dom-%e7%9a%84" class="anchor">🔗</a></h3><p>TSX
+↓ 编译（TS → JSX → JS）
+React.createElement()
+↓
+Virtual DOM（纯 JS 对象）
+↓
+构建 Fiber Tree（Render Phase）
+↓
+找出差异、标记变化（effect list）
+↓
+提交到真实 DOM（Commit Phase）
+↓
+页面展示</p>
 <h1 id="react-与-vue-的对比">react 与 vue 的对比 <a href="#react-%e4%b8%8e-vue-%e7%9a%84%e5%af%b9%e6%af%94" class="anchor">🔗</a></h1><p>vue 中的 v-model 双向绑定很好用，react 需要 value + onChange 去编写。</p>
 <p>props 部分 react 更加直观，就是 function 的参数而已。vue 需要额外定义。</p>
 <p>子组件与父组件互相传数据。 props 向下传，事件向上传。</p>
