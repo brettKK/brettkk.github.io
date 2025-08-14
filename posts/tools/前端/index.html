@@ -70,13 +70,13 @@
           ·
         </span>
         <span>
-          2333 words
+          2957 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          5 minute read
+          6 minute read
         </span>
     </div>
 
@@ -116,6 +116,7 @@
     </li>
     <li><a href="#javascript">javascript</a>
       <ul>
+        <li><a href="#核心点">核心点</a></li>
         <li><a href="#基本语法">基本语法</a></li>
       </ul>
     </li>
@@ -155,6 +156,12 @@
       <ul>
         <li><a href="#启元前端">启元前端</a></li>
         <li><a href="#vue">vue</a></li>
+      </ul>
+    </li>
+    <li><a href="#es6-module">ES6 module</a></li>
+    <li><a href="#nodejs">node.js</a>
+      <ul>
+        <li><a href="#模块机制">模块机制</a></li>
       </ul>
     </li>
   </ul>
@@ -205,6 +212,17 @@
 <li>浏览器 api</li>
 <li>DOM</li>
 </ul>
+<h2 id="核心点">核心点 <a href="#%e6%a0%b8%e5%bf%83%e7%82%b9" class="anchor">🔗</a></h2><p>继承： <code>实例.__proto__ == 构造函数.prototype</code>。</p>
+<p>原型，原型链，对象。</p>
+<p>prototype 和 <strong>proto</strong> 的区别？ <code>prototype</code>是函数独有，决定用 new 调用该函数时，新对象的 <code>__proto__</code> 指向哪里。proto 是所有对象都有（包括函数也是对象），指向该对象的原型对象。</p>
+<p>所有对象都有<code>constructor</code> 和<code>__proto__</code>。<code>__proto__</code> 和浏览器控制台里看到的<code>[[Prototype]]</code>是一个意思。</p>
+<p><code>__proto__</code> 是实例对象的属性，指向它的构造函数的 prototype，用于原型链查找。</p>
+<p><code>A instanceof B</code> 判断<code>B.prototype</code>是否在 A 的原型链上。<code>A.__proto__</code>，以及<code>A.__proto__.__proto__</code> 是否等于<code>B.prototype</code>。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>Object <span style="color:#66d9ef">instanceof</span> Object; <span style="color:#75715e">//true, Object是构造函数， Object.__proto__ == Function.prototype, Function.prototype.__proto == Object.prototype.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>Function <span style="color:#66d9ef">instanceof</span> Function; <span style="color:#75715e">//true, Function.__proto == Function.prototype
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>Object <span style="color:#66d9ef">instanceof</span> Function; <span style="color:#75715e">//true, Object.__proto == Function.prototype
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>Function <span style="color:#66d9ef">instanceof</span> Object; <span style="color:#75715e">//true, Function.__proto == Function.prototype, Function.prototype.__proto == Object.prototype.
+</span></span></span></code></pre></div><p><code>Object.prototype</code>是始皇。<code>Object.prototype.__proto == null</code></p>
 <h2 id="基本语法">基本语法 <a href="#%e5%9f%ba%e6%9c%ac%e8%af%ad%e6%b3%95" class="anchor">🔗</a></h2><p>js runtime 时的工作方式是： 先解析代码获取所有声明的变量，再一行一行执行。<code>var</code> 出现变量提升。</p>
 <p><code>数据的类型</code> ：null 与 undefined。
 查看值的类型： <code>typeof</code>, <code>instanceof</code>, <code>Object.prototype.toString</code>。</p>
@@ -289,7 +307,12 @@ TypeScript 是完全兼容 JavaScript 的，它不会修改 JavaScript 运行时
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#66d9ef">number</span>;
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">number</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;seven&#34;</span>;
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">number</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">7</span>;
-</span></span></code></pre></div><p>联合类型使用 | 分隔每个类型</p>
+</span></span></code></pre></div><p>interface 和 class 的差别？</p>
+<p>interface 描述对象的结构。class 描述对象的模版，数据+函数。
+语法层面：
+运行时层面： interface 编译后 完全被擦除，在运行时 不存在。<br> class 在运行时存在， 会编译成一个 构造函数 + 原型方法。可以 new 出实例，实例上挂数据，原型上挂方法</p>
+<hr>
+<p>联合类型使用 | 分隔每个类型</p>
 <h3 id="接口类对象">接口、类、对象 <a href="#%e6%8e%a5%e5%8f%a3%e7%b1%bb%e5%af%b9%e8%b1%a1" class="anchor">🔗</a></h3><p>  使用接口（Interfaces）来定义对象的类型。<br>
   接口=状态字段+行为方法的签名<br>
   类=状态字段 + 实现方法<br>
@@ -332,10 +355,19 @@ Delete <code>·</code> prettier/prettier</p>
 把相关文件放到 ignore 中，忽略检查。</p>
 <h2 id="vue">vue <a href="#vue" class="anchor">🔗</a></h2><p>redner 自定义组件时无法显示。</p>
 <p>img src 相对路径不生效，绝对路径可以。</p>
-<p>ES6 module</p>
-<p>Module ‘“xx.vue“‘ has no default export.Vetur(1192)
+<h1 id="es6-module">ES6 module <a href="#es6-module" class="anchor">🔗</a></h1><p>Module ‘“xx.vue“‘ has no default export.Vetur(1192)
 选择卸载 vetur，安装 volar 插件</p>
 <hr>
+<h1 id="nodejs">node.js <a href="#nodejs" class="anchor">🔗</a></h1><p>《深入浅出 node.js》
+调试 node 程序。在代码中加入 <code>debugger</code></p>
+<p>web 服务器的要点： 事件驱动，非阻塞 io。</p>
+<h2 id="模块机制">模块机制 <a href="#%e6%a8%a1%e5%9d%97%e6%9c%ba%e5%88%b6" class="anchor">🔗</a></h2><p><code>common.js</code>
+模块类型： 内置，自定义文件，第三方模块。
+模块作用域。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>(<span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">exports</span>, <span style="color:#a6e22e">require</span>, <span style="color:#a6e22e">module</span>, <span style="color:#a6e22e">__filename</span>, <span style="color:#a6e22e">__dirname</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 模块代码。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>});
+</span></span></code></pre></div><p>node.js v12 开始支持 es module。</p>
 
     </div>
 

@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          2021 words
+          2277 words
         </span>
         <span class="split">
           ·
@@ -92,6 +92,7 @@
               <nav id="TableOfContents">
   <ul>
     <li><a href="#react">react</a></li>
+    <li><a href="#react-developer-tools">React Developer Tools</a></li>
     <li><a href="#核心概念">核心概念</a>
       <ul>
         <li><a href="#react-hooks">react hooks</a></li>
@@ -116,7 +117,12 @@
         </li>
       </ul>
     </li>
-    <li><a href="#react-与-vue-的对比">react 与 vue 的对比</a></li>
+    <li><a href="#react-与-vue-的对比">react 与 vue 的对比</a>
+      <ul>
+        <li><a href="#fiber-如何实现了异步可中断更新">fiber 如何实现了异步可中断更新？</a></li>
+        <li><a href="#从-vite-启动到-performunitofwork-的路径">从 Vite 启动到 performUnitOfWork 的路径</a></li>
+      </ul>
+    </li>
     <li><a href="#procomponents">Procomponents</a>
       <ul>
         <li><a href="#参考">参考</a></li>
@@ -160,8 +166,10 @@ react 中引入<code>Flow</code> 是一个静态类型检查器，用于在 Java
 </ul>
 </li>
 </ul>
-<h1 id="核心概念">核心概念 <a href="#%e6%a0%b8%e5%bf%83%e6%a6%82%e5%bf%b5" class="anchor">🔗</a></h1><p><code>component 组件</code>是函数的定义，函数返回一组 hmtl 标签（JSX）。<br>
-<code>JSX</code> 是 js+html，属性名称为<code>camelCase</code>, 不是<code>HTML attributes</code>， 一种更自然的方式创建 react element。 <br>
+<h1 id="react-developer-tools">React Developer Tools <a href="#react-developer-tools" class="anchor">🔗</a></h1><p>Browser extension ,
+<a href="https://react.dev/learn/react-developer-tools" target="_blank" rel="noopener">react dev tools</a></p>
+<h1 id="核心概念">核心概念 <a href="#%e6%a0%b8%e5%bf%83%e6%a6%82%e5%bf%b5" class="anchor">🔗</a></h1><p><code>component 组件</code>是 js 定义的首字母大写的函数，函数返回一组 hmtl 标签（JSX）。<br></p>
+<p><code>JSX</code> 是 js+html，属性名称为<code>camelCase</code>, 不是<code>HTML attributes</code>， 一种更自然的方式创建 react element。 <br>
 <code>jsx</code> 会 <code>babel</code> 被翻译为<code>React.createElement</code>函数，返回 js 对象（ VDOM）。<br>
 <code>babel</code>可以将 JSX 转译为等价的 js 代码。<br></p>
 <p>html 为<code>&lt;button class=&quot;btn&quot;&gt;</code> , jsx 为<code>&lt;button className=&quot;btn&quot;&gt;</code></p>
@@ -317,7 +325,8 @@ react 中引入<code>Flow</code> 是一个静态类型检查器，用于在 Java
 <h2 id="ref-hooks">ref hooks <a href="#ref-hooks" class="anchor">🔗</a></h2><p>useRef, useImperativeHandle</p>
 <h2 id="performance-hooks">performance hooks <a href="#performance-hooks" class="anchor">🔗</a></h2><p>unnecessary in react 19 .
 useMemo, useCallback</p>
-<h2 id="context-hooks">context hooks <a href="#context-hooks" class="anchor">🔗</a></h2><p>useContext（常用）</p>
+<h2 id="context-hooks">context hooks <a href="#context-hooks" class="anchor">🔗</a></h2><p>props 在使用时爷传父，父传子时，每一层都要写 props 中转一下。<br>
+useContext 则不用层层传递，可以让任意深度的子组件直接获取数据。</p>
 <h2 id="transition-hooks">transition hooks <a href="#transition-hooks" class="anchor">🔗</a></h2><p>useTransition, useDeferredValue</p>
 <h2 id="random-hooks">random hooks <a href="#random-hooks" class="anchor">🔗</a></h2><p>useDebugValue, useId</p>
 <h2 id="react-19-hooks">react 19 hooks <a href="#react-19-hooks" class="anchor">🔗</a></h2><p>useFormStatus, useFormState, useOptimistic, use</p>
@@ -361,7 +370,33 @@ Virtual DOM（纯 JS 对象）
 <h1 id="react-与-vue-的对比">react 与 vue 的对比 <a href="#react-%e4%b8%8e-vue-%e7%9a%84%e5%af%b9%e6%af%94" class="anchor">🔗</a></h1><p>vue 中的 v-model 双向绑定很好用，react 需要 value + onChange 去编写。</p>
 <p>props 部分 react 更加直观，就是 function 的参数而已。vue 需要额外定义。</p>
 <p>子组件与父组件互相传数据。 props 向下传，事件向上传。</p>
-<h1 id="procomponents">Procomponents <a href="#procomponents" class="anchor">🔗</a></h1><p><code>npm i @ant-design/pro-components --save</code></p>
+<h2 id="fiber-如何实现了异步可中断更新">fiber 如何实现了异步可中断更新？ <a href="#fiber-%e5%a6%82%e4%bd%95%e5%ae%9e%e7%8e%b0%e4%ba%86%e5%bc%82%e6%ad%a5%e5%8f%af%e4%b8%ad%e6%96%ad%e6%9b%b4%e6%96%b0" class="anchor">🔗</a></h2><ul>
+<li>可中断可恢复
+<ul>
+<li>拆分更新任务为「单位工作单元」（unit of work）</li>
+</ul>
+</li>
+<li>有优先级（先渲染重要的任务）</li>
+<li>并发调度（让多个任务排队执行）</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">while</span> (<span style="color:#a6e22e">nextUnitOfWork</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">shouldYield</span>() <span style="color:#f92672">===</span> <span style="color:#66d9ef">false</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// shouldYield()：是否让出主线程
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">// 拆分更新任务为「单位工作单元」（unit of work）
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">nextUnitOfWork</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">performUnitOfWork</span>(<span style="color:#a6e22e">nextUnitOfWork</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 可中断、可恢复的渲染过程
+</span></span></span></code></pre></div><h2 id="从-vite-启动到-performunitofwork-的路径">从 Vite 启动到 performUnitOfWork 的路径 <a href="#%e4%bb%8e-vite-%e5%90%af%e5%8a%a8%e5%88%b0-performunitofwork-%e7%9a%84%e8%b7%af%e5%be%84" class="anchor">🔗</a></h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">npm</span> <span style="color:#a6e22e">run</span> <span style="color:#a6e22e">dev</span> <span style="color:#960050;background-color:#1e0010">→</span> <span style="color:#a6e22e">Vite</span> <span style="color:#a6e22e">启动</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">↓</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">main</span>.<span style="color:#a6e22e">jsx</span> <span style="color:#a6e22e">中执行</span> <span style="color:#a6e22e">ReactDOM</span>.<span style="color:#a6e22e">createRoot</span>(...).<span style="color:#a6e22e">render</span>(<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">App</span> <span style="color:#f92672">/&gt;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">↓</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">→</span> <span style="color:#a6e22e">updateContainer</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">→</span> <span style="color:#a6e22e">scheduleUpdateOnFiber</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">→</span> <span style="color:#a6e22e">ensureRootIsScheduled</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">→</span> <span style="color:#a6e22e">performConcurrentWorkOnRoot</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">→</span> <span style="color:#a6e22e">renderRootConcurrent</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">→</span> <span style="color:#a6e22e">workLoopConcurrent</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">→</span> <span style="color:#a6e22e">performUnitOfWork</span>(...)
+</span></span></code></pre></div><h1 id="procomponents">Procomponents <a href="#procomponents" class="anchor">🔗</a></h1><p><code>npm i @ant-design/pro-components --save</code></p>
 <h2 id="参考">参考 <a href="#%e5%8f%82%e8%80%83" class="anchor">🔗</a></h2>
     </div>
 
