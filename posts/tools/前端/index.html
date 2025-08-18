@@ -70,13 +70,13 @@
           ·
         </span>
         <span>
-          2957 words
+          4435 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          6 minute read
+          9 minute read
         </span>
     </div>
 
@@ -117,7 +117,13 @@
     <li><a href="#javascript">javascript</a>
       <ul>
         <li><a href="#核心点">核心点</a></li>
-        <li><a href="#基本语法">基本语法</a></li>
+        <li><a href="#基本语法">基本语法</a>
+          <ul>
+            <li><a href="#普通函数与箭头函数的区别">普通函数与箭头函数的区别？</a></li>
+            <li><a href="#javascript-中的数组">javascript 中的数组</a></li>
+            <li><a href="#javascript-中的循环">javascript 中的循环</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
     <li><a href="#typescript">typescript</a>
@@ -125,9 +131,11 @@
         <li><a href="#cocos-creator-3x-的游戏开发">cocos creator 3.x 的游戏开发</a></li>
         <li><a href="#安装-nodejs">安装 node.js</a></li>
         <li><a href="#npm-安装-typescript">npm 安装 typescript</a></li>
-        <li><a href="#基本语法-1">基本语法</a>
+        <li><a href="#基本语法-1">基本语法</a></li>
+        <li><a href="#类型">类型</a>
           <ul>
-            <li><a href="#类型">类型</a></li>
+            <li><a href="#infer-是在做什么">infer 是在做什么？</a></li>
+            <li><a href="#ts-中的类型兼容">ts 中的类型兼容。</a></li>
             <li><a href="#接口类对象">接口、类、对象</a></li>
             <li><a href="#声明文件">声明文件</a></li>
           </ul>
@@ -202,7 +210,8 @@
 <h2 id="浮动布局">浮动布局 <a href="#%e6%b5%ae%e5%8a%a8%e5%b8%83%e5%b1%80" class="anchor">🔗</a></h2><h2 id="flexbox">Flexbox <a href="#flexbox" class="anchor">🔗</a></h2><h2 id="grid">grid <a href="#grid" class="anchor">🔗</a></h2><h2 id="position-属性">position 属性 <a href="#position-%e5%b1%9e%e6%80%a7" class="anchor">🔗</a></h2><h2 id="响应式设计">响应式设计 <a href="#%e5%93%8d%e5%ba%94%e5%bc%8f%e8%ae%be%e8%ae%a1" class="anchor">🔗</a></h2><hr>
 <h2 id="模块化组织-css">模块化组织 css <a href="#%e6%a8%a1%e5%9d%97%e5%8c%96%e7%bb%84%e7%bb%87-css" class="anchor">🔗</a></h2><h2 id="模式库">模式库 <a href="#%e6%a8%a1%e5%bc%8f%e5%ba%93" class="anchor">🔗</a></h2><p>————</p>
 <h2 id="阴影渐变混合模式">阴影，渐变，混合模式 <a href="#%e9%98%b4%e5%bd%b1%e6%b8%90%e5%8f%98%e6%b7%b7%e5%90%88%e6%a8%a1%e5%bc%8f" class="anchor">🔗</a></h2><h2 id="对比颜色间距">对比，颜色，间距 <a href="#%e5%af%b9%e6%af%94%e9%a2%9c%e8%89%b2%e9%97%b4%e8%b7%9d" class="anchor">🔗</a></h2><h2 id="网页动效">网页动效 <a href="#%e7%bd%91%e9%a1%b5%e5%8a%a8%e6%95%88" class="anchor">🔗</a></h2><h2 id="变换">变换 <a href="#%e5%8f%98%e6%8d%a2" class="anchor">🔗</a></h2><h2 id="关键帧动画">关键帧动画 <a href="#%e5%85%b3%e9%94%ae%e5%b8%a7%e5%8a%a8%e7%94%bb" class="anchor">🔗</a></h2><hr>
-<h2 id="所有的-css-选择器类型">所有的 css 选择器类型 <a href="#%e6%89%80%e6%9c%89%e7%9a%84-css-%e9%80%89%e6%8b%a9%e5%99%a8%e7%b1%bb%e5%9e%8b" class="anchor">🔗</a></h2><h2 id="预处理器">预处理器 <a href="#%e9%a2%84%e5%a4%84%e7%90%86%e5%99%a8" class="anchor">🔗</a></h2><hr>
+<h2 id="所有的-css-选择器类型">所有的 css 选择器类型 <a href="#%e6%89%80%e6%9c%89%e7%9a%84-css-%e9%80%89%e6%8b%a9%e5%99%a8%e7%b1%bb%e5%9e%8b" class="anchor">🔗</a></h2><h2 id="预处理器">预处理器 <a href="#%e9%a2%84%e5%a4%84%e7%90%86%e5%99%a8" class="anchor">🔗</a></h2><p><code>BFC</code>。</p>
+<hr>
 <h1 id="javascript">javascript <a href="#javascript" class="anchor">🔗</a></h1><p>js 语言的 runtime 有浏览器和 nodejs。</p>
 <p>js 的核心语法精简， 只包括两部分： 基本的语法构造（操作符，控制语句），标准库（Array， Date， Math 等）。<br>
 此外是宿主环境提供额外的 api，浏览器提供三大类： 浏览器控制类（操作浏览器），DOM 类，Web 类（实现互联网的功能）。</p>
@@ -212,7 +221,7 @@
 <li>浏览器 api</li>
 <li>DOM</li>
 </ul>
-<h2 id="核心点">核心点 <a href="#%e6%a0%b8%e5%bf%83%e7%82%b9" class="anchor">🔗</a></h2><p>继承： <code>实例.__proto__ == 构造函数.prototype</code>。</p>
+<h2 id="核心点">核心点 <a href="#%e6%a0%b8%e5%bf%83%e7%82%b9" class="anchor">🔗</a></h2><p>new 关键字形成的原型链： <code>实例.__proto__ == 构造函数.prototype</code>。</p>
 <p>原型，原型链，对象。</p>
 <p>prototype 和 <strong>proto</strong> 的区别？ <code>prototype</code>是函数独有，决定用 new 调用该函数时，新对象的 <code>__proto__</code> 指向哪里。proto 是所有对象都有（包括函数也是对象），指向该对象的原型对象。</p>
 <p>所有对象都有<code>constructor</code> 和<code>__proto__</code>。<code>__proto__</code> 和浏览器控制台里看到的<code>[[Prototype]]</code>是一个意思。</p>
@@ -222,7 +231,8 @@
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>Function <span style="color:#66d9ef">instanceof</span> Function; <span style="color:#75715e">//true, Function.__proto == Function.prototype
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>Object <span style="color:#66d9ef">instanceof</span> Function; <span style="color:#75715e">//true, Object.__proto == Function.prototype
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>Function <span style="color:#66d9ef">instanceof</span> Object; <span style="color:#75715e">//true, Function.__proto == Function.prototype, Function.prototype.__proto == Object.prototype.
-</span></span></span></code></pre></div><p><code>Object.prototype</code>是始皇。<code>Object.prototype.__proto == null</code></p>
+</span></span></span></code></pre></div><p><code>Object.prototype</code>是原型链的起点， 任何原型都源自它。<code>Object.prototype.__proto == null</code>。<br>
+<code>Function.prototype</code>是仅次于<code>Object.prototype</code>的存在，它是内置构造函数的原型，任何构造函数都源自它。 所有函数对象（包括 Function 自己）都是 Function 的实例， 所以函数对象的<code>__proto__</code>都指向 Function.prototype。因此<code>Function.__proto__ === Function.prototype</code>。</p>
 <h2 id="基本语法">基本语法 <a href="#%e5%9f%ba%e6%9c%ac%e8%af%ad%e6%b3%95" class="anchor">🔗</a></h2><p>js runtime 时的工作方式是： 先解析代码获取所有声明的变量，再一行一行执行。<code>var</code> 出现变量提升。</p>
 <p><code>数据的类型</code> ：null 与 undefined。
 查看值的类型： <code>typeof</code>, <code>instanceof</code>, <code>Object.prototype.toString</code>。</p>
@@ -236,10 +246,52 @@
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>};
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Vehicle</span>(); <span style="color:#75715e">// 生成对象时使用了new，忘记带new时不会生成实例对象。
-</span></span></span></code></pre></div><p>this 会动态切换。js 提供了 call，apply，bind 三个方法来切换/绑定 this 的指向。</p>
+</span></span></span></code></pre></div><p>this 会动态切换。js 提供了 call，apply，bind 三个方法来切换/绑定 this 的指向。call 和 apply 是类似的，是立即调用函数，并显式指定 this。 bind 返回一个永久绑定了 this 的新函数（不会立即调用）。</p>
 <p>js 中所有对象都有自己的原型对象。原型对象的作用是定义所有实例对象共享的属性和方法。</p>
-<hr>
-<h1 id="typescript">typescript <a href="#typescript" class="anchor">🔗</a></h1><h2 id="cocos-creator-3x-的游戏开发">cocos creator 3.x 的游戏开发 <a href="#cocos-creator-3x-%e7%9a%84%e6%b8%b8%e6%88%8f%e5%bc%80%e5%8f%91" class="anchor">🔗</a></h2><p><a href="https://www.bilibili.com/video/BV1Vw4m1e7wt" target="_blank" rel="noopener">B 站 Siki 老师的（Cocos 开发入门）TypeScript 零基础入门视频教程。</a>
+<h3 id="普通函数与箭头函数的区别">普通函数与箭头函数的区别？ <a href="#%e6%99%ae%e9%80%9a%e5%87%bd%e6%95%b0%e4%b8%8e%e7%ae%ad%e5%a4%b4%e5%87%bd%e6%95%b0%e7%9a%84%e5%8c%ba%e5%88%ab" class="anchor">🔗</a></h3><p>在 this 绑定、原型区别：箭头函数是没有自己的 this / prototype / arguments 的函数表达式，它的 this 由定义时的词法作用域决定；普通函数是可构造的，有自己的 this / prototype / arguments，this 在调用时绑定。</p>
+<p>前端的防抖和节流的本质是利用闭包保存跨调用的状态，否则就无法记住“上一次”发生了什么。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// 防抖
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">debounce</span>(<span style="color:#a6e22e">event</span>, <span style="color:#a6e22e">wait</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">timer</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">function</span>(..<span style="color:#a6e22e">args</span>) {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">clearTimeout</span>(<span style="color:#a6e22e">timer</span>);
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">time</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">setTimeout</span>(()=&gt;{
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">apply</span>(<span style="color:#66d9ef">this</span>, <span style="color:#a6e22e">args</span>);
+</span></span><span style="display:flex;"><span>		}, <span style="color:#a6e22e">wait</span>);
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 节流
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">throttle</span>(<span style="color:#a6e22e">event</span>, <span style="color:#a6e22e">wait</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">pre</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">timer</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">function</span> (...<span style="color:#a6e22e">args</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">new</span> Date() <span style="color:#f92672">-</span> <span style="color:#a6e22e">pre</span> <span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">wait</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">clearTimeout</span>(<span style="color:#a6e22e">timer</span>);
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">timer</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">pre</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Date();
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">apply</span>(<span style="color:#66d9ef">this</span>, <span style="color:#a6e22e">args</span>);
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">timer</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">setTimeout</span>(() =&gt; {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">apply</span>(<span style="color:#66d9ef">this</span>, <span style="color:#a6e22e">args</span>);
+</span></span><span style="display:flex;"><span>      }, <span style="color:#a6e22e">wait</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  };
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="javascript-中的数组">javascript 中的数组 <a href="#javascript-%e4%b8%ad%e7%9a%84%e6%95%b0%e7%bb%84" class="anchor">🔗</a></h3><p>原地改变数组的方法：。。
+不改原数组返回新数组的方法：。。</p>
+<h3 id="javascript-中的循环">javascript 中的循环 <a href="#javascript-%e4%b8%ad%e7%9a%84%e5%be%aa%e7%8e%af" class="anchor">🔗</a></h3><p><code>for</code>, <code>for...in</code>, <code>forEach</code>, <code>map</code>。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">10</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">i</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">obj</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">a</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">b</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">3</span>, <span style="color:#a6e22e">c</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span> };
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">key</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">obj</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;obj.&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">key</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; = &#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">obj</span>[<span style="color:#a6e22e">key</span>]);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><hr>
+<h1 id="typescript">typescript <a href="#typescript" class="anchor">🔗</a></h1><p>核心配置文件：tsconfig.json</p>
+<h2 id="cocos-creator-3x-的游戏开发">cocos creator 3.x 的游戏开发 <a href="#cocos-creator-3x-%e7%9a%84%e6%b8%b8%e6%88%8f%e5%bc%80%e5%8f%91" class="anchor">🔗</a></h2><p><a href="https://www.bilibili.com/video/BV1Vw4m1e7wt" target="_blank" rel="noopener">B 站 Siki 老师的（Cocos 开发入门）TypeScript 零基础入门视频教程。</a>
 需要 1 天时间，快速入门就够了。</p>
 <p>与 c++,java 这类先定义类在定义对象的做法很大不同，js 的对象定义是动态，对象的属性和方法可以随时增删改。<br></p>
 <p>typescript -- tsc 编译--&gt; app.js<br>
@@ -300,17 +352,90 @@ TypeScript 是完全兼容 JavaScript 的，它不会修改 JavaScript 运行时
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">num</span> <span style="color:#66d9ef">of</span> <span style="color:#a6e22e">obj</span>) {
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">num</span>);
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h3 id="类型">类型 <a href="#%e7%b1%bb%e5%9e%8b" class="anchor">🔗</a></h3><p>any， unkown， never 区别？</p>
-<p>interface， type 的区别？</p>
-<p>任意值（Any）用来表示允许赋值为任意类型<br></p>
+</span></span></code></pre></div><h2 id="类型">类型 <a href="#%e7%b1%bb%e5%9e%8b" class="anchor">🔗</a></h2><p>never 类型的使用场景。</p>
+<ul>
+<li>永远不会返回的函数</li>
+<li>完整性检查 (Exhaustive Checking)在 switch 或 if 的场景下，never 常用于 检查是否漏掉 case</li>
+<li>不可能存在的类型。 type A = number &amp; string; // 永远不可能有值 =&gt; never</li>
+<li>在错误处理时，可以标记某个分支“不应该到达”</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">throwError</span>(<span style="color:#a6e22e">msg</span>: <span style="color:#66d9ef">string</span>)<span style="color:#f92672">:</span> <span style="color:#66d9ef">never</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> Error(<span style="color:#a6e22e">msg</span>); <span style="color:#75715e">// 函数抛错
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">infiniteLoop</span>()<span style="color:#f92672">:</span> <span style="color:#66d9ef">never</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">while</span> (<span style="color:#66d9ef">true</span>) {} <span style="color:#75715e">//死循环, 永远不会返回的函数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p>any， unkown？
+任意值（Any）用来表示允许赋值为任意类型。unknown 表示跟 any 类型一样接受任意类型的值，但对 unknown 类型的操作必须先进行类型确认， 确保类型安全。<br></p>
 <p>定义的时候没有赋值，不管之后有没有赋值，都会被推断成 any 类型而完全不被类型检查</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#66d9ef">number</span>;
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">number</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;seven&#34;</span>;
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">number</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">7</span>;
-</span></span></code></pre></div><p>interface 和 class 的差别？</p>
+</span></span></code></pre></div><p>interface， type 的区别？
+interface 和 class 的区别？ 类型约定，无函数实现。后者是有函数实现，可实例化。</p>
 <p>interface 描述对象的结构。class 描述对象的模版，数据+函数。
 语法层面：
 运行时层面： interface 编译后 完全被擦除，在运行时 不存在。<br> class 在运行时存在， 会编译成一个 构造函数 + 原型方法。可以 new 出实例，实例上挂数据，原型上挂方法</p>
+<h3 id="infer-是在做什么">infer 是在做什么？ <a href="#infer-%e6%98%af%e5%9c%a8%e5%81%9a%e4%bb%80%e4%b9%88" class="anchor">🔗</a></h3><p>infer 关键字只能在 extends 条件类型 里用。作用是：在条件类型中引入一个待推断的类型变量。</p>
+<p><code>T extends SomeType&lt;infer U&gt; ? U : Fallback</code>意思是 infer U 表示要从 SomeType&lt;...&gt; 里 推断出内部的类型参数，并临时起名为 U。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#75715e">//获取函数返回值类型
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">ReturnType</span>&lt;<span style="color:#f92672">T</span>&gt; <span style="color:#f92672">=</span> <span style="color:#a6e22e">T</span> <span style="color:#66d9ef">extends</span> (...<span style="color:#a6e22e">args</span>: <span style="color:#66d9ef">any</span>[]) <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">infer</span> <span style="color:#a6e22e">R</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">R</span> : <span style="color:#66d9ef">never</span>; <span style="color:#75715e">// infer R 把函数的返回值类型提取出来。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Fn</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">a</span>: <span style="color:#66d9ef">number</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">string</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Result</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ReturnType</span>&lt;<span style="color:#f92672">Fn</span>&gt;; <span style="color:#75715e">// string
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//获取函数参数类型
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Parameters</span>&lt;<span style="color:#f92672">T</span>&gt; <span style="color:#f92672">=</span> <span style="color:#a6e22e">T</span> <span style="color:#66d9ef">extends</span> (...<span style="color:#a6e22e">args</span>: <span style="color:#66d9ef">infer</span> <span style="color:#a6e22e">P</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">any</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">P</span> : <span style="color:#66d9ef">never</span>; <span style="color:#75715e">//infer P 把函数参数列表提取为元组类型。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Fn</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">a</span>: <span style="color:#66d9ef">number</span>, <span style="color:#a6e22e">b</span>: <span style="color:#66d9ef">string</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">void</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Params</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Parameters</span>&lt;<span style="color:#f92672">Fn</span>&gt;; <span style="color:#75715e">// [number, string]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//获取数组元素类型
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">ElementType</span>&lt;<span style="color:#f92672">T</span>&gt; <span style="color:#f92672">=</span> <span style="color:#a6e22e">T</span> <span style="color:#66d9ef">extends</span> (<span style="color:#66d9ef">infer</span> <span style="color:#a6e22e">U</span>)[] <span style="color:#f92672">?</span> <span style="color:#a6e22e">U</span> : <span style="color:#66d9ef">T</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">A</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ElementType</span>&lt;<span style="color:#f92672">number</span><span style="color:#960050;background-color:#1e0010">[]</span>&gt;; <span style="color:#75715e">// number
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//提取 Promise 内部类型
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">UnwrapPromise</span>&lt;<span style="color:#f92672">T</span>&gt; <span style="color:#f92672">=</span> <span style="color:#a6e22e">T</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">Promise</span>&lt;<span style="color:#f92672">infer</span> <span style="color:#a6e22e">U</span>&gt; <span style="color:#f92672">?</span> <span style="color:#a6e22e">U</span> : <span style="color:#66d9ef">T</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">A</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">UnwrapPromise</span>&lt;<span style="color:#f92672">Promise</span><span style="color:#960050;background-color:#1e0010">&lt;</span><span style="color:#a6e22e">string</span>&gt;<span style="color:#f92672">&gt;</span>; <span style="color:#75715e">// string
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">B</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">UnwrapPromise</span>&lt;<span style="color:#f92672">number</span>&gt;; <span style="color:#75715e">// number
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//多层嵌套推断
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Flatten</span>&lt;<span style="color:#f92672">T</span>&gt; <span style="color:#f92672">=</span> <span style="color:#a6e22e">T</span> <span style="color:#66d9ef">extends</span> Array&lt;<span style="color:#f92672">infer</span> <span style="color:#a6e22e">U</span>&gt; <span style="color:#f92672">?</span> <span style="color:#a6e22e">Flatten</span>&lt;<span style="color:#f92672">U</span>&gt; <span style="color:#f92672">:</span> <span style="color:#a6e22e">T</span>; <span style="color:#75715e">//infer 可以用于递归推断
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Arr</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">number</span>[][][];
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Flat</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Flatten</span>&lt;<span style="color:#f92672">Arr</span>&gt;; <span style="color:#75715e">// number
+</span></span></span></code></pre></div><h3 id="ts-中的类型兼容">ts 中的类型兼容。 <a href="#ts-%e4%b8%ad%e7%9a%84%e7%b1%bb%e5%9e%8b%e5%85%bc%e5%ae%b9" class="anchor">🔗</a></h3><p>TypeScript 的类型兼容遵循 结构化类型系统 (structural typing)，即 鸭子类型：只要结构满足，就算兼容。</p>
+<ul>
+<li>对象类型：只要目标类型的属性，在源类型中都存在（且类型兼容），就兼容。</li>
+<li>函数类型：比较 参数 和 返回值，涉及 协变 / 逆变。</li>
+<li>枚举 / 基本类型：字面量类型可以兼容更宽泛的类型。</li>
+</ul>
+<p><code>协变</code>，<code>逆变</code>: 这两个概念主要出现在<code>函数类型兼容性</code>的比较中。</p>
+<p>返回值类型是协变的意思是：子类可以赋值给父类。返回值可以“更具体”。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Animal</span> {}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Dog</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">Animal</span> {}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Fn1</span> <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">Animal</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Fn2</span> <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">Dog</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">f1</span>: <span style="color:#66d9ef">Fn1</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">f2</span>: <span style="color:#66d9ef">Fn2</span>; <span style="color:#75715e">//子类
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 子类赋值给父类。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">f1</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">f2</span>; <span style="color:#75715e">// ✅ Dog 是 Animal 的子类（协变）
+</span></span></span></code></pre></div><p>参数类型是 逆变的意思是：父类参数可以赋值给子类参数。参数可以“更宽泛”。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">HandlerA</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">dog</span>: <span style="color:#66d9ef">Dog</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">void</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">HandlerB</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">animal</span>: <span style="color:#66d9ef">Animal</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">void</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">hb</span>: <span style="color:#66d9ef">HandlerB</span>; <span style="color:#75715e">// 父类
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">ha</span>: <span style="color:#66d9ef">HandlerA</span>; <span style="color:#75715e">// 子类
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 父类赋值给子类
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">ha</span> <span style="color:#f92672">=</span> <span style="color:#75715e">//??; // ✅ Animal 参数更宽松，可以接 Dog
+</span></span></span></code></pre></div><p>总结：</p>
+<ul>
+<li>返回值（协变）：子类返回值兼容父类。</li>
+<li>参数（逆变）：父类参数兼容子类参数</li>
+</ul>
 <hr>
 <p>联合类型使用 | 分隔每个类型</p>
 <h3 id="接口类对象">接口、类、对象 <a href="#%e6%8e%a5%e5%8f%a3%e7%b1%bb%e5%af%b9%e8%b1%a1" class="anchor">🔗</a></h3><p>  使用接口（Interfaces）来定义对象的类型。<br>
@@ -361,14 +486,13 @@ Delete <code>·</code> prettier/prettier</p>
 <h1 id="nodejs">node.js <a href="#nodejs" class="anchor">🔗</a></h1><p>《深入浅出 node.js》
 调试 node 程序。在代码中加入 <code>debugger</code></p>
 <p>web 服务器的要点： 事件驱动，非阻塞 io。</p>
-<h2 id="模块机制">模块机制 <a href="#%e6%a8%a1%e5%9d%97%e6%9c%ba%e5%88%b6" class="anchor">🔗</a></h2><p><code>common.js</code>
-模块类型： 内置，自定义文件，第三方模块。
+<h2 id="模块机制">模块机制 <a href="#%e6%a8%a1%e5%9d%97%e6%9c%ba%e5%88%b6" class="anchor">🔗</a></h2><p>node.js v12 开始支持 es module。</p>
+<p><code>common.js</code>模块类型： 内置，自定义文件，第三方模块。
 模块作用域。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>(<span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">exports</span>, <span style="color:#a6e22e">require</span>, <span style="color:#a6e22e">module</span>, <span style="color:#a6e22e">__filename</span>, <span style="color:#a6e22e">__dirname</span>) {
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 模块代码。
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>});
-</span></span></code></pre></div><p>node.js v12 开始支持 es module。</p>
-
+</span></span></code></pre></div>
     </div>
 
     

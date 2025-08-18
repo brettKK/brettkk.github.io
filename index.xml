@@ -17,6 +17,15 @@
     </item>
     
     <item>
+      <title>dockerfile最小实践</title>
+      <link>http://brettkk.github.io/posts/tools/min_dockerfile/</link>
+      <pubDate>Mon, 05 May 2025 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/tools/min_dockerfile/</guid>
+      <description>思路 🔗 写一个简单的 koa 应用 写一个 dockerfile 基于 dockerfile 去生成一个镜像 基于镜像</description>
+    </item>
+    
+    <item>
       <title>金融行为与金钱</title>
       <link>http://brettkk.github.io/posts/culture/draft_jinrong/</link>
       <pubDate>Mon, 21 Apr 2025 11:33:56 +0800</pubDate>

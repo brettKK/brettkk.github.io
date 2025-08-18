@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<html lang="zh-cn">
+  <head>
+    <title>dockerfile最小实践 | brettkk</title>
+
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
+<meta name="viewport" content="width=device-width,minimum-scale=1">
+<meta name="description" content="思路 🔗 写一个简单的 koa 应用 写一个 dockerfile 基于 dockerfile 去生成一个镜像 基于镜像">
+<meta name="generator" content="Hugo 0.103.1" />
+
+
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+<link href="https://cdn.bootcss.com/highlight.js/9.15.10/styles/zenburn.min.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<link rel="stylesheet" href="http://brettkk.github.io/css/syntax.css" />
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js" integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+
+
+
+
+  </head>
+
+  <body>
+    <nav class="navigation">
+	
+		<a href="/"> <span class="arrow">←</span>Home</a>
+	
+	<a href="/posts">Archive</a>
+	<a href="/tags">Tags</a>
+	<a href="/about">About</a>
+
+	
+
+	
+</nav>
+
+
+    <main class="main">
+      
+
+<section id="single">
+    <h1 class="title">dockerfile最小实践</h1>
+
+    <div class="tip">
+        <time datetime="2025-05-05 11:33:56 &#43;0800 CST">May 5, 2025</time>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          292 words
+        </span>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          1 minute read
+        </span>
+    </div>
+
+    
+    
+        
+  
+    <aside class="toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
+          <div>
+              <nav id="TableOfContents">
+  <ul>
+    <li><a href="#思路">思路</a></li>
+    <li><a href="#写一个简单的-koa-应用">写一个简单的 koa 应用</a></li>
+    <li><a href="#写一个-dockerfile">写一个 dockerfile</a></li>
+    <li><a href="#基于-dockerfile-生成一个镜像">基于 dockerfile 生成一个镜像</a></li>
+    <li><a href="#基于镜像生成一个容器">基于镜像生成一个容器</a></li>
+    <li><a href="#基于镜像导出镜像的压缩包">基于镜像导出镜像的压缩包</a></li>
+  </ul>
+</nav>
+          </div>
+      </details>
+    </aside>
+  
+
+
+    
+
+
+    <div class="content">
+      <h1 id="思路">思路 <a href="#%e6%80%9d%e8%b7%af" class="anchor">🔗</a></h1><ul>
+<li>写一个简单的 koa 应用</li>
+<li>写一个 dockerfile</li>
+<li>基于 dockerfile 去生成一个镜像</li>
+<li>基于镜像生成一个容器</li>
+<li>基于镜像导出镜像的压缩包</li>
+</ul>
+<h1 id="写一个简单的-koa-应用">写一个简单的 koa 应用 <a href="#%e5%86%99%e4%b8%80%e4%b8%aa%e7%ae%80%e5%8d%95%e7%9a%84-koa-%e5%ba%94%e7%94%a8" class="anchor">🔗</a></h1><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>mkdir koa_demo
+</span></span><span style="display:flex;"><span>cd koa_demo
+</span></span><span style="display:flex;"><span>npm init -y
+</span></span><span style="display:flex;"><span>npm i koa --save
+</span></span><span style="display:flex;"><span>touch app.js
+</span></span></code></pre></div><p>编写 app.js</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">koa</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#34;koa&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">app</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">koa</span>();
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">use</span>(<span style="color:#66d9ef">async</span> (<span style="color:#a6e22e">ctx</span>) =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">body</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;hello, docker&#34;</span>;
+</span></span><span style="display:flex;"><span>});
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">listen</span>(<span style="color:#ae81ff">4090</span>, () =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;4090 port is listening&#34;</span>);
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre></div><p>修改 package.json 的 script</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;scripts&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;start&#34;</span>: <span style="color:#e6db74">&#34;node app.js&#34;</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>启动脚本</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">npm</span> <span style="color:#a6e22e">run</span> <span style="color:#a6e22e">start</span>
+</span></span></code></pre></div><h1 id="写一个-dockerfile">写一个 dockerfile <a href="#%e5%86%99%e4%b8%80%e4%b8%aa-dockerfile" class="anchor">🔗</a></h1><p><code>touch Dockerfile</code> 编写</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Dockerfile" data-lang="Dockerfile"><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> node</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ADD</span> . /home/web<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">WORKDIR</span><span style="color:#e6db74"> /home/web</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> npm install --registry<span style="color:#f92672">=</span>https://registry.npmmirror.com<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">EXPOSE</span><span style="color:#e6db74"> 4090</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">CMD</span> [<span style="color:#e6db74">&#34;node&#34;</span>, <span style="color:#e6db74">&#34;./app.js&#34;</span>]<span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div><h1 id="基于-dockerfile-生成一个镜像">基于 dockerfile 生成一个镜像 <a href="#%e5%9f%ba%e4%ba%8e-dockerfile-%e7%94%9f%e6%88%90%e4%b8%80%e4%b8%aa%e9%95%9c%e5%83%8f" class="anchor">🔗</a></h1><p><code>touch .dockerignore</code> 里面写上<code>node_modules</code>。</p>
+<p><code>docker build . -t brett/koa_server:v1.0.0</code> 生成之后， <code>docker images</code>查看镜像。</p>
+<h1 id="基于镜像生成一个容器">基于镜像生成一个容器 <a href="#%e5%9f%ba%e4%ba%8e%e9%95%9c%e5%83%8f%e7%94%9f%e6%88%90%e4%b8%80%e4%b8%aa%e5%ae%b9%e5%99%a8" class="anchor">🔗</a></h1><p><code>docker run -d --name koa_server -p 4090:4090 brett/koa_server:v1.0.0</code> 启动容器， 查看 localhost:4090。</p>
+<h1 id="基于镜像导出镜像的压缩包">基于镜像导出镜像的压缩包 <a href="#%e5%9f%ba%e4%ba%8e%e9%95%9c%e5%83%8f%e5%af%bc%e5%87%ba%e9%95%9c%e5%83%8f%e7%9a%84%e5%8e%8b%e7%bc%a9%e5%8c%85" class="anchor">🔗</a></h1><p><code>docker save brett/koa_server:v1.0.0 &gt; koa_server.tar</code>。</p>
+
+    </div>
+
+    
+        <div class="tags">
+            
+                <a href="http://brettkk.github.io/tags/%E5%B7%A5%E5%85%B7">工具</a>
+            
+        </div>
+    
+    
+    
+
+</section>
+
+
+    </main>
+    
+    <footer id="footer">
+    
+
+    <script src="https://utteranc.es/client.js"
+repo="brettKK/brettkk.github.io"
+issue-term="title"
+theme="github-light"
+crossorigin="anonymous"
+async>
+</script>  
+
+    <div class="copyright">
+    
+       © Copyright 
+       2025 
+       <span class="split">
+        <svg fill="#bbbbbb" width="15" height="15" version="1.1" id="heart-15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 15 15">
+  <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>
+</svg>
+       </span>
+       
+    
+    </div>
+
+    
+      <div class="powerby">
+        Powered by <a href='http://www.gohugo.io/'>Hugo</a> Theme By <a href='https://github.com/nodejh/hugo-theme-cactus-plus'>nodejh</a>
+      </div>
+    
+</footer>
+
+
+
+
+  </body>
+</html>
