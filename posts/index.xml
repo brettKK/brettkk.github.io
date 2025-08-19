@@ -238,7 +238,7 @@
       <pubDate>Mon, 05 Sep 2022 11:33:56 +0800</pubDate>
       
       <guid>http://brettkk.github.io/posts/tools/%E5%89%8D%E7%AB%AF/</guid>
-      <description>html 🔗标签元素的有序集合 css 🔗描述 html 中标签的样式格式。 语法规则：</description>
+      <description>html 🔗标签元素的有序集合。 javascript 🔗js 语言的 runtime 有浏览器和 nodej</description>
     </item>
     
     <item>
@@ -503,6 +503,17 @@
 数组 🔗遍历数组，数到m的位置标记为-1， 直到数组中仅剩一个非-1的元素，返回元素的位置
 环形链表 🔗不做标记，直接从环形链表中删除。
 type Node struct{ int num, next Node, } func createCircleLink(int n) Node{ head := Node{num: 1} cur = head for i := 2; i &amp;lt; n; i++ { tmp := Node{num: i} cur.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://brettkk.github.io/posts/tools/%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6-vue/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/tools/%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6-vue/</guid>
+      <description>vue3 🔗vite 🔗vite 是 vue3 的构建工具。使用 ES Module 导入来提供代码，不使用 webpack 工具。
+webpack 的工作流程
+读取webpack.config.js 配置 解析 entry 指定的入口文件，分析代码中的模块依赖 使用 loaders 转换代码。（如 typescript 转为 javascript， sass 转为 css） 🔗 使用 plugins 进行额外优化（压缩代码，生产 html 文件） 🔗 将最后的 js，css，html 代码输出到 dist 目录中 创建第一个 vite 项目 🔗npm init vue@latest</description>
     </item>
     
   </channel>
