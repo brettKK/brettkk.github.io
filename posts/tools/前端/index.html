@@ -70,13 +70,13 @@
           ·
         </span>
         <span>
-          4095 words
+          5305 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          9 minute read
+          11 minute read
         </span>
     </div>
 
@@ -137,15 +137,23 @@
     </li>
     <li><a href="#css">css</a>
       <ul>
-        <li><a href="#层叠优先级继承">层叠，优先级，继承</a></li>
-        <li><a href="#相对单位-em-rem">相对单位 em， rem</a></li>
-        <li><a href="#css-布局">css 布局</a></li>
+        <li><a href="#css-的引入方式">css 的引入方式</a></li>
+        <li><a href="#选择器">选择器</a></li>
         <li><a href="#盒子模型">盒子模型</a></li>
-        <li><a href="#浮动布局">浮动布局</a></li>
-        <li><a href="#flexbox">Flexbox</a></li>
-        <li><a href="#grid">grid</a></li>
-        <li><a href="#position-属性">position 属性</a></li>
-        <li><a href="#响应式设计">响应式设计</a></li>
+        <li><a href="#层叠优先级继承">层叠，优先级，继承</a></li>
+        <li><a href="#css-布局">css 布局</a>
+          <ul>
+            <li><a href="#层叠层z-轴方向的层叠优先级-z-index">层叠层，z 轴方向的层叠优先级 z-index</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#常见考点">常见考点</a>
+      <ul>
+        <li><a href="#水平垂直居中的写法">水平垂直居中的写法</a></li>
+        <li><a href="#三栏布局圣杯布局flex-grid">三栏布局，圣杯布局，flex， grid</a></li>
+        <li><a href="#自适应宽高比的盒子padding-百分比">自适应宽高比的盒子，padding 百分比</a></li>
+        <li><a href="#清除浮动的方法">清除浮动的方法</a></li>
         <li><a href="#模块化组织-css">模块化组织 css</a></li>
         <li><a href="#模式库">模式库</a></li>
         <li><a href="#阴影渐变混合模式">阴影，渐变，混合模式</a></li>
@@ -426,10 +434,28 @@ src 包含了 TypeScript 和 CSS 源码。index.tsx 是强制使用的入口文�
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 模块代码。
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>});
 </span></span></code></pre></div><hr>
-<h1 id="css">css <a href="#css" class="anchor">🔗</a></h1><p>描述 html 中标签的样式格式。<br></p>
+<h1 id="css">css <a href="#css" class="anchor">🔗</a></h1><p>围绕着 html 元素的选择，样式，布局展开的系统。</p>
+<p>描述 html 中标签的样式格式。<br></p>
 <p>语法规则： 声明语句，选择器。<br></p>
-<p>选择器：通用选择器，标签选择器，类选择器（.className），id 选择器（#idName） <br></p>
-<p>盒子模型： 外边距 margin， 边宽 border，内边距 padding， heigth, width, 内容 element<br></p>
+<h2 id="css-的引入方式">css 的引入方式 <a href="#css-%e7%9a%84%e5%bc%95%e5%85%a5%e6%96%b9%e5%bc%8f" class="anchor">🔗</a></h2><p>内联样式。<code>&lt;p style=&quot;color:red;font-size:20px&quot;&gt;内联css&lt;/p&gt;</code>。</p>
+<p>内部样式。例如单个文档需要使用特殊样式时。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">style</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">p</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">color</span>: <span style="color:#66d9ef">red</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">font-size</span>: <span style="color:#ae81ff">20</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">style</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">head</span>&gt;
+</span></span></code></pre></div><p>外部样式。例如样式需要应用到多个文档时。
+<code>&lt;link ref=&quot;stylesheet&quot; type=&quot;text/css&quot;  href=&quot;abc.css&quot;&gt;&lt;/link&gt;</code></p>
+<h2 id="选择器">选择器 <a href="#%e9%80%89%e6%8b%a9%e5%99%a8" class="anchor">🔗</a></h2><p>通用选择器，
+标签选择器，符合选择器， 后代(div p), 直接子元素（div &gt; p）。
+类选择器（.className），
+id 选择器（#idName） <br></p>
+<p>选择器有哪些？（元素、类、ID、属性、伪类、伪元素…）</p>
+<p>优先级规则：!important &gt; 内联 &gt; ID &gt; 类/属性/伪类 &gt; 标签/伪元素 &gt; 继承。</p>
+<h2 id="盒子模型">盒子模型 <a href="#%e7%9b%92%e5%ad%90%e6%a8%a1%e5%9e%8b" class="anchor">🔗</a></h2><p>外边距 margin， 边宽 border，内边距 padding， heigth, width, 内容 element<br></p>
 <h2 id="层叠优先级继承">层叠，优先级，继承 <a href="#%e5%b1%82%e5%8f%a0%e4%bc%98%e5%85%88%e7%ba%a7%e7%bb%a7%e6%89%bf" class="anchor">🔗</a></h2><ul>
 <li>组成层叠的四个部分</li>
 <li>层叠和继承的区别</li>
@@ -437,22 +463,84 @@ src 包含了 TypeScript 和 CSS 源码。index.tsx 是强制使用的入口文�
 <li>简写声明的常见误区</li>
 </ul>
 <p>层叠：如何解决同一个 web 元素上的 css 样式冲突问题。 样式表的来源优先级（外部文件，内联代码，行内样式），选择器的优先级，代码顺序。 例如 css 的选择器有标签选择器，ID 选择器，类选择器， 选择器的优先级。</p>
-<h2 id="相对单位-em-rem">相对单位 em， rem <a href="#%e7%9b%b8%e5%af%b9%e5%8d%95%e4%bd%8d-em-rem" class="anchor">🔗</a></h2><h2 id="css-布局">css 布局 <a href="#css-%e5%b8%83%e5%b1%80" class="anchor">🔗</a></h2><p>浏览器默认的 html 布局方式是：正常布局流。block 元素：<code>div</code>, <code>p</code>, <code>h1</code>, <code>ul</code>等。 inline 元素：<code>span</code>, <code>a</code>, <code>strong</code>。
-出现在一个元素下面的元素为块元素，出现在一个元素旁边的是内联元素。</p>
+<p>继承： 部分属性，如 color， font-size 会从父元素继承，有的不会继承，如 border， margin 等。</p>
+<p>相对单位 em， rem, vw,vh</p>
+<h2 id="css-布局">css 布局 <a href="#css-%e5%b8%83%e5%b1%80" class="anchor">🔗</a></h2><p>浏览器默认的 html 布局方式是：正常布局流 normal flow。元素默认的排列方式： 块级元素垂直排列，行内元素水平排列。其他布局都是对正常布局流的打破。</p>
 <p>下面的布局技术会覆盖默认的布局行为：</p>
 <ul>
 <li>display</li>
-<li>浮动</li>
+<li>浮动 float</li>
 <li>position 属性</li>
 <li>表格布局</li>
-<li>多列布局</li>
+<li>flexbox 弹性盒子。一维布局，行或者列。</li>
 </ul>
-<h2 id="盒子模型">盒子模型 <a href="#%e7%9b%92%e5%ad%90%e6%a8%a1%e5%9e%8b" class="anchor">🔗</a></h2><hr>
-<h2 id="浮动布局">浮动布局 <a href="#%e6%b5%ae%e5%8a%a8%e5%b8%83%e5%b1%80" class="anchor">🔗</a></h2><h2 id="flexbox">Flexbox <a href="#flexbox" class="anchor">🔗</a></h2><h2 id="grid">grid <a href="#grid" class="anchor">🔗</a></h2><h2 id="position-属性">position 属性 <a href="#position-%e5%b1%9e%e6%80%a7" class="anchor">🔗</a></h2><h2 id="响应式设计">响应式设计 <a href="#%e5%93%8d%e5%ba%94%e5%bc%8f%e8%ae%be%e8%ae%a1" class="anchor">🔗</a></h2><hr>
+<p>block 元素：<code>div</code>, <code>p</code>, <code>h1</code>, <code>ul</code>等。 inline 元素：<code>span</code>, <code>a</code>, <code>strong</code>。
+出现在一个元素下面的元素为块元素，出现在一个元素旁边的是内联元素。</p>
+<h3 id="层叠层z-轴方向的层叠优先级-z-index">层叠层，z 轴方向的层叠优先级 z-index <a href="#%e5%b1%82%e5%8f%a0%e5%b1%82z-%e8%bd%b4%e6%96%b9%e5%90%91%e7%9a%84%e5%b1%82%e5%8f%a0%e4%bc%98%e5%85%88%e7%ba%a7-z-index" class="anchor">🔗</a></h3><p>css 布局只网页中的标签在 x 轴水平，y 轴垂直上的布局。css 中是三维渲染的，也有 z 轴上的堆叠规则。所以引出<code>层叠层</code>， <code>z-index</code>概念。</p>
+<p>z-index 只有在层叠层中才有意义。position: static 的元素，不会生成新的层叠上下文，也就没有“层叠层级”的概念。z-index 就算写了也 不生效。<br>
+只有定位元素（relative / absolute / fixed / sticky），才会让浏览器把它单独抽出来，放进“可层叠比较”。z-index 在 flex 子项 和 grid 子项 上（即使 position: static）也能生效，因为这些布局上下文会为子项建立 层叠上下文。</p>
+<p>所以核心明确两点： 哪些属性会创建层叠上下文？ 层叠顺序是什么？</p>
+<p>哪些属性会创建层叠上下文？</p>
+<ul>
+<li>定位元素， position 不为 static， z-index 不为 auto</li>
+<li>flex，grid 子元素</li>
+<li>特殊属性
+<ul>
+<li>opacity， transform， filter 滤镜，isolation 等</li>
+</ul>
+</li>
+</ul>
+<p>z-index 只能再同一个层叠上下文内才能比较。</p>
+<p>层叠顺序（stacking order）： 先背景 / 边框， 再普通文档流块级元素，再浮动元素，再定位元素（z-index: auto）， 再定位元素（z-index: 数值，按数值大小）。</p>
+<hr>
+<p>浮动布局</p>
+<p>float 属性。 display 属性。</p>
+<p>Flexbox</p>
+<p>grid</p>
+<p>position 属性</p>
+<p>响应式设计</p>
+<p><code>父元素高度塌陷</code>： 子元素设置浮动后会脱离正常文档流，父元素计算高度时会忽略浮动的子元素，导致父元素高度无法被撑开。</p>
+<p><code>BFC</code>， 是一个独立的空间，空间里的元素布局不会影响外部，外部也不影响内部。
+BFC 的特点：</p>
+<ul>
+<li>容器内的浮动元素会被计算入容器高度。解决高度塌陷。</li>
+<li>容器内元素的 margin 不会于外部元素的 margin 合并。</li>
+<li>容器不会与浮动元素重叠。</li>
+</ul>
+<p>触发父元素成为 BFC 的方式：<code>overflow: hidden</code>， <code>display: flow-root</code>。</p>
+<hr>
+<h1 id="常见考点">常见考点 <a href="#%e5%b8%b8%e8%a7%81%e8%80%83%e7%82%b9" class="anchor">🔗</a></h1><h2 id="水平垂直居中的写法">水平垂直居中的写法 <a href="#%e6%b0%b4%e5%b9%b3%e5%9e%82%e7%9b%b4%e5%b1%85%e4%b8%ad%e7%9a%84%e5%86%99%e6%b3%95" class="anchor">🔗</a></h2><p>Flex 布局。简单可靠。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span>.<span style="color:#a6e22e">parent</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">display</span>: <span style="color:#66d9ef">flex</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">justify-content</span>: <span style="color:#66d9ef">center</span>; <span style="color:#75715e">/* 水平居中 */</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">align-items</span>: <span style="color:#66d9ef">center</span>; <span style="color:#75715e">/* 垂直居中 */</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">height</span>: <span style="color:#ae81ff">300</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Grid 布局。最短代码。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span>.<span style="color:#a6e22e">parent</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">display</span>: <span style="color:#66d9ef">grid</span>;
+</span></span><span style="display:flex;"><span>  place-items: <span style="color:#66d9ef">center</span>; <span style="color:#75715e">/* 水平 + 垂直居中 align-items + justify-items的缩写 */</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">height</span>: <span style="color:#ae81ff">300</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>绝对定位 + transform。兼容性好，经典写法。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span>.<span style="color:#a6e22e">parent</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">position</span>: <span style="color:#66d9ef">relative</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">height</span>: <span style="color:#ae81ff">300</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">child</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">position</span>: <span style="color:#66d9ef">absolute</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">top</span>: <span style="color:#ae81ff">50</span><span style="color:#66d9ef">%</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">left</span>: <span style="color:#ae81ff">50</span><span style="color:#66d9ef">%</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">transform</span>: translate(<span style="color:#ae81ff">-50</span><span style="color:#66d9ef">%</span>, <span style="color:#ae81ff">-50</span><span style="color:#66d9ef">%</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="三栏布局圣杯布局flex-grid">三栏布局，圣杯布局，flex， grid <a href="#%e4%b8%89%e6%a0%8f%e5%b8%83%e5%b1%80%e5%9c%a3%e6%9d%af%e5%b8%83%e5%b1%80flex-grid" class="anchor">🔗</a></h2><h2 id="自适应宽高比的盒子padding-百分比">自适应宽高比的盒子，padding 百分比 <a href="#%e8%87%aa%e9%80%82%e5%ba%94%e5%ae%bd%e9%ab%98%e6%af%94%e7%9a%84%e7%9b%92%e5%ad%90padding-%e7%99%be%e5%88%86%e6%af%94" class="anchor">🔗</a></h2><h2 id="清除浮动的方法">清除浮动的方法 <a href="#%e6%b8%85%e9%99%a4%e6%b5%ae%e5%8a%a8%e7%9a%84%e6%96%b9%e6%b3%95" class="anchor">🔗</a></h2><p>clear: both</p>
+<p>伪元素 .clearfix::after { content:&quot;&quot;; display:block; clear:both; }</p>
+<p>BFC overflow: hidden</p>
+<p>display: flow-root（现代方案）</p>
+<hr>
 <h2 id="模块化组织-css">模块化组织 css <a href="#%e6%a8%a1%e5%9d%97%e5%8c%96%e7%bb%84%e7%bb%87-css" class="anchor">🔗</a></h2><h2 id="模式库">模式库 <a href="#%e6%a8%a1%e5%bc%8f%e5%ba%93" class="anchor">🔗</a></h2><p>————</p>
 <h2 id="阴影渐变混合模式">阴影，渐变，混合模式 <a href="#%e9%98%b4%e5%bd%b1%e6%b8%90%e5%8f%98%e6%b7%b7%e5%90%88%e6%a8%a1%e5%bc%8f" class="anchor">🔗</a></h2><h2 id="对比颜色间距">对比，颜色，间距 <a href="#%e5%af%b9%e6%af%94%e9%a2%9c%e8%89%b2%e9%97%b4%e8%b7%9d" class="anchor">🔗</a></h2><h2 id="网页动效">网页动效 <a href="#%e7%bd%91%e9%a1%b5%e5%8a%a8%e6%95%88" class="anchor">🔗</a></h2><h2 id="变换">变换 <a href="#%e5%8f%98%e6%8d%a2" class="anchor">🔗</a></h2><h2 id="关键帧动画">关键帧动画 <a href="#%e5%85%b3%e9%94%ae%e5%b8%a7%e5%8a%a8%e7%94%bb" class="anchor">🔗</a></h2><hr>
-<h2 id="所有的-css-选择器类型">所有的 css 选择器类型 <a href="#%e6%89%80%e6%9c%89%e7%9a%84-css-%e9%80%89%e6%8b%a9%e5%99%a8%e7%b1%bb%e5%9e%8b" class="anchor">🔗</a></h2><h2 id="预处理器">预处理器 <a href="#%e9%a2%84%e5%a4%84%e7%90%86%e5%99%a8" class="anchor">🔗</a></h2><p><code>BFC</code>。</p>
-
+<h2 id="所有的-css-选择器类型">所有的 css 选择器类型 <a href="#%e6%89%80%e6%9c%89%e7%9a%84-css-%e9%80%89%e6%8b%a9%e5%99%a8%e7%b1%bb%e5%9e%8b" class="anchor">🔗</a></h2><h2 id="预处理器">预处理器 <a href="#%e9%a2%84%e5%a4%84%e7%90%86%e5%99%a8" class="anchor">🔗</a></h2>
     </div>
 
     
