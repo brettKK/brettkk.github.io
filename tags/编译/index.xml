@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>编译 on brettkk</title>
+    <link>http://brettkk.github.io/tags/%E7%BC%96%E8%AF%91/</link>
+    <description>Recent content in 编译 on brettkk</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Tue, 14 Oct 2025 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/tags/%E7%BC%96%E8%AF%91/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Acorn</title>
+      <link>http://brettkk.github.io/posts/tools/acorn/</link>
+      <pubDate>Tue, 14 Oct 2025 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/tools/acorn/</guid>
+      <description>why 🔗需要构建一个 javascript 的通用 AST 格式。 how 🔗AST 节点类型 🔗 特性 Acorn 的</description>
+    </item>
+    
+  </channel>
+</rss>

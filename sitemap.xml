@@ -2,31 +2,52 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://brettkk.github.io/posts/tools/acorn/</loc>
+    <lastmod>2025-10-14T11:33:56+08:00</lastmod>
+  </url><url>
     <loc>http://brettkk.github.io/</loc>
-    <lastmod>2025-05-20T09:31:18+08:00</lastmod>
+    <lastmod>2025-10-14T11:33:56+08:00</lastmod>
   </url><url>
     <loc>http://brettkk.github.io/categories/</loc>
-    <lastmod>2025-05-20T09:31:18+08:00</lastmod>
+    <lastmod>2025-10-14T11:33:56+08:00</lastmod>
+  </url><url>
+    <loc>http://brettkk.github.io/posts/tools/node_js/</loc>
+    <lastmod>2025-10-14T11:33:56+08:00</lastmod>
+  </url><url>
+    <loc>http://brettkk.github.io/posts/</loc>
+    <lastmod>2025-10-14T11:33:56+08:00</lastmod>
+  </url><url>
+    <loc>http://brettkk.github.io/tags/</loc>
+    <lastmod>2025-10-14T11:33:56+08:00</lastmod>
+  </url><url>
+    <loc>http://brettkk.github.io/tags/%E5%89%8D%E7%AB%AF/</loc>
+    <lastmod>2025-10-14T11:33:56+08:00</lastmod>
+  </url><url>
+    <loc>http://brettkk.github.io/tags/%E5%B7%A5%E5%85%B7/</loc>
+    <lastmod>2025-10-14T11:33:56+08:00</lastmod>
+  </url><url>
+    <loc>http://brettkk.github.io/categories/%E5%B7%A5%E5%85%B7/</loc>
+    <lastmod>2025-10-14T11:33:56+08:00</lastmod>
+  </url><url>
+    <loc>http://brettkk.github.io/categories/%E6%8A%80%E6%9C%AF/</loc>
+    <lastmod>2025-10-14T11:33:56+08:00</lastmod>
+  </url><url>
+    <loc>http://brettkk.github.io/tags/%E7%BC%96%E8%AF%91/</loc>
+    <lastmod>2025-10-14T11:33:56+08:00</lastmod>
+  </url><url>
+    <loc>http://brettkk.github.io/posts/tools/webpack/</loc>
+    <lastmod>2025-09-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://brettkk.github.io/tags/compiler/</loc>
+    <lastmod>2025-08-30T15:33:56+08:00</lastmod>
+  </url><url>
+    <loc>http://brettkk.github.io/posts/tools/compiler_typescript/</loc>
+    <lastmod>2025-08-30T15:33:56+08:00</lastmod>
   </url><url>
     <loc>http://brettkk.github.io/posts/tools/htmlparser/</loc>
     <lastmod>2025-05-20T09:31:18+08:00</lastmod>
   </url><url>
-    <loc>http://brettkk.github.io/posts/</loc>
-    <lastmod>2025-05-20T09:31:18+08:00</lastmod>
-  </url><url>
-    <loc>http://brettkk.github.io/tags/</loc>
-    <lastmod>2025-05-20T09:31:18+08:00</lastmod>
-  </url><url>
-    <loc>http://brettkk.github.io/tags/%E5%89%8D%E7%AB%AF/</loc>
-    <lastmod>2025-05-20T09:31:18+08:00</lastmod>
-  </url><url>
-    <loc>http://brettkk.github.io/categories/%E6%8A%80%E6%9C%AF/</loc>
-    <lastmod>2025-05-20T09:31:18+08:00</lastmod>
-  </url><url>
     <loc>http://brettkk.github.io/posts/tools/min_dockerfile/</loc>
-    <lastmod>2025-05-05T11:33:56+08:00</lastmod>
-  </url><url>
-    <loc>http://brettkk.github.io/tags/%E5%B7%A5%E5%85%B7/</loc>
     <lastmod>2025-05-05T11:33:56+08:00</lastmod>
   </url><url>
     <loc>http://brettkk.github.io/categories/life/</loc>
@@ -51,9 +72,6 @@
     <lastmod>2025-03-05T11:33:56+08:00</lastmod>
   </url><url>
     <loc>http://brettkk.github.io/posts/tools/next_js/</loc>
-    <lastmod>2025-02-15T11:33:56+08:00</lastmod>
-  </url><url>
-    <loc>http://brettkk.github.io/categories/%E5%B7%A5%E5%85%B7/</loc>
     <lastmod>2025-02-15T11:33:56+08:00</lastmod>
   </url><url>
     <loc>http://brettkk.github.io/tags/python/</loc>
@@ -103,9 +121,6 @@
   </url><url>
     <loc>http://brettkk.github.io/posts/rust/rust_problem/</loc>
     <lastmod>2022-11-21T11:33:56+08:00</lastmod>
-  </url><url>
-    <loc>http://brettkk.github.io/tags/compiler/</loc>
-    <lastmod>2022-11-15T11:33:56+08:00</lastmod>
   </url><url>
     <loc>http://brettkk.github.io/posts/rust/rust%E7%BC%96%E8%AF%91%E5%99%A8/</loc>
     <lastmod>2022-11-15T11:33:56+08:00</lastmod>
@@ -253,5 +268,7 @@
     <loc>http://brettkk.github.io/posts/tools/%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6-vue/</loc>
   </url><url>
     <loc>http://brettkk.github.io/series/</loc>
+  </url><url>
+    <loc>http://brettkk.github.io/posts/tools/webpack_startup/</loc>
   </url>
 </urlset>

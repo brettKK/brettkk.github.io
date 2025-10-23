@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<html lang="zh-cn">
+  <head>
+    <title>webpack | brettkk</title>
+
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
+<meta name="viewport" content="width=device-width,minimum-scale=1">
+<meta name="description" content="为什么需要？ 🔗作用 快速上手测试 🔗输入： src/ index.js a.js style.css node_modules/ lodash webpack 处理： 1">
+<meta name="generator" content="Hugo 0.103.1" />
+
+
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+<link href="https://cdn.bootcss.com/highlight.js/9.15.10/styles/zenburn.min.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<link rel="stylesheet" href="http://brettkk.github.io/css/syntax.css" />
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js" integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+
+
+
+
+  </head>
+
+  <body>
+    <nav class="navigation">
+	
+		<a href="/"> <span class="arrow">←</span>Home</a>
+	
+	<a href="/posts">Archive</a>
+	<a href="/tags">Tags</a>
+	<a href="/about">About</a>
+
+	
+
+	
+</nav>
+
+
+    <main class="main">
+      
+
+<section id="single">
+    <h1 class="title">webpack</h1>
+
+    <div class="tip">
+        <time datetime="2025-09-03 00:00:00 &#43;0000 UTC">Sep 3, 2025</time>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          2017 words
+        </span>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          5 minute read
+        </span>
+    </div>
+
+    
+    
+        
+  
+    <aside class="toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
+          <div>
+              <nav id="TableOfContents">
+  <ul>
+    <li><a href="#为什么需要">为什么需要？</a></li>
+    <li><a href="#快速上手测试">快速上手测试</a>
+      <ul>
+        <li><a href="#源码入口">源码入口</a></li>
+      </ul>
+    </li>
+    <li><a href="#核心概念">核心概念</a></li>
+    <li><a href="#webpack-的钩子设计">webpack 的钩子设计</a>
+      <ul>
+        <li><a href="#asyncparallelhook-异步并行执行-所有回调同时启动等待全部完成">AsyncParallelHook, 异步并行执行， 所有回调同时启动，等待全部完成。</a></li>
+      </ul>
+    </li>
+    <li><a href="#一些源码片段">一些源码片段</a>
+      <ul>
+        <li><a href="#heading"></a></li>
+        <li><a href="#插件如何使用钩子">插件如何使用钩子？</a></li>
+      </ul>
+    </li>
+    <li><a href="#原理">原理</a></li>
+    <li><a href="#遇到配置上的问题">遇到配置上的问题</a>
+      <ul>
+        <li><a href="#npm-i">npm i</a></li>
+      </ul>
+    </li>
+    <li><a href="#个人思考">个人思考</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav>
+          </div>
+      </details>
+    </aside>
+  
+
+
+    
+
+
+    <div class="content">
+      <h1 id="为什么需要">为什么需要？ <a href="#%e4%b8%ba%e4%bb%80%e4%b9%88%e9%9c%80%e8%a6%81" class="anchor">🔗</a></h1><p>作用</p>
+<h1 id="快速上手测试">快速上手测试 <a href="#%e5%bf%ab%e9%80%9f%e4%b8%8a%e6%89%8b%e6%b5%8b%e8%af%95" class="anchor">🔗</a></h1><pre tabindex="0"><code>输入：
+src/
+  index.js
+  a.js
+  style.css
+node_modules/
+  lodash
+
+webpack 处理：
+  1 解析入口，递归解析依赖，（index.js -&gt; a.js -&gt; lodash + style.css
+  2 loader转换（css -&gt; js模块， ES6 -&gt; ES5）
+  3 构建依赖图， 划分chunk
+  4 生成runtime和打包代码
+
+输出dist/
+  main.js(业务代码+ runtime)
+  vendor.js（lodash第三方库）
+  main.css
+  index.html 引入上面的文件
+  img/ 处理后的图片资源
+</code></pre><p><code>npm install --save-dev webpack webpack-cli</code>
+<code>npx webpack</code></p>
+<h2 id="源码入口">源码入口 <a href="#%e6%ba%90%e7%a0%81%e5%85%a5%e5%8f%a3" class="anchor">🔗</a></h2><ul>
+<li>命令行入口， bin/webpack.js</li>
+<li>核心逻辑入口， lib/webpack.js</li>
+<li>核心类： lib/Compiler.js 全局编译控制， lib/Compilation.js 单次编译上下文</li>
+</ul>
+<h1 id="核心概念">核心概念 <a href="#%e6%a0%b8%e5%bf%83%e6%a6%82%e5%bf%b5" class="anchor">🔗</a></h1><p>解析依赖，编译转换，打包输出。
+<code>webpack.config.js</code>配置了入口，输出，loader，插件。</p>
+<p>loader， plugin</p>
+<p>依赖图的构建，chunk 生成逻辑。</p>
+<p>如何处理循环依赖？</p>
+<h1 id="webpack-的钩子设计">webpack 的钩子设计 <a href="#webpack-%e7%9a%84%e9%92%a9%e5%ad%90%e8%ae%be%e8%ae%a1" class="anchor">🔗</a></h1><p>钩子设计是支持插件化架构的基础。 <code>tapable</code>库，通过 hook 钩子在编译流程的节点上插入自定义逻辑，扩展 webpack 的功能。</p>
+<p>分两步： 订阅和发布。</p>
+<ul>
+<li>先定义钩子， 及事件触发点</li>
+<li>插件通过注册钩子，订阅事件，添加自定义逻辑</li>
+<li>在 webpack 的编译过程中触发钩子，发布事件，执行所有注册的逻辑</li>
+</ul>
+<p>钩子类型（同步/异步</p>
+<ul>
+<li>SyncHook, 同步执行，所有注册的回调按顺序执行，不关心返回值</li>
+<li>SyncBailHook,同步执行，若某个回调返回非 undefined， 熔断中断后续执行</li>
+<li>SyncWaterfallHook, 同步执行，上一个回调返回值作为下一个回调的参数，流水线。</li>
+<li>AsyncSeriesHook, 异步串行执行。 Asyc 异步体现在允许注册的回调函数里执行异步操作，并等异步操作完成之后继续后续注册的函数。
+<ul>
+<li>必须通过 tapAsync, tapPromise 注册订阅事件， 需要显示通知完成，如 callback(), Promise。</li>
+<li>Series 按注册顺序执行</li>
+</ul>
+</li>
+<li>
+<h2 id="asyncparallelhook-异步并行执行-所有回调同时启动等待全部完成">AsyncParallelHook, 异步并行执行， 所有回调同时启动，等待全部完成。 <a href="#asyncparallelhook-%e5%bc%82%e6%ad%a5%e5%b9%b6%e8%a1%8c%e6%89%a7%e8%a1%8c-%e6%89%80%e6%9c%89%e5%9b%9e%e8%b0%83%e5%90%8c%e6%97%b6%e5%90%af%e5%8a%a8%e7%ad%89%e5%be%85%e5%85%a8%e9%83%a8%e5%ae%8c%e6%88%90" class="anchor">🔗</a></h2></li>
+<li>AsyncSeriesBailHook, 异步串行+熔断。</li>
+</ul>
+<p>每个钩子都有以下核心方法：</p>
+<ul>
+<li>tap(name, callback) 注册同步，异步钩子</li>
+<li>tapAsync(name, callback) 注册异步钩子</li>
+<li>tapPromise(name, callback) 注册异步钩子</li>
+<li>call(...args) 触发同步钩子，传入参数</li>
+<li>callAsync(...args, callback) 触发异步钩子</li>
+</ul>
+<p>核心对戏那个（Compiler, Compilation）通过继承 Tapable 类拥有钩子能力。</p>
+<p>Compiler 的钩子（事件节点）。
+<code>initialize</code> SyncHook， Compiler 实例初始化完成时触发， 插件初始化的准备工作。
+<code>entryOption</code>, SyncBailHook, 解析入口配置之后触发，修改入口配置如动态添加入口。
+<code>beforeRun</code>, AsyncSeriesHook, 开始编译前 run 方法执行前，清理缓存，初始化日志。
+<code>run</code>, AsyncSeriesHook, 开始执行编译流程， 记录编译开始时间。
+<code>compile</code>, SyncHook, 开始创建 Compilation 实例前触发， 修改编译参数。
+<code>make</code>, AsyncParallelHook, 开始构建模块（依赖计算的起点）， 触发入口模块的加载。
+<code>emit</code>, AsyncSeriesHook, 资源输出到磁盘前， 优化资源（如压缩， 添加注释）
+<code>afterEmit</code>, AsyncSeriesHook, 资源输出到磁盘后， 通知资源已生成如上传 CDN
+<code>done</code>， AsyncSeriesHook, 所有编译工作完成后， 输出构建统计信息（如打包体积）。</p>
+<p>Compilation 钩子（事件节点）。 负责模块解析，依赖处理，代码生成等具体工作。</p>
+<ul>
+<li>addEntry, SyncHook,</li>
+<li>buildModule, SyncHook， 触发时机时开始构建模块前，作用修改模块的 loader 配置</li>
+<li>successedModule, SyncHook, 时机模块构建成功后，分析模块依赖关系。</li>
+<li>seal, SyncHook, 编译结果密封前（不再修改模块），最终优化代码块 chunk 的结构。</li>
+<li>optimize, SyncHook, 开始优化代码如 tree-shaking， 自定义代码优化逻辑。</li>
+<li>afterOptimizeChunks, SyncHook, 代码块 chunk 优化完成后，调整 chunk 结构如合并 chunk。</li>
+<li>emitAsset, SyncHook, 生成单个资源文件时， 修改资源内容（如添加版权注释）。</li>
+</ul>
+<p>其他核心对象的钩子。 Module 相关， NormalModule 的 loader 钩子，控制 loader 执行。 chunk 相关， ChunkTemplate 的 render 钩子，控制代码块生成逻辑。解析器相关， Parser 的 import 钩子，识别 import 语法提取依赖。</p>
+<h1 id="一些源码片段">一些源码片段 <a href="#%e4%b8%80%e4%ba%9b%e6%ba%90%e7%a0%81%e7%89%87%e6%ae%b5" class="anchor">🔗</a></h1><h2 id="heading"> <a href="#heading" class="anchor">🔗</a></h2><p>在 JSDoc 里，@typedef 用来定义一个 自定义类型。</p>
+<pre tabindex="0"><code class="language-JSDoc" data-lang="JSDoc">/**
+ * @typedef {类型} 名字
+ */
+</code></pre><p>这段 JSDoc 是 webpack 抽象的文件系统接口定义，方便切换硬盘 fs 和内存 memfs，从而让 webpack 的输出逻辑和具体存储方式解耦。</p>
+<pre tabindex="0"><code class="language-JSDoc" data-lang="JSDoc">/**
+ * @typedef {object} OutputFileSystem
+ * @property {WriteFile} writeFile
+ * @property {Mkdir} mkdir
+ * @property {Readdir=} readdir
+ * @property {Rmdir=} rmdir
+ * @property {Unlink=} unlink
+ * @property {Stat} stat
+ * @property {LStat=} lstat
+ * @property {ReadFile} readFile
+ * @property {((path1: string, path2: string) =&gt; string)=} join
+ * @property {((from: string, to: string) =&gt; string)=} relative
+ * @property {((dirname: string) =&gt; string)=} dirname
+ */
+</code></pre><h2 id="插件如何使用钩子">插件如何使用钩子？ <a href="#%e6%8f%92%e4%bb%b6%e5%a6%82%e4%bd%95%e4%bd%bf%e7%94%a8%e9%92%a9%e5%ad%90" class="anchor">🔗</a></h2><p>插件通过注册钩子介入到了 Webpack 的编译流程中。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#75715e">// 自定义插件， 在资源输出前添加版权注释。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 插件通过apply方法接收compiler实例，调用compiler.hooks.xxx.tapAsync注册钩子。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">AddCopyrightPlugin</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">apply</span>(<span style="color:#a6e22e">compiler</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 注册Compiler 的emit钩子
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">compiler</span>.<span style="color:#a6e22e">hooks</span>.<span style="color:#a6e22e">emit</span>.<span style="color:#a6e22e">tapAsync</span>(
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;AddCopyrightPlugin&#34;</span>, <span style="color:#75715e">// 插件名称
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      (<span style="color:#a6e22e">compilation</span>, <span style="color:#a6e22e">callback</span>) =&gt; {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// compilation.assets 包含所有待输出的资源。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        Object.<span style="color:#a6e22e">keys</span>(<span style="color:#a6e22e">compilation</span>.<span style="color:#a6e22e">assets</span>).<span style="color:#a6e22e">forEach</span>((<span style="color:#a6e22e">filename</span>) =&gt; {
+</span></span><span style="display:flex;"><span>          <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">filename</span>.<span style="color:#a6e22e">endsWith</span>(<span style="color:#e6db74">&#34;.js&#34;</span>)) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">source</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">compilation</span>.<span style="color:#a6e22e">assets</span>[<span style="color:#a6e22e">filename</span>].<span style="color:#a6e22e">source</span>();
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">withCopyright</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">`/* version @2025 xx */\n</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">source</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 更新资源内容
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#a6e22e">compilation</span>.<span style="color:#a6e22e">assets</span>[<span style="color:#a6e22e">filename</span>] <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>              <span style="color:#a6e22e">source</span><span style="color:#f92672">:</span> () =&gt; <span style="color:#a6e22e">withCopyright</span>,
+</span></span><span style="display:flex;"><span>              <span style="color:#a6e22e">size</span><span style="color:#f92672">:</span> () =&gt; <span style="color:#a6e22e">withCopyright</span>.<span style="color:#a6e22e">length</span>,
+</span></span><span style="display:flex;"><span>            };
+</span></span><span style="display:flex;"><span>          }
+</span></span><span style="display:flex;"><span>        });
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 异步钩子需要调用callback表示完成。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">callback</span>();
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    );
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">exports</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">plugins</span><span style="color:#f92672">:</span> [<span style="color:#66d9ef">new</span> <span style="color:#a6e22e">AddCopyrightPlugin</span>()],
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><h1 id="原理">原理 <a href="#%e5%8e%9f%e7%90%86" class="anchor">🔗</a></h1><p>wepack 核心仅实现基础打包逻辑，复杂功能都是通过插件+钩子实现的。高度可扩展，低耦合，核心流程与扩展逻辑分离，插件无需修改 webpack 源码即可介入任意阶段。灵活性，支持同步，异步钩子，满足不同场景的需要。</p>
+<p>webpack 的钩子系统基于 tapable 的事件驱动架构实现</p>
+<ul>
+<li>核心对象 Compiler, Compilation 等定义了覆盖全流程的钩子节点</li>
+<li>插件通过 tap，tapAsync 注册钩子，订阅了事件，插入自定义逻辑</li>
+<li>在 webpack 的编译关键节点触发钩子节点上的事件，触发钩子上注册的所有逻辑。</li>
+</ul>
+<h1 id="遇到配置上的问题">遇到配置上的问题 <a href="#%e9%81%87%e5%88%b0%e9%85%8d%e7%bd%ae%e4%b8%8a%e7%9a%84%e9%97%ae%e9%a2%98" class="anchor">🔗</a></h1><h2 id="npm-i">npm i <a href="#npm-i" class="anchor">🔗</a></h2><pre tabindex="0"><code>npm ERR! code ERESOLVE
+npm ERR! ERESOLVE unable to resolve dependency tree
+npm ERR!
+npm ERR! While resolving: webpack@5.101.3
+npm ERR! Found: pug@3.0.3
+npm ERR! node_modules/pug
+npm ERR!   dev pug@&#34;^3.0.3&#34; from the root project
+npm ERR!
+npm ERR! Could not resolve dependency:
+npm ERR! peer pug@&#34;^2.0.0&#34; from pug-loader@2.4.0
+npm ERR! node_modules/pug-loader
+npm ERR!   dev pug-loader@&#34;^2.4.0&#34; from the root project
+npm ERR!
+npm ERR! Fix the upstream dependency conflict, or retry
+npm ERR! this command with --force or --legacy-peer-deps
+npm ERR! to accept an incorrect (and potentially broken) dependency resolution.
+npm ERR!
+npm ERR!
+npm ERR! For a full report see:
+npm ERR! /Users/gonglei/.npm/_logs/2025-09-03T06_51_59_179Z-eresolve-report.txt
+</code></pre><pre tabindex="0"><code>npm uninstall pug
+npm install pug@2.0.4 --save-dev
+npm install
+</code></pre><h1 id="个人思考">个人思考 <a href="#%e4%b8%aa%e4%ba%ba%e6%80%9d%e8%80%83" class="anchor">🔗</a></h1><h1 id="参考">参考 <a href="#%e5%8f%82%e8%80%83" class="anchor">🔗</a></h1>
+    </div>
+
+    
+        <div class="tags">
+            
+                <a href="http://brettkk.github.io/tags/%E5%B7%A5%E5%85%B7">工具</a>
+            
+        </div>
+    
+    
+    
+
+</section>
+
+
+    </main>
+    
+    <footer id="footer">
+    
+
+    <script src="https://utteranc.es/client.js"
+repo="brettKK/brettkk.github.io"
+issue-term="title"
+theme="github-light"
+crossorigin="anonymous"
+async>
+</script>  
+
+    <div class="copyright">
+    
+       © Copyright 
+       2025 
+       <span class="split">
+        <svg fill="#bbbbbb" width="15" height="15" version="1.1" id="heart-15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 15 15">
+  <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>
+</svg>
+       </span>
+       
+    
+    </div>
+
+    
+      <div class="powerby">
+        Powered by <a href='http://www.gohugo.io/'>Hugo</a> Theme By <a href='https://github.com/nodejh/hugo-theme-cactus-plus'>nodejh</a>
+      </div>
+    
+</footer>
+
+
+
+
+  </body>
+</html>

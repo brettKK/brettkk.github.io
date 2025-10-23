@@ -6,7 +6,43 @@
     <description>Recent content in 技术 on brettkk</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 20 May 2025 09:31:18 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/categories/%E6%8A%80%E6%9C%AF/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 14 Oct 2025 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/categories/%E6%8A%80%E6%9C%AF/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Acorn</title>
+      <link>http://brettkk.github.io/posts/tools/acorn/</link>
+      <pubDate>Tue, 14 Oct 2025 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/tools/acorn/</guid>
+      <description>why 🔗需要构建一个 javascript 的通用 AST 格式。 how 🔗AST 节点类型 🔗 特性 Acorn 的</description>
+    </item>
+    
+    <item>
+      <title>Node.js</title>
+      <link>http://brettkk.github.io/posts/tools/node_js/</link>
+      <pubDate>Tue, 14 Oct 2025 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/tools/node_js/</guid>
+      <description>what 🔗Node.js 是基于 V8 引擎的 JavaScript 运行时，让你可以用 JavaScript 写后端</description>
+    </item>
+    
+    <item>
+      <title>webpack</title>
+      <link>http://brettkk.github.io/posts/tools/webpack/</link>
+      <pubDate>Wed, 03 Sep 2025 00:00:00 +0000</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/tools/webpack/</guid>
+      <description>为什么需要？ 🔗作用 快速上手测试 🔗输入： src/ index.js a.js style.css node_modules/ lodash webpack 处理： 1</description>
+    </item>
+    
+    <item>
+      <title>compiler相关</title>
+      <link>http://brettkk.github.io/posts/tools/compiler_typescript/</link>
+      <pubDate>Sat, 30 Aug 2025 15:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/tools/compiler_typescript/</guid>
+      <description>词法分析 🔗词法分析输入char[], 输出token[]. 语法</description>
+    </item>
+    
     <item>
       <title>html parser</title>
       <link>http://brettkk.github.io/posts/tools/htmlparser/</link>
@@ -374,6 +410,15 @@
       
       <guid>http://brettkk.github.io/posts/store_db/log_structure_tree/</guid>
       <description>lsm 基本想法 🔗 磁盘上的key/value存储, bytes -&amp;gt; bytes, order by key 使用</description>
+    </item>
+    
+    <item>
+      <title>webpack-快速使用</title>
+      <link>http://brettkk.github.io/posts/tools/webpack_startup/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/tools/webpack_startup/</guid>
+      <description>webpack 的作用 🔗在传统的 web 开发项目中，需要引入大量的 js 文件和 css 文件</description>
     </item>
     
   </channel>

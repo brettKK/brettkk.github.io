@@ -70,13 +70,13 @@
           ·
         </span>
         <span>
-          2277 words
+          6543 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          5 minute read
+          14 minute read
         </span>
     </div>
 
@@ -123,8 +123,70 @@
         <li><a href="#从-vite-启动到-performunitofwork-的路径">从 Vite 启动到 performUnitOfWork 的路径</a></li>
       </ul>
     </li>
-    <li><a href="#procomponents">Procomponents</a>
+    <li><a href="#procomponents">Procomponents</a></li>
+    <li><a href="#shadcn">shadcn</a>
       <ul>
+        <li><a href="#安装和使用">安装和使用</a></li>
+      </ul>
+    </li>
+    <li><a href="#问题">问题</a>
+      <ul>
+        <li><a href="#react-19-新特性">react 19 新特性</a></li>
+        <li><a href="#reacthook-闭包陷阱">reacthook 闭包陷阱</a></li>
+        <li><a href="#react-中怎么给-children-添加额外的属性">react 中怎么给 children 添加额外的属性</a></li>
+        <li><a href="#fiber-怎么是-reac-性能的一个飞跃-fiber-架构的工作原理-fiber-如何实现更新过程可控">Fiber 怎么是 reac 性能的一个飞跃， fiber 架构的工作原理， fiber 如何实现更新过程可控</a></li>
+        <li><a href="#react-的-fiber-如何实现时间切片的">react 的 fiber 如何实现时间切片的？</a></li>
+        <li><a href="#react-的-reconciler-为什么采用-fiber-架构">react 的 reconciler 为什么采用 fiber 架构？</a></li>
+        <li><a href="#react-是否支持给标签设置自定义的属性比如给-video-标签设置-webkit-playsinline">react 是否支持给标签设置自定义的属性，比如给 video 标签设置 webkit-playsinline?</a></li>
+        <li><a href="#react-render-阶段的执行过程">react render 阶段的执行过程</a></li>
+        <li><a href="#react-commit-阶段的执行过程">react commit 阶段的执行过程</a></li>
+        <li><a href="#react-中的路由懒加载是什么原理">react 中的路由懒加载是什么？原理？</a></li>
+        <li><a href="#react-中为什不直接使用-requestidlecallback">react 中为什不直接使用 requestIdleCallback？</a></li>
+        <li><a href="#react-组件之间怎么通讯">react 组件之间怎么通讯？</a>
+          <ul>
+            <li><a href="#父子组件通讯">父子组件通讯</a></li>
+          </ul>
+        </li>
+        <li><a href="#react-和-vue-在技术层面上有哪些区别">react 和 vue 在技术层面上有哪些区别？</a></li>
+        <li><a href="#子组件是一个-protal-发生点击事件能冒泡到父组件里吗">子组件是一个 protal， 发生点击事件能冒泡到父组件里吗？</a></li>
+        <li><a href="#usestate-是如何实现的">useState 是如何实现的？</a></li>
+        <li><a href="#react-中-diff-算法">react 中 diff 算法</a></li>
+        <li><a href="#如何让-useeffect-支持-asyncawait">如何让 useEffect 支持 async，await？</a></li>
+        <li><a href="#react-中懒加载的实现原理是">react 中懒加载的实现原理是？</a></li>
+        <li><a href="#react-中怎么实现状态自动保存-keepalive">react 中怎么实现状态自动保存 keepalive？</a></li>
+        <li><a href="#react-有哪些性能优化的方法">react 有哪些性能优化的方法？</a>
+          <ul>
+            <li><a href="#减少不必要的渲染">减少不必要的渲染</a></li>
+            <li><a href="#优化列表渲染">优化列表渲染</a></li>
+            <li><a href="#事件与副作用优化">事件与副作用优化</a></li>
+            <li><a href="#资源加载优化">资源加载优化</a></li>
+          </ul>
+        </li>
+        <li><a href="#react-中-virtual-dom-一定提高性能吗">react 中 Virtual DOM 一定提高性能吗？</a></li>
+        <li><a href="#react-的事件代理机制">react 的事件代理机制？</a></li>
+        <li><a href="#reack-hooks-当中的-useeffect-是如何区分声明周期钩子的">reack hooks 当中的 useEffect 是如何区分声明周期钩子的</a></li>
+        <li><a href="#react-中怎么实现组件间的过渡动画">react 中怎么实现组件间的过渡动画？</a></li>
+        <li><a href="#react-服务端渲染怎么做">react 服务端渲染怎么做</a></li>
+        <li><a href="#什么情况下使用-usememousecallback">什么情况下使用 useMemo，usecallback</a></li>
+        <li><a href="#react-的-memo-和-memoize-函数的区别">react 的 memo 和 memoize 函数的区别</a></li>
+        <li><a href="#useref-ref-forwardsref-的区别">useRef， ref， forwardsRef 的区别？</a></li>
+        <li><a href="#对-immutable-的理解如何应用到项目上">对 immutable 的理解，如何应用到项目上</a></li>
+        <li><a href="#实现-usetimeout-的-hook">实现 useTimeout 的 hook</a></li>
+        <li><a href="#怎么获取函数组件的实例">怎么获取函数组件的实例？</a></li>
+        <li><a href="#react-项目如何捕获错误">react 项目如何捕获错误？</a></li>
+        <li><a href="#react-中引入-css-的方式有几种">react 中引入 css 的方式有几种？</a></li>
+        <li><a href="#单应用如何提高加载速度">单应用如何提高加载速度？</a>
+          <ul>
+            <li><a href="#资源体积优化">资源体积优化。</a></li>
+            <li><a href="#首屏渲染优化">首屏渲染优化</a></li>
+            <li><a href="#运行时优化">运行时优化</a></li>
+          </ul>
+        </li>
+        <li><a href="#能否直接将-props-的值复制给-state">能否直接将 props 的值复制给 state？</a></li>
+        <li><a href="#react-router-中的-link-和-a-标签的区别">react-router 中的 link 和 a 标签的区别？</a></li>
+        <li><a href="#react-的-jsx-转换真实-dom-的过程">react 的 JSx 转换真实 DOM 的过程</a></li>
+        <li><a href="#react-的事件代理机制和原生事件绑定的区别">react 的事件代理机制和原生事件绑定的区别？</a></li>
+        <li><a href="#react-中-element-componentnode-instance">react 中 Element， component，Node, Instance</a></li>
         <li><a href="#参考">参考</a></li>
       </ul>
     </li>
@@ -165,6 +227,13 @@ react 中引入<code>Flow</code> 是一个静态类型检查器，用于在 Java
 <li>useState 让函数组件具有维持状态的能力。</li>
 </ul>
 </li>
+</ul>
+<p>实际开发过程中，都是在写组件。所以如何提取公共组件就很重要，因为可以服用组件，少写很多代码。</p>
+<ul>
+<li>识别重复的 UI 部分</li>
+<li>定义 props 接口，明确组件接收的参数，类型的约束</li>
+<li>实现组件， 将 UI+逻辑封装到组件内部，通过 props 暴露参数</li>
+<li>导出和使用公共组件</li>
 </ul>
 <h1 id="react-developer-tools">React Developer Tools <a href="#react-developer-tools" class="anchor">🔗</a></h1><p>Browser extension ,
 <a href="https://react.dev/learn/react-developer-tools" target="_blank" rel="noopener">react dev tools</a></p>
@@ -397,7 +466,321 @@ Virtual DOM（纯 JS 对象）
 </span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">→</span> <span style="color:#a6e22e">workLoopConcurrent</span>
 </span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">→</span> <span style="color:#a6e22e">performUnitOfWork</span>(...)
 </span></span></code></pre></div><h1 id="procomponents">Procomponents <a href="#procomponents" class="anchor">🔗</a></h1><p><code>npm i @ant-design/pro-components --save</code></p>
-<h2 id="参考">参考 <a href="#%e5%8f%82%e8%80%83" class="anchor">🔗</a></h2>
+<h1 id="shadcn">shadcn <a href="#shadcn" class="anchor">🔗</a></h1><p>shadcn/ui, 基于 Tailwind CSS + Radix UI 的 React 组件库。</p>
+<h2 id="安装和使用">安装和使用 <a href="#%e5%ae%89%e8%a3%85%e5%92%8c%e4%bd%bf%e7%94%a8" class="anchor">🔗</a></h2><p>安装 tailwind css，
+配置 Tailwind, npx tailwindcss init -p,
+在 tailwind.config.js 里配置,</p>
+<p>安装 shadcn/ui CLI, npx shadcn-ui@latest init， 默认会在 components/ui/ 下生成组件。</p>
+<p>例如安装 button 组件。 npx shadcn-ui@latest add button， 把 Button.tsx 放到 components/ui/button.tsx 里。</p>
+<h1 id="问题">问题 <a href="#%e9%97%ae%e9%a2%98" class="anchor">🔗</a></h1><h2 id="react-19-新特性">react 19 新特性 <a href="#react-19-%e6%96%b0%e7%89%b9%e6%80%a7" class="anchor">🔗</a></h2><p>服务器组件。允许组件在 sever 端渲染，不用发送 js 到客户端。</p>
+<p>状态管理。 合并 useState 批量处理。</p>
+<p>react compiler，通过静态分析代码，自动实现类似 useMemo, useCallback 的缓存效果，减少不必要的重渲染。</p>
+<h2 id="reacthook-闭包陷阱">reacthook 闭包陷阱 <a href="#reacthook-%e9%97%ad%e5%8c%85%e9%99%b7%e9%98%b1" class="anchor">🔗</a></h2><p>由于 javascript 的闭包特性，导致回调函数捕获了旧的状态 states，属性 props，而没有获取到最新值的现象。</p>
+<p>解决办法， 明确依赖的数据，让 useEffect, useCallback 在依赖变化时，回调函数能重新创建，捕获到最新的数据。</p>
+<h2 id="react-中怎么给-children-添加额外的属性">react 中怎么给 children 添加额外的属性 <a href="#react-%e4%b8%ad%e6%80%8e%e4%b9%88%e7%bb%99-children-%e6%b7%bb%e5%8a%a0%e9%a2%9d%e5%a4%96%e7%9a%84%e5%b1%9e%e6%80%a7" class="anchor">🔗</a></h2><p><code>React.cloneElement</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">ParentComponent</span>({<span style="color:#a6e22e">children</span>}) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">enhancedChild</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">cloneElement</span>(<span style="color:#a6e22e">children</span>, {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">newProp</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;new prop&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">onClick</span><span style="color:#f92672">:</span> () =&gt; <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;子元素被点了&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">className</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;enhanced-class&#39;</span>, <span style="color:#75715e">// 覆盖old value
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  })<span style="color:#960050;background-color:#1e0010">；</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">div</span>&gt;{<span style="color:#a6e22e">enhancedChild</span>}&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">ChildComponent</span>({<span style="color:#a6e22e">newProp</span>, ...<span style="color:#a6e22e">props</span>}) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">div</span> {<span style="color:#a6e22e">...props</span>}&gt;{<span style="color:#a6e22e">newProp</span>}&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">ParentComponent</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">ChildComponent</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;orignal-class&#34;</span> /&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">ParentComponent</span>&gt;
+</span></span></code></pre></div><h2 id="fiber-怎么是-reac-性能的一个飞跃-fiber-架构的工作原理-fiber-如何实现更新过程可控">Fiber 怎么是 reac 性能的一个飞跃， fiber 架构的工作原理， fiber 如何实现更新过程可控 <a href="#fiber-%e6%80%8e%e4%b9%88%e6%98%af-reac-%e6%80%a7%e8%83%bd%e7%9a%84%e4%b8%80%e4%b8%aa%e9%a3%9e%e8%b7%83-fiber-%e6%9e%b6%e6%9e%84%e7%9a%84%e5%b7%a5%e4%bd%9c%e5%8e%9f%e7%90%86-fiber-%e5%a6%82%e4%bd%95%e5%ae%9e%e7%8e%b0%e6%9b%b4%e6%96%b0%e8%bf%87%e7%a8%8b%e5%8f%af%e6%8e%a7" class="anchor">🔗</a></h2><h2 id="react-的-fiber-如何实现时间切片的">react 的 fiber 如何实现时间切片的？ <a href="#react-%e7%9a%84-fiber-%e5%a6%82%e4%bd%95%e5%ae%9e%e7%8e%b0%e6%97%b6%e9%97%b4%e5%88%87%e7%89%87%e7%9a%84" class="anchor">🔗</a></h2><h2 id="react-的-reconciler-为什么采用-fiber-架构">react 的 reconciler 为什么采用 fiber 架构？ <a href="#react-%e7%9a%84-reconciler-%e4%b8%ba%e4%bb%80%e4%b9%88%e9%87%87%e7%94%a8-fiber-%e6%9e%b6%e6%9e%84" class="anchor">🔗</a></h2><h2 id="react-是否支持给标签设置自定义的属性比如给-video-标签设置-webkit-playsinline">react 是否支持给标签设置自定义的属性，比如给 video 标签设置 webkit-playsinline? <a href="#react-%e6%98%af%e5%90%a6%e6%94%af%e6%8c%81%e7%bb%99%e6%a0%87%e7%ad%be%e8%ae%be%e7%bd%ae%e8%87%aa%e5%ae%9a%e4%b9%89%e7%9a%84%e5%b1%9e%e6%80%a7%e6%af%94%e5%a6%82%e7%bb%99-video-%e6%a0%87%e7%ad%be%e8%ae%be%e7%bd%ae-webkit-playsinline" class="anchor">🔗</a></h2><p>自定义属性的效果取决于浏览器， React 仅将该属性传递到 DOM，不保证其功能生效。</p>
+<h2 id="react-render-阶段的执行过程">react render 阶段的执行过程 <a href="#react-render-%e9%98%b6%e6%ae%b5%e7%9a%84%e6%89%a7%e8%a1%8c%e8%bf%87%e7%a8%8b" class="anchor">🔗</a></h2><h2 id="react-commit-阶段的执行过程">react commit 阶段的执行过程 <a href="#react-commit-%e9%98%b6%e6%ae%b5%e7%9a%84%e6%89%a7%e8%a1%8c%e8%bf%87%e7%a8%8b" class="anchor">🔗</a></h2><h2 id="react-中的路由懒加载是什么原理">react 中的路由懒加载是什么？原理？ <a href="#react-%e4%b8%ad%e7%9a%84%e8%b7%af%e7%94%b1%e6%87%92%e5%8a%a0%e8%bd%bd%e6%98%af%e4%bb%80%e4%b9%88%e5%8e%9f%e7%90%86" class="anchor">🔗</a></h2><p>在访问特定路由时加载对应的组件代码，减少初始加载的 js 体积，提升加载速度。</p>
+<p>动态 import， 动态导入语法，在运行时异步加载模块，返回一个 promise。</p>
+<p>React.lazy, React 提供的高阶函数，接收一个返回 promise 的动态导入调用，返回一个可被 React 渲染的懒加载组件。</p>
+<p>webpack 进行代码分割。</p>
+<p>Suspense 配合 React.layz 使用， 处理加载状态，在懒加载组件加载完成之前显示占位内容。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"></code></pre></div><h2 id="react-中为什不直接使用-requestidlecallback">react 中为什不直接使用 requestIdleCallback？ <a href="#react-%e4%b8%ad%e4%b8%ba%e4%bb%80%e4%b8%8d%e7%9b%b4%e6%8e%a5%e4%bd%bf%e7%94%a8-requestidlecallback" class="anchor">🔗</a></h2><p>requestIdleCallback 是浏览器提供的 API，在空闲时间执行低优先级任务，执行时机不确定。React 的核心需求是可预测的调度。</p>
+<h2 id="react-组件之间怎么通讯">react 组件之间怎么通讯？ <a href="#react-%e7%bb%84%e4%bb%b6%e4%b9%8b%e9%97%b4%e6%80%8e%e4%b9%88%e9%80%9a%e8%ae%af" class="anchor">🔗</a></h2><p>react 组件之间通讯方式根据组件关系，父子，跨层级，兄弟等有所不同。</p>
+<h3 id="父子组件通讯">父子组件通讯 <a href="#%e7%88%b6%e5%ad%90%e7%bb%84%e4%bb%b6%e9%80%9a%e8%ae%af" class="anchor">🔗</a></h3><p>最基础的通讯方式， 通过 props 传递数据和回调函数传递事件实现。</p>
+<p>父传子通过 props 传递数据</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Parent</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">message</span>, <span style="color:#a6e22e">setMessage</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(<span style="color:#e6db74">&#34;a message from parent&#34;</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">Child</span> <span style="color:#a6e22e">content</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">message</span>} /&gt;;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Child</span>({ <span style="color:#a6e22e">content</span> }) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">div</span>&gt;{<span style="color:#a6e22e">content</span>}&lt;/<span style="color:#f92672">div</span>&gt;;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>子传父：通过回调函数传递事件</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Parent</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">handleChildClick</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">data</span>) =&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;子组件传递的数据&#34;</span>, <span style="color:#a6e22e">data</span>);
+</span></span><span style="display:flex;"><span>  };
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">Child</span> <span style="color:#a6e22e">onSendData</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">handleChildClick</span>} /&gt;;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Child</span>({ <span style="color:#a6e22e">onSendData</span> }) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">sendData</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">onSendData</span>(<span style="color:#e6db74">&#34;a message from child&#34;</span>);
+</span></span><span style="display:flex;"><span>  };
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">sendData</span>}&gt;<span style="color:#a6e22e">发送数据</span>&lt;/<span style="color:#f92672">button</span>&gt;;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>跨层级组件通讯（爷孙，深层级）。用 Context API。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ThemeContext</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">createContext</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Grandparent</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">theme</span>, <span style="color:#a6e22e">setTheme</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(<span style="color:#e6db74">&#34;light&#34;</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> (
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 顶层组件提供数据
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    &lt;<span style="color:#f92672">ThemeContext.Provider</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span>{{ <span style="color:#a6e22e">theme</span>, <span style="color:#a6e22e">setTheme</span> }}&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">Parent</span> /&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">ThemeContext.Provider</span>&gt;
+</span></span><span style="display:flex;"><span>  );
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Parent</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 中间组件无需传递
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">Child</span> /&gt;;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Child</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 深层子组件消费数据
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">theme</span>, <span style="color:#a6e22e">setTheme</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">useContext</span>(<span style="color:#a6e22e">ThemeContext</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> (
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">p</span>&gt; <span style="color:#a6e22e">当前主题</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">theme</span>} &lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{() =&gt; <span style="color:#a6e22e">setTheme</span>(<span style="color:#e6db74">&#34;dark&#34;</span>)}&gt; <span style="color:#a6e22e">切换主题</span>&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>  );
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>兄弟组件通讯。通过共同父组件中转。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Parent</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">count</span>, <span style="color:#a6e22e">setCount</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(<span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> (
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">BrotherA</span> <span style="color:#a6e22e">onIncrement</span><span style="color:#f92672">=</span>{() =&gt; <span style="color:#a6e22e">setCount</span>(<span style="color:#a6e22e">count</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)} /&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">BrotherB</span> <span style="color:#a6e22e">count</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">count</span>} /&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>  );
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">BrotherA</span>({ <span style="color:#a6e22e">onIncrement</span> }) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">onIncrement</span>}&gt;<span style="color:#a6e22e">增加</span>&lt;/<span style="color:#f92672">button</span>&gt;;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">BrotherB</span>({ <span style="color:#a6e22e">count</span> }) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">div</span>&gt; <span style="color:#a6e22e">当前值</span><span style="color:#960050;background-color:#1e0010">：</span> {<span style="color:#a6e22e">count</span>} &lt;/<span style="color:#f92672">div</span>&gt;;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>非关联组件通讯（全局状态管理）。 zustand。</p>
+<h2 id="react-和-vue-在技术层面上有哪些区别">react 和 vue 在技术层面上有哪些区别？ <a href="#react-%e5%92%8c-vue-%e5%9c%a8%e6%8a%80%e6%9c%af%e5%b1%82%e9%9d%a2%e4%b8%8a%e6%9c%89%e5%93%aa%e4%ba%9b%e5%8c%ba%e5%88%ab" class="anchor">🔗</a></h2><p>UI=f(state)。</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>React</th>
+<th>Vue</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>设计理念</td>
+<td>单向数据流</td>
+<td>渐进式，响应式</td>
+</tr>
+<tr>
+<td>模版语法</td>
+<td>JSX = JS 中写 html</td>
+<td>独立模版+指令（html 中写逻辑）</td>
+</tr>
+<tr>
+<td>响应式原理</td>
+<td>手动触发更新</td>
+<td>数据劫持 Proxy+依赖收集</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="子组件是一个-protal-发生点击事件能冒泡到父组件里吗">子组件是一个 protal， 发生点击事件能冒泡到父组件里吗？ <a href="#%e5%ad%90%e7%bb%84%e4%bb%b6%e6%98%af%e4%b8%80%e4%b8%aa-protal-%e5%8f%91%e7%94%9f%e7%82%b9%e5%87%bb%e4%ba%8b%e4%bb%b6%e8%83%bd%e5%86%92%e6%b3%a1%e5%88%b0%e7%88%b6%e7%bb%84%e4%bb%b6%e9%87%8c%e5%90%97" class="anchor">🔗</a></h2><h2 id="usestate-是如何实现的">useState 是如何实现的？ <a href="#usestate-%e6%98%af%e5%a6%82%e4%bd%95%e5%ae%9e%e7%8e%b0%e7%9a%84" class="anchor">🔗</a></h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"></code></pre></div><h2 id="react-中-diff-算法">react 中 diff 算法 <a href="#react-%e4%b8%ad-diff-%e7%ae%97%e6%b3%95" class="anchor">🔗</a></h2><h2 id="如何让-useeffect-支持-asyncawait">如何让 useEffect 支持 async，await？ <a href="#%e5%a6%82%e4%bd%95%e8%ae%a9-useeffect-%e6%94%af%e6%8c%81-asyncawait" class="anchor">🔗</a></h2><h2 id="react-中懒加载的实现原理是">react 中懒加载的实现原理是？ <a href="#react-%e4%b8%ad%e6%87%92%e5%8a%a0%e8%bd%bd%e7%9a%84%e5%ae%9e%e7%8e%b0%e5%8e%9f%e7%90%86%e6%98%af" class="anchor">🔗</a></h2><p><code>React.lazy()</code>,</p>
+<p>组件懒加载，</p>
+<p>路由懒加载，</p>
+<p>图片懒加载，</p>
+<p>数据懒加载。</p>
+<h2 id="react-中怎么实现状态自动保存-keepalive">react 中怎么实现状态自动保存 keepalive？ <a href="#react-%e4%b8%ad%e6%80%8e%e4%b9%88%e5%ae%9e%e7%8e%b0%e7%8a%b6%e6%80%81%e8%87%aa%e5%8a%a8%e4%bf%9d%e5%ad%98-keepalive" class="anchor">🔗</a></h2><p>表单填了一半，切换到其他页面再回来，输入的内容还在。</p>
+<p>一，利用父组件+条件渲染， 将子组件的状态提升到父组件中。</p>
+<p>二，路由场景时，使用 react router + 状态持久化， react-activation, 专门设计的 keepalive 库。</p>
+<p>三，持久化到 localStorage</p>
+<p>四，全局状态管理</p>
+<h2 id="react-有哪些性能优化的方法">react 有哪些性能优化的方法？ <a href="#react-%e6%9c%89%e5%93%aa%e4%ba%9b%e6%80%a7%e8%83%bd%e4%bc%98%e5%8c%96%e7%9a%84%e6%96%b9%e6%b3%95" class="anchor">🔗</a></h2><h3 id="减少不必要的渲染">减少不必要的渲染 <a href="#%e5%87%8f%e5%b0%91%e4%b8%8d%e5%bf%85%e8%a6%81%e7%9a%84%e6%b8%b2%e6%9f%93" class="anchor">🔗</a></h3><p>使用 React.memo 缓存组件，useMemo 缓存计算结果，useCallback 缓存函数引用。</p>
+<p>拆分成独立小组件，使得状态变化仅影响局部。</p>
+<h3 id="优化列表渲染">优化列表渲染 <a href="#%e4%bc%98%e5%8c%96%e5%88%97%e8%a1%a8%e6%b8%b2%e6%9f%93" class="anchor">🔗</a></h3><p>给列表项添加唯一 key， 减少 react 虚拟 dom 的对比开销。</p>
+<p>使用虚拟列表只渲染可视区域。</p>
+<p>状态管理优化</p>
+<h3 id="事件与副作用优化">事件与副作用优化 <a href="#%e4%ba%8b%e4%bb%b6%e4%b8%8e%e5%89%af%e4%bd%9c%e7%94%a8%e4%bc%98%e5%8c%96" class="anchor">🔗</a></h3><p>防抖，节流高频事件，清理副作用（清理 timer 防止内存泄漏）</p>
+<h3 id="资源加载优化">资源加载优化 <a href="#%e8%b5%84%e6%ba%90%e5%8a%a0%e8%bd%bd%e4%bc%98%e5%8c%96" class="anchor">🔗</a></h3><p>通过 React.lazy, Suspense 实现按需加载，减少初始加载体积。</p>
+<h2 id="react-中-virtual-dom-一定提高性能吗">react 中 Virtual DOM 一定提高性能吗？ <a href="#react-%e4%b8%ad-virtual-dom-%e4%b8%80%e5%ae%9a%e6%8f%90%e9%ab%98%e6%80%a7%e8%83%bd%e5%90%97" class="anchor">🔗</a></h2><p>当组件状态变化时，先构建新的 virtual dom 树，通过 diff 算法对比新旧 virtual dom 树，计算出最小变更，将变更批量应用到真实 dom 上。</p>
+<h2 id="react-的事件代理机制">react 的事件代理机制？ <a href="#react-%e7%9a%84%e4%ba%8b%e4%bb%b6%e4%bb%a3%e7%90%86%e6%9c%ba%e5%88%b6" class="anchor">🔗</a></h2><p>react 会在根节点统一注册事件监听器， 事件冒泡到根节点，根据事件源和组件树找到组件和事件处理函数并执行。</p>
+<h2 id="reack-hooks-当中的-useeffect-是如何区分声明周期钩子的">reack hooks 当中的 useEffect 是如何区分声明周期钩子的 <a href="#reack-hooks-%e5%bd%93%e4%b8%ad%e7%9a%84-useeffect-%e6%98%af%e5%a6%82%e4%bd%95%e5%8c%ba%e5%88%86%e5%a3%b0%e6%98%8e%e5%91%a8%e6%9c%9f%e9%92%a9%e5%ad%90%e7%9a%84" class="anchor">🔗</a></h2><p>通过依赖数组来模拟不同的生命周期行为，统一了类组件中的 componentDidMount, componentDidUpdate, componentWillUnmount 三个生命周期方法。</p>
+<p>无依赖数组，组件挂载后执行一次，后续每次组件更新时重新执行。模拟了 componentDidMount, componentDidUpdate。</p>
+<p>空依赖数据(<code>空数组[]</code>)， 组件只在挂载后执行一次。模拟了 componentDidMount。</p>
+<p>有值的依赖数组， 组件挂载后执行一次，依赖数据更新后执行一次。 模拟了 componentDidMount, componentDidUpdate。</p>
+<p>清理函数， <code>useEffect( return () =&gt; { return ()=&gt;{...} }, [deps] )</code> 模拟 componentWillUnmount, 清理函数在组件卸载前，或者下次 effect 执行前触发，清理定时器，事件监听等。</p>
+<p>一个 api 覆盖了类组件中的多个生命周期的功能， 让副作用逻辑的组织更清晰。</p>
+<p>useEffect 的闭包陷阱。 依赖数组必须包含 effect 中使用的外部变量， state， props， 函数。遗漏依赖导致了读到久值。使用 ESLint 规则自动检测声明的依赖。</p>
+<h2 id="react-中怎么实现组件间的过渡动画">react 中怎么实现组件间的过渡动画？ <a href="#react-%e4%b8%ad%e6%80%8e%e4%b9%88%e5%ae%9e%e7%8e%b0%e7%bb%84%e4%bb%b6%e9%97%b4%e7%9a%84%e8%bf%87%e6%b8%a1%e5%8a%a8%e7%94%bb" class="anchor">🔗</a></h2><p>react-transition-group 库。</p>
+<h2 id="react-服务端渲染怎么做">react 服务端渲染怎么做 <a href="#react-%e6%9c%8d%e5%8a%a1%e7%ab%af%e6%b8%b2%e6%9f%93%e6%80%8e%e4%b9%88%e5%81%9a" class="anchor">🔗</a></h2><p>SSR 是在服务器端将 React 组件渲染成 HTML 字符串，发送给客户端的技术。
+服务端使用 ReactDOMServer.renderToString(), renderToPipeableStream() 将组件渲染为 html。
+客户端使用 ReactDOM.hydrateRoot()激活 HTML，使其变为可交互的 React 应用。</p>
+<p>Next.js， SSR 框架。Remix，全栈 react 框架。</p>
+<h2 id="什么情况下使用-usememousecallback">什么情况下使用 useMemo，usecallback <a href="#%e4%bb%80%e4%b9%88%e6%83%85%e5%86%b5%e4%b8%8b%e4%bd%bf%e7%94%a8-usememousecallback" class="anchor">🔗</a></h2><p>useMemo 缓存计算结果。 useCallback 缓存函数引用。</p>
+<h2 id="react-的-memo-和-memoize-函数的区别">react 的 memo 和 memoize 函数的区别 <a href="#react-%e7%9a%84-memo-%e5%92%8c-memoize-%e5%87%bd%e6%95%b0%e7%9a%84%e5%8c%ba%e5%88%ab" class="anchor">🔗</a></h2><p>react 的 memo 对于纯展示的组件（仅依赖 props 渲染， 无内部状态和副作用），减少渲染。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#a6e22e">cosnt</span> <span style="color:#a6e22e">MemoizedComponent</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">memo</span>(({<span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">age</span>}) =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">div</span>&gt;{<span style="color:#a6e22e">name</span>}<span style="color:#f92672">-</span>{<span style="color:#a6e22e">age</span>}&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>})
+</span></span></code></pre></div><h2 id="useref-ref-forwardsref-的区别">useRef， ref， forwardsRef 的区别？ <a href="#useref-ref-forwardsref-%e7%9a%84%e5%8c%ba%e5%88%ab" class="anchor">🔗</a></h2><p>ref 是一个属性用于获取 DOM 元素的引用。</p>
+<p>useRef 是 React Hook， 访问 DOM 元素。特点是存储的值发生变化不会导致组件重新渲染。</p>
+<p>forwardsRef 是函数，用于在函数组件间转发引用。
+将父组件的 ref 转发到子组件中的 dom 元素上，解决函数组件不能直接接收 ref 属性的问题，使得父组件能够访问子组件内部的 dom 元素。
+forwardsRef 必须配合 ref 属性使用。父组件传递的 ref 可以是 useRef 创建的 ref 对象，也可以是回调形式的 ref（如 （el）=&gt; {...}）。</p>
+<p>回调式 ref 自动执行。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Child</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">forwardsRef</span>((<span style="color:#a6e22e">props</span>, <span style="color:#a6e22e">ref</span>)=&gt;{
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">ref</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">ref</span>} /&gt;;
+</span></span><span style="display:flex;"><span>});
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Parent</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">handleRef</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">el</span>) =&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">el</span>) <span style="color:#a6e22e">el</span>.<span style="color:#a6e22e">focus</span>(); <span style="color:#75715e">// 直接操作DOM
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  }<span style="color:#960050;background-color:#1e0010">；</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">Child</span> <span style="color:#a6e22e">ref</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">handleRef</span>} /&gt;; <span style="color:#75715e">//当子组件的dom元素被挂载到页面时，将该dom元素作为el传入，并执行。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p>最常见的是 forwardsRef 与 useRef 一起配合使用。组件挂载之后 ref.current 被赋值为 DOM 元素。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">FancyInput</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">forwardRef</span>((<span style="color:#a6e22e">props</span>, <span style="color:#a6e22e">ref</span>) =&gt; &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">ref</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">ref</span>} {<span style="color:#a6e22e">...props</span>} /&gt;);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">ParentComponent</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">inputRef</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useRef</span>(<span style="color:#66d9ef">null</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">handleClick</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">inputRef</span>.<span style="color:#a6e22e">current</span>.<span style="color:#a6e22e">focus</span>();
+</span></span><span style="display:flex;"><span>  };
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> (
+</span></span><span style="display:flex;"><span>    &lt;&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">FancyInput</span> <span style="color:#a6e22e">ref</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">intupRef</span>} /&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">handleClick</span>}&gt; <span style="color:#a6e22e">Focus</span> <span style="color:#a6e22e">Input</span> &lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/&gt;
+</span></span><span style="display:flex;"><span>  );
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="对-immutable-的理解如何应用到项目上">对 immutable 的理解，如何应用到项目上 <a href="#%e5%af%b9-immutable-%e7%9a%84%e7%90%86%e8%a7%a3%e5%a6%82%e4%bd%95%e5%ba%94%e7%94%a8%e5%88%b0%e9%a1%b9%e7%9b%ae%e4%b8%8a" class="anchor">🔗</a></h2><h2 id="实现-usetimeout-的-hook">实现 useTimeout 的 hook <a href="#%e5%ae%9e%e7%8e%b0-usetimeout-%e7%9a%84-hook" class="anchor">🔗</a></h2><h2 id="怎么获取函数组件的实例">怎么获取函数组件的实例？ <a href="#%e6%80%8e%e4%b9%88%e8%8e%b7%e5%8f%96%e5%87%bd%e6%95%b0%e7%bb%84%e4%bb%b6%e7%9a%84%e5%ae%9e%e4%be%8b" class="anchor">🔗</a></h2><p>函数组件本质是纯函数，react 不会创建其实例。</p>
+<ul>
+<li>forwardRef 让函数组件能接受父组件传递的 ref</li>
+<li>useImperativeHandle 自定义通过 ref 暴露的内容。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useRef</span>, <span style="color:#a6e22e">useImperativeHandle</span>, <span style="color:#a6e22e">forwardRef</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;react&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">childComponent</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">forwardRef</span>((<span style="color:#a6e22e">props</span>, <span style="color:#a6e22e">ref</span>) =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">count</span>, <span style="color:#a6e22e">setCount</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(<span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">inputRef</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useRef</span>(<span style="color:#66d9ef">null</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">increment</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">setCount</span>((<span style="color:#a6e22e">prev</span>) =&gt; <span style="color:#a6e22e">prev</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>  };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">useImperativeHandle</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">ref</span>,
+</span></span><span style="display:flex;"><span>    () =&gt; ({
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">getCount</span><span style="color:#f92672">:</span> () =&gt; <span style="color:#a6e22e">count</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">triggerIncrement</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">increment</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">focusInput</span><span style="color:#f92672">:</span> () =&gt; <span style="color:#a6e22e">inputRef</span>.<span style="color:#a6e22e">current</span>.<span style="color:#a6e22e">focus</span>(),
+</span></span><span style="display:flex;"><span>    }),
+</span></span><span style="display:flex;"><span>    [<span style="color:#a6e22e">count</span>]
+</span></span><span style="display:flex;"><span>  );
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> (
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">p</span>&gt;<span style="color:#a6e22e">计数</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">count</span>}&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">ref</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">inputRef</span>} /&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>  );
+</span></span><span style="display:flex;"><span>});
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ParentComponent</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">childRef</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useRef</span>(<span style="color:#66d9ef">null</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">handleClick</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">childRef</span>.<span style="color:#a6e22e">cuurent</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">childRef</span>.<span style="color:#a6e22e">current</span>.<span style="color:#a6e22e">triggerIncrement</span>();
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;当前计数:&#34;</span>, <span style="color:#a6e22e">childRef</span>.<span style="color:#a6e22e">current</span>.<span style="color:#a6e22e">getCount</span>());
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">childRef</span>.<span style="color:#a6e22e">current</span>.<span style="color:#a6e22e">focusInput</span>();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> (
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">ChildComponent</span> <span style="color:#a6e22e">ref</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">childRef</span>} /&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">handleClick</span>}&gt;<span style="color:#a6e22e">操作子组件</span>&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>  );
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><h2 id="react-项目如何捕获错误">react 项目如何捕获错误？ <a href="#react-%e9%a1%b9%e7%9b%ae%e5%a6%82%e4%bd%95%e6%8d%95%e8%8e%b7%e9%94%99%e8%af%af" class="anchor">🔗</a></h2><p>分层捕获， 局部错误 try， catch。组件树错误用 ErrorBoundary。全局错误 unhandledrejection。</p>
+<h2 id="react-中引入-css-的方式有几种">react 中引入 css 的方式有几种？ <a href="#react-%e4%b8%ad%e5%bc%95%e5%85%a5-css-%e7%9a%84%e6%96%b9%e5%bc%8f%e6%9c%89%e5%87%a0%e7%a7%8d" class="anchor">🔗</a></h2><p>全局 css。创建 global.css 文件，在入口文件中引入 index.js，在组件中使用。</p>
+<p>模块化 css。将 css 文件命名为文件名.module.css，使样式仅作用于引入它的组件。</p>
+<p>Sass， SCSS 预处理器。</p>
+<p>内联样式 style 属性上定义样式。</p>
+<p>CSS 框架 Tailwind CSS。</p>
+<h2 id="单应用如何提高加载速度">单应用如何提高加载速度？ <a href="#%e5%8d%95%e5%ba%94%e7%94%a8%e5%a6%82%e4%bd%95%e6%8f%90%e9%ab%98%e5%8a%a0%e8%bd%bd%e9%80%9f%e5%ba%a6" class="anchor">🔗</a></h2><h3 id="资源体积优化">资源体积优化。 <a href="#%e8%b5%84%e6%ba%90%e4%bd%93%e7%a7%af%e4%bc%98%e5%8c%96" class="anchor">🔗</a></h3><p>代码分割（code splitting）， 将代码按路由或组件拆分，只加载当前页面所需的代码。原理： webpack 等构建工具会将动态导入的模块拆分为独立 chunk，访问对应路由时才加载。</p>
+<p>压缩与混淆。jss，css 压缩， tree shaking，图片 webp，avif。</p>
+<h3 id="首屏渲染优化">首屏渲染优化 <a href="#%e9%a6%96%e5%b1%8f%e6%b8%b2%e6%9f%93%e4%bc%98%e5%8c%96" class="anchor">🔗</a></h3><p>SSR 通过 next.js 在服务端生成 HTML，首屏直接返回渲染好的内容。</p>
+<h3 id="运行时优化">运行时优化 <a href="#%e8%bf%90%e8%a1%8c%e6%97%b6%e4%bc%98%e5%8c%96" class="anchor">🔗</a></h3><p>避免长任务阻塞主线程。将复杂计算拆分到 web worker 中， 使用 requestIdleCallback 处理非紧急任务。</p>
+<p>虚拟列表。当渲染大量数据（1000 条+列表），只渲染可视区域内的。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">FixedSizeList</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;react-window&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">BigList</span>({ <span style="color:#a6e22e">items</span> }) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> (
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">FixedSizeList</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">height</span><span style="color:#f92672">=</span>{<span style="color:#ae81ff">500</span>}
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">width</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;100%&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">itemCount</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">items</span>.<span style="color:#a6e22e">length</span>}
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">itemSize</span><span style="color:#f92672">=</span>{<span style="color:#ae81ff">50</span>}
+</span></span><span style="display:flex;"><span>    &gt;
+</span></span><span style="display:flex;"><span>      {({ <span style="color:#a6e22e">index</span>, <span style="color:#a6e22e">style</span> }) =&gt; &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">style</span>}&gt; {<span style="color:#a6e22e">items</span>[<span style="color:#a6e22e">index</span>].<span style="color:#a6e22e">name</span>} &lt;/<span style="color:#f92672">div</span>&gt;}
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">FixedSizeList</span>&gt;
+</span></span><span style="display:flex;"><span>  );
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="能否直接将-props-的值复制给-state">能否直接将 props 的值复制给 state？ <a href="#%e8%83%bd%e5%90%a6%e7%9b%b4%e6%8e%a5%e5%b0%86-props-%e7%9a%84%e5%80%bc%e5%a4%8d%e5%88%b6%e7%bb%99-state" class="anchor">🔗</a></h2><p>可以将 props 的值复制给 state。</p>
+<p>如果需要将 props 复制到 state 且保持同步， 需要用 useEffect 监听 props 变化并更新 state。</p>
+<h2 id="react-router-中的-link-和-a-标签的区别">react-router 中的 link 和 a 标签的区别？ <a href="#react-router-%e4%b8%ad%e7%9a%84-link-%e5%92%8c-a-%e6%a0%87%e7%ad%be%e7%9a%84%e5%8c%ba%e5%88%ab" class="anchor">🔗</a></h2><p>都用于导航。</p>
+<table>
+<thead>
+<tr>
+<th>特点</th>
+<th>link 标签</th>
+<th>a 标签</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>导航方式</td>
+<td>不刷新页面</td>
+<td>会刷新页面</td>
+</tr>
+<tr>
+<td>URL 变化处理</td>
+<td>html5 history api 改 url</td>
+<td>触发页面跳转，发送新 http 请求</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>单页面应用 SPA 的核心是在一个页面中完成所有交互， link 标签为此而设计。 a 标签更适合外部链接，非 SPA 场景。</p>
+<h2 id="react-的-jsx-转换真实-dom-的过程">react 的 JSx 转换真实 DOM 的过程 <a href="#react-%e7%9a%84-jsx-%e8%bd%ac%e6%8d%a2%e7%9c%9f%e5%ae%9e-dom-%e7%9a%84%e8%bf%87%e7%a8%8b" class="anchor">🔗</a></h2><h2 id="react-的事件代理机制和原生事件绑定的区别">react 的事件代理机制和原生事件绑定的区别？ <a href="#react-%e7%9a%84%e4%ba%8b%e4%bb%b6%e4%bb%a3%e7%90%86%e6%9c%ba%e5%88%b6%e5%92%8c%e5%8e%9f%e7%94%9f%e4%ba%8b%e4%bb%b6%e7%bb%91%e5%ae%9a%e7%9a%84%e5%8c%ba%e5%88%ab" class="anchor">🔗</a></h2><h2 id="react-中-element-componentnode-instance">react 中 Element， component，Node, Instance <a href="#react-%e4%b8%ad-element-componentnode-instance" class="anchor">🔗</a></h2><p>React 元素是一个不可变的 javascript 对象，格式为{type, props: {attribute: &quot;x&quot;, children: &quot;&quot;}, key, ref}</p>
+<p>React 组件是函数，封装了 UI 逻辑和状态， 接收 props 并返回 React 元素。</p>
+<p>React Node 更宽泛， 是渲染中的任何值，可以是 react 元素，字符串，数字， 数组等。 react 的 render 方法返回了 react node。</p>
+<p>React Instance 类组件实例化后的对象，函数组件无实例。</p>
+<h2 id="参考">参考 <a href="#%e5%8f%82%e8%80%83" class="anchor">🔗</a></h2><p>react 的官网 doc</p>
+
     </div>
 
     

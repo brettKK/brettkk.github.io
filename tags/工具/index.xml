@@ -6,7 +6,25 @@
     <description>Recent content in 工具 on brettkk</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 05 May 2025 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/tags/%E5%B7%A5%E5%85%B7/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 14 Oct 2025 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/tags/%E5%B7%A5%E5%85%B7/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Node.js</title>
+      <link>http://brettkk.github.io/posts/tools/node_js/</link>
+      <pubDate>Tue, 14 Oct 2025 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/tools/node_js/</guid>
+      <description>what 🔗Node.js 是基于 V8 引擎的 JavaScript 运行时，让你可以用 JavaScript 写后端</description>
+    </item>
+    
+    <item>
+      <title>webpack</title>
+      <link>http://brettkk.github.io/posts/tools/webpack/</link>
+      <pubDate>Wed, 03 Sep 2025 00:00:00 +0000</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/tools/webpack/</guid>
+      <description>为什么需要？ 🔗作用 快速上手测试 🔗输入： src/ index.js a.js style.css node_modules/ lodash webpack 处理： 1</description>
+    </item>
+    
     <item>
       <title>dockerfile最小实践</title>
       <link>http://brettkk.github.io/posts/tools/min_dockerfile/</link>

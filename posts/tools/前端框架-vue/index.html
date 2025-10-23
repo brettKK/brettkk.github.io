@@ -72,7 +72,7 @@ webpack 的工作流程
           ·
         </span>
         <span>
-          107 words
+          178 words
         </span>
         <span class="split">
           ·
@@ -108,7 +108,14 @@ webpack 的工作流程
         <li><a href="#vue">vue</a></li>
       </ul>
     </li>
-    <li><a href="#es6-module">ES6 module</a></li>
+    <li><a href="#es6-module">ES6 module</a>
+      <ul>
+        <li><a href="#封装自定义指令">封装自定义指令</a></li>
+        <li><a href="#自定义指令的修饰符">自定义指令的修饰符</a></li>
+        <li><a href="#dd">dd</a></li>
+        <li><a href="#dd-1">dd</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
           </div>
@@ -145,7 +152,33 @@ Delete <code>·</code> prettier/prettier</p>
 <p>img src 相对路径不生效，绝对路径可以。</p>
 <h1 id="es6-module">ES6 module <a href="#es6-module" class="anchor">🔗</a></h1><p>Module ‘“xx.vue“‘ has no default export.Vetur(1192)
 选择卸载 vetur，安装 volar 插件</p>
-<hr>
+<h2 id="封装自定义指令">封装自定义指令 <a href="#%e5%b0%81%e8%a3%85%e8%87%aa%e5%ae%9a%e4%b9%89%e6%8c%87%e4%bb%a4" class="anchor">🔗</a></h2><p><code>directive</code>函数</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">createApp</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;vue&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">App</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;./App.vue&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">app</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createApp</span>(<span style="color:#a6e22e">App</span>);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 指令名称是 highlight，
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">directive</span>(<span style="color:#e6db74">&#34;highlight&#34;</span>, {
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 在哪个阶段的生命周期中执行 指令函数。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">mounted</span>(<span style="color:#a6e22e">el</span>, <span style="color:#a6e22e">binding</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">el</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">backgroundColor</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">binding</span>.<span style="color:#a6e22e">value</span> <span style="color:#f92672">||</span> <span style="color:#e6db74">&#34;red&#34;</span>;
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>});
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// &lt;p v-highlight&gt; xyz &lt;/p&gt;
+</span></span></span></code></pre></div><h2 id="自定义指令的修饰符">自定义指令的修饰符 <a href="#%e8%87%aa%e5%ae%9a%e4%b9%89%e6%8c%87%e4%bb%a4%e7%9a%84%e4%bf%ae%e9%a5%b0%e7%ac%a6" class="anchor">🔗</a></h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">directive</span>(<span style="color:#e6db74">&#34;highlight&#34;</span>, {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mounted</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">el</span>, <span style="color:#a6e22e">binding</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">binding</span>.<span style="color:#a6e22e">modifiers</span>.<span style="color:#a6e22e">delay</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">setTimeout</span>( ()=&gt; {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">el</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">backgroundColor</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">binding</span>.<span style="color:#a6e22e">value</span> <span style="color:#f92672">||</span> <span style="color:#e6db74">&#34;yellow&#34;</span>;
+</span></span><span style="display:flex;"><span>      })
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">el</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">backgroundColor</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">binding</span>.<span style="color:#a6e22e">value</span> <span style="color:#f92672">||</span> <span style="color:#e6db74">&#34;yellow&#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>})
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">v-highlight</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">delay</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;lightblue&#34;</span>&gt;xyz&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span></code></pre></div><h2 id="dd">dd <a href="#dd" class="anchor">🔗</a></h2><h2 id="dd-1">dd <a href="#dd-1" class="anchor">🔗</a></h2><hr>
 
     </div>
 

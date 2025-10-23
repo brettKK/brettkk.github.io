@@ -6,7 +6,16 @@
     <description>Recent content in 前端 on brettkk</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 20 May 2025 09:31:18 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/tags/%E5%89%8D%E7%AB%AF/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 14 Oct 2025 11:33:56 +0800</lastBuildDate><atom:link href="http://brettkk.github.io/tags/%E5%89%8D%E7%AB%AF/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Acorn</title>
+      <link>http://brettkk.github.io/posts/tools/acorn/</link>
+      <pubDate>Tue, 14 Oct 2025 11:33:56 +0800</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/tools/acorn/</guid>
+      <description>why 🔗需要构建一个 javascript 的通用 AST 格式。 how 🔗AST 节点类型 🔗 特性 Acorn 的</description>
+    </item>
+    
     <item>
       <title>html parser</title>
       <link>http://brettkk.github.io/posts/tools/htmlparser/</link>
@@ -32,6 +41,15 @@
       
       <guid>http://brettkk.github.io/posts/tools/%E5%89%8D%E7%AB%AF/</guid>
       <description>html 🔗标签元素的有序集合。 javascript 🔗js 语言的 runtime 有浏览器和 nodej</description>
+    </item>
+    
+    <item>
+      <title>webpack-快速使用</title>
+      <link>http://brettkk.github.io/posts/tools/webpack_startup/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/tools/webpack_startup/</guid>
+      <description>webpack 的作用 🔗在传统的 web 开发项目中，需要引入大量的 js 文件和 css 文件</description>
     </item>
     
   </channel>

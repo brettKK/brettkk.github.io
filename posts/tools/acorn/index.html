@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<html lang="zh-cn">
+  <head>
+    <title>Acorn | brettkk</title>
+
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
+<meta name="viewport" content="width=device-width,minimum-scale=1">
+<meta name="description" content="why 🔗需要构建一个 javascript 的通用 AST 格式。 how 🔗AST 节点类型 🔗 特性 Acorn 的">
+<meta name="generator" content="Hugo 0.103.1" />
+
+
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+<link href="https://cdn.bootcss.com/highlight.js/9.15.10/styles/zenburn.min.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<link rel="stylesheet" href="http://brettkk.github.io/css/syntax.css" />
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js" integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+
+
+
+
+  </head>
+
+  <body>
+    <nav class="navigation">
+	
+		<a href="/"> <span class="arrow">←</span>Home</a>
+	
+	<a href="/posts">Archive</a>
+	<a href="/tags">Tags</a>
+	<a href="/about">About</a>
+
+	
+
+	
+</nav>
+
+
+    <main class="main">
+      
+
+<section id="single">
+    <h1 class="title">Acorn</h1>
+
+    <div class="tip">
+        <time datetime="2025-10-14 11:33:56 &#43;0800 CST">Oct 14, 2025</time>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          726 words
+        </span>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          2 minute read
+        </span>
+    </div>
+
+    
+    
+        
+  
+    <aside class="toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
+          <div>
+              <nav id="TableOfContents">
+  <ul>
+    <li><a href="#why">why</a></li>
+    <li><a href="#how">how</a></li>
+    <li><a href="#ast-节点类型">AST 节点类型</a>
+      <ul>
+        <li><a href="#基础结构类节点">基础结构类节点</a></li>
+        <li><a href="#标识符与字面量">标识符与字面量</a></li>
+        <li><a href="#表达式类节点">表达式类节点</a></li>
+        <li><a href="#语句类节点">语句类节点</a></li>
+        <li><a href="#声明类节点">声明类节点</a></li>
+        <li><a href="#对象数组模板字面量">对象、数组、模板字面量</a></li>
+        <li><a href="#模块与导入导出">模块与导入导出</a></li>
+        <li><a href="#特殊结构">特殊结构</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+          </div>
+      </details>
+    </aside>
+  
+
+
+    
+
+
+    <div class="content">
+      <h1 id="why">why <a href="#why" class="anchor">🔗</a></h1><p>需要构建一个 javascript 的通用 AST 格式。</p>
+<h1 id="how">how <a href="#how" class="anchor">🔗</a></h1><h1 id="ast-节点类型">AST 节点类型 <a href="#ast-%e8%8a%82%e7%82%b9%e7%b1%bb%e5%9e%8b" class="anchor">🔗</a></h1><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>Acorn 的设计意图</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>兼容 ESTree</strong></td>
+<td>可与 Babel/ESLint 共享 AST</td>
+</tr>
+<tr>
+<td><strong>简洁统一结构</strong></td>
+<td>每个节点有 <code>type/start/end/loc</code></td>
+</tr>
+<tr>
+<td><strong>语义清晰</strong></td>
+<td>每种语法有独立节点类型</td>
+</tr>
+<tr>
+<td><strong>插件可扩展</strong></td>
+<td>JSX、TS 插件可增加自定义节点</td>
+</tr>
+</tbody>
+</table>
+<h2 id="基础结构类节点">基础结构类节点 <a href="#%e5%9f%ba%e7%a1%80%e7%bb%93%e6%9e%84%e7%b1%bb%e8%8a%82%e7%82%b9" class="anchor">🔗</a></h2><table>
+<thead>
+<tr>
+<th>JS 代码</th>
+<th>AST 节点类型</th>
+<th>关键属性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>const x = 1;</code></td>
+<td><code>Program</code></td>
+<td><code>body: [ ...statements ]</code></td>
+<td>整个文件的根节点</td>
+</tr>
+<tr>
+<td><code>const x = 1;</code></td>
+<td><code>VariableDeclaration</code></td>
+<td><code>kind: &quot;const&quot;</code>, <code>declarations</code></td>
+<td>声明语句</td>
+</tr>
+<tr>
+<td><code>x = 1</code></td>
+<td><code>ExpressionStatement</code></td>
+<td><code>expression</code></td>
+<td>普通表达式语句</td>
+</tr>
+</tbody>
+</table>
+<h2 id="标识符与字面量">标识符与字面量 <a href="#%e6%a0%87%e8%af%86%e7%ac%a6%e4%b8%8e%e5%ad%97%e9%9d%a2%e9%87%8f" class="anchor">🔗</a></h2><table>
+<thead>
+<tr>
+<th>JS 代码</th>
+<th>AST 节点类型</th>
+<th>关键属性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>x</code></td>
+<td><code>Identifier</code></td>
+<td><code>name: &quot;x&quot;</code></td>
+<td>标识符（变量名）</td>
+</tr>
+<tr>
+<td><code>&quot;hello&quot;</code></td>
+<td><code>Literal</code></td>
+<td><code>value: &quot;hello&quot;</code>, <code>raw: &quot;\&quot;hello\&quot;&quot;</code></td>
+<td>字面量（字符串、数字、布尔、null）</td>
+</tr>
+<tr>
+<td><code>42</code></td>
+<td><code>Literal</code></td>
+<td><code>value: 42</code>, <code>raw: &quot;42&quot;</code></td>
+<td>数字字面量</td>
+</tr>
+</tbody>
+</table>
+<h2 id="表达式类节点">表达式类节点 <a href="#%e8%a1%a8%e8%be%be%e5%bc%8f%e7%b1%bb%e8%8a%82%e7%82%b9" class="anchor">🔗</a></h2><table>
+<thead>
+<tr>
+<th>JS 代码</th>
+<th>AST 节点类型</th>
+<th>关键属性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>x + y</code></td>
+<td><code>BinaryExpression</code></td>
+<td><code>operator: &quot;+&quot;</code>, <code>left</code>, <code>right</code></td>
+<td>二元表达式</td>
+</tr>
+<tr>
+<td><code>-x</code></td>
+<td><code>UnaryExpression</code></td>
+<td><code>operator: &quot;-&quot;</code>, <code>argument</code></td>
+<td>一元表达式</td>
+</tr>
+<tr>
+<td><code>x++</code></td>
+<td><code>UpdateExpression</code></td>
+<td><code>operator: &quot;++&quot;</code>, <code>argument</code>, <code>prefix: false</code></td>
+<td>自增/自减</td>
+</tr>
+<tr>
+<td><code>a &amp;&amp; b</code></td>
+<td><code>LogicalExpression</code></td>
+<td><code>operator: &quot;&amp;&amp;&quot;</code></td>
+<td>逻辑表达式</td>
+</tr>
+<tr>
+<td><code>obj.prop</code></td>
+<td><code>MemberExpression</code></td>
+<td><code>object</code>, <code>property</code>, <code>computed: false</code></td>
+<td>成员访问</td>
+</tr>
+<tr>
+<td><code>obj[&quot;x&quot;]</code></td>
+<td><code>MemberExpression</code></td>
+<td><code>computed: true</code></td>
+<td>方括号访问</td>
+</tr>
+<tr>
+<td><code>foo()</code></td>
+<td><code>CallExpression</code></td>
+<td><code>callee</code>, <code>arguments</code></td>
+<td>函数调用</td>
+</tr>
+<tr>
+<td><code>new Foo()</code></td>
+<td><code>NewExpression</code></td>
+<td><code>callee</code>, <code>arguments</code></td>
+<td>构造函数调用</td>
+</tr>
+<tr>
+<td><code>(x &gt; 0 ? 1 : 2)</code></td>
+<td><code>ConditionalExpression</code></td>
+<td><code>test</code>, <code>consequent</code>, <code>alternate</code></td>
+<td>三元运算符</td>
+</tr>
+<tr>
+<td><code>() =&gt; x + 1</code></td>
+<td><code>ArrowFunctionExpression</code></td>
+<td><code>params</code>, <code>body</code>, <code>expression</code></td>
+<td>箭头函数</td>
+</tr>
+</tbody>
+</table>
+<h2 id="语句类节点">语句类节点 <a href="#%e8%af%ad%e5%8f%a5%e7%b1%bb%e8%8a%82%e7%82%b9" class="anchor">🔗</a></h2><table>
+<thead>
+<tr>
+<th>JS 代码</th>
+<th>AST 节点类型</th>
+<th>关键属性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>if (x) {}</code></td>
+<td><code>IfStatement</code></td>
+<td><code>test</code>, <code>consequent</code>, <code>alternate</code></td>
+<td>if 语句</td>
+</tr>
+<tr>
+<td><code>for (let i = 0; i &lt; 3; i++) {}</code></td>
+<td><code>ForStatement</code></td>
+<td><code>init</code>, <code>test</code>, <code>update</code>, <code>body</code></td>
+<td>普通 for</td>
+</tr>
+<tr>
+<td><code>while (x &lt; 10)</code></td>
+<td><code>WhileStatement</code></td>
+<td><code>test</code>, <code>body</code></td>
+<td>while 循环</td>
+</tr>
+<tr>
+<td><code>do { ... } while(x)</code></td>
+<td><code>DoWhileStatement</code></td>
+<td>同上</td>
+<td>do-while 循环</td>
+</tr>
+<tr>
+<td><code>switch(x){}</code></td>
+<td><code>SwitchStatement</code></td>
+<td><code>discriminant</code>, <code>cases</code></td>
+<td>switch</td>
+</tr>
+<tr>
+<td><code>return x;</code></td>
+<td><code>ReturnStatement</code></td>
+<td><code>argument</code></td>
+<td>return</td>
+</tr>
+<tr>
+<td><code>break;</code></td>
+<td><code>BreakStatement</code></td>
+<td>无</td>
+<td>break</td>
+</tr>
+<tr>
+<td><code>continue;</code></td>
+<td><code>ContinueStatement</code></td>
+<td>无</td>
+<td>continue</td>
+</tr>
+<tr>
+<td><code>throw err;</code></td>
+<td><code>ThrowStatement</code></td>
+<td><code>argument</code></td>
+<td>throw</td>
+</tr>
+<tr>
+<td><code>try { ... } catch(e) {}</code></td>
+<td><code>TryStatement</code></td>
+<td><code>block</code>, <code>handler</code>, <code>finalizer</code></td>
+<td>try-catch-finally</td>
+</tr>
+</tbody>
+</table>
+<h2 id="声明类节点">声明类节点 <a href="#%e5%a3%b0%e6%98%8e%e7%b1%bb%e8%8a%82%e7%82%b9" class="anchor">🔗</a></h2><table>
+<thead>
+<tr>
+<th>JS 代码</th>
+<th>AST 节点类型</th>
+<th>关键属性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>function foo(a) {}</code></td>
+<td><code>FunctionDeclaration</code></td>
+<td><code>id</code>, <code>params</code>, <code>body</code></td>
+<td>函数声明</td>
+</tr>
+<tr>
+<td><code>const fn = function() {}</code></td>
+<td><code>FunctionExpression</code></td>
+<td>类似上面，但无 <code>id</code></td>
+<td>函数表达式</td>
+</tr>
+<tr>
+<td><code>class A {}</code></td>
+<td><code>ClassDeclaration</code></td>
+<td><code>id</code>, <code>superClass</code>, <code>body</code></td>
+<td>类声明</td>
+</tr>
+<tr>
+<td><code>class A extends B {}</code></td>
+<td>同上</td>
+<td><code>superClass</code> 指向 <code>B</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>import x from &quot;mod&quot;;</code></td>
+<td><code>ImportDeclaration</code></td>
+<td><code>specifiers</code>, <code>source</code></td>
+<td>ES 模块导入</td>
+</tr>
+<tr>
+<td><code>export default x;</code></td>
+<td><code>ExportDefaultDeclaration</code></td>
+<td><code>declaration</code></td>
+<td>默认导出</td>
+</tr>
+<tr>
+<td><code>export { a, b };</code></td>
+<td><code>ExportNamedDeclaration</code></td>
+<td><code>specifiers</code></td>
+<td>命名导出</td>
+</tr>
+</tbody>
+</table>
+<h2 id="对象数组模板字面量">对象、数组、模板字面量 <a href="#%e5%af%b9%e8%b1%a1%e6%95%b0%e7%bb%84%e6%a8%a1%e6%9d%bf%e5%ad%97%e9%9d%a2%e9%87%8f" class="anchor">🔗</a></h2><table>
+<thead>
+<tr>
+<th>JS 代码</th>
+<th>AST 节点类型</th>
+<th>关键属性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>{ a: 1, b: 2 }</code></td>
+<td><code>ObjectExpression</code></td>
+<td><code>properties</code></td>
+<td>对象字面量</td>
+</tr>
+<tr>
+<td><code>[1, 2, 3]</code></td>
+<td><code>ArrayExpression</code></td>
+<td><code>elements</code></td>
+<td>数组字面量</td>
+</tr>
+<tr>
+<td><code>`Hi ${name}`</code></td>
+<td><code>TemplateLiteral</code></td>
+<td><code>quasis</code>, <code>expressions</code></td>
+<td>模板字符串</td>
+</tr>
+</tbody>
+</table>
+<h2 id="模块与导入导出">模块与导入导出 <a href="#%e6%a8%a1%e5%9d%97%e4%b8%8e%e5%af%bc%e5%85%a5%e5%af%bc%e5%87%ba" class="anchor">🔗</a></h2><table>
+<thead>
+<tr>
+<th>JS 代码</th>
+<th>AST 节点类型</th>
+<th>关键属性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>import fs from 'fs'</code></td>
+<td><code>ImportDeclaration</code></td>
+<td><code>source</code>, <code>specifiers</code></td>
+<td>导入声明</td>
+</tr>
+<tr>
+<td><code>export default foo;</code></td>
+<td><code>ExportDefaultDeclaration</code></td>
+<td><code>declaration</code></td>
+<td>默认导出</td>
+</tr>
+<tr>
+<td><code>export { bar };</code></td>
+<td><code>ExportNamedDeclaration</code></td>
+<td><code>specifiers</code></td>
+<td>命名导出</td>
+</tr>
+</tbody>
+</table>
+<h2 id="特殊结构">特殊结构 <a href="#%e7%89%b9%e6%ae%8a%e7%bb%93%e6%9e%84" class="anchor">🔗</a></h2><table>
+<thead>
+<tr>
+<th>JS 代码</th>
+<th>AST 节点类型</th>
+<th>关键属性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>(function(){})()</code></td>
+<td><code>CallExpression</code> + <code>FunctionExpression</code></td>
+<td>IIFE 调用</td>
+<td></td>
+</tr>
+<tr>
+<td><code>this</code></td>
+<td><code>ThisExpression</code></td>
+<td>无</td>
+<td>this 关键字</td>
+</tr>
+<tr>
+<td><code>super()</code></td>
+<td><code>Super</code></td>
+<td>无</td>
+<td>调用父类构造</td>
+</tr>
+<tr>
+<td><code>new.target</code></td>
+<td><code>MetaProperty</code></td>
+<td><code>meta</code>, <code>property</code></td>
+<td>元属性访问</td>
+</tr>
+</tbody>
+</table>
+
+    </div>
+
+    
+        <div class="tags">
+            
+                <a href="http://brettkk.github.io/tags/%E5%89%8D%E7%AB%AF">前端</a>
+            
+                <a href="http://brettkk.github.io/tags/%E7%BC%96%E8%AF%91">编译</a>
+            
+        </div>
+    
+    
+    
+
+</section>
+
+
+    </main>
+    
+    <footer id="footer">
+    
+
+    <script src="https://utteranc.es/client.js"
+repo="brettKK/brettkk.github.io"
+issue-term="title"
+theme="github-light"
+crossorigin="anonymous"
+async>
+</script>  
+
+    <div class="copyright">
+    
+       © Copyright 
+       2025 
+       <span class="split">
+        <svg fill="#bbbbbb" width="15" height="15" version="1.1" id="heart-15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 15 15">
+  <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>
+</svg>
+       </span>
+       
+    
+    </div>
+
+    
+      <div class="powerby">
+        Powered by <a href='http://www.gohugo.io/'>Hugo</a> Theme By <a href='https://github.com/nodejh/hugo-theme-cactus-plus'>nodejh</a>
+      </div>
+    
+</footer>
+
+
+
+
+  </body>
+</html>

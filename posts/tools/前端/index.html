@@ -70,13 +70,13 @@
           ·
         </span>
         <span>
-          5305 words
+          7430 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          11 minute read
+          15 minute read
         </span>
     </div>
 
@@ -95,6 +95,8 @@
     <li><a href="#javascript">javascript</a>
       <ul>
         <li><a href="#核心点">核心点</a></li>
+        <li><a href="#如何区分普通函数与构造函数">如何区分普通函数与构造函数？</a></li>
+        <li><a href="#如何通过点操作符寻找函数和属性">如何通过点操作符寻找函数和属性</a></li>
         <li><a href="#基本语法">基本语法</a>
           <ul>
             <li><a href="#普通函数与箭头函数的区别">普通函数与箭头函数的区别？</a></li>
@@ -102,10 +104,28 @@
             <li><a href="#javascript-中的循环">javascript 中的循环</a></li>
           </ul>
         </li>
+        <li><a href="#什么是属性描述符">什么是属性描述符？</a></li>
+        <li><a href="#柯里化">柯里化</a></li>
+        <li><a href="#变量遮挡变量提升">变量遮挡，变量提升</a></li>
+        <li><a href="#如何利用迭代器实现解构">如何利用迭代器实现解构</a></li>
+        <li><a href="#objectis---区别">Object.is, ===, == 区别</a></li>
+        <li><a href="#如何使用-proxy-实现函数的链式调用">如何使用 Proxy 实现函数的链式调用？</a></li>
+        <li><a href="#object-和-map-的区别">Object 和 map 的区别？</a></li>
+        <li><a href="#判断-this-的指向">判断 this 的指向</a>
+          <ul>
+            <li><a href="#js-中的代码动态执行">js 中的代码动态执行</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#javascript-异步编程">javascript 异步编程</a>
+      <ul>
+        <li><a href="#实现-mypromise">实现 MyPromise</a></li>
       </ul>
     </li>
     <li><a href="#typescript">typescript</a>
       <ul>
+        <li><a href="#类型约束的关键词">类型约束的关键词</a></li>
         <li><a href="#cocos-creator-3x-的游戏开发">cocos creator 3.x 的游戏开发</a></li>
         <li><a href="#安装-nodejs">安装 node.js</a></li>
         <li><a href="#npm-安装-typescript">npm 安装 typescript</a></li>
@@ -135,6 +155,14 @@
         <li><a href="#模块机制">模块机制</a></li>
       </ul>
     </li>
+    <li><a href="#es-module">ES module</a></li>
+    <li><a href="#把-js-代码和-js-运行时打包为一个可执行文件">把 js 代码和 js 运行时打包为一个可执行文件</a>
+      <ul>
+        <li><a href="#node-的方式">node 的方式</a></li>
+        <li><a href="#deno-的方式">deno 的方式</a></li>
+        <li><a href="#bun-的方式">bun 的方式</a></li>
+      </ul>
+    </li>
     <li><a href="#css">css</a>
       <ul>
         <li><a href="#css-的引入方式">css 的引入方式</a></li>
@@ -146,6 +174,12 @@
             <li><a href="#层叠层z-轴方向的层叠优先级-z-index">层叠层，z 轴方向的层叠优先级 z-index</a></li>
           </ul>
         </li>
+      </ul>
+    </li>
+    <li><a href="#前端工程化">前端工程化</a>
+      <ul>
+        <li><a href="#为什么需要工程化">为什么需要工程化？</a></li>
+        <li><a href="#工程化的方向">工程化的方向</a></li>
       </ul>
     </li>
     <li><a href="#常见考点">常见考点</a>
@@ -190,9 +224,35 @@
 </ul>
 <h2 id="核心点">核心点 <a href="#%e6%a0%b8%e5%bf%83%e7%82%b9" class="anchor">🔗</a></h2><p>new 关键字形成的原型链： <code>实例.__proto__ == 构造函数.prototype</code>。</p>
 <p>原型，原型链，对象。</p>
-<p>prototype 和 <strong>proto</strong> 的区别？ <code>prototype</code>是函数独有，决定用 new 调用该函数时，新对象的 <code>__proto__</code> 指向哪里。proto 是所有对象都有（包括函数也是对象），指向该对象的原型对象。</p>
-<p>所有对象都有<code>constructor</code> 和<code>__proto__</code>。<code>__proto__</code> 和浏览器控制台里看到的<code>[[Prototype]]</code>是一个意思。</p>
-<p><code>__proto__</code> 是实例对象的属性，指向它的构造函数的 prototype，用于原型链查找。</p>
+<p>prototype 和 <code>__proto__</code> 的区别？<br>
+<code>prototype</code>是函数独有，决定用 new 调用该函数时，新对象的 <code>__proto__</code> 指向哪里。<code>proto</code>是所有对象都有（包括函数也是对象），指向该对象的原型对象。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Foo</span>() {}
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Foo</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">sayA</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;say A&#34;</span>);
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Foo</span>();
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">Foo</span>.<span style="color:#a6e22e">prototype</span>); <span style="color:#75715e">// {sayA: f, constructor: f}
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">__proto</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">Foo</span>.<span style="color:#a6e22e">prototype</span>); <span style="color:#75715e">// true
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// constructor 的作用就是 记录“这个对象是由哪个构造函数创建的”
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">contructor</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">Foo</span>); <span style="color:#75715e">// true
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">Foo</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">constructor</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">Foo</span>); <span style="color:#75715e">// true
+</span></span></span></code></pre></div><ul>
+<li>函数有 <code>prototype</code></li>
+<li>对象有 <code>__proto__</code></li>
+<li>实例.proto === 构造函数.prototype</li>
+</ul>
+<p>所有对象都有<code>constructor</code> 和<code>__proto__</code>。<code>__proto__</code> 和浏览器控制台里看到的<code>[[Prototype]]</code>是一个意思。constructor 是一个属性，默认指向创建该对象原型的构造函数。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Foo</span>() {}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">foo</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Foo</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// foo.constructor 实际上是通过原型链拿到的
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">foo</span>.<span style="color:#a6e22e">constructor</span>); <span style="color:#75715e">// Foo
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">Foo</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">constructor</span>); <span style="color:#75715e">// Foo
+</span></span></span></code></pre></div><p><code>__proto__</code> 是实例对象的属性，指向它的构造函数的 prototype，用于原型链查找。</p>
 <p><code>A instanceof B</code> 判断<code>B.prototype</code>是否在 A 的原型链上。<code>A.__proto__</code>，以及<code>A.__proto__.__proto__</code> 是否等于<code>B.prototype</code>。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>Object <span style="color:#66d9ef">instanceof</span> Object; <span style="color:#75715e">//true, Object是构造函数， Object.__proto__ == Function.prototype, Function.prototype.__proto == Object.prototype.
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>Function <span style="color:#66d9ef">instanceof</span> Function; <span style="color:#75715e">//true, Function.__proto == Function.prototype
@@ -200,6 +260,111 @@
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>Function <span style="color:#66d9ef">instanceof</span> Object; <span style="color:#75715e">//true, Function.__proto == Function.prototype, Function.prototype.__proto == Object.prototype.
 </span></span></span></code></pre></div><p><code>Object.prototype</code>是原型链的起点， 任何原型都源自它。<code>Object.prototype.__proto == null</code>。<br>
 <code>Function.prototype</code>是仅次于<code>Object.prototype</code>的存在，它是内置构造函数的原型，任何构造函数都源自它。 所有函数对象（包括 Function 自己）都是<code>Function构造函数</code>的实例， 所以函数对象的<code>__proto__</code>都指向<code>Function.prototype</code>。因此<code>Function.__proto__ === Function.prototype</code>。</p>
+<p>所有对象都有 constructor 吗？ 在 JavaScript 中，每一个函数（包括 class 定义出来的类）在创建时都会自动带上一个 prototype 对象，而 prototype 上会有一个默认的 constructor 属性。 <code>console.log(Foo.prototype.constructor === Foo); // true </code>。
+Object.create(null) 创建的“纯净对象”，它的原型是 null，没有 constructor。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Parent</span>() {}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Child</span>() {}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 修改 prototype 时要注意 constructor 可能会丢失
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">Child</span>.<span style="color:#a6e22e">prototype</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Parent</span>(); <span style="color:#75715e">// 继承
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">Child</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">constructor</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">Parent</span>); <span style="color:#75715e">// true ❌ 被覆盖了
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 知道一个对象是由哪个构造函数生成的
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 手动修正
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">Child</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">constructor</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Child</span>;
+</span></span></code></pre></div><p><code>Object.create(null)</code> 对象， 原型， constructor。
+创建一个 新对象，并把它的 <code>__proto__</code>（内部 <code>[[Prototype]]</code>）指向 <code>proto</code>。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">obj</span> <span style="color:#f92672">=</span> Object.<span style="color:#a6e22e">create</span>(<span style="color:#66d9ef">null</span>); <span style="color:#75715e">// 完全干净的对象
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 没有继承 Object.prototype 上的东西（如 toString、hasOwnProperty 等）
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">__proto__</span> <span style="color:#f92672">===</span> <span style="color:#66d9ef">null</span>); <span style="color:#75715e">// true
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">constructor</span>); <span style="color:#75715e">// undefined
+</span></span></span></code></pre></div><h2 id="如何区分普通函数与构造函数">如何区分普通函数与构造函数？ <a href="#%e5%a6%82%e4%bd%95%e5%8c%ba%e5%88%86%e6%99%ae%e9%80%9a%e5%87%bd%e6%95%b0%e4%b8%8e%e6%9e%84%e9%80%a0%e5%87%bd%e6%95%b0" class="anchor">🔗</a></h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">a</span>() {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;a is func&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 函数有二义性，既可以当普通函数调用，也可以当构造函数调用。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">a</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">instance</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">a</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">instance</span>);
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">body</span>&gt;
+</span></span></code></pre></div><p>解决函数二义性的问题， ES6 中使用 class 定义构造函数。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">A</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">constructor</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;class A&#39;s constructor function&#34;</span>);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// right
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">instance</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">A</span>();
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// error
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">A</span>(); <span style="color:#75715e">// Uncaught TypeError: Class constructor A cannot be invoked without &#39;new&#39;
+</span></span></span></code></pre></div><p>还可以在函数内部可以使用<code>new.target</code>来区别。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">A</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">new</span>.<span style="color:#a6e22e">target</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;A is constructor function&#34;</span>);
+</span></span><span style="display:flex;"><span>  } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;A is normal function&#34;</span>);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">A</span>();
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">new</span> <span style="color:#a6e22e">A</span>();
+</span></span></code></pre></div><h2 id="如何通过点操作符寻找函数和属性">如何通过点操作符寻找函数和属性 <a href="#%e5%a6%82%e4%bd%95%e9%80%9a%e8%bf%87%e7%82%b9%e6%93%8d%e4%bd%9c%e7%ac%a6%e5%af%bb%e6%89%be%e5%87%bd%e6%95%b0%e5%92%8c%e5%b1%9e%e6%80%a7" class="anchor">🔗</a></h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Person</span>(<span style="color:#a6e22e">name</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">name</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Person</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">sayHi</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;hi, I am &#34;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span>);
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Person</span>(<span style="color:#e6db74">&#34;Jane&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">sayHi</span>(); <span style="color:#75715e">// ?. 相当于。 Person.prototype.sayHi.call(a)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//取属性, 取出 sayHi 这个函数引用. const fn = a.sayHi， 此时 fn === Person.prototype.sayHi
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 调用阶段 → 把 this 绑定为 a， fn.call(a)
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">getProperty</span>(<span style="color:#a6e22e">obj</span>, <span style="color:#a6e22e">prop</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">while</span> (<span style="color:#a6e22e">obj</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">hasOwnProperty</span>(<span style="color:#a6e22e">prop</span>)) {
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e">// 先看对象自身是否有该属性
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">obj</span>[<span style="color:#a6e22e">prop</span>];
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 如果没有，就去它的 原型对象（prototype） 上找
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">obj</span> <span style="color:#f92672">=</span> Object.<span style="color:#a6e22e">getPrototypeOf</span>(<span style="color:#a6e22e">obj</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// obj = obj.__proto__
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">undefined</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><table>
+<thead>
+<tr>
+<th>调用形式</th>
+<th>this 指向</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>obj.fn()</code></td>
+<td><code>obj</code></td>
+</tr>
+<tr>
+<td><code>fn()</code></td>
+<td><code>undefined</code>（严格模式）或 <code>window</code>（非严格模式）</td>
+</tr>
+<tr>
+<td><code>fn.call(obj)</code> / <code>fn.apply(obj)</code></td>
+<td>手动绑定为 <code>obj</code></td>
+</tr>
+<tr>
+<td><code>fn.bind(obj)</code></td>
+<td>返回一个永久绑定 this 的新函数</td>
+</tr>
+<tr>
+<td><code>new Fn()</code></td>
+<td>this 指向新创建的实例对象</td>
+</tr>
+</tbody>
+</table>
 <h2 id="基本语法">基本语法 <a href="#%e5%9f%ba%e6%9c%ac%e8%af%ad%e6%b3%95" class="anchor">🔗</a></h2><p>js runtime 时的工作方式是： 先解析代码获取所有声明的变量，再一行一行执行。<code>var</code> 出现变量提升。</p>
 <p><code>数据的类型</code> ：null 与 undefined。
 查看值的类型： <code>typeof</code>, <code>instanceof</code>, <code>Object.prototype.toString</code>。</p>
@@ -256,8 +421,107 @@
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">key</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">obj</span>) {
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;obj.&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">key</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; = &#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">obj</span>[<span style="color:#a6e22e">key</span>]);
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><hr>
-<h1 id="typescript">typescript <a href="#typescript" class="anchor">🔗</a></h1><p>核心配置文件：tsconfig.json</p>
+</span></span></code></pre></div><h2 id="什么是属性描述符">什么是属性描述符？ <a href="#%e4%bb%80%e4%b9%88%e6%98%af%e5%b1%9e%e6%80%a7%e6%8f%8f%e8%bf%b0%e7%ac%a6" class="anchor">🔗</a></h2><p>用属性描述符改写构造函数</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">test</span>(<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span>, <span style="color:#a6e22e">c</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">a</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">b</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">b</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">c</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 对属性的访问和修改进行拦截
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  Object.<span style="color:#a6e22e">defineProperty</span>(<span style="color:#66d9ef">this</span>, <span style="color:#e6db74">&#34;sum&#34;</span>, {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">get</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span> () {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">a</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">b</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">c</span>;
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>  });
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 如果改成这样？ 闭包中保存的初始值
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  Object.<span style="color:#a6e22e">defineProperty</span>(<span style="color:#66d9ef">this</span>, <span style="color:#e6db74">&#34;sum&#34;</span>, {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">get</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span> () {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">b</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">c</span>;
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>  });
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">obj</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">test</span>(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>);
+</span></span></code></pre></div><h2 id="柯里化">柯里化 <a href="#%e6%9f%af%e9%87%8c%e5%8c%96" class="anchor">🔗</a></h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">sum</span>(<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span>, <span style="color:#a6e22e">c</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">a</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">b</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">c</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">curry</span>(<span style="color:#a6e22e">fn</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">curried</span>(...<span style="color:#a6e22e">args</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">args</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">&gt;=</span> <span style="color:#a6e22e">fn</span>.<span style="color:#a6e22e">length</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fn</span>.<span style="color:#a6e22e">apply</span>(<span style="color:#66d9ef">this</span>, <span style="color:#a6e22e">args</span>);
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">function</span> (...<span style="color:#a6e22e">args2</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">curried</span>.<span style="color:#a6e22e">apply</span>(<span style="color:#66d9ef">this</span>, <span style="color:#a6e22e">args</span>.<span style="color:#a6e22e">concat</span>(<span style="color:#a6e22e">args2</span>));
+</span></span><span style="display:flex;"><span>      };
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  };
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">_sum</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">curry</span>(<span style="color:#a6e22e">sum</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">fa</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">_sum</span>(<span style="color:#ae81ff">2</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">fb</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">_fa</span>(<span style="color:#ae81ff">3</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fb</span>(<span style="color:#ae81ff">4</span>); <span style="color:#75715e">// print: 9
+</span></span></span></code></pre></div><h2 id="变量遮挡变量提升">变量遮挡，变量提升 <a href="#%e5%8f%98%e9%87%8f%e9%81%ae%e6%8c%a1%e5%8f%98%e9%87%8f%e6%8f%90%e5%8d%87" class="anchor">🔗</a></h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">test</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;hello, world&#34;</span>;
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">test</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">test</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;xyz&#34;</span>; <span style="color:#75715e">// 函数的名称在函数内部不能修改。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">test</span>); <span style="color:#75715e">// 打印test函数，而非xyz。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>})();
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">foo</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 变量提升，变量声明和函数声明会被提升到作用域的顶部，赋值操作符不会被提升
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">// var a;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;first a&#34;</span>, <span style="color:#a6e22e">a</span>); <span style="color:#75715e">// undefined
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>; <span style="color:#75715e">// a = 3;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;second a&#34;</span>, <span style="color:#a6e22e">a</span>); <span style="color:#75715e">// 3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;third a&#34;</span>, <span style="color:#a6e22e">a</span>); <span style="color:#75715e">// 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">foo</span>();
+</span></span></code></pre></div><h2 id="如何利用迭代器实现解构">如何利用迭代器实现解构 <a href="#%e5%a6%82%e4%bd%95%e5%88%a9%e7%94%a8%e8%bf%ad%e4%bb%a3%e5%99%a8%e5%ae%9e%e7%8e%b0%e8%a7%a3%e6%9e%84" class="anchor">🔗</a></h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">generator</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span><span style="color:#f92672">*</span> () {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">yield</span> <span style="color:#e6db74">&#34;1&#34;</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">yield</span> <span style="color:#e6db74">&#34;2&#34;</span>;
+</span></span><span style="display:flex;"><span>}; <span style="color:#75715e">// 生成器
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 调用生成器返回迭代器
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">iterator</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">generator</span>();
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">iterator</span>.<span style="color:#a6e22e">next</span>()); <span style="color:#75715e">// 一个封装了value和done的对象
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">iterator</span>.<span style="color:#a6e22e">next</span>());
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">obj</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">x</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">y</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span> };
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">obj</span>[<span style="color:#a6e22e">Symbol</span>.<span style="color:#a6e22e">iterator</span>] <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span><span style="color:#f92672">*</span> () {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">yield</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">x</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">yield</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">y</span>;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// let iterator = obj[Symbol.iterator];
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// let x = iterator.next().value;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// let y = iterator.next().value;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> [<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">obj</span>; <span style="color:#75715e">// 解构的本质是调用迭代器获取值
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span>);
+</span></span></code></pre></div><h2 id="objectis---区别">Object.is, ===, == 区别 <a href="#objectis---%e5%8c%ba%e5%88%ab" class="anchor">🔗</a></h2><p><code>==</code>非严格相等有隐式类型转换。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#66d9ef">null</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">undefined</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#66d9ef">NaN</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">NaN</span>);
+</span></span></code></pre></div><p>Object.is 和=== 不会进行类型转换</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>Object.<span style="color:#a6e22e">is</span>(<span style="color:#66d9ef">NaN</span>, <span style="color:#66d9ef">NaN</span>); <span style="color:#75715e">// true;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>Object.<span style="color:#a6e22e">is</span>(<span style="color:#f92672">+</span><span style="color:#ae81ff">0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">0</span>); <span style="color:#75715e">// false;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#66d9ef">NaN</span> <span style="color:#f92672">===</span> <span style="color:#66d9ef">NaN</span>); <span style="color:#75715e">//false;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#f92672">+</span><span style="color:#ae81ff">0</span> <span style="color:#f92672">===</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">0</span>); <span style="color:#75715e">//true;
+</span></span></span></code></pre></div><h2 id="如何使用-proxy-实现函数的链式调用">如何使用 Proxy 实现函数的链式调用？ <a href="#%e5%a6%82%e4%bd%95%e4%bd%bf%e7%94%a8-proxy-%e5%ae%9e%e7%8e%b0%e5%87%bd%e6%95%b0%e7%9a%84%e9%93%be%e5%bc%8f%e8%b0%83%e7%94%a8" class="anchor">🔗</a></h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">target</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">value</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">42</span>,
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">handler</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">get</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">target</span>, <span style="color:#a6e22e">property</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">target</span>, <span style="color:#a6e22e">property</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">target</span>[<span style="color:#a6e22e">property</span>];
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><h2 id="object-和-map-的区别">Object 和 map 的区别？ <a href="#object-%e5%92%8c-map-%e7%9a%84%e5%8c%ba%e5%88%ab" class="anchor">🔗</a></h2><h2 id="判断-this-的指向">判断 this 的指向 <a href="#%e5%88%a4%e6%96%ad-this-%e7%9a%84%e6%8c%87%e5%90%91" class="anchor">🔗</a></h2><h3 id="js-中的代码动态执行">js 中的代码动态执行 <a href="#js-%e4%b8%ad%e7%9a%84%e4%bb%a3%e7%a0%81%e5%8a%a8%e6%80%81%e6%89%a7%e8%a1%8c" class="anchor">🔗</a></h3><p><code>eval</code>, <code>setTimeout</code>, <code>&lt;script&gt;</code>标签。</p>
+<h1 id="javascript-异步编程">javascript 异步编程 <a href="#javascript-%e5%bc%82%e6%ad%a5%e7%bc%96%e7%a8%8b" class="anchor">🔗</a></h1><h2 id="实现-mypromise">实现 MyPromise <a href="#%e5%ae%9e%e7%8e%b0-mypromise" class="anchor">🔗</a></h2><hr>
+<h1 id="typescript">typescript <a href="#typescript" class="anchor">🔗</a></h1><p><code>as</code> 类型断言（type asserttion）， 强制断言为某个类型。覆盖原来的类型推断。</p>
+<p>即使缺少属性也不会报错。</p>
+<p><code>satisfies</code> 仅约束目标类型不改变推断。</p>
+<p><code>extends</code> 类型约束（用于范型）</p>
+<p><code>is</code> 类型谓词。</p>
+<p><code>infer</code> 类型推断（用于条件类型）</p>
+<h2 id="类型约束的关键词">类型约束的关键词 <a href="#%e7%b1%bb%e5%9e%8b%e7%ba%a6%e6%9d%9f%e7%9a%84%e5%85%b3%e9%94%ae%e8%af%8d" class="anchor">🔗</a></h2><p>`**</p>
+<p>核心配置文件：tsconfig.json</p>
 <h2 id="cocos-creator-3x-的游戏开发">cocos creator 3.x 的游戏开发 <a href="#cocos-creator-3x-%e7%9a%84%e6%b8%b8%e6%88%8f%e5%bc%80%e5%8f%91" class="anchor">🔗</a></h2><p><a href="https://www.bilibili.com/video/BV1Vw4m1e7wt" target="_blank" rel="noopener">B 站 Siki 老师的（Cocos 开发入门）TypeScript 零基础入门视频教程。</a>
 需要 1 天时间，快速入门就够了。</p>
 <p>与 c++,java 这类先定义类在定义对象的做法很大不同，js 的对象定义是动态，对象的属性和方法可以随时增删改。<br></p>
@@ -433,7 +697,14 @@ src 包含了 TypeScript 和 CSS 源码。index.tsx 是强制使用的入口文�
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>(<span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">exports</span>, <span style="color:#a6e22e">require</span>, <span style="color:#a6e22e">module</span>, <span style="color:#a6e22e">__filename</span>, <span style="color:#a6e22e">__dirname</span>) {
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 模块代码。
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>});
-</span></span></code></pre></div><hr>
+</span></span></code></pre></div><h1 id="es-module">ES module <a href="#es-module" class="anchor">🔗</a></h1><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;module&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 以ES module的标准执行其中的js代码
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">//  ESM自动采用严格模式， 例如不能使用全局this
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">//  每个ES module都是私有作用域
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">//  ESM是通过CORS的方式去请求外部js模块
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">//  ESM的script标签会延迟执行脚本，等同于defer属性。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>&lt;/<span style="color:#f92672">script</span>&gt;
+</span></span></code></pre></div><h1 id="把-js-代码和-js-运行时打包为一个可执行文件">把 js 代码和 js 运行时打包为一个可执行文件 <a href="#%e6%8a%8a-js-%e4%bb%a3%e7%a0%81%e5%92%8c-js-%e8%bf%90%e8%a1%8c%e6%97%b6%e6%89%93%e5%8c%85%e4%b8%ba%e4%b8%80%e4%b8%aa%e5%8f%af%e6%89%a7%e8%a1%8c%e6%96%87%e4%bb%b6" class="anchor">🔗</a></h1><h2 id="node-的方式">node 的方式 <a href="#node-%e7%9a%84%e6%96%b9%e5%bc%8f" class="anchor">🔗</a></h2><h2 id="deno-的方式">deno 的方式 <a href="#deno-%e7%9a%84%e6%96%b9%e5%bc%8f" class="anchor">🔗</a></h2><h2 id="bun-的方式">bun 的方式 <a href="#bun-%e7%9a%84%e6%96%b9%e5%bc%8f" class="anchor">🔗</a></h2><hr>
 <h1 id="css">css <a href="#css" class="anchor">🔗</a></h1><p>围绕着 html 元素的选择，样式，布局展开的系统。</p>
 <p>描述 html 中标签的样式格式。<br></p>
 <p>语法规则： 声明语句，选择器。<br></p>
@@ -508,6 +779,91 @@ BFC 的特点：</p>
 <li>容器不会与浮动元素重叠。</li>
 </ul>
 <p>触发父元素成为 BFC 的方式：<code>overflow: hidden</code>， <code>display: flow-root</code>。</p>
+<hr>
+<h1 id="前端工程化">前端工程化 <a href="#%e5%89%8d%e7%ab%af%e5%b7%a5%e7%a8%8b%e5%8c%96" class="anchor">🔗</a></h1><h2 id="为什么需要工程化">为什么需要工程化？ <a href="#%e4%b8%ba%e4%bb%80%e4%b9%88%e9%9c%80%e8%a6%81%e5%b7%a5%e7%a8%8b%e5%8c%96" class="anchor">🔗</a></h2><p>所有 JS 都直接用 <code>&lt;script&gt;</code> 标签引入导致了</p>
+<table>
+<thead>
+<tr>
+<th>问题</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>命名冲突</strong></td>
+<td>所有变量、函数都在全局作用域，<code>function init()</code> 一不小心就重名了</td>
+</tr>
+<tr>
+<td><strong>依赖顺序难维护</strong></td>
+<td><code>b.js</code> 依赖 <code>a.js</code>，但加载顺序没搞对就报错</td>
+</tr>
+<tr>
+<td><strong>文件数量爆炸</strong></td>
+<td>稍大一点的项目可能有几十上百个 JS 文件，每个都要 <code>&lt;script&gt;</code> 引入</td>
+</tr>
+<tr>
+<td><strong>重复逻辑多、难复用</strong></td>
+<td>没有模块系统，无法拆分和复用逻辑</td>
+</tr>
+<tr>
+<td><strong>多人协作困难</strong></td>
+<td>不同人改不同文件，全局污染、冲突频发</td>
+</tr>
+<tr>
+<td><strong>上线性能差</strong></td>
+<td>浏览器一次性要加载几十个小文件，请求开销大</td>
+</tr>
+<tr>
+<td><strong>没有自动构建</strong></td>
+<td>想压缩、混淆、加 hash，都要人工处理</td>
+</tr>
+<tr>
+<td><strong>无法使用新特性</strong></td>
+<td>浏览器不支持 ES6、TypeScript、SCSS 等语法</td>
+</tr>
+</tbody>
+</table>
+<h2 id="工程化的方向">工程化的方向 <a href="#%e5%b7%a5%e7%a8%8b%e5%8c%96%e7%9a%84%e6%96%b9%e5%90%91" class="anchor">🔗</a></h2><table>
+<thead>
+<tr>
+<th>方向</th>
+<th>工具/手段</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>模块化</strong></td>
+<td>ES Modules / CommonJS / Webpack</td>
+<td>拆分 JS 文件、按需加载</td>
+</tr>
+<tr>
+<td><strong>组件化</strong></td>
+<td>React / Vue / Svelte</td>
+<td>拆分 UI 结构，复用、组合</td>
+</tr>
+<tr>
+<td><strong>自动化构建</strong></td>
+<td>Webpack / Vite / Rollup</td>
+<td>打包、压缩、转译、优化</td>
+</tr>
+<tr>
+<td><strong>自动化测试</strong></td>
+<td>Jest / Cypress</td>
+<td>保证功能正确</td>
+</tr>
+<tr>
+<td><strong>自动部署</strong></td>
+<td>CI/CD、Docker</td>
+<td>从提交代码到上线自动化</td>
+</tr>
+<tr>
+<td><strong>代码质量控制</strong></td>
+<td>ESLint / Prettier</td>
+<td>统一规范、减少 bug</td>
+</tr>
+</tbody>
+</table>
 <hr>
 <h1 id="常见考点">常见考点 <a href="#%e5%b8%b8%e8%a7%81%e8%80%83%e7%82%b9" class="anchor">🔗</a></h1><h2 id="水平垂直居中的写法">水平垂直居中的写法 <a href="#%e6%b0%b4%e5%b9%b3%e5%9e%82%e7%9b%b4%e5%b1%85%e4%b8%ad%e7%9a%84%e5%86%99%e6%b3%95" class="anchor">🔗</a></h2><p>Flex 布局。简单可靠。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span>.<span style="color:#a6e22e">parent</span> {
