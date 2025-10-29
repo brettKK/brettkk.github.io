@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          6543 words
+          6813 words
         </span>
         <span class="split">
           ·
@@ -187,6 +187,11 @@
         <li><a href="#react-的-jsx-转换真实-dom-的过程">react 的 JSx 转换真实 DOM 的过程</a></li>
         <li><a href="#react-的事件代理机制和原生事件绑定的区别">react 的事件代理机制和原生事件绑定的区别？</a></li>
         <li><a href="#react-中-element-componentnode-instance">react 中 Element， component，Node, Instance</a></li>
+      </ul>
+    </li>
+    <li><a href="#题目">题目</a>
+      <ul>
+        <li><a href="#react-的合成事件">react 的合成事件</a></li>
         <li><a href="#参考">参考</a></li>
       </ul>
     </li>
@@ -637,9 +642,13 @@ Virtual DOM（纯 JS 对象）
 <p>Next.js， SSR 框架。Remix，全栈 react 框架。</p>
 <h2 id="什么情况下使用-usememousecallback">什么情况下使用 useMemo，usecallback <a href="#%e4%bb%80%e4%b9%88%e6%83%85%e5%86%b5%e4%b8%8b%e4%bd%bf%e7%94%a8-usememousecallback" class="anchor">🔗</a></h2><p>useMemo 缓存计算结果。 useCallback 缓存函数引用。</p>
 <h2 id="react-的-memo-和-memoize-函数的区别">react 的 memo 和 memoize 函数的区别 <a href="#react-%e7%9a%84-memo-%e5%92%8c-memoize-%e5%87%bd%e6%95%b0%e7%9a%84%e5%8c%ba%e5%88%ab" class="anchor">🔗</a></h2><p>react 的 memo 对于纯展示的组件（仅依赖 props 渲染， 无内部状态和副作用），减少渲染。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#a6e22e">cosnt</span> <span style="color:#a6e22e">MemoizedComponent</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">memo</span>(({<span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">age</span>}) =&gt; {
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">div</span>&gt;{<span style="color:#a6e22e">name</span>}<span style="color:#f92672">-</span>{<span style="color:#a6e22e">age</span>}&lt;/<span style="color:#f92672">div</span>&gt;
-</span></span><span style="display:flex;"><span>})
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">MemoizedComponent</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">memo</span>(({ <span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">age</span> }) =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> (
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>      {<span style="color:#a6e22e">name</span>}<span style="color:#f92672">-</span>{<span style="color:#a6e22e">age</span>}
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>  );
+</span></span><span style="display:flex;"><span>});
 </span></span></code></pre></div><h2 id="useref-ref-forwardsref-的区别">useRef， ref， forwardsRef 的区别？ <a href="#useref-ref-forwardsref-%e7%9a%84%e5%8c%ba%e5%88%ab" class="anchor">🔗</a></h2><p>ref 是一个属性用于获取 DOM 元素的引用。</p>
 <p>useRef 是 React Hook， 访问 DOM 元素。特点是存储的值发生变化不会导致组件重新渲染。</p>
 <p>forwardsRef 是函数，用于在函数组件间转发引用。
@@ -779,6 +788,20 @@ forwardsRef 必须配合 ref 属性使用。父组件传递的 ref 可以是 use
 <p>React 组件是函数，封装了 UI 逻辑和状态， 接收 props 并返回 React 元素。</p>
 <p>React Node 更宽泛， 是渲染中的任何值，可以是 react 元素，字符串，数字， 数组等。 react 的 render 方法返回了 react node。</p>
 <p>React Instance 类组件实例化后的对象，函数组件无实例。</p>
+<h1 id="题目">题目 <a href="#%e9%a2%98%e7%9b%ae" class="anchor">🔗</a></h1><h2 id="react-的合成事件">react 的合成事件 <a href="#react-%e7%9a%84%e5%90%88%e6%88%90%e4%ba%8b%e4%bb%b6" class="anchor">🔗</a></h2><p>React 为了屏蔽不同浏览器之间事件系统的差异，自己实现了一套“事件系统”，
+在这套系统中，所有事件对象都不是浏览器原生事件对象，而是 React 封装的 合成事件对象 —— SyntheticEvent。</p>
+<p>例如 在 JSX 里写 onClick={handleClick} 时，React 实际上不是直接绑定到 button 的原生 click 事件。</p>
+<p>React 不在每个 DOM 上都绑定事件，而是把所有事件绑定在根节点（如 document 或 React Root）上，通过事件冒泡统一调度。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">App</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">handleClick</span>(<span style="color:#a6e22e">e</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">e</span>); <span style="color:#75715e">// SyntheticEvent
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">nativeEvent</span>); <span style="color:#75715e">// 原生事件
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">handleClick</span>}&gt;<span style="color:#a6e22e">点我</span>&lt;/<span style="color:#f92672">button</span>&gt;;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>事件池。</p>
+<p>填充 type, target, nativeEvent, preventDefault() 等属性；</p>
 <h2 id="参考">参考 <a href="#%e5%8f%82%e8%80%83" class="anchor">🔗</a></h2><p>react 的官网 doc</p>
 
     </div>

@@ -72,13 +72,13 @@ webpack 的工作流程
           ·
         </span>
         <span>
-          178 words
+          239 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          1 minute read
+          2 minute read
         </span>
     </div>
 
@@ -112,8 +112,8 @@ webpack 的工作流程
       <ul>
         <li><a href="#封装自定义指令">封装自定义指令</a></li>
         <li><a href="#自定义指令的修饰符">自定义指令的修饰符</a></li>
+        <li><a href="#v-model-如何实现父子组件的通信">v-model 如何实现父子组件的通信</a></li>
         <li><a href="#dd">dd</a></li>
-        <li><a href="#dd-1">dd</a></li>
       </ul>
     </li>
   </ul>
@@ -178,7 +178,30 @@ Delete <code>·</code> prettier/prettier</p>
 </span></span><span style="display:flex;"><span>  },
 </span></span><span style="display:flex;"><span>})
 </span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">v-highlight</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#a6e22e">delay</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;lightblue&#34;</span>&gt;xyz&lt;/<span style="color:#f92672">p</span>&gt;
-</span></span></code></pre></div><h2 id="dd">dd <a href="#dd" class="anchor">🔗</a></h2><h2 id="dd-1">dd <a href="#dd-1" class="anchor">🔗</a></h2><hr>
+</span></span></code></pre></div><h2 id="v-model-如何实现父子组件的通信">v-model 如何实现父子组件的通信 <a href="#v-model-%e5%a6%82%e4%bd%95%e5%ae%9e%e7%8e%b0%e7%88%b6%e5%ad%90%e7%bb%84%e4%bb%b6%e7%9a%84%e9%80%9a%e4%bf%a1" class="anchor">🔗</a></h2><p>通过 v-bind， 也就是<code>:</code>符号。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-vue" data-lang="vue"><span style="display:flex;"><span>&lt;<span style="color:#f92672">template</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">p</span>&gt;<span style="color:#a6e22e">父组件</span>{{ <span style="color:#a6e22e">param1</span> }}&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">p</span>&gt;<span style="color:#a6e22e">父组件</span>{{ <span style="color:#a6e22e">param2</span> }}&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">Child</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-model:p1</span><span style="color:#e6db74">=&#34;param1&#34;</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-model:p2</span><span style="color:#e6db74">=&#34;param2&#34;</span>&gt;&lt;/<span style="color:#f92672">Child</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">template</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">setup</span>&gt;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Child</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;./Child.vue&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">ref</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;vue&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">param1</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ref</span>(<span style="color:#e6db74">&#34;x&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">param2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ref</span>(<span style="color:#e6db74">&#34;y&#34;</span>);
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">script</span>&gt;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-vue" data-lang="vue"><span style="display:flex;"><span>&lt;<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">emit</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">defineEmits</span>([<span style="color:#e6db74">&#34;update:p1&#34;</span>, <span style="color:#e6db74">&#34;upate:p2&#34;</span>]);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">updateP1</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">emit</span>(<span style="color:#e6db74">&#34;update:p1&#34;</span>, <span style="color:#e6db74">&#34;xx&#34;</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">updateP2</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">emit</span>(<span style="color:#a6e22e">update</span><span style="color:#f92672">:</span><span style="color:#a6e22e">p2</span>, <span style="color:#e6db74">&#34;yy&#34;</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">script</span>&gt;
+</span></span></code></pre></div><h2 id="dd">dd <a href="#dd" class="anchor">🔗</a></h2><hr>
 
     </div>
 
