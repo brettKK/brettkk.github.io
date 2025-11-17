@@ -70,13 +70,13 @@
           ·
         </span>
         <span>
-          1232 words
+          1546 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          3 minute read
+          4 minute read
         </span>
     </div>
 
@@ -98,6 +98,7 @@
     <li><a href="#搭建源码阅读环境">搭建源码阅读环境</a></li>
     <li><a href="#核心概念">核心概念</a></li>
     <li><a href="#模块化机制-commonjs">模块化机制 CommonJS</a></li>
+    <li><a href="#require-和-packagejson-配置的密切关系">require 和 package.json 配置的密切关系</a></li>
     <li><a href="#常见的框架">常见的框架</a></li>
     <li><a href="#配合使用的数据库">配合使用的数据库</a></li>
   </ul>
@@ -255,6 +256,24 @@ make -j4
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>module 是每个模块自带的对象。 module.exports 是模块的默认导出接口, exports 是 module.exports 的引用。
 如果直接给 exports 赋值，如 exports={a: 1}，则会切断与 module.exports 的关联。</p>
+<h1 id="require-和-packagejson-配置的密切关系">require 和 package.json 配置的密切关系 <a href="#require-%e5%92%8c-packagejson-%e9%85%8d%e7%bd%ae%e7%9a%84%e5%af%86%e5%88%87%e5%85%b3%e7%b3%bb" class="anchor">🔗</a></h1><p>package.json 中的 <code>main 字段</code>定义了当前包（模块）被 require 时的默认入口文件。</p>
+<p>若 node_modules/foo/package.json 中配置：{ &quot;main&quot;: &quot;lib/foo.js&quot; }。
+则 require('foo') 等价于 require('./node_modules/foo/lib/foo.js')。</p>
+<p><code>export</code>字段是比 main 更强大的配置，用于限制模块的可访问路径。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;exports&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;.&#34;</span>: <span style="color:#e6db74">&#34;./index.js&#34;</span>, <span style="color:#75715e">// require(&#39;foo&#39;) 加载 index.js
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#f92672">&#34;./util&#34;</span>: <span style="color:#e6db74">&#34;./lib/util.js&#34;</span>, <span style="color:#75715e">// require(&#39;foo/util&#39;) 加载 lib/util.js
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#f92672">&#34;./feature&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;node&#34;</span>: <span style="color:#e6db74">&#34;./feature/node.js&#34;</span>, <span style="color:#75715e">// Node.js 环境加载此文件
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#f92672">&#34;default&#34;</span>: <span style="color:#e6db74">&#34;./feature/browser.js&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>除了 main 字段和 exports 字段，package.json 还有哪些字段会影响 require 的行为？</p>
+<p>type 字段：影响 .js 文件的解析方式，决定模块系统类型 common js or es module。</p>
+<p>module 字段：工具链的 ESM 入口。被 Webpack、Rollup 等构建工具广泛使用，用于指定 ES 模块的入口文件。
+browser 字段：浏览器环境的模块映射（工具链使用）。</p>
 <h1 id="常见的框架">常见的框架 <a href="#%e5%b8%b8%e8%a7%81%e7%9a%84%e6%a1%86%e6%9e%b6" class="anchor">🔗</a></h1><p>express（Web）、axios（请求）、moment（时间）</p>
 <h1 id="配合使用的数据库">配合使用的数据库 <a href="#%e9%85%8d%e5%90%88%e4%bd%bf%e7%94%a8%e7%9a%84%e6%95%b0%e6%8d%ae%e5%ba%93" class="anchor">🔗</a></h1><p>Mysql， Progres， mongodb。</p>
 <p>《深入浅出 Node.js》（进阶必读）</p>

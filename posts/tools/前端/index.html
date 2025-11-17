@@ -70,13 +70,13 @@
           ·
         </span>
         <span>
-          9270 words
+          9969 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          19 minute read
+          20 minute read
         </span>
     </div>
 
@@ -100,6 +100,10 @@
         <li><a href="#基本语法">基本语法</a>
           <ul>
             <li><a href="#普通函数与箭头函数的区别">普通函数与箭头函数的区别？</a></li>
+          </ul>
+        </li>
+        <li><a href="#iife-立即执行函数的表达式">IIFE 立即执行函数的表达式</a>
+          <ul>
             <li><a href="#javascript-中的数组">javascript 中的数组</a></li>
           </ul>
         </li>
@@ -111,6 +115,7 @@
             <li><a href="#javascript-中的循环">javascript 中的循环</a></li>
           </ul>
         </li>
+        <li><a href="#闭包">闭包</a></li>
         <li><a href="#实例方法和原型方法的区别">实例方法和原型方法的区别？</a></li>
         <li><a href="#什么是属性描述符">什么是属性描述符？</a></li>
         <li><a href="#柯里化">柯里化</a></li>
@@ -125,16 +130,13 @@
         <li><a href="#foreach-的实现原理">forEach 的实现原理</a></li>
         <li><a href="#for-循环">for 循环</a></li>
         <li><a href="#object-和-map-的区别">Object 和 map 的区别？</a></li>
-        <li><a href="#判断-this-的指向">判断 this 的指向</a>
-          <ul>
-            <li><a href="#js-中的代码动态执行">js 中的代码动态执行</a></li>
-          </ul>
-        </li>
+        <li><a href="#判断-this-的指向">判断 this 的指向</a></li>
       </ul>
     </li>
     <li><a href="#javascript-异步编程">javascript 异步编程</a>
       <ul>
         <li><a href="#实现-mypromise">实现 MyPromise</a></li>
+        <li><a href="#async-await-底层运行机制">async， await 底层运行机制</a></li>
       </ul>
     </li>
     <li><a href="#typescript">typescript</a>
@@ -264,7 +266,11 @@
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">Foo</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">constructor</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">Foo</span>); <span style="color:#75715e">// true
 </span></span></span></code></pre></div><ul>
 <li>函数有 <code>prototype</code></li>
-<li>对象有 <code>__proto__</code></li>
+<li>对象有 <code>__proto__</code>属性
+<ul>
+<li>ES6 推荐使用 Object.getPrototypeOf 获取原型对象。</li>
+</ul>
+</li>
 <li>实例.proto === 构造函数.prototype</li>
 </ul>
 <p>所有对象都有<code>constructor</code> 和<code>__proto__</code>。<code>__proto__</code> 和浏览器控制台里看到的<code>[[Prototype]]</code>是一个意思。constructor 是一个属性，默认指向创建该对象原型的构造函数。</p>
@@ -432,7 +438,26 @@ Object.create(null) 创建的“纯净对象”，它的原型是 null，没有 
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>  };
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h3 id="javascript-中的数组">javascript 中的数组 <a href="#javascript-%e4%b8%ad%e7%9a%84%e6%95%b0%e7%bb%84" class="anchor">🔗</a></h3><p>原地改变数组的方法：。。
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">throttle</span>(<span style="color:#a6e22e">func</span>, <span style="color:#a6e22e">delay</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">lastTime</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">function</span> (...<span style="color:#a6e22e">args</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">now</span> <span style="color:#f92672">=</span> Date.<span style="color:#a6e22e">now</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">now</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">lastTime</span> <span style="color:#f92672">&gt;=</span> <span style="color:#a6e22e">delay</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">lastTime</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">now</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">func</span>.<span style="color:#a6e22e">apply</span>(<span style="color:#66d9ef">this</span>, ...<span style="color:#a6e22e">args</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  };
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>window.<span style="color:#a6e22e">addEventListener</span>(
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;scroll&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">throttle</span>(() =&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;scroll event..&#34;</span>);
+</span></span><span style="display:flex;"><span>  }, <span style="color:#ae81ff">200</span>)
+</span></span><span style="display:flex;"><span>); <span style="color:#75715e">// 每200s 触发一次。
+</span></span></span></code></pre></div><h2 id="iife-立即执行函数的表达式">IIFE 立即执行函数的表达式 <a href="#iife-%e7%ab%8b%e5%8d%b3%e6%89%a7%e8%a1%8c%e5%87%bd%e6%95%b0%e7%9a%84%e8%a1%a8%e8%be%be%e5%bc%8f" class="anchor">🔗</a></h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>(<span style="color:#66d9ef">function</span> () {})();
+</span></span></code></pre></div><p>why？ 需要隔离作用域。</p>
+<h3 id="javascript-中的数组">javascript 中的数组 <a href="#javascript-%e4%b8%ad%e7%9a%84%e6%95%b0%e7%bb%84" class="anchor">🔗</a></h3><p>原地改变数组的方法：。。
 不改原数组返回新数组的方法：。。</p>
 <h2 id="数组的索引中有哪些隐式类型转换">数组的索引中有哪些隐式类型转换？ <a href="#%e6%95%b0%e7%bb%84%e7%9a%84%e7%b4%a2%e5%bc%95%e4%b8%ad%e6%9c%89%e5%93%aa%e4%ba%9b%e9%9a%90%e5%bc%8f%e7%b1%bb%e5%9e%8b%e8%bd%ac%e6%8d%a2" class="anchor">🔗</a></h2><p>JavaScript 数组的 “索引” 本质上是对象的属性名。而 JavaScript 中对象的属性名只能是字符串或 Symbol。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// 数组是一种特殊的对象，其 “索引” 本质上是对象的属性。
@@ -512,7 +537,10 @@ Object.create(null) 创建的“纯净对象”，它的原型是 null，没有 
 <p>静态属性的访问： 点操作符（需要是有效的 js 标识符，不能是数字了， obj.1=2, obj[1]=2）， 属性名为硬编码。 动态属性的访问： 方括号运算符，属性名在运行时计算得出。</p>
 <p>完整之后，先整理清楚 js 这部分内容。</p>
 <p>小红书上的面试题，强行扫一遍。</p>
-<h3 id="javascript-中的循环">javascript 中的循环 <a href="#javascript-%e4%b8%ad%e7%9a%84%e5%be%aa%e7%8e%af" class="anchor">🔗</a></h3><p><code>for</code>, <code>for...in</code>, <code>forEach</code>, <code>map</code>。</p>
+<h3 id="javascript-中的循环">javascript 中的循环 <a href="#javascript-%e4%b8%ad%e7%9a%84%e5%be%aa%e7%8e%af" class="anchor">🔗</a></h3><p>迭代方法： forEach, map, filter, reduce
+修改原数组： push, pop, shift, unshift, splice, sort, reverse.
+返回新数据： slice， concat， map，filter, reduce</p>
+<p><code>for</code>, <code>for...in</code>, <code>forEach</code>, <code>map</code>。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">10</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">i</span>);
 </span></span><span style="display:flex;"><span>}
@@ -521,7 +549,9 @@ Object.create(null) 创建的“纯净对象”，它的原型是 null，没有 
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">key</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">obj</span>) {
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;obj.&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">key</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; = &#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">obj</span>[<span style="color:#a6e22e">key</span>]);
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h2 id="实例方法和原型方法的区别">实例方法和原型方法的区别？ <a href="#%e5%ae%9e%e4%be%8b%e6%96%b9%e6%b3%95%e5%92%8c%e5%8e%9f%e5%9e%8b%e6%96%b9%e6%b3%95%e7%9a%84%e5%8c%ba%e5%88%ab" class="anchor">🔗</a></h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Person</span>() {
+</span></span></code></pre></div><h2 id="闭包">闭包 <a href="#%e9%97%ad%e5%8c%85" class="anchor">🔗</a></h2><p>为什么需要闭包？ 数据封装和创建私有变量。</p>
+<p>可以追踪到 ingition 中对于闭包的实现。利用 d8 查看闭包的字节码。</p>
+<h2 id="实例方法和原型方法的区别">实例方法和原型方法的区别？ <a href="#%e5%ae%9e%e4%be%8b%e6%96%b9%e6%b3%95%e5%92%8c%e5%8e%9f%e5%9e%8b%e6%96%b9%e6%b3%95%e7%9a%84%e5%8c%ba%e5%88%ab" class="anchor">🔗</a></h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Person</span>() {
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">Person</span>.<span style="color:#a6e22e">say</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;a&#34;</span>);
 </span></span><span style="display:flex;"><span>  };
@@ -564,8 +594,8 @@ Object.create(null) 创建的“纯净对象”，它的原型是 null，没有 
 </span></span></code></pre></div><h2 id="柯里化">柯里化 <a href="#%e6%9f%af%e9%87%8c%e5%8c%96" class="anchor">🔗</a></h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">sum</span>(<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span>, <span style="color:#a6e22e">c</span>) {
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">a</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">b</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">c</span>);
 </span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">curry</span>(<span style="color:#a6e22e">fn</span>) {
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 高阶函数，参数收集
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">curry</span>(<span style="color:#a6e22e">fn</span>) {
 </span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">curried</span>(...<span style="color:#a6e22e">args</span>) {
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">args</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">&gt;=</span> <span style="color:#a6e22e">fn</span>.<span style="color:#a6e22e">length</span>) {
 </span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fn</span>.<span style="color:#a6e22e">apply</span>(<span style="color:#66d9ef">this</span>, <span style="color:#a6e22e">args</span>);
@@ -785,8 +815,78 @@ Object.create(null) 创建的“纯净对象”，它的原型是 null，没有 
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">fun2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">arr</span>[<span style="color:#ae81ff">0</span>]; <span style="color:#75715e">//this执行window， ,1
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">fun2</span>();
 </span></span></code></pre></div><p><code>void 0</code>永远可以稳定返回<code>undefined</code>, 但是字面量 undefined 可以人为被修改。</p>
-<h3 id="js-中的代码动态执行">js 中的代码动态执行 <a href="#js-%e4%b8%ad%e7%9a%84%e4%bb%a3%e7%a0%81%e5%8a%a8%e6%80%81%e6%89%a7%e8%a1%8c" class="anchor">🔗</a></h3><p><code>eval</code>, <code>setTimeout</code>, <code>&lt;script&gt;</code>标签。</p>
-<h1 id="javascript-异步编程">javascript 异步编程 <a href="#javascript-%e5%bc%82%e6%ad%a5%e7%bc%96%e7%a8%8b" class="anchor">🔗</a></h1><h2 id="实现-mypromise">实现 MyPromise <a href="#%e5%ae%9e%e7%8e%b0-mypromise" class="anchor">🔗</a></h2><hr>
+<ul>
+<li>this 的值什么时候确定？</li>
+<li>this 的四大核心绑定规则
+<ul>
+<li>函数独立调用，非严格模式指向全局对象（浏览器中是 window），严格模式下 this 是 undefined。</li>
+<li>函数作为对象的一个方法调用时，this 指向对象。函数赋值给新变量后，this 的指向丢失。</li>
+<li>强制绑定 this 的指向（call， apply， bind）。</li>
+<li>new 的绑定。this 指向新创建的对象。
+<ul>
+<li>创建新的空对象{}</li>
+<li>新对象的原型链接到构造函数的 prototype 对象上。</li>
+<li>新对象为函数调用时的 this。</li>
+<li>隐式返回 this 对象，也是新对象。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>箭头函数的 this 为何不同？
+<ul>
+<li>没有自己的 this 绑定，this 在定义时所在的词法作用域。 之后无法通过 call，apply，bind 修改。</li>
+</ul>
+</li>
+<li>如何判断 this 的指向？</li>
+</ul>
+<p>一个特殊对象的引用，运行时绑定的，函数被调用时确定，由函数的 call-site 调用方式确定。</p>
+<p>回调函数中的 this 指向丢失问题？ 可以使用箭头函数解决。</p>
+<p>call, apply, bind 的实现原理是？</p>
+<p><code>eval</code>, <code>setTimeout</code>, <code>&lt;script&gt;</code>标签。</p>
+<h1 id="javascript-异步编程">javascript 异步编程 <a href="#javascript-%e5%bc%82%e6%ad%a5%e7%bc%96%e7%a8%8b" class="anchor">🔗</a></h1><h2 id="实现-mypromise">实现 MyPromise <a href="#%e5%ae%9e%e7%8e%b0-mypromise" class="anchor">🔗</a></h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyPromise</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">static</span> <span style="color:#a6e22e">PENDING</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;pending&#34;</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">static</span> <span style="color:#a6e22e">FULFILLED</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;fulfilled&#34;</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">static</span> <span style="color:#a6e22e">REJECTED</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;rejected&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">constructor</span>(<span style="color:#a6e22e">executor</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">status</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">MyPromise</span>.<span style="color:#a6e22e">PENDING</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">value</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">undefined</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">reason</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">undefined</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">onFulfilledCallbacks</span> <span style="color:#f92672">=</span> [];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">onRejectedCallbacks</span> <span style="color:#f92672">=</span> [];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">resolve</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">value</span>) =&gt; {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">this</span>.)
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">reject</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">executor</span>(<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>);
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">catch</span>(<span style="color:#a6e22e">error</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">reject</span>(<span style="color:#a6e22e">error</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">then</span>() {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">catch</span>(<span style="color:#a6e22e">onRejected</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">null</span>, <span style="color:#a6e22e">onRejected</span>);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">static</span> <span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">value</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">MyPromise</span>((<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">_</span>) =&gt; {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">value</span>);
+</span></span><span style="display:flex;"><span>    });
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">static</span> <span style="color:#a6e22e">reject</span>(<span style="color:#a6e22e">reason</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">MyPromise</span>((<span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">reject</span>) =&gt; {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">reject</span>(<span style="color:#a6e22e">reason</span>);
+</span></span><span style="display:flex;"><span>    });
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="async-await-底层运行机制">async， await 底层运行机制 <a href="#async-await-%e5%ba%95%e5%b1%82%e8%bf%90%e8%a1%8c%e6%9c%ba%e5%88%b6" class="anchor">🔗</a></h2><p>优点是代码风格是流程线性，同步。
+基于 Promise 和生成器 Generator 实现的。</p>
+<hr>
 <h1 id="typescript">typescript <a href="#typescript" class="anchor">🔗</a></h1><p><code>as</code> 类型断言（type asserttion）， 强制断言为某个类型。覆盖原来的类型推断。</p>
 <p>即使缺少属性也不会报错。</p>
 <p><code>satisfies</code> 仅约束目标类型不改变推断。</p>

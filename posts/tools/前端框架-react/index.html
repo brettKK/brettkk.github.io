@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          6813 words
+          6904 words
         </span>
         <span class="split">
           ·
@@ -174,6 +174,7 @@
         <li><a href="#实现-usetimeout-的-hook">实现 useTimeout 的 hook</a></li>
         <li><a href="#怎么获取函数组件的实例">怎么获取函数组件的实例？</a></li>
         <li><a href="#react-项目如何捕获错误">react 项目如何捕获错误？</a></li>
+        <li><a href="#受保护的路由-protected-route">受保护的路由 protected route</a></li>
         <li><a href="#react-中引入-css-的方式有几种">react 中引入 css 的方式有几种？</a></li>
         <li><a href="#单应用如何提高加载速度">单应用如何提高加载速度？</a>
           <ul>
@@ -731,6 +732,8 @@ forwardsRef 必须配合 ref 属性使用。父组件传递的 ref 可以是 use
 </span></span><span style="display:flex;"><span>  );
 </span></span><span style="display:flex;"><span>};
 </span></span></code></pre></div><h2 id="react-项目如何捕获错误">react 项目如何捕获错误？ <a href="#react-%e9%a1%b9%e7%9b%ae%e5%a6%82%e4%bd%95%e6%8d%95%e8%8e%b7%e9%94%99%e8%af%af" class="anchor">🔗</a></h2><p>分层捕获， 局部错误 try， catch。组件树错误用 ErrorBoundary。全局错误 unhandledrejection。</p>
+<p>错误边界 error boundaries 可以捕获子组件树中的 js 错误，展示降级 UI（fallback UI），不让整个 UI 组件树崩溃。</p>
+<h2 id="受保护的路由-protected-route">受保护的路由 protected route <a href="#%e5%8f%97%e4%bf%9d%e6%8a%a4%e7%9a%84%e8%b7%af%e7%94%b1-protected-route" class="anchor">🔗</a></h2><p>检查用户是否满足特定条件（如登录），才允许访问其下的组件和页面。</p>
 <h2 id="react-中引入-css-的方式有几种">react 中引入 css 的方式有几种？ <a href="#react-%e4%b8%ad%e5%bc%95%e5%85%a5-css-%e7%9a%84%e6%96%b9%e5%bc%8f%e6%9c%89%e5%87%a0%e7%a7%8d" class="anchor">🔗</a></h2><p>全局 css。创建 global.css 文件，在入口文件中引入 index.js，在组件中使用。</p>
 <p>模块化 css。将 css 文件命名为文件名.module.css，使样式仅作用于引入它的组件。</p>
 <p>Sass， SCSS 预处理器。</p>
