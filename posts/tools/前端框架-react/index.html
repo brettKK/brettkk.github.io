@@ -70,13 +70,13 @@
           ·
         </span>
         <span>
-          6904 words
+          8638 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          14 minute read
+          18 minute read
         </span>
     </div>
 
@@ -190,9 +190,40 @@
         <li><a href="#react-中-element-componentnode-instance">react 中 Element， component，Node, Instance</a></li>
       </ul>
     </li>
+    <li><a href="#全局状态管理方案">全局状态管理方案</a>
+      <ul>
+        <li><a href="#状态提升">状态提升</a></li>
+        <li><a href="#虚拟列表的实现">虚拟列表的实现</a></li>
+        <li><a href="#代码分割在-react-中的实现方式">代码分割在 react 中的实现方式</a></li>
+      </ul>
+    </li>
     <li><a href="#题目">题目</a>
       <ul>
         <li><a href="#react-的合成事件">react 的合成事件</a></li>
+      </ul>
+    </li>
+    <li><a href="#react-源码">react 源码</a>
+      <ul>
+        <li><a href="#源码包">源码包</a></li>
+        <li><a href="#jsx-的编译">jsx 的编译</a></li>
+        <li><a href="#串流程">串流程</a></li>
+        <li><a href="#实现简单版的-reactfiber">实现简单版的 reactfiber</a></li>
+      </ul>
+    </li>
+    <li><a href="#从项目启动过程到状态更新过程usestate">从项目启动过程到状态更新过程（useState）</a>
+      <ul>
+        <li><a href="#从零开始的-react-项目-demo">从零开始的 React 项目 Demo</a></li>
+        <li><a href="#react-项目启动过程从加载--fiber-构建--首次渲染">React 项目启动过程（从加载 → Fiber 构建 → 首次渲染）</a>
+          <ul>
+            <li><a href="#commit-阶段不可中断也是唯一操作-dom-的地方">commit 阶段（不可中断，也是唯一操作 DOM 的地方）</a></li>
+          </ul>
+        </li>
+        <li><a href="#react-状态更新过程usestate原理">React 状态更新过程（useState）原理</a>
+          <ul>
+            <li><a href="#更新阶段与首次渲染的区别">更新阶段与首次渲染的区别</a></li>
+            <li><a href="#完整总结流程">完整总结流程</a></li>
+          </ul>
+        </li>
         <li><a href="#参考">参考</a></li>
       </ul>
     </li>
@@ -791,7 +822,10 @@ forwardsRef 必须配合 ref 属性使用。父组件传递的 ref 可以是 use
 <p>React 组件是函数，封装了 UI 逻辑和状态， 接收 props 并返回 React 元素。</p>
 <p>React Node 更宽泛， 是渲染中的任何值，可以是 react 元素，字符串，数字， 数组等。 react 的 render 方法返回了 react node。</p>
 <p>React Instance 类组件实例化后的对象，函数组件无实例。</p>
-<h1 id="题目">题目 <a href="#%e9%a2%98%e7%9b%ae" class="anchor">🔗</a></h1><h2 id="react-的合成事件">react 的合成事件 <a href="#react-%e7%9a%84%e5%90%88%e6%88%90%e4%ba%8b%e4%bb%b6" class="anchor">🔗</a></h2><p>React 为了屏蔽不同浏览器之间事件系统的差异，自己实现了一套“事件系统”，
+<h1 id="全局状态管理方案">全局状态管理方案 <a href="#%e5%85%a8%e5%b1%80%e7%8a%b6%e6%80%81%e7%ae%a1%e7%90%86%e6%96%b9%e6%a1%88" class="anchor">🔗</a></h1><p><code>context</code>是 react 内置的，但是 context 值变化时，所有消费者组件会重新渲染。</p>
+<p>Redux，
+Zustand 的 api 简单上手快。</p>
+<h2 id="状态提升">状态提升 <a href="#%e7%8a%b6%e6%80%81%e6%8f%90%e5%8d%87" class="anchor">🔗</a></h2><h2 id="虚拟列表的实现">虚拟列表的实现 <a href="#%e8%99%9a%e6%8b%9f%e5%88%97%e8%a1%a8%e7%9a%84%e5%ae%9e%e7%8e%b0" class="anchor">🔗</a></h2><h2 id="代码分割在-react-中的实现方式">代码分割在 react 中的实现方式 <a href="#%e4%bb%a3%e7%a0%81%e5%88%86%e5%89%b2%e5%9c%a8-react-%e4%b8%ad%e7%9a%84%e5%ae%9e%e7%8e%b0%e6%96%b9%e5%bc%8f" class="anchor">🔗</a></h2><h1 id="题目">题目 <a href="#%e9%a2%98%e7%9b%ae" class="anchor">🔗</a></h1><h2 id="react-的合成事件">react 的合成事件 <a href="#react-%e7%9a%84%e5%90%88%e6%88%90%e4%ba%8b%e4%bb%b6" class="anchor">🔗</a></h2><p>React 为了屏蔽不同浏览器之间事件系统的差异，自己实现了一套“事件系统”，
 在这套系统中，所有事件对象都不是浏览器原生事件对象，而是 React 封装的 合成事件对象 —— SyntheticEvent。</p>
 <p>例如 在 JSX 里写 onClick={handleClick} 时，React 实际上不是直接绑定到 button 的原生 click 事件。</p>
 <p>React 不在每个 DOM 上都绑定事件，而是把所有事件绑定在根节点（如 document 或 React Root）上，通过事件冒泡统一调度。</p>
@@ -805,6 +839,225 @@ forwardsRef 必须配合 ref 属性使用。父组件传递的 ref 可以是 use
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>事件池。</p>
 <p>填充 type, target, nativeEvent, preventDefault() 等属性；</p>
+<h1 id="react-源码">react 源码 <a href="#react-%e6%ba%90%e7%a0%81" class="anchor">🔗</a></h1><p>下载源码，查看 package.json，查看构建的脚本。</p>
+<h2 id="源码包">源码包 <a href="#%e6%ba%90%e7%a0%81%e5%8c%85" class="anchor">🔗</a></h2><p>packages/react, packages/react-dom, packages/react-reconciler, packages/schduler</p>
+<h2 id="jsx-的编译">jsx 的编译 <a href="#jsx-%e7%9a%84%e7%bc%96%e8%af%91" class="anchor">🔗</a></h2><p><code>@babel/plugin-transform-react-jsx</code> 编译为普通 js 代码, 如<code>React.createElement</code>的代码。</p>
+<p>createElement</p>
+<h2 id="串流程">串流程 <a href="#%e4%b8%b2%e6%b5%81%e7%a8%8b" class="anchor">🔗</a></h2><p>初始化流程, ReactDOM.render, createRoot</p>
+<p>ReactElement 上有 ower 属性去指向 fiber</p>
+<p>数据更新流程，setState,</p>
+<p>scheduler 中的 minheap 实现优点队列的调度。</p>
+<h2 id="实现简单版的-reactfiber">实现简单版的 reactfiber <a href="#%e5%ae%9e%e7%8e%b0%e7%ae%80%e5%8d%95%e7%89%88%e7%9a%84-reactfiber" class="anchor">🔗</a></h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">taskQueue</span> <span style="color:#f92672">=</span> [];
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">rootFiber</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">currentFiber</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 创建第一个fiber
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">createFiber</span>(<span style="color:#a6e22e">element</span>, <span style="color:#a6e22e">parentFiber</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">element</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">parent</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">parentFiber</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">child</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">null</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">sibing</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">null</span>,
+</span></span><span style="display:flex;"><span>  };
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">updateFiberTree</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">rootFiber</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">rootFiber</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createFiber</span>(<span style="color:#e6db74">&#34;app&#34;</span>, <span style="color:#66d9ef">null</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">currentFiber</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">rootFiber</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">while</span> (<span style="color:#a6e22e">taskQueue</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">task</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">taskQueu</span>.<span style="color:#a6e22e">shift</span>();
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">performUnitOfWork</span>(<span style="color:#a6e22e">fiber</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 执行当前任务
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">elements</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">fiber</span>.<span style="color:#a6e22e">element</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">elements</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">elements</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">child</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">elements</span>.<span style="color:#a6e22e">forEach</span>((<span style="color:#a6e22e">element</span>, <span style="color:#a6e22e">index</span>) =&gt; {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">newFiber</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createFiber</span>(<span style="color:#a6e22e">element</span>, <span style="color:#a6e22e">fiber</span>);
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">index</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fiber</span>.<span style="color:#a6e22e">child</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">newFiber</span>;
+</span></span><span style="display:flex;"><span>      } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">child</span>.<span style="color:#a6e22e">sibing</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">newFiber</span>;
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">child</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">newFiber</span>;
+</span></span><span style="display:flex;"><span>    });
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">fiber</span>.<span style="color:#a6e22e">child</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fiber</span>.<span style="color:#a6e22e">child</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">nextFiber</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">fiber</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">while</span> (<span style="color:#a6e22e">nextFiber</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">nextFiber</span>.<span style="color:#a6e22e">sibing</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">nextFiber</span>.<span style="color:#a6e22e">sibing</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">nextFiber</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">nextFiber</span>.<span style="color:#a6e22e">parent</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 返回下一个任务
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">commitRoot</span>(<span style="color:#a6e22e">finishWork</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Fiber</span>) <span style="color:#66d9ef">void</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">commitWork</span>(<span style="color:#a6e22e">rootFiber</span>.<span style="color:#a6e22e">child</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">currentFiber</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">commitWork</span>(<span style="color:#a6e22e">fiber</span>) <span style="color:#66d9ef">void</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">fiber</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 渲染
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">fiber</span>.<span style="color:#a6e22e">element</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">commitWork</span>(<span style="color:#a6e22e">fiber</span>.<span style="color:#a6e22e">child</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">commitWork</span>(<span style="color:#a6e22e">fiber</span>.<span style="color:#a6e22e">sibing</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 将任务添加到任务队列
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">schduler</span>(<span style="color:#a6e22e">task</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">taskQueue</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">task</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 模拟任务
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">exampleTask</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">element</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;div&#34;</span>, <span style="color:#e6db74">&#34;p&#34;</span>, <span style="color:#e6db74">&#34;span&#34;</span>],
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 启动
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">schduler</span>(<span style="color:#a6e22e">exampleTask</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">updateFiberTree</span>();
+</span></span></code></pre></div><h1 id="从项目启动过程到状态更新过程usestate">从项目启动过程到状态更新过程（useState） <a href="#%e4%bb%8e%e9%a1%b9%e7%9b%ae%e5%90%af%e5%8a%a8%e8%bf%87%e7%a8%8b%e5%88%b0%e7%8a%b6%e6%80%81%e6%9b%b4%e6%96%b0%e8%bf%87%e7%a8%8busestate" class="anchor">🔗</a></h1><h2 id="从零开始的-react-项目-demo">从零开始的 React 项目 Demo <a href="#%e4%bb%8e%e9%9b%b6%e5%bc%80%e5%a7%8b%e7%9a%84-react-%e9%a1%b9%e7%9b%ae-demo" class="anchor">🔗</a></h2><pre tabindex="0"><code>src/
+  main.jsx
+  App.jsx
+</code></pre><p>main.jxs 如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;react&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">ReactDOM</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;react-dom/client&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">App</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;./App&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ReactDOM</span>.<span style="color:#a6e22e">createRoot</span>(document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#34;root&#34;</span>)).<span style="color:#a6e22e">render</span>(&lt;<span style="color:#f92672">App</span> /&gt;);
+</span></span></code></pre></div><p>App.jsx 如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useState</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;react&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">App</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">count</span>, <span style="color:#a6e22e">setCount</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(<span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> (
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">p</span>&gt;{<span style="color:#a6e22e">count</span>}&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{() =&gt; <span style="color:#a6e22e">setCount</span>(<span style="color:#a6e22e">count</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)}&gt;<span style="color:#a6e22e">add</span>&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>  );
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="react-项目启动过程从加载--fiber-构建--首次渲染">React 项目启动过程（从加载 → Fiber 构建 → 首次渲染） <a href="#react-%e9%a1%b9%e7%9b%ae%e5%90%af%e5%8a%a8%e8%bf%87%e7%a8%8b%e4%bb%8e%e5%8a%a0%e8%bd%bd--fiber-%e6%9e%84%e5%bb%ba--%e9%a6%96%e6%ac%a1%e6%b8%b2%e6%9f%93" class="anchor">🔗</a></h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#75715e">// 管理对象（FiberRoot）
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fiberRoot</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">containerInfo</span><span style="color:#f92672">:</span> document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#39;root&#39;</span>), <span style="color:#75715e">// React 挂载的 DOM 容器
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">current</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">rootFiber</span>,     <span style="color:#75715e">// 指向当前的根 Fiber（两者互相引用）
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">pendingLanes</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>,        <span style="color:#75715e">// 调度相关的元信息（lane）
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">callbackNode</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">null</span>,     <span style="color:#75715e">// 当前调度回调的引用
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">finishedWork</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">null</span>,     <span style="color:#75715e">// render 完成后要 commit 的 fiber 链表
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">// ...还有其他调度/队列字段
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 伪代码：Fiber 节点（简化）
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">rootFiber</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">tag</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;HostRoot&#34;</span>,        <span style="color:#75715e">// 根节点类型
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">child</span><span style="color:#f92672">:</span> ...,             <span style="color:#75715e">// 子 Fiber 链表
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">sibling</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">null</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">null</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">stateNode</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">null</span>,        <span style="color:#75715e">// &lt;-- 会指向 FiberRoot（管理对象）
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">updateQueue</span><span style="color:#f92672">:</span> {...},     <span style="color:#75715e">// 根节点的更新队列（也可以放在 FiberRoot）
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  ...<span style="color:#a6e22e">otherFiberFields</span>
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 两者互相关联
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">rootFiber</span>.<span style="color:#a6e22e">stateNode</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">fiberRoot</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fiberRoot</span>.<span style="color:#a6e22e">current</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">rootFiber</span>;
+</span></span></code></pre></div><p>下面按真实 React 内部流程来走，包括 performWork, beginWork, completeWork。</p>
+<ol>
+<li>浏览器加载 main.jsx → 执行 ReactDOM.createRoot()</li>
+</ol>
+<p><code>createRoot</code>创建 RootFiber</p>
+<ol start="2">
+<li>root.render(<App />) → 创建 Update 对象，放入 UpdateQueue</li>
+</ol>
+<p>render(<App />) 并不是立即渲染，是：为 RootFiber 创建一个更新（Update），把 <App /> 作为 pending update，调度一个任务，让 React 的 scheduler 在空闲/高优先级时执行，然后才会进入：<code>performConcurrentWorkOnRoot</code>。</p>
+<ol start="3">
+<li>进入 Fiber 构建（渲染阶段）
+render phase（可中断），构建 Fiber Tree（虚拟 DOM 的 Fiber 树）。
+commit phase（不可中断）把 Fiber 变成真实 DOM。</li>
+</ol>
+<p>render 阶段 — performUnitOfWork</p>
+<p>根 Fiber 开始：</p>
+<pre tabindex="0"><code>performUnitOfWork(rootFiber)
+  → beginWork
+  → return child (App Fiber)
+performUnitOfWork(AppFiber)
+  → beginWork
+  → return child (div Fiber)
+performUnitOfWork(divFiber)
+  → beginWork
+  → return child (p Fiber)
+...
+</code></pre><p>beginWork 做什么？根据 props/状态 生成子 Fiber。
+beginWork(AppFiber)</p>
+<p>a， 执行 App()</p>
+<p>b，进入 React hooks dispatcher</p>
+<p>c，useState(0) 产生：hook 对象（链表），初始 state = 0</p>
+<p>d，返回 React Element 结构：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">p</span>&gt;<span style="color:#ae81ff">0</span>&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">button</span>&gt;<span style="color:#a6e22e">add</span>&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span></code></pre></div><p>f，React 根据 element 生成子 Fiber</p>
+<p>completeWork 做什么？每个 Fiber 的 completeWork 会处理：创建 DOM 节点（首次渲染），收集 effectList（要执行的 DOM 操作）。</p>
+<p>最终 rootFiber 会带着一串 DOM effectList 进入 commit 阶段。</p>
+<h3 id="commit-阶段不可中断也是唯一操作-dom-的地方">commit 阶段（不可中断，也是唯一操作 DOM 的地方） <a href="#commit-%e9%98%b6%e6%ae%b5%e4%b8%8d%e5%8f%af%e4%b8%ad%e6%96%ad%e4%b9%9f%e6%98%af%e5%94%af%e4%b8%80%e6%93%8d%e4%bd%9c-dom-%e7%9a%84%e5%9c%b0%e6%96%b9" class="anchor">🔗</a></h3><p>三个小阶段：before mutation（ref 清理等），mutation（把 DOM 插入页面！最关键），layout（调用 useLayoutEffect）。</p>
+<p>最终浏览器看到页面中的：</p>
+<pre tabindex="0"><code>0
+[add]
+</code></pre><h2 id="react-状态更新过程usestate原理">React 状态更新过程（useState）原理 <a href="#react-%e7%8a%b6%e6%80%81%e6%9b%b4%e6%96%b0%e8%bf%87%e7%a8%8busestate%e5%8e%9f%e7%90%86" class="anchor">🔗</a></h2><p>当点击<code>onClick={() =&gt; setCount(count + 1)}</code>时，触发 setCount 的内部流程。</p>
+<ol>
+<li>setState 不是立即更新 State，它创建 Update 对象。</li>
+</ol>
+<p>setCount(newValue) 实际上做的是：</p>
+<ul>
+<li>创建更新对象 { payload: newValue }</li>
+<li>加入 Fiber.updateQueue</li>
+<li>调度 render 任务</li>
+</ul>
+<p>状态并没有立即变。</p>
+<ol start="2">
+<li>调度器（Scheduler）开始一次新的渲染任务
+scheduler 再次启动：</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#a6e22e">performConcurrentWorkOnRoot</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#960050;background-color:#1e0010">→</span> <span style="color:#a6e22e">render</span> <span style="color:#a6e22e">phase</span><span style="color:#960050;background-color:#1e0010">（</span><span style="color:#a6e22e">beginWork</span> <span style="color:#960050;background-color:#1e0010">→</span> <span style="color:#a6e22e">completeWork</span><span style="color:#960050;background-color:#1e0010">）</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#960050;background-color:#1e0010">→</span> <span style="color:#a6e22e">commit</span> <span style="color:#a6e22e">phase</span>
+</span></span></code></pre></div><h3 id="更新阶段与首次渲染的区别">更新阶段与首次渲染的区别 <a href="#%e6%9b%b4%e6%96%b0%e9%98%b6%e6%ae%b5%e4%b8%8e%e9%a6%96%e6%ac%a1%e6%b8%b2%e6%9f%93%e7%9a%84%e5%8c%ba%e5%88%ab" class="anchor">🔗</a></h3><p>首次渲染 beginWork(FunctionComponent)</p>
+<ul>
+<li>运行 App()</li>
+<li>创建 hook 链表</li>
+<li>记录 initialState</li>
+</ul>
+<p>更新时 beginWork(FunctionComponent)</p>
+<ul>
+<li>运行 App()</li>
+<li>遍历 hook 链表</li>
+<li>useState 会：oldState + updateQueue → newState. 每次 setState 都会让 updateQueue 参与计算。</li>
+</ul>
+<h3 id="完整总结流程">完整总结流程 <a href="#%e5%ae%8c%e6%95%b4%e6%80%bb%e7%bb%93%e6%b5%81%e7%a8%8b" class="anchor">🔗</a></h3><p>首次启动：</p>
+<p>createRoot → 创建 rootFiber</p>
+<p>root.render() → 为 rootFiber 创建 update</p>
+<p>Scheduler 调度任务</p>
+<p>render phase, beginWork：执行 App()，构建 Fiber, completeWork：创建 DOM</p>
+<p>commit phase：把 DOM 插入页面</p>
+<p>状态更新：</p>
+<p>setState → 创建 update → 放进 updateQueue</p>
+<p>Scheduler 调度 render</p>
+<p>render phase, beginWork：重新执行 App(), useState 读取旧 state + update 得到 new state, 生成新的 Fiber</p>
+<p>commit phase, 对比 fiber → 更新 DOM（只更新变化的地方）</p>
 <h2 id="参考">参考 <a href="#%e5%8f%82%e8%80%83" class="anchor">🔗</a></h2><p>react 的官网 doc</p>
 
     </div>
