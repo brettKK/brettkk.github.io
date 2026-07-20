@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          2800 words
+          2883 words
         </span>
         <span class="split">
           ·
@@ -94,6 +94,7 @@
     <li><a href="#python-历史">python 历史</a></li>
     <li><a href="#python-enhancementt-proposal-8">Python Enhancementt Proposal 8</a></li>
     <li><a href="#python-解释器">python 解释器</a></li>
+    <li><a href="#虚拟环境">虚拟环境</a></li>
     <li><a href="#特殊语法">特殊语法</a>
       <ul>
         <li><a href="#python-data-model">python data model</a></li>
@@ -148,7 +149,22 @@
 <h1 id="python-enhancementt-proposal-8">Python Enhancementt Proposal 8 <a href="#python-enhancementt-proposal-8" class="anchor">🔗</a></h1><p>  PEP 8 对于 python 代码格式的指南。 pylint python 的源码静态分析工具， 检查代码是否符合 PEP 8 的规范。</p>
 <h1 id="python-解释器">python 解释器 <a href="#python-%e8%a7%a3%e9%87%8a%e5%99%a8" class="anchor">🔗</a></h1><p>   <a href="https://zh.wikipedia.org/zh-cn/Python" target="_blank" rel="noopener">python</a>, cpython 解释器 (最常见的实现方式)。</p>
 <hr>
-<h1 id="特殊语法">特殊语法 <a href="#%e7%89%b9%e6%ae%8a%e8%af%ad%e6%b3%95" class="anchor">🔗</a></h1><h2 id="python-data-model">python data model <a href="#python-data-model" class="anchor">🔗</a></h2><p>pythonic</p>
+<h1 id="虚拟环境">虚拟环境 <a href="#%e8%99%9a%e6%8b%9f%e7%8e%af%e5%a2%83" class="anchor">🔗</a></h1><p>为了不污染系统自带的python环境，建议先为项目创建一个独立的虚拟环境</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>python -m venv venv
+</span></span><span style="display:flex;"><span>source venv/bin/activate
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>pip install -r requirements.txt
+</span></span></code></pre></div><pre tabindex="0"><code>uv python list
+uv python install cpython-3.12
+uv run -p 3.12 ai.py
+uv run -p 3.12 python
+uv run -p pypy python
+
+uv init -p 3.12 
+
+uv venv --python 3.10
+source .venv/bin/activate
+</code></pre><h1 id="特殊语法">特殊语法 <a href="#%e7%89%b9%e6%ae%8a%e8%af%ad%e6%b3%95" class="anchor">🔗</a></h1><h2 id="python-data-model">python data model <a href="#python-data-model" class="anchor">🔗</a></h2><p>pythonic</p>
 <p>获取对象的大小，用 len(collection), 而不是 collection.len().</p>
 <p><code>obj[key]</code> 解释器转为了 <code>obj.__getitem__(key)</code></p>
 <p><code>Python Data Model</code></p>

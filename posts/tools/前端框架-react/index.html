@@ -70,13 +70,13 @@
           ·
         </span>
         <span>
-          9989 words
+          10043 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          20 minute read
+          21 minute read
         </span>
     </div>
 
@@ -288,6 +288,8 @@ react 中引入<code>Flow</code> 是一个静态类型检查器，用于在 Java
 <code>jsx</code> 会 <code>babel</code> 被翻译为<code>React.createElement</code>函数，返回 js 对象（ VDOM）。<br>
 <code>babel</code>可以将 JSX 转译为等价的 js 代码。<br></p>
 <p>html 为<code>&lt;button class=&quot;btn&quot;&gt;</code> , jsx 为<code>&lt;button className=&quot;btn&quot;&gt;</code></p>
+<p>function组件为什么会有状态？
+fiber是react实现的并发模型， generator是js的并发模型。</p>
 <hr>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">/*
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;Greeting text={&#39;yo&#39;} /&gt;
@@ -765,7 +767,7 @@ forwardsRef 必须配合 ref 属性使用。父组件传递的 ref 可以是 use
 </span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">triggerIncrement</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">increment</span>,
 </span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">focusInput</span><span style="color:#f92672">:</span> () =&gt; <span style="color:#a6e22e">inputRef</span>.<span style="color:#a6e22e">current</span>.<span style="color:#a6e22e">focus</span>(),
 </span></span><span style="display:flex;"><span>    }),
-</span></span><span style="display:flex;"><span>    [<span style="color:#a6e22e">count</span>]
+</span></span><span style="display:flex;"><span>    [<span style="color:#a6e22e">count</span>],
 </span></span><span style="display:flex;"><span>  );
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> (
@@ -1111,7 +1113,6 @@ scheduler 再次启动：</li>
 <li>useState 会：oldState + updateQueue → newState. 每次 setState 都会让 updateQueue 参与计算。</li>
 </ul>
 <h2 id="commitrootimpl">commitRootImpl <a href="#commitrootimpl" class="anchor">🔗</a></h2><p>整个渲染流程的“最后一步”—— Commit 阶段的核心入口。要完成所有 DOM 更新、同步/异步 Effect、生命周期回调、commit 事件等。</p>
-<p>x</p>
 <h3 id="完整总结流程">完整总结流程 <a href="#%e5%ae%8c%e6%95%b4%e6%80%bb%e7%bb%93%e6%b5%81%e7%a8%8b" class="anchor">🔗</a></h3><p>首次启动：</p>
 <p>createRoot → 创建 rootFiber</p>
 <p>root.render() → 为 rootFiber 创建 update</p>

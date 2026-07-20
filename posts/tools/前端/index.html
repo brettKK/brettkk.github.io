@@ -70,7 +70,7 @@
           ·
         </span>
         <span>
-          9969 words
+          10009 words
         </span>
         <span class="split">
           ·
@@ -246,6 +246,7 @@
 <li>浏览器 api</li>
 <li>DOM</li>
 </ul>
+<p>基础语法，函数，异步机制， 事件循环，js运行机制与安全性，原型，继承，面向对象，</p>
 <h2 id="核心点">核心点 <a href="#%e6%a0%b8%e5%bf%83%e7%82%b9" class="anchor">🔗</a></h2><p>new 关键字形成的原型链： <code>实例.__proto__ == 构造函数.prototype</code>。</p>
 <p>原型，原型链，对象。</p>
 <p>prototype 和 <code>__proto__</code> 的区别？<br>
@@ -453,7 +454,7 @@ Object.create(null) 创建的“纯净对象”，它的原型是 null，没有 
 </span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;scroll&#34;</span>,
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">throttle</span>(() =&gt; {
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;scroll event..&#34;</span>);
-</span></span><span style="display:flex;"><span>  }, <span style="color:#ae81ff">200</span>)
+</span></span><span style="display:flex;"><span>  }, <span style="color:#ae81ff">200</span>),
 </span></span><span style="display:flex;"><span>); <span style="color:#75715e">// 每200s 触发一次。
 </span></span></span></code></pre></div><h2 id="iife-立即执行函数的表达式">IIFE 立即执行函数的表达式 <a href="#iife-%e7%ab%8b%e5%8d%b3%e6%89%a7%e8%a1%8c%e5%87%bd%e6%95%b0%e7%9a%84%e8%a1%a8%e8%be%be%e5%bc%8f" class="anchor">🔗</a></h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>(<span style="color:#66d9ef">function</span> () {})();
 </span></span></code></pre></div><p>why？ 需要隔离作用域。</p>
