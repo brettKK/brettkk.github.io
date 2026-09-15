@@ -549,6 +549,15 @@
     
     <item>
       <title></title>
+      <link>http://brettkk.github.io/posts/culture/%E7%94%B3%E8%AE%BA/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/culture/%E7%94%B3%E8%AE%BA/</guid>
+      <description>中国共产党人精神谱系的生成从来不是盲目冲动，也不是主观臆断，而是基于对社会现实的把握，对社会历史的总结，从客观现实和人民群众的伟大实践中阐发出来的。 延安精神坚持实事求是的思想路线，实事就是客观存在的事物及其内部联系，求是就是去研究，探索真理。 改革开放精神是中国共产党人在改革开放和建设中国特征社会主义这一特定的历史时期中所形成的解放思想，实事求是，开拓创新，勇于担当，开放包容，兼容并蓄的精神品格。 至于新时代北斗精神，在尊重科学的基础上，自主创新，追求卓越无疑都是制胜密码。</description>
+    </item>
+    
+    <item>
+      <title></title>
       <link>http://brettkk.github.io/posts/golang/data_structure/draft_other/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
@@ -566,6 +575,15 @@ type Node struct{ int num, next Node, } func createCircleLink(int n) Node{ head 
       
       <guid>http://brettkk.github.io/posts/tools/webpack_startup/</guid>
       <description>webpack 的作用 🔗在传统的 web 开发项目中，需要引入大量的 js 文件和 css 文件</description>
+    </item>
+    
+    <item>
+      <title>行测</title>
+      <link>http://brettkk.github.io/posts/culture/%E8%A1%8C%E6%B5%8B/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/culture/%E8%A1%8C%E6%B5%8B/</guid>
+      <description>数量关系 🔗中小学奥数。 数字推理 🔗太少 数学运算 🔗解题技巧 经典题</description>
     </item>
     
   </channel>
