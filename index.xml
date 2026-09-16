@@ -577,14 +577,5 @@ type Node struct{ int num, next Node, } func createCircleLink(int n) Node{ head 
       <description>webpack 的作用 🔗在传统的 web 开发项目中，需要引入大量的 js 文件和 css 文件</description>
     </item>
     
-    <item>
-      <title>行测</title>
-      <link>http://brettkk.github.io/posts/culture/%E8%A1%8C%E6%B5%8B/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://brettkk.github.io/posts/culture/%E8%A1%8C%E6%B5%8B/</guid>
-      <description>数量关系 🔗中小学奥数。 数字推理 🔗太少 数学运算 🔗解题技巧 经典题</description>
-    </item>
-    
   </channel>
 </rss>
