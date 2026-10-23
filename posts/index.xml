@@ -540,10 +540,31 @@
     
     <item>
       <title></title>
-      <link>http://brettkk.github.io/posts/culture/%E5%B8%B8%E8%AF%86%E7%B1%BB/</link>
+      <link>http://brettkk.github.io/posts/golang/data_structure/draft_other/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://brettkk.github.io/posts/culture/%E5%B8%B8%E8%AF%86%E7%B1%BB/</guid>
+      <guid>http://brettkk.github.io/posts/golang/data_structure/draft_other/</guid>
+      <description>约瑟夫环 🔗 1-N个人，形成一个圈，从编号为1开始报数1，数到M的人x出列，x之后的人再次从1开始喊 直到最后一个人，求这个人的编号
+数组 🔗遍历数组，数到m的位置标记为-1， 直到数组中仅剩一个非-1的元素，返回元素的位置
+环形链表 🔗不做标记，直接从环形链表中删除。
+type Node struct{ int num, next Node, } func createCircleLink(int n) Node{ head := Node{num: 1} cur = head for i := 2; i &amp;lt; n; i++ { tmp := Node{num: i} cur.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://brettkk.github.io/posts/kaogong/%E5%88%A4%E6%96%AD%E6%8E%A8%E7%90%86/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/kaogong/%E5%88%A4%E6%96%AD%E6%8E%A8%E7%90%86/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://brettkk.github.io/posts/kaogong/%E5%B8%B8%E8%AF%86%E7%B1%BB/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/kaogong/%E5%B8%B8%E8%AF%86%E7%B1%BB/</guid>
       <description>生物类 🔗病症 🔗夜盲症，缺维A，补胡萝卜。坏血病，缺维C，补柑橘。佝偻病，缺维D，补深海鱼。脚气病，缺维B1，补谷类。
 成公教育的《行测必做6000题 常识判断》。
 法律类常识判断 🔗法理学 🔗宪法 🔗宪法概念 🔗宪法是国家根本法。 三个方面
@@ -554,23 +575,30 @@
     
     <item>
       <title></title>
-      <link>http://brettkk.github.io/posts/culture/%E7%94%B3%E8%AE%BA/</link>
+      <link>http://brettkk.github.io/posts/kaogong/%E6%95%B0%E9%87%8F%E5%85%B3%E7%B3%BB/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://brettkk.github.io/posts/culture/%E7%94%B3%E8%AE%BA/</guid>
-      <description>中国共产党人精神谱系的生成从来不是盲目冲动，也不是主观臆断，而是基于对社会现实的把握，对社会历史的总结，从客观现实和人民群众的伟大实践中阐发出来的。 延安精神坚持实事求是的思想路线，实事就是客观存在的事物及其内部联系，求是就是去研究，探索真理。 改革开放精神是中国共产党人在改革开放和建设中国特征社会主义这一特定的历史时期中所形成的解放思想，实事求是，开拓创新，勇于担当，开放包容，兼容并蓄的精神品格。 至于新时代北斗精神，在尊重科学的基础上，自主创新，追求卓越无疑都是制胜密码。</description>
+      <guid>http://brettkk.github.io/posts/kaogong/%E6%95%B0%E9%87%8F%E5%85%B3%E7%B3%BB/</guid>
+      <description></description>
     </item>
     
     <item>
       <title></title>
-      <link>http://brettkk.github.io/posts/golang/data_structure/draft_other/</link>
+      <link>http://brettkk.github.io/posts/kaogong/%E7%94%B3%E8%AE%BA/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://brettkk.github.io/posts/golang/data_structure/draft_other/</guid>
-      <description>约瑟夫环 🔗 1-N个人，形成一个圈，从编号为1开始报数1，数到M的人x出列，x之后的人再次从1开始喊 直到最后一个人，求这个人的编号
-数组 🔗遍历数组，数到m的位置标记为-1， 直到数组中仅剩一个非-1的元素，返回元素的位置
-环形链表 🔗不做标记，直接从环形链表中删除。
-type Node struct{ int num, next Node, } func createCircleLink(int n) Node{ head := Node{num: 1} cur = head for i := 2; i &amp;lt; n; i++ { tmp := Node{num: i} cur.</description>
+      <guid>http://brettkk.github.io/posts/kaogong/%E7%94%B3%E8%AE%BA/</guid>
+      <description>中国共产党人精神谱系的生成从来不是盲目冲动，也不是主观臆断，而是基于对社会现实的把握，对社会历史的总结，从客观现实和人民群众的伟大实践中阐发出来的。 延安精神坚持实事求是的思想路线，实事就是客观存在的事物及其内部联系，求是就是去研究，探索真理。 改革开放精神是中国共产党人在改革开放和建设中国特征社会主义这一特定的历史时期中所形成的解放思想，实事求是，开拓创新，勇于担当，开放包容，兼容并蓄的精神品格。 至于新时代北斗精神，在尊重科学的基础上，自主创新，追求卓越无疑都是制胜密码。
+归纳概括 🔗综合分析 🔗提出对策 🔗应用文写作 🔗大作文写作 🔗</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://brettkk.github.io/posts/kaogong/%E8%A8%80%E8%AF%AD%E7%90%86%E8%A7%A3/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://brettkk.github.io/posts/kaogong/%E8%A8%80%E8%AF%AD%E7%90%86%E8%A7%A3/</guid>
+      <description></description>
     </item>
     
     <item>
