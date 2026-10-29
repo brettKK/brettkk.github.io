@@ -3,16 +3,25 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>http://brettkk.github.io/</loc>
-    <lastmod>2026-01-04T09:47:00+00:00</lastmod>
+    <lastmod>2026-10-29T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://brettkk.github.io/categories/</loc>
-    <lastmod>2026-01-04T09:47:00+00:00</lastmod>
+    <lastmod>2026-10-29T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://brettkk.github.io/posts/</loc>
-    <lastmod>2026-01-04T09:47:00+00:00</lastmod>
+    <lastmod>2026-10-29T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://brettkk.github.io/tags/</loc>
-    <lastmod>2026-01-04T09:47:00+00:00</lastmod>
+    <lastmod>2026-10-29T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://brettkk.github.io/categories/work/</loc>
+    <lastmod>2026-10-29T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://brettkk.github.io/tags/%E4%B8%93%E4%B8%9A%E8%80%83%E8%AF%95/</loc>
+    <lastmod>2026-10-29T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://brettkk.github.io/posts/kaogong/%E4%B8%93%E4%B8%9A%E8%80%83%E8%AF%95/</loc>
+    <lastmod>2026-10-29T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://brettkk.github.io/tags/%E5%89%8D%E7%AB%AF/</loc>
     <lastmod>2026-01-04T09:47:00+00:00</lastmod>
@@ -267,10 +276,6 @@
     <lastmod>2020-09-18T09:13:56+08:00</lastmod>
   </url><url>
     <loc>http://brettkk.github.io/posts/golang/data_structure/draft_other/</loc>
-  </url><url>
-    <loc>http://brettkk.github.io/posts/kaogong/%E4%B8%93%E4%B8%9A%E8%80%83%E8%AF%95/</loc>
-  </url><url>
-    <loc>http://brettkk.github.io/posts/kaogong/%E7%94%B3%E8%AE%BA/</loc>
   </url><url>
     <loc>http://brettkk.github.io/posts/kaogong/%E8%A1%8C%E6%B5%8B_%E5%B8%B8%E8%AF%86%E7%B1%BB/</loc>
   </url><url>
